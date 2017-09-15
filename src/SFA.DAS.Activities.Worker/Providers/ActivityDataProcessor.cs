@@ -2,14 +2,14 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SFA.DAS.Activities.Worker.Providers;
-using SFA.DAS.EAS.Application.Commands.Payments.RefreshPaymentData;
-using SFA.DAS.EAS.Application.Messages;
+using SFA.DAS.Activities.Application.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.Attributes;
 using SFA.DAS.NLog.Logger;
+//using SFA.DAS.EAS.Application.Commands.Payments.RefreshPaymentData;
+//using SFA.DAS.EAS.Application.Messages;
 
-namespace SFA.DAS.EAS.PaymentProvider.Worker.Providers
+namespace SFA.DAS.Activities.Worker.Providers
 {
     public class ActivityDataProcessor : IActivityDataProcessor
     {
@@ -58,7 +58,7 @@ namespace SFA.DAS.EAS.PaymentProvider.Worker.Providers
                 return;
             }
 
-            _logger.Info($"Processing refresh payment command for AccountId:{message.Content.AccountId} PeriodEnd:{message.Content.PeriodEndId}");
+            //_logger.Info($"Processing refresh payment command for AccountId:{message.Content.AccountId} PeriodEnd:{message.Content.PeriodEndId}");
 
             await _mediator.SendAsync(new RefreshPaymentDataCommand
             {

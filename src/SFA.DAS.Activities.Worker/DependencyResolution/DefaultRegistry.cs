@@ -1,38 +1,65 @@
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DefaultRegistry.cs" company="Web Advanced">
-// Copyright 2012 Web Advanced (www.webadvanced.com)
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-// http://www.apache.org/licenses/LICENSE-2.0
+using MediatR;
+using StructureMap;
+using System.Linq;
+using System.Reflection;
+using AutoMapper;
+using System;
+using SFA.DAS.NLog.Logger;
 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-// </copyright>
-// --------------------------------------------------------------------------------------------------------------------
+namespace SFA.DAS.Activities.Worker.DependencyResolution
+{
+    
 
-namespace SFA.DAS.Activities.Worker.DependencyResolution {
-    using StructureMap;
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
-	
-    public class DefaultRegistry : Registry {
-        #region Constructors and Destructors
+    public class DefaultRegistry : Registry
+    {
+        public DefaultRegistry()
+        {
 
-        public DefaultRegistry() {
-            Scan(
-                scan => {
-                    scan.TheCallingAssembly();
-                    scan.WithDefaultConventions();
-					scan.With(new ControllerConvention());
-                });
-            //For<IExample>().Use<Example>();
+            Scan(scan =>
+            {
+                scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
+                scan.RegisterConcreteTypesAgainstTheFirstInterface();
+            });
+
+            //For<IConfiguration>().Use<PaymentProviderConfiguration>();
+
+            RegisterMapper();
+
+            AddMediatrRegistrations();
+
+            RegisterLogger();
         }
 
-        #endregion
+
+        private void AddMediatrRegistrations()
+        {
+            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
+            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
+
+            For<IMediator>().Use<Mediator>();
+        }
+
+        private void RegisterMapper()
+        {
+            var profiles = Assembly.Load("SFA.DAS.Activities.Infrastructure").GetTypes()
+                            .Where(t => typeof(Profile).IsAssignableFrom(t))
+                            .Select(t => (Profile)Activator.CreateInstance(t)).ToList();
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                profiles.ForEach(cfg.AddProfile);
+            });
+
+            var mapper = config.CreateMapper();
+
+            For<IConfigurationProvider>().Use(config).Singleton();
+            For<IMapper>().Use(mapper).Singleton();
+        }
+
+        private void RegisterLogger()
+        {
+            For<ILog>().Use(x => new NLogLogger(
+                x.ParentType,
+                null)).AlwaysUnique();
+        }
     }
-}

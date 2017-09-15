@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.Activities.Worker.DependencyResolution;
 using SFA.DAS.Activities.Worker.Providers;
@@ -23,8 +25,9 @@ namespace SFA.DAS.Activities.Worker
 
             try
             {
-                var paymentDataProcessor = _container.GetInstance<IActivityDataProcessor>();
-                paymentDataProcessor.RunAsync(_cancellationTokenSource.Token).Wait();
+                var messageProcessors = _container.GetAllInstances<IActivityDataProcessor>();
+                var tasks = messageProcessors.Select(x => x.RunAsync(_cancellationTokenSource.Token)).ToArray();
+                Task.WaitAll(tasks);
             }
             finally
             {
@@ -42,12 +45,8 @@ namespace SFA.DAS.Activities.Worker
 
             _container = new Container(c =>
             {
-                //c.Policies.Add(new ConfigurationPolicy<LevyDeclarationProviderConfiguration>("SFA.DAS.LevyAggregationProvider"));
-                //c.Policies.Add(new ConfigurationPolicy<PaymentProviderConfiguration>("SFA.DAS.PaymentProvider"));
-                //c.Policies.Add(new ConfigurationPolicy<PaymentsApiClientConfiguration>("SFA.DAS.PaymentsAPI"));
-                //c.Policies.Add(new ConfigurationPolicy<CommitmentsApiClientConfiguration>("SFA.DAS.CommitmentsAPI"));
-                //c.Policies.Add(new MessagePolicy<PaymentProviderConfiguration>("SFA.DAS.PaymentProvider"));
-                //c.Policies.Add(new ExecutionPolicyPolicy());
+                c.Policies.Add(new ConfigurationPolicy<ActivitiesConfiguration>("SFA.DAS.Tasks"));
+                c.Policies.Add(new MessagePolicy<ActivitiesConfiguration>("SFA.DAS.Tasks"));
                 c.AddRegistry<DefaultRegistry>();
             });
             return result;
