@@ -2,15 +2,16 @@
 using System.IO;
 using System.Linq;
 using Microsoft.Azure;
-using NLog.Internal;
 using SFA.DAS.Configuration;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.Attributes;
 using SFA.DAS.Messaging.FileSystem;
+using SFA.DAS.Messaging.AzureServiceBus;
 using StructureMap;
 using StructureMap.Pipeline;
-using ConfigurationOptions = StackExchange.Redis.ConfigurationOptions;
-using IConfiguration = AutoMapper.Configuration.IConfiguration;
+using System.Configuration;
+using SFA.DAS.Configuration.AzureTableStorage;
+using SFA.DAS.Configuration.FileStorage;
 
 namespace SFA.DAS.Activities.Worker.Configuration.Policies
 {
@@ -19,10 +20,12 @@ namespace SFA.DAS.Activities.Worker.Configuration.Policies
         public class MessagePolicy<T> : ConfiguredInstancePolicy where T : IConfiguration
         {
             private readonly string _serviceName;
+            private readonly IConfigurationInfo<T> _configInfo;
 
             public MessagePolicy(string serviceName)
             {
                 _serviceName = serviceName;
+                _configInfo = null;
             }
 
             protected override void apply(Type pluginType, IConfiguredInstance instance)

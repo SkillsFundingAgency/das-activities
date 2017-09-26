@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Worker.DependencyResolution
 {
-    
+
 
     public class DefaultRegistry : Registry
     {
@@ -42,8 +42,8 @@ namespace SFA.DAS.Activities.Worker.DependencyResolution
         private void RegisterMapper()
         {
             var profiles = Assembly.Load("SFA.DAS.Activities.Infrastructure").GetTypes()
-                            .Where(t => typeof(Profile).IsAssignableFrom(t))
-                            .Select(t => (Profile)Activator.CreateInstance(t)).ToList();
+                .Where(t => typeof(Profile).IsAssignableFrom(t))
+                .Select(t => (Profile) Activator.CreateInstance(t)).ToList();
 
             var config = new MapperConfiguration(cfg =>
             {
@@ -63,3 +63,4 @@ namespace SFA.DAS.Activities.Worker.DependencyResolution
                 null)).AlwaysUnique();
         }
     }
+}

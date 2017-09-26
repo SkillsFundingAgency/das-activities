@@ -1,0 +1,14 @@
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\obj\Debug\SFA.DAS.Activities.API.Client.csprojResolveAssemblyReference.cache
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\obj\Debug\SFA.DAS.Activities.API.Client.csproj.CoreCompileInputs.cache
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\SFA.DAS.Activities.API.Client.dll
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\SFA.DAS.Activities.API.Client.pdb
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\Newtonsoft.Json.dll
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\SFA.DAS.Activities.API.Types.dll
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\SFA.DAS.Activities.API.Types.pdb
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\bin\Debug\Newtonsoft.Json.xml
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\obj\Debug\SFA.DAS.Activities.API.Client.dll
+C:\Dev\das-activities\src\SFA.DAS.Activities.API.Client\obj\Debug\SFA.DAS.Activities.API.Client.pdb

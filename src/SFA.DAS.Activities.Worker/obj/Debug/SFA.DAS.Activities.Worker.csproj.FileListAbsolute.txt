@@ -1,0 +1,2 @@
+C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\obj\Debug\SFA.DAS.Activities.Worker.csprojResolveAssemblyReference.cache
+C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\obj\Debug\SFA.DAS.Activities.Worker.csproj.CoreCompileInputs.cache

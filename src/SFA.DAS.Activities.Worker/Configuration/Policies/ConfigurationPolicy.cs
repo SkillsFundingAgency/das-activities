@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using AutoMapper.Configuration;
 using StructureMap;
 using StructureMap.Pipeline;
+using SFA.DAS.Configuration;
 
 namespace SFA.DAS.Activities.Worker.Configuration.Policies
 {
@@ -10,10 +10,12 @@ namespace SFA.DAS.Activities.Worker.Configuration.Policies
     public class ConfigurationPolicy<T> : ConfiguredInstancePolicy where T : IConfiguration
     {
         private readonly string _serviceName;
+        private readonly IConfigurationInfo<T> _configInfo;
 
         public ConfigurationPolicy(string serviceName)
         {
             _serviceName = serviceName;
+            _configInfo = null;
         }
 
         protected override void apply(Type pluginType, IConfiguredInstance instance)
@@ -23,7 +25,7 @@ namespace SFA.DAS.Activities.Worker.Configuration.Policies
 
             if (serviceConfigurationParamater != null)
             {
-                var result = ConfigurationHelper.GetConfiguration<T>(_serviceName);
+                var result = _configInfo.GetConfiguration(_serviceName);
                 if (result != null)
                 {
                     instance.Dependencies.AddForConstructorParameter(serviceConfigurationParamater, result);
