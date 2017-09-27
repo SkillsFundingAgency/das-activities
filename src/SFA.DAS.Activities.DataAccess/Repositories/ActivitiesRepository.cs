@@ -14,12 +14,15 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
     public class ActivitiesRepository : IActivitiesRepository
     {
         private readonly ElasticClient _elasticClient;
+        private readonly ILog _logger;
 
         public ActivitiesRepository(ActivitiesConfiguration configuration, ILog logger)
         {
             //var elasticSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
             var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl));
             _elasticClient =new ElasticClient(elasticSettings);
+
+            _logger = logger;
         }
 
         public async Task<IEnumerable<Activity>> GetActivities(string accountId, ActivityType type)
