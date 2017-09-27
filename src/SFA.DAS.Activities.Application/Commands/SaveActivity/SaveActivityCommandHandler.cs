@@ -18,22 +18,16 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
             _validator = validator;
         }
 
-        public async Task<SaveActivityCommandResponse> Handle(SaveActivityCommand message)
+        public async Task<SaveActivityCommandResponse> Handle(SaveActivityCommand command)
         {
-            var validationResult = _validator.Validate(message);
+            var validationResult = _validator.Validate(command);
 
             if (!validationResult.IsValid())
             {
                 throw new InvalidRequestException(validationResult.ValidationDictionary);
             }
 
-            await _repository.SaveActivity(new Activity
-            {
-                AccountId = message.AccountId,
-                Type = message.Type,
-                Description = message.Description,
-                Url = message.Url
-            });
+            await _repository.SaveActivity(command.ActivityPayload);
 
             return new SaveActivityCommandResponse();
         }

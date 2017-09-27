@@ -4,6 +4,7 @@ using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Messaging;
 using SFA.DAS.NLog.Logger;
 using NuGetProject;
+using SFA.DAS.Activities.Domain.Models;
 
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
@@ -21,12 +22,16 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
         protected override async Task ProcessMessage(CreateActivityMessage message)
         {
             await _mediator.SendAsync(new SaveActivityCommand
-            {
-                AccountId = message.AccountId,
-                Type = message.Type,
-                Description = message.Description,
-                Url = message.Url
-            });
+                {
+                    ActivityPayload = new Activity()
+                        {
+                            AccountId = message.AccountId,
+                            Type = message.Type,
+                            Description = message.Description,
+                            Url = message.Url
+                        }
+                }
+            );
         }
     }
 }
