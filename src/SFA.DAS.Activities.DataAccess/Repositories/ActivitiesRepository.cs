@@ -17,8 +17,9 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 
         public ActivitiesRepository(ActivitiesConfiguration configuration, ILog logger)
         {
-            var elasticSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
-            _elasticClient=new ElasticClient(elasticSettings);
+            //var elasticSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
+            var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl));
+            _elasticClient =new ElasticClient(elasticSettings);
         }
 
         public async Task<IEnumerable<Activity>> GetActivities(string accountId, ActivityType type)
@@ -41,11 +42,29 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
         {
             var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
                 .From(0)
-                .Size(10)
+                .Size(1)
                 .Query(q => q
                     .Match(m => m
                         .Field(f => f.AccountId)
                         .Query(activity.AccountId)
+                    )
+                )
+                .Query(q=>q
+                    .Match(m=>m
+                    .Field(f=>f.Type)
+                    .Query(activity.Type.ToString())
+                    )
+                )
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.Description)
+                        .Query(activity.Description)
+                    )
+                )
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.Url)
+                        .Query(activity.Url)
                     )
                 )
             );

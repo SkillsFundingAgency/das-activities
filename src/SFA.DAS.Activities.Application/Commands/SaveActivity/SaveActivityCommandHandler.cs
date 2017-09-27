@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Domain.Models;
 using SFA.DAS.Activities.Domain.Repositories;
 
 namespace SFA.DAS.Activities.Application.Commands.SaveActivity
