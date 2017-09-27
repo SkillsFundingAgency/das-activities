@@ -27,14 +27,13 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
                 throw new InvalidRequestException(validationResult.ValidationDictionary);
             }
 
-            var activity = await _repository.GetActivity(message.OwnerId, message.Type) ?? new Activity
+            await _repository.SaveActivity(new Activity
             {
-                OwnerId = message.OwnerId,
+                AccountId = message.AccountId,
                 Type = message.Type,
-                Description = message.Description
-            };
-
-            await _repository.SaveActivity(activity);
+                Description = message.Description,
+                Url = message.Url
+            });
 
             return new SaveActivityCommandResponse();
         }

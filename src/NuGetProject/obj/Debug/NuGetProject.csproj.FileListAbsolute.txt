@@ -1,0 +1,6 @@
+C:\Dev\das-activities\src\NuGetProject\bin\Debug\NuGetProject.dll
+C:\Dev\das-activities\src\NuGetProject\bin\Debug\NuGetProject.pdb
+C:\Dev\das-activities\src\NuGetProject\obj\Debug\NuGetProject.csprojResolveAssemblyReference.cache
+C:\Dev\das-activities\src\NuGetProject\obj\Debug\NuGetProject.csproj.CoreCompileInputs.cache
+C:\Dev\das-activities\src\NuGetProject\obj\Debug\NuGetProject.dll
+C:\Dev\das-activities\src\NuGetProject\obj\Debug\NuGetProject.pdb

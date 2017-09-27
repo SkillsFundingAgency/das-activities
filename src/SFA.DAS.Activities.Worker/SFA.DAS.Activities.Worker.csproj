@@ -142,8 +142,6 @@
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="MessageProcessors\ChangeHistoryMessageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\ActivityDataProcessor.cs" />
-    <Compile Include="Providers\IActivityDataProcessor.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +150,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\NuGetProject\NuGetProject.csproj">
+      <Project>{1C2AF663-E392-4954-9072-D996E16F2407}</Project>
+      <Name>NuGetProject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.API.Types\SFA.DAS.Activities.API.Types.csproj">
       <Project>{30347a58-4c54-4dc5-a42d-ef74f8936b32}</Project>
       <Name>SFA.DAS.Activities.API.Types</Name>

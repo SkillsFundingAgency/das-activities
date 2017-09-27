@@ -1,27 +1,64 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using SFA.DAS.Activities.API.Types.Enums;
+using SFA.DAS.Activities.Domain.Configurations;
+using SFA.DAS.Activities.Domain.Models;
+using SFA.DAS.Activities.Domain.Repositories;
+using SFA.DAS.NLog.Logger;
+using Nest;
+using NuGetProject.Enums;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {
-    public class ActivitiesRepository : BaseRepository, ITaskRepository
+    public class ActivitiesRepository : IActivitiesRepository
     {
-        public TaskRepository(ActivitiesConfiguration configuration, ILog logger) : base(configuration.DatabaseConnectionString, logger)
-        { }
+        private readonly ElasticClient _elasticClient;
 
-        public async Task<IEnumerable<Activity>> GetActivitys(string ownerId)
+        public ActivitiesRepository(ActivitiesConfiguration configuration, ILog logger)
         {
-            
+            var elasticSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
+            _elasticClient=new ElasticClient(elasticSettings);
         }
 
-        public async Task<Activity> GetActivity(string ownerId, ActivityType type)
+        public async Task<IEnumerable<Activity>> GetActivities(string accountId, ActivityType type)
         {
-            
+            var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
+                .From(0)
+                .Size(10)
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.AccountId)
+                        .Query(accountId)
+                    )
+                )
+            );
+
+            return searchResponse.Documents;
+        }
+
+        public async Task<Activity> GetActivity(Activity activity)
+        {
+            var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
+                .From(0)
+                .Size(10)
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.AccountId)
+                        .Query(activity.AccountId)
+                    )
+                )
+            );
+
+            return searchResponse.Documents.FirstOrDefault();
         }
 
         public async Task SaveActivity(Activity activity)
         {
-            
+            var activityAlreadyExists = await GetActivity(activity);
+
+            if (activityAlreadyExists ==null)
+                await (_elasticClient.IndexAsync(activity));
         }
     }
 }

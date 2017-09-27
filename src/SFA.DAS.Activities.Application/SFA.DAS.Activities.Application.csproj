@@ -54,6 +54,10 @@
     <Compile Include="Validation\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NuGetProject\NuGetProject.csproj">
+      <Project>{1c2af663-e392-4954-9072-d996e16f2407}</Project>
+      <Name>NuGetProject</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.API.Types\SFA.DAS.Activities.API.Types.csproj">
       <Project>{30347a58-4c54-4dc5-a42d-ef74f8936b32}</Project>
       <Name>SFA.DAS.Activities.API.Types</Name>

@@ -1,30 +1,31 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
-using SFA.DAS.Activities.API.Types.Enums;
 using SFA.DAS.Messaging;
 using SFA.DAS.NLog.Logger;
-//using SFA.DAS.EmployerAccounts.Events.Messages;
+using NuGetProject;
 
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
-    public class CreatedEmployerAgreementMessageProcessor : MessageProcessor<ChangeHistoryMessage>
+    //CreateActivityMessage to be added to shared code outside of the solution. Currently in nuget project
+    public class CreateActivityMessageMessageProcessor : MessageProcessor<CreateActivityMessage>
     {
         private readonly IMediator _mediator;
 
-        public CreatedEmployerAgreementMessageProcessor(IPollingMessageReceiver pollingMessageReceiver, ILog logger, IMediator mediator) : base(pollingMessageReceiver, logger)
+        public CreateActivityMessageMessageProcessor(IPollingMessageReceiver pollingMessageReceiver, ILog logger, IMediator mediator) : base(pollingMessageReceiver, logger)
         {
             _mediator = mediator;
         }
 
-        protected override async Task ProcessMessage(ChangeHistoryMessage message)
+        protected override async Task ProcessMessage(CreateActivityMessage message)
         {
             await _mediator.SendAsync(new SaveActivityCommand
             {
-                OwnerId = message.AccountId.ToString(),
-                Type = ActivityType.ChangeHistory,
-                Description = message.Description
+                AccountId = message.AccountId,
+                Type = message.Type,
+                Description = message.Description,
+                Url = message.Url
             });
         }
     }
