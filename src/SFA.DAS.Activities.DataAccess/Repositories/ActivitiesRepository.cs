@@ -7,7 +7,6 @@ using SFA.DAS.Activities.Domain.Models;
 using SFA.DAS.Activities.Domain.Repositories;
 using SFA.DAS.NLog.Logger;
 using Nest;
-using NuGetProject.Enums;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {
@@ -25,7 +24,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Activity>> GetActivities(string accountId, ActivityType type)
+        public async Task<IEnumerable<Activity>> GetActivities(string accountId, string type)
         {
             var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
                 .From(0)
@@ -34,6 +33,28 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                     .Match(m => m
                         .Field(f => f.AccountId)
                         .Query(accountId)
+                    )
+                )
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.Type)
+                        .Query(type)
+                    )
+                )
+            );
+
+            return searchResponse.Documents;
+        }
+
+        public async Task<IEnumerable<Activity>> GetActivities(string ownerId)
+        {
+            var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
+                .From(0)
+                .Size(10)
+                .Query(q => q
+                    .Match(m => m
+                        .Field(f => f.AccountId)
+                        .Query(ownerId)
                     )
                 )
             );

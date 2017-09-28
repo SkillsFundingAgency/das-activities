@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SFA.DAS.Activities.Domain.Models;
 
 namespace SFA.DAS.Activities.Domain.Repositories
 {
     public interface IActivitiesRepository
     {
-        //Task<IEnumerable<Activity>> GetActivities(string ownerId);
+        Task<IEnumerable<Activity>> GetActivities(string ownerId);
 
         //Task<Activity> GetActivity(string ownerId, ActivityType type);
 
