@@ -61,10 +61,6 @@
       <Project>{1c2af663-e392-4954-9072-d996e16f2407}</Project>
       <Name>NuGetProject</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Activities.API.Types\SFA.DAS.Activities.API.Types.csproj">
-      <Project>{30347a58-4c54-4dc5-a42d-ef74f8936b32}</Project>
-      <Name>SFA.DAS.Activities.API.Types</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Domain\SFA.DAS.Activities.Domain.csproj">
       <Project>{EEC952E7-F04A-41A3-9D5D-F25E64BD3FAB}</Project>
       <Name>SFA.DAS.Activities.Domain</Name>

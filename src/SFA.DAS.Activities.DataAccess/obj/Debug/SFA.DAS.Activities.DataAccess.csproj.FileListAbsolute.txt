@@ -5,13 +5,11 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Elasticsearch.
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Nest.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Newtonsoft.Json.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\NLog.dll
-C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.API.Types.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Domain.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.NLog.Logger.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\System.Net.Http.Formatting.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\System.Web.Http.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Configuration.dll
-C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.API.Types.pdb
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Domain.pdb
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Elasticsearch.Net.xml
 C:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Nest.xml

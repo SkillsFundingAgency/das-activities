@@ -1,6 +1,0 @@
-C:\Dev\das-activities\src\SFA.DAS.Activities.API.Types\bin\Debug\SFA.DAS.Activities.API.Types.dll
-C:\Dev\das-activities\src\SFA.DAS.Activities.API.Types\bin\Debug\SFA.DAS.Activities.API.Types.pdb
-C:\Dev\das-activities\src\SFA.DAS.Activities.API.Types\obj\Debug\SFA.DAS.Activities.API.Types.csprojResolveAssemblyReference.cache
-C:\Dev\das-activities\src\SFA.DAS.Activities.API.Types\obj\Debug\SFA.DAS.Activities.API.Types.csproj.CoreCompileInputs.cache
-C:\Dev\das-activities\src\SFA.DAS.Activities.API.Types\obj\Debug\SFA.DAS.Activities.API.Types.dll
-C:\Dev\das-activities\src\SFA.DAS.Activities.API.Types\obj\Debug\SFA.DAS.Activities.API.Types.pdb

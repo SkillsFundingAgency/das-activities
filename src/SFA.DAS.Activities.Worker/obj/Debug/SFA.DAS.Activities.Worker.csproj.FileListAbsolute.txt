@@ -19,7 +19,6 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Microsoft.WindowsA
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Newtonsoft.Json.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NLog.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGetProject.dll
-C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.API.Types.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Application.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Domain.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.AzureTableStorage.dll
@@ -38,7 +37,6 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WindowsAzureEventS
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WindowsAzureTelemetryEvents.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\MonAgentListener.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGetProject.pdb
-C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.API.Types.pdb
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Application.pdb
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Domain.pdb
 C:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\AutoMapper.xml

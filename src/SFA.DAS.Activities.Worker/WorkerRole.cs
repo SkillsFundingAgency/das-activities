@@ -22,9 +22,12 @@ namespace SFA.DAS.Activities.Worker
         private readonly ManualResetEvent _runCompleteEvent = new ManualResetEvent(false);
         private IContainer _container;
 
+        private const string ConfigName = "SFA.DAS.Activities";
+        private const string WorkerName = "SFA.DAS.Activities.Worker";
+
         public override void Run()
         {
-            Trace.TraceInformation("SFA.DAS.EAS.PaymentProvider.Worker is running");
+            Trace.TraceInformation($"{WorkerName} is running");
 
             try
             {
@@ -44,12 +47,12 @@ namespace SFA.DAS.Activities.Worker
 
             var result = base.OnStart();
 
-            Trace.TraceInformation("SFA.DAS.EAS.PaymentProvider.Worker has been started");
+            Trace.TraceInformation($"{WorkerName} has been started");
 
             _container = new Container(c =>
             {
-                c.Policies.Add(new ConfigurationPolicy<ActivitiesConfiguration>("SFA.DAS.Tasks"));
-                c.Policies.Add(new MessagePolicy<ActivitiesConfiguration>("SFA.DAS.Tasks"));
+                c.Policies.Add(new ConfigurationPolicy<ActivitiesConfiguration>(ConfigName));
+                c.Policies.Add(new MessagePolicy<ActivitiesConfiguration>(ConfigName));
                 c.AddRegistry<DefaultRegistry>();
             });
             return result;
@@ -57,14 +60,14 @@ namespace SFA.DAS.Activities.Worker
 
         public override void OnStop()
         {
-            Trace.TraceInformation("SFA.DAS.EAS.Activities.Worker is stopping");
+            Trace.TraceInformation($"{WorkerName} is stopping");
 
             _cancellationTokenSource.Cancel();
             _runCompleteEvent.WaitOne();
 
             base.OnStop();
 
-            Trace.TraceInformation("SFA.DAS.EAS.Activities.Worker has stopped");
+            Trace.TraceInformation($"{WorkerName} has stopped");
         }
     }
 }
