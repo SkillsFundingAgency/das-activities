@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using SFA.DAS.Activities.Domain.Models;
+using NuGet;
 
 namespace SFA.DAS.Activities.Application.Queries
 {

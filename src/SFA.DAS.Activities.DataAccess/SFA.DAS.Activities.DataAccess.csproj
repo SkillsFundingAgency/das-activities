@@ -66,6 +66,10 @@
     <Compile Include="Repositories\ActivitiesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\NuGet.csproj">
+      <Project>{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}</Project>
+      <Name>NuGet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NuGetProject\NuGetProject.csproj">
       <Project>{1C2AF663-E392-4954-9072-D996E16F2407}</Project>
       <Name>NuGetProject</Name>

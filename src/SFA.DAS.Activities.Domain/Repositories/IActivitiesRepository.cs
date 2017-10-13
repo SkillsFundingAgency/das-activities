@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using SFA.DAS.Activities.Domain.Models;
+using NuGet;
 
 namespace SFA.DAS.Activities.Domain.Repositories
 {

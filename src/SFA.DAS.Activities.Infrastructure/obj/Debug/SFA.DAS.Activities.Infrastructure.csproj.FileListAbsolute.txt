@@ -4,3 +4,9 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Ac
 C:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.csproj.CoreCompileInputs.cache
 C:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\bin\Debug\SFA.DAS.Activities.Infrastructure.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\bin\Debug\SFA.DAS.Activities.Infrastructure.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.csprojResolveAssemblyReference.cache
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.pdb

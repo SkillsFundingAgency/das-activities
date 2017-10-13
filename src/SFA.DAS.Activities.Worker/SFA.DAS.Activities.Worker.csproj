@@ -136,11 +136,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityType.cs" />
     <Compile Include="Configuration\IConfigurationInfo.cs" />
     <Compile Include="Configuration\Policies\ConfigurationPolicy.cs" />
     <Compile Include="Configuration\Policies\MessagePolicy.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
-    <Compile Include="MessageProcessors\CreateActivityMessageMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\CommitmentHasBeenApprovedMessageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
@@ -150,6 +151,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\NuGet.csproj">
+      <Project>{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}</Project>
+      <Name>NuGet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NuGetProject\NuGetProject.csproj">
       <Project>{1C2AF663-E392-4954-9072-D996E16F2407}</Project>
       <Name>NuGetProject</Name>

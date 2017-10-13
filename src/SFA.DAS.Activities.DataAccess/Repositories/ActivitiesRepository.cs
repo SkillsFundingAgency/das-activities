@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.Activities.Domain.Configurations;
-using SFA.DAS.Activities.Domain.Models;
 using SFA.DAS.Activities.Domain.Repositories;
 using SFA.DAS.NLog.Logger;
 using Nest;
+using NuGet;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {
@@ -31,13 +31,13 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                 .Size(10)
                 .Query(q => q
                     .Match(m => m
-                        .Field(f => f.AccountId)
+                        .Field(f => f.OwnerId)
                         .Query(accountId)
                     )
                 )
                 .Query(q => q
                     .Match(m => m
-                        .Field(f => f.Type)
+                        .Field(f => f.ActivityType)
                         .Query(type)
                     )
                 )
@@ -53,7 +53,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                 .Size(10)
                 .Query(q => q
                     .Match(m => m
-                        .Field(f => f.AccountId)
+                        .Field(f => f.OwnerId)
                         .Query(ownerId)
                     )
                 )
@@ -69,14 +69,14 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                 .Size(1)
                 .Query(q => q
                     .Match(m => m
-                        .Field(f => f.AccountId)
-                        .Query(activity.AccountId)
+                        .Field(f => f.OwnerId)
+                        .Query(activity.OwnerId)
                     )
                 )
                 .Query(q=>q
                     .Match(m=>m
-                    .Field(f=>f.Type)
-                    .Query(activity.Type.ToString())
+                    .Field(f=>f.ActivityType)
+                    .Query(activity.ActivityType.ToString())
                     )
                 )
                 .Query(q => q
