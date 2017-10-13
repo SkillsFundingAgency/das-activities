@@ -24,42 +24,9 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Activity>> GetActivities(string accountId, string type)
+        public Task<IEnumerable<Activity>> GetActivities(string ownerId)
         {
-            var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
-                .From(0)
-                .Size(10)
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.OwnerId)
-                        .Query(accountId)
-                    )
-                )
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.ActivityType)
-                        .Query(type)
-                    )
-                )
-            );
-
-            return searchResponse.Documents;
-        }
-
-        public async Task<IEnumerable<Activity>> GetActivities(string ownerId)
-        {
-            var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
-                .From(0)
-                .Size(10)
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.OwnerId)
-                        .Query(ownerId)
-                    )
-                )
-            );
-
-            return searchResponse.Documents;
+            throw new NotImplementedException();
         }
 
         public async Task<Activity> GetActivity(Activity activity)

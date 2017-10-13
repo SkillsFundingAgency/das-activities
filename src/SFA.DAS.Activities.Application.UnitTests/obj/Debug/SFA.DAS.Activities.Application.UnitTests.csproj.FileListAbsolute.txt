@@ -1,0 +1,2 @@
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\obj\Debug\SFA.DAS.Activities.Application.UnitTests.csprojResolveAssemblyReference.cache
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\obj\Debug\SFA.DAS.Activities.Application.UnitTests.csproj.CoreCompileInputs.cache

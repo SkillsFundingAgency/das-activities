@@ -8,9 +8,7 @@ namespace SFA.DAS.Activities.Domain.Repositories
     {
         Task<IEnumerable<Activity>> GetActivities(string ownerId);
 
-        //Task<Activity> GetActivity(string ownerId, ActivityType type);
-
-        Task<Activity> GetActivity(Activity message);
+        Task<Activity> GetActivity(Activity activity);
 
         Task SaveActivity(Activity activity);
     }
