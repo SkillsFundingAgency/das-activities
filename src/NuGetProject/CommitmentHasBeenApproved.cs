@@ -1,5 +1,7 @@
 ﻿
 
+using System;
+
 namespace NuGetProject
 {
     public class CommitmentHasBeenApproved
@@ -8,6 +10,6 @@ namespace NuGetProject
 
         public string Url { get; set; }
 
-        public string PostedDatedTime { get; set; }
+        public DateTime PostedDatedTime { get; set; }
     }
 }

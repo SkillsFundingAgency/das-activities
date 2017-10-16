@@ -19,7 +19,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldPassValidationWithAValidRequest()
         {
             //Arrange
-            var request = new GetActivitiesByOwnerIdRequest(OwnerId);
+            var request = new SaveActivityCommand(new Activity().WithOwnerId(OwnerId));
 
             //Act
             var result = _validator.Validate(request);
@@ -32,14 +32,14 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldFailValidationIfOwnerIdIsNotPresent()
         {
             //Arrange
-            var request = new GetActivitiesByOwnerIdRequest(null);
+            var request = new SaveActivityCommand(new Activity().WithOwnerId(null));
 
             //Act
             var result = _validator.Validate(request);
 
             //Assert
             Assert.IsFalse(result.IsValid());
-            Assert.AreEqual("Cannot get task when owner ID is not given.", result.ValidationDictionary[nameof(request.OwnerId)]);
+            Assert.AreEqual("Cannot get task when owner ID is not given.", result.ValidationDictionary[nameof(request.Activity.OwnerId)]);
         }
     }
 }

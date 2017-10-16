@@ -5,14 +5,11 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
 {
     public class SaveActivityCommand : IAsyncRequest<SaveActivityCommandResponse>
     {
-        public string OwnerId { get; set; }
+        public SaveActivityCommand(Activity activity)
+        {
+            Activity = activity;
+        }
 
-        public string ActivityType { get; set; }
-
-        public string Description { get; set; }
-
-        public string Url { get; set; }
-
-        public DateTime PostedDateTime { get; set; }
+        public Activity Activity { get; private set; }
     }
 }

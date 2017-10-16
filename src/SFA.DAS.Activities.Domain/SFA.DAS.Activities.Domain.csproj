@@ -47,10 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configurations\ActivitiesConfiguration.cs" />
-    <Compile Include="IConfigurationInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IActivitiesRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

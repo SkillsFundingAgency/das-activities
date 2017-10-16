@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Moq;
-using NuGet;
 using NuGetProject;
 using NUnit.Framework;
-using SFA.DAS.Activities.Application.Commands.CommitmentHasBeenApproved;
+using SFA.DAS.Activities.Application;
+using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Worker;
 using SFA.DAS.Activities.Worker.MessageProcessors;
 using SFA.DAS.Messaging;
@@ -19,7 +19,6 @@ namespace SFA.DAS.Tasks.Worker.UnitTests.MessageProcessors.CommitmentHasBeenAppr
     {
         private const string OwnerId = "123";
         private DateTime _postedDateTime;
-        private string _postedDateTimeString;
 
         private CommitmentHasBeenApprovedMessageProcessor _processor;
         private CommitmentHasBeenApproved _message;
@@ -31,7 +30,6 @@ namespace SFA.DAS.Tasks.Worker.UnitTests.MessageProcessors.CommitmentHasBeenAppr
         public void Arrange()
         {
             _postedDateTime = DateTime.Parse("2015/10/25");
-            _postedDateTimeString = _postedDateTime.ToString("O");
 
             _messageReciever = new Mock<IPollingMessageReceiver>();
             _mediator = new Mock<IMediator>();
@@ -39,7 +37,7 @@ namespace SFA.DAS.Tasks.Worker.UnitTests.MessageProcessors.CommitmentHasBeenAppr
             _message = new CommitmentHasBeenApproved
             {
                 OwnerId = OwnerId,
-                PostedDatedTime = _postedDateTimeString
+                PostedDatedTime = _postedDateTime
             };
 
             _processor = new CommitmentHasBeenApprovedMessageProcessor(_messageReciever.Object, Mock.Of<ILog>(), _mediator.Object);
@@ -55,9 +53,9 @@ namespace SFA.DAS.Tasks.Worker.UnitTests.MessageProcessors.CommitmentHasBeenAppr
             await _processor.RunAsync(_tokenSource.Token);
 
 
-            _mediator.Verify(x => x.SendAsync(It.Is<CommitmentHasBeenApprovedCommand>(cmd => cmd.PayLoad.OwnerId.Equals(_message.OwnerId.ToString()) &&
-                                                                            cmd.PayLoad.ActivityType == ActivityType.CommitmentHasBeenApproved.ToString() &&
-                                                                            cmd.PayLoad.PostedDateTime == _postedDateTime)), Times.Once);
+            _mediator.Verify(x => x.SendAsync(It.Is<SaveActivityCommand>(cmd => cmd.Activity.OwnerId.Equals(_message.OwnerId.ToString()) &&
+                                                                            cmd.Activity.ActivityType == ActivityType.CommitmentHasBeenApproved &&
+                                                                            cmd.Activity.PostedDateTime == _postedDateTime)), Times.Once);
         }
     }
 }

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SFA.DAS.Activities.Domain.Configurations;
-using SFA.DAS.Activities.Domain.Repositories;
 using SFA.DAS.NLog.Logger;
 using Nest;
-using NuGet;
+using SFA.DAS.Activities.Application;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
+using SFA.DAS.Activities.Application.Configurations;
+using SFA.DAS.Activities.Application.Repositories;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {

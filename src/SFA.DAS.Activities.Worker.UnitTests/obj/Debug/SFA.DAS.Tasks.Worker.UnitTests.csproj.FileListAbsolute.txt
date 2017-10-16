@@ -14,7 +14,6 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.EmployerAccounts.Events.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Messaging.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.NLog.Logger.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Domain.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\StructureMap.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Configuration.dll
@@ -39,7 +38,6 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Moq.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Newtonsoft.Json.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NLog.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\nunit.framework.xml
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Domain.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\StructureMap.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.ServiceBus.xml

@@ -1,5 +1,4 @@
-﻿using NuGet;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
@@ -18,13 +17,10 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
         [Test]
         public void ThenIShouldPassValidationWithAValidRequest()
         {
-            //Arrange
-            var request = new SaveActivityCommand() {OwnerId = OwnerId};
+            var request = new SaveActivityCommand(new Activity().WithOwnerId(OwnerId));
 
-            //Act
             var result = _validator.Validate(request);
 
-            //Assert
             Assert.IsTrue(result.IsValid());
         }
 
@@ -32,15 +28,15 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
         public void ThenIShouldFailValidationIfOwnerIdIsNotPresent()
         {
             //Arrange
-            
-            var request = new SaveActivityCommand { OwnerId = null};
+
+            var request = new SaveActivityCommand(new Activity().WithOwnerId(null));
 
             //Act
             var result = _validator.Validate(request);
 
             //Assert
             Assert.IsFalse(result.IsValid());
-            Assert.AreEqual("Cannot save task when owner ID is not given.", result.ValidationDictionary[nameof(request.OwnerId)]);
+            Assert.AreEqual("Cannot save task when owner ID is not given.", result.ValidationDictionary[nameof(request.Activity.OwnerId)]);
         }
     }
 }

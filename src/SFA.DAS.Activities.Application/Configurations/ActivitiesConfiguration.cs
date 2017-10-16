@@ -1,6 +1,6 @@
 ﻿using SFA.DAS.Configuration;
 
-namespace SFA.DAS.Activities.Domain.Configurations
+namespace SFA.DAS.Activities.Application.Configurations
 {
     public class ActivitiesConfiguration : IConfiguration
     {

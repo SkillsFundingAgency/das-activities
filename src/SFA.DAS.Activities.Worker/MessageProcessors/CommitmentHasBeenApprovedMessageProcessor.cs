@@ -3,7 +3,7 @@ using MediatR;
 using SFA.DAS.Messaging;
 using SFA.DAS.NLog.Logger;
 using NuGetProject;
-using NuGet;
+using SFA.DAS.Activities.Application;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
@@ -19,16 +19,13 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
 
         protected override async Task ProcessMessage(CommitmentHasBeenApproved message)
         {
-            await _mediator.SendAsync(new SaveActivityCommand
-                {
-                   Payload = new FluentActivity()
-                   .ActivityType(ActivityType.CommitmentHasBeenApproved.ToString())
-                   .Description("A commitment has been approved")
-                   .OwnerId(message.OwnerId)
-                   .PostedDateTime(message.PostedDatedTime)
-                   .Url(message.Url).Object()
-                }
-            );
+            await _mediator.SendAsync(new SaveActivityCommand(
+                new Activity()
+                    .WithActivityType(ActivityType.CommitmentHasBeenApproved)
+                    .WithDescription("A commitment has been approved")
+                    .WithOwnerId(message.OwnerId)
+                    .WithPostedDateTime(message.PostedDatedTime)
+                    .WithUrl(message.Url)));
         }
     }
 }

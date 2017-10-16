@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using SFA.DAS.Activities.Application.Exceptions;
+using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Domain.Repositories;
 
 namespace SFA.DAS.Activities.Application.Queries.GetActivities
 {

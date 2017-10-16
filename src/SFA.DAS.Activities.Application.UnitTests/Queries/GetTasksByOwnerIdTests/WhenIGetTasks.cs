@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
-using NuGet;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Queries.GetActivities;
+using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Domain.Repositories;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTests
 {

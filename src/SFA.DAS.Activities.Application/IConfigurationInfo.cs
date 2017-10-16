@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.Activities.Domain
+namespace SFA.DAS.Activities.Application
 {
     public interface IConfigurationInfo<out T>
     {

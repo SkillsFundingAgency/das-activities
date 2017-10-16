@@ -4,14 +4,11 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
+using SFA.DAS.Activities.Application.Configurations;
 using SFA.DAS.Activities.Worker.Configuration.Policies;
 using SFA.DAS.Activities.Worker.Configuration.Policies.SFA.DAS.EAS.Infrastructure.DependencyResolution;
 using SFA.DAS.Activities.Worker.DependencyResolution;
-//using SFA.DAS.EAS.Domain.Configuration;
-//using SFA.DAS.EAS.Infrastructure.DependencyResolution;
-//using SFA.DAS.EAS.Infrastructure.Logging;
 using StructureMap;
-using SFA.DAS.Activities.Domain.Configurations;
 using SFA.DAS.Messaging;
 
 namespace SFA.DAS.Activities.Worker

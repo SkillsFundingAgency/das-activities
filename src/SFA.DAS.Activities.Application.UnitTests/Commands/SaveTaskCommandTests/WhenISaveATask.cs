@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Moq;
-using NuGet;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
+using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Domain.Repositories;
 using SFA.DAS.Activities.Worker;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
@@ -28,10 +27,9 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
             _repository = new Mock<IActivitiesRepository>();
 
             RequestHandler = new SaveActivityCommandHandler(_repository.Object, RequestValidator.Object);
-            Query = new SaveActivityCommand
-            {
-                Payload = new FluentActivity().OwnerId(OwnerId).Object()
-            };
+
+            Query = new SaveActivityCommand(new Activity().WithOwnerId(OwnerId));
+
         }
       
         [Test]
@@ -39,10 +37,10 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
         {
             await RequestHandler.Handle(Query);
 
-            var activityEquivalent = new FluentActivity().OwnerId(OwnerId).Object();
+            var activityEquivalent = new Activity().WithOwnerId(OwnerId);
 
             _repository.Verify(x => x.GetActivity(activityEquivalent), Times.Once);
-            _repository.Verify(x => x.SaveActivity(It.Is<Activity>(t => t.OwnerId.Equals(Query.Payload.OwnerId))));
+            _repository.Verify(x => x.SaveActivity(It.Is<Activity>(t => t.OwnerId.Equals(Query.Activity.OwnerId))));
         }
 
         [Test]

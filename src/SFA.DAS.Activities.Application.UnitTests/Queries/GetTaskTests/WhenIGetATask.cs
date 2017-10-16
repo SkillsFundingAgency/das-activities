@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
-using NuGet;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Queries;
 using SFA.DAS.Activities.Application.Queries.GetActivities;
+using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Domain.Repositories;
 using SFA.DAS.Activities.Worker;
 
 
@@ -36,7 +35,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
 
             base.SetUp();
 
-            _activity = new Activity(OwnerId, _activityType.ToString(), "description", "url", _postedDateTime.ToString("O"));
+            _activity = new Activity(OwnerId, _activityType, "description", "url", _postedDateTime);
             _repository = new Mock<IActivitiesRepository>();
 
             RequestHandler = new GetActivitiesByOwnerIdHandler(_repository.Object, RequestValidator.Object);

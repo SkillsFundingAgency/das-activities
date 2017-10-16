@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using NuGet;
 
 namespace SFA.DAS.Activities.Application.Queries.GetActivities
 {
