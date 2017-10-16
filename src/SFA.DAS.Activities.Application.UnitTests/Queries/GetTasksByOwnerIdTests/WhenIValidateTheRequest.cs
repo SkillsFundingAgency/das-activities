@@ -1,22 +1,23 @@
 ﻿using NUnit.Framework;
+using SFA.DAS.Activities.Application.Queries.GetActivities;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTests
 {
     public class WhenIValidateTheRequest
     {
-        private GetTasksByOwnerIdValidator _validator;
+        private GetActivitiesByOwnerIdRequestValidator _validator;
 
         [SetUp]
         public void Arrange()
         {
-            _validator = new GetTasksByOwnerIdValidator();
+            _validator = new GetActivitiesByOwnerIdRequestValidator();
         }
 
         [Test]
         public void ThenIShouldPassValidationWithAValidRequest()
         {
             //Arrange
-            var request = new GetTasksByOwnerIdRequest {OwnerId = "1233"};
+            var request = new GetActivitiesByOwnerIdRequest("123");
 
             //Act
             var result = _validator.Validate(request);
@@ -29,7 +30,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTest
         public void ThenIShouldFailValidationIfOwnerIdIsNotPresent()
         {
             //Arrange
-            var request = new GetTasksByOwnerIdRequest();
+            var request = new GetActivitiesByOwnerIdRequest(null);
 
             //Act
             var result = _validator.Validate(request);

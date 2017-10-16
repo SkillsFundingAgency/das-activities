@@ -1,35 +1,25 @@
-﻿using NUnit.Framework;
+﻿using NuGet;
+using NUnit.Framework;
+using SFA.DAS.Activities.Application.Commands.SaveActivity;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 {
     public class WhenIValidateTheRequest
     {
-        private SaveTaskCommandValidator _validator;
+        private SaveActivityRequestValidator _validator;
+        private const string OwnerId = "123";
 
         [SetUp]
         public void Arrange()
         {
-            _validator = new SaveTaskCommandValidator();
-        }
-
-        [Test]
-        public void ThenIShouldPassValidationWithAValidCompletedTaskRequest()
-        {
-            //Arrange
-            var request = new SaveTaskCommand { OwnerId = "1234", Type = TaskType.AddApprentices, TaskCompleted = true};
-
-            //Act
-            var result = _validator.Validate(request);
-
-            //Assert
-            Assert.IsTrue(result.IsValid());
+            _validator = new SaveActivityRequestValidator();
         }
 
         [Test]
         public void ThenIShouldPassValidationWithAValidRequest()
         {
             //Arrange
-            var request = new SaveTaskCommand { OwnerId = "1234", Type = TaskType.AddApprentices };
+            var request = new SaveActivityCommand() {OwnerId = OwnerId};
 
             //Act
             var result = _validator.Validate(request);
@@ -43,7 +33,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
         {
             //Arrange
             
-            var request = new SaveTaskCommand { Type = TaskType.AddApprentices, TaskCompleted = true };
+            var request = new SaveActivityCommand { OwnerId = null};
 
             //Act
             var result = _validator.Validate(request);
@@ -51,20 +41,6 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
             //Assert
             Assert.IsFalse(result.IsValid());
             Assert.AreEqual("Cannot save task when owner ID is not given.", result.ValidationDictionary[nameof(request.OwnerId)]);
-        }
-
-        [Test]
-        public void ThenIShouldFailValidationIfTaskTypeIsNotPresent()
-        {
-            //Arrange
-            var request = new SaveTaskCommand { OwnerId = "1234", TaskCompleted = true };
-
-            //Act
-            var result = _validator.Validate(request);
-
-            //Assert
-            Assert.IsFalse(result.IsValid());
-            Assert.AreEqual("Cannot save task when task type is not given.", result.ValidationDictionary[nameof(request.Type)]);
         }
     }
 }

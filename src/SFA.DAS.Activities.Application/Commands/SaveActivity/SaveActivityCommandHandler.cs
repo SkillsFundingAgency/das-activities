@@ -1,6 +1,7 @@
 ﻿
 using System.Threading.Tasks;
 using MediatR;
+using NuGet;
 using SFA.DAS.Activities.Application.Exceptions;
 using SFA.DAS.Activities.Application.Validation;
 using SFA.DAS.Activities.Domain.Repositories;
@@ -27,7 +28,15 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
                 throw new InvalidRequestException(validationResult.ValidationDictionary);
             }
 
-            await _repository.SaveActivity(command.Payload);
+            //var activity = new FluentActivity()
+            //    .OwnerId(command.OwnerId)
+            //    .ActivityType(command.ActivityType)
+            //    .Description(command.Description)
+            //    .PostedDateTime(command.PostedDateTime)
+            //    .Url(command.Url)
+            //    .Object();
+
+            await _repository.SaveActivity(new Activity().WithActivityType(command.ActivityType));
 
             return new SaveActivityCommandResponse();
         }

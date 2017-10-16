@@ -50,3 +50,6 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\obj\Debug\SFA.DAS.Activi
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\obj\Debug\SFA.DAS.Activities.DataAccess.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\NuGet.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\NuGet.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\MediatR.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Application.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Application.pdb

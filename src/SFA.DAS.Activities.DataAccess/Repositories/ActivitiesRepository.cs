@@ -7,6 +7,7 @@ using SFA.DAS.Activities.Domain.Repositories;
 using SFA.DAS.NLog.Logger;
 using Nest;
 using NuGet;
+using SFA.DAS.Activities.Application.Commands.SaveActivity;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {

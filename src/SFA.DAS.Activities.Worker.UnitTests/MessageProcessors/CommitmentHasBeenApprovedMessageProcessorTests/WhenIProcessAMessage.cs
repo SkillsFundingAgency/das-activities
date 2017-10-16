@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Moq;
+using NuGet;
 using NuGetProject;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Commands.CommitmentHasBeenApproved;

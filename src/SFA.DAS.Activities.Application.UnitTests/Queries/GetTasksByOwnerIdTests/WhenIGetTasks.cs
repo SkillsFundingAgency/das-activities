@@ -1,21 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
+using NuGet;
 using NUnit.Framework;
+using SFA.DAS.Activities.Application.Queries.GetActivities;
 using SFA.DAS.Activities.Application.Validation;
+using SFA.DAS.Activities.Domain.Repositories;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTests
 {
-    public class WhenIGetTasks : QueryBaseTest<GetTasksByOwnerIdHandler, GetTasksByOwnerIdRequest, GetTasksByOwnerIdResponse>
+    public class WhenIGetTasks : QueryBaseTest<GetActivitiesByOwnerIdHandler, GetActivitiesByOwnerIdRequest, GetActivitiesByOwnerIdResponse>
     {
         private const string TaskOwnerId = "123ACX";
 
-        private Mock<ITaskRepository> _repository;
-        private List<Domain.Models.DasTask> _tasks;
+        private Mock<IActivitiesRepository> _repository;
+        private List<Activity> _activities;
 
-        public override GetTasksByOwnerIdRequest Query { get; set; }
-        public override GetTasksByOwnerIdHandler RequestHandler { get; set; }
-        public override Mock<IValidator<GetTasksByOwnerIdRequest>> RequestValidator { get; set; }
+        public override GetActivitiesByOwnerIdRequest Query { get; set; }
+        public override GetActivitiesByOwnerIdHandler RequestHandler { get; set; }
+        public override Mock<IValidator<GetActivitiesByOwnerIdRequest>> RequestValidator { get; set; }
         
 
         [SetUp]
@@ -23,16 +26,16 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTest
         {
             base.SetUp();
 
-            _tasks = new List<Domain.Models.DasTask>
+            _activities = new List<Activity>
             {
-                new Domain.Models.DasTask()
+                new Activity()
             };
 
-            _repository = new Mock<ITaskRepository>();
-            _repository.Setup(x => x.GetTasks(It.IsAny<string>())).ReturnsAsync(_tasks);
+            _repository = new Mock<IActivitiesRepository>();
+            _repository.Setup(x => x.GetActivities(It.IsAny<string>())).ReturnsAsync(_activities);
             
-            RequestHandler = new GetTasksByOwnerIdHandler(_repository.Object, RequestValidator.Object);
-            Query = new GetTasksByOwnerIdRequest{ OwnerId = TaskOwnerId};
+            RequestHandler = new GetActivitiesByOwnerIdHandler(_repository.Object, RequestValidator.Object);
+            Query = new GetActivitiesByOwnerIdRequest(TaskOwnerId);
         }
        
         public override async Task ThenIfTheMessageIsValidTheRepositoryIsCalled()
@@ -41,7 +44,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTest
             await RequestHandler.Handle(Query);
 
             //Assert
-            _repository.Verify(x => x.GetTasks(TaskOwnerId), Times.Once);
+            _repository.Verify(x => x.GetActivities(TaskOwnerId), Times.Once);
         }
 
         public override async Task ThenIfTheMessageIsValidTheValueIsReturnedInTheResponse()
@@ -50,7 +53,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTest
             var result = await RequestHandler.Handle(Query);
 
             //Assert
-            Assert.AreEqual(_tasks, result.Tasks);
+            Assert.AreEqual(_activities, result.Activities);
         }
     }
 }

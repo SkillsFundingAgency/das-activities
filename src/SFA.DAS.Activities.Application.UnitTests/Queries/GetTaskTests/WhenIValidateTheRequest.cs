@@ -1,22 +1,25 @@
 ﻿using NUnit.Framework;
+using SFA.DAS.Activities.Application.Commands.SaveActivity;
+using SFA.DAS.Activities.Application.Queries.GetActivities;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
 {
     public class WhenIValidateTheRequest
     {
-        private GetTaskRequestValidator _validator;
+        private SaveActivityRequestValidator _validator;
+        private const string OwnerId = "123";
 
         [SetUp]
         public void Arrange()
         {
-            _validator = new GetTaskRequestValidator();
+            _validator = new SaveActivityRequestValidator();
         }
 
         [Test]
         public void ThenIShouldPassValidationWithAValidRequest()
         {
             //Arrange
-            var request = new GetTaskRequest {OwnerId = "1233", Type = TaskType.AddApprentices };
+            var request = new GetActivitiesByOwnerIdRequest(OwnerId);
 
             //Act
             var result = _validator.Validate(request);
@@ -29,7 +32,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldFailValidationIfOwnerIdIsNotPresent()
         {
             //Arrange
-            var request = new GetTaskRequest { Type = TaskType.AddApprentices };
+            var request = new GetActivitiesByOwnerIdRequest(null);
 
             //Act
             var result = _validator.Validate(request);
@@ -37,20 +40,6 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
             //Assert
             Assert.IsFalse(result.IsValid());
             Assert.AreEqual("Cannot get task when owner ID is not given.", result.ValidationDictionary[nameof(request.OwnerId)]);
-        }
-
-        [Test]
-        public void ThenIShouldFailValidationIfTaskTypeIsNotPresent()
-        {
-            //Arrange
-            var request = new GetTaskRequest { OwnerId = "1233" }; 
-
-            //Act
-            var result = _validator.Validate(request);
-
-            //Assert
-            Assert.IsFalse(result.IsValid());
-            Assert.AreEqual("Cannot get task when type is not given.", result.ValidationDictionary[nameof(request.Type)]);
         }
     }
 }

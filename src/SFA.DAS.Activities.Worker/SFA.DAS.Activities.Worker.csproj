@@ -136,7 +136,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivityType.cs" />
     <Compile Include="Configuration\IConfigurationInfo.cs" />
     <Compile Include="Configuration\Policies\ConfigurationPolicy.cs" />
     <Compile Include="Configuration\Policies\MessagePolicy.cs" />

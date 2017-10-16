@@ -47,12 +47,14 @@
     <Compile Include="Commands\SaveActivity\SaveActivityCommand.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommandHandler.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommandResponse.cs" />
+    <Compile Include="Commands\SaveActivity\SaveActivityRequestValidator.cs" />
     <Compile Include="Exceptions\InvalidRequestException.cs" />
     <Compile Include="Messages\ActivityProcessorQueueMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetActivities\GetActivitiesByOwnerIdHandler.cs" />
     <Compile Include="Queries\GetActivities\GetActivitiesByOwnerIdRequest.cs" />
     <Compile Include="Queries\GetActivities\GetActivitiesByOwnerIdResponse.cs" />
+    <Compile Include="Queries\GetActivities\GetActivitiesByOwnerIdRequestValidator.cs" />
     <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\ValidationResult.cs" />
   </ItemGroup>
