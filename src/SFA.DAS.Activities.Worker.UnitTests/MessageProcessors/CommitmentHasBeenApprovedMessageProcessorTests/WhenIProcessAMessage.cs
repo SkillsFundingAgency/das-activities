@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Moq;
+using NuGet;
 using NuGetProject;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application;
@@ -54,7 +55,7 @@ namespace SFA.DAS.Tasks.Worker.UnitTests.MessageProcessors.CommitmentHasBeenAppr
 
 
             _mediator.Verify(x => x.SendAsync(It.Is<SaveActivityCommand>(cmd => cmd.Activity.OwnerId.Equals(_message.OwnerId.ToString()) &&
-                                                                            cmd.Activity.ActivityType == ActivityType.CommitmentHasBeenApproved &&
+                                                                            cmd.Activity.Type == Activity.ActivityType.CommitmentHasBeenApproved &&
                                                                             cmd.Activity.PostedDateTime == _postedDateTime)), Times.Once);
         }
     }

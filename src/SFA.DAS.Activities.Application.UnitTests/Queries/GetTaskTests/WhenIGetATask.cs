@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Moq;
+using NuGet;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Queries;
 using SFA.DAS.Activities.Application.Queries.GetActivities;
@@ -16,7 +17,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
     public class WhenIGetATask : QueryBaseTest<GetActivitiesByOwnerIdHandler, GetActivitiesByOwnerIdRequest, GetActivitiesByOwnerIdResponse>
     {
         private const string OwnerId = "123";
-        private ActivityType _activityType;
+        private Activity.ActivityType _activityType;
         private DateTime _postedDateTime;
 
         private Mock<IActivitiesRepository> _repository;
@@ -30,13 +31,16 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         [SetUp]
         public void Arrange()
         {
-            _activityType = ActivityType.CommitmentHasBeenApproved;
+            _activityType = Activity.ActivityType.CommitmentHasBeenApproved;
             _postedDateTime = DateTime.Parse("2013/10/14");
 
             base.SetUp();
 
-            _activity = new Activity(OwnerId, _activityType, "description", "url", _postedDateTime);
-            _repository = new Mock<IActivitiesRepository>();
+            // _activity = new Activity(OwnerId, _activityType, "description", "url", _postedDateTime);
+            _activity = new FluentActivity()
+                .OwnerId(OwnerId)
+                .Object();
+             _repository = new Mock<IActivitiesRepository>();
 
             RequestHandler = new GetActivitiesByOwnerIdHandler(_repository.Object, RequestValidator.Object);
             Query = new GetActivitiesByOwnerIdRequest(OwnerId);
@@ -46,7 +50,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         }
         
         [Test]
-        public override async Task ThenIfTheMessageIsValidTheRepositoryIsCalled()
+        public override async Task ThenIfTheMessageIsValidTheRepositoryIsCheckedBeforeSaving()
         {
             await RequestHandler.Handle(Query);
 

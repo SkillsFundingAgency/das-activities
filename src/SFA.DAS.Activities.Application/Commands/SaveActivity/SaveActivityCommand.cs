@@ -1,5 +1,6 @@
 ﻿using System;
 using MediatR;
+using NuGet;
 
 namespace SFA.DAS.Activities.Application.Commands.SaveActivity
 {

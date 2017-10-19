@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using Nest;
+using NuGet;
 using SFA.DAS.Activities.Application;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Application.Configurations;
@@ -43,14 +44,8 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                 )
                 .Query(q=>q
                     .Match(m=>m
-                    .Field(f=>f.ActivityType)
-                    .Query(activity.ActivityType.ToString())
-                    )
-                )
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.Description)
-                        .Query(activity.Description)
+                    .Field(f=>f.Type)
+                    .Query(activity.Type.ToString())
                     )
                 )
                 .Query(q => q

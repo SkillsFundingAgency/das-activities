@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Moq;
+using NuGet;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Worker;
 
 namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 {
@@ -14,6 +14,8 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
         private const string OwnerId = "123";
 
         private Mock<IActivitiesRepository> _repository;
+
+        private Activity _testActivity;
 
         public override SaveActivityCommand Query { get; set; }
         public override SaveActivityCommandHandler RequestHandler { get; set; }
@@ -28,19 +30,18 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 
             RequestHandler = new SaveActivityCommandHandler(_repository.Object, RequestValidator.Object);
 
-            Query = new SaveActivityCommand(new Activity().WithOwnerId(OwnerId));
+            _testActivity = new FluentActivity().OwnerId(OwnerId).Object();
 
+            Query = new SaveActivityCommand(_testActivity);
         }
       
         [Test]
-        public override async Task ThenIfTheMessageIsValidTheRepositoryIsCalled()
+        public override async Task ThenIfTheMessageIsValidTheRepositoryIsCheckedBeforeSaving()
         {
             await RequestHandler.Handle(Query);
 
-            var activityEquivalent = new Activity().WithOwnerId(OwnerId);
-
-            _repository.Verify(x => x.GetActivity(activityEquivalent), Times.Once);
-            _repository.Verify(x => x.SaveActivity(It.Is<Activity>(t => t.OwnerId.Equals(Query.Activity.OwnerId))));
+            _repository.Verify(x => x.GetActivity(_testActivity), Times.Once);
+            _repository.Verify(x => x.SaveActivity(_testActivity));
         }
 
         [Test]

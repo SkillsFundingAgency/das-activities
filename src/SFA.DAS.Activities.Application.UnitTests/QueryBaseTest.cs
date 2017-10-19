@@ -28,7 +28,7 @@ namespace SFA.DAS.Activities.Application.UnitTests
         }
 
         [Test]
-        public abstract Task ThenIfTheMessageIsValidTheRepositoryIsCalled();
+        public abstract Task ThenIfTheMessageIsValidTheRepositoryIsCheckedBeforeSaving();
 
         public abstract Task ThenIfTheMessageIsValidTheValueIsReturnedInTheResponse();
 

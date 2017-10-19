@@ -50,9 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
-    <Compile Include="ActivityExtensions.cs" />
-    <Compile Include="ActivityType.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommand.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommandHandler.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommandResponse.cs" />

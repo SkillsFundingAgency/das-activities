@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
+using NuGet;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Queries.GetActivities;
 using SFA.DAS.Activities.Application.Repositories;
@@ -37,7 +38,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTest
             Query = new GetActivitiesByOwnerIdRequest(TaskOwnerId);
         }
        
-        public override async Task ThenIfTheMessageIsValidTheRepositoryIsCalled()
+        public override async Task ThenIfTheMessageIsValidTheRepositoryIsCheckedBeforeSaving()
         {
             //Act
             await RequestHandler.Handle(Query);

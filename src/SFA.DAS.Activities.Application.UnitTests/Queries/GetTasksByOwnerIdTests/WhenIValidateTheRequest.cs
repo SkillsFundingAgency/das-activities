@@ -37,7 +37,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTasksByOwnerIdTest
 
             //Assert
             Assert.IsFalse(result.IsValid());
-            Assert.AreEqual("Cannot get tasks when owner ID is not given.", result.ValidationDictionary[nameof(request.OwnerId)]);
+            Assert.AreEqual("Cannot get Activity when owner ID is not given.", result.ValidationDictionary[nameof(request.OwnerId)]);
         }
     }
 }
