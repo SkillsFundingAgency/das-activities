@@ -12,6 +12,7 @@ using StructureMap.Pipeline;
 using System.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 using SFA.DAS.Configuration.FileStorage;
+using SFA.DAS.Messaging.Interfaces;
 
 namespace SFA.DAS.Activities.Worker.Configuration.Policies
 {
@@ -31,7 +32,7 @@ namespace SFA.DAS.Activities.Worker.Configuration.Policies
             protected override void apply(Type pluginType, IConfiguredInstance instance)
             {
                 var messagePublisher = instance?.Constructor?
-                    .GetParameters().FirstOrDefault(x => x.ParameterType == typeof(IMessagePublisher) || x.ParameterType == typeof(IPollingMessageReceiver));
+                    .GetParameters().FirstOrDefault(x => x.ParameterType == typeof(IMessagePublisher) || x.ParameterType == typeof(IMessageSubscriberFactory));
 
                 var environment = Environment.GetEnvironmentVariable("DASENV");
                 if (string.IsNullOrEmpty(environment))

@@ -72,10 +72,6 @@
       <Project>{948f920f-180e-4dab-b4a7-2eac7a72accb}</Project>
       <Name>NuGet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NuGetProject\NuGetProject.csproj">
-      <Project>{1c2af663-e392-4954-9072-d996e16f2407}</Project>
-      <Name>NuGetProject</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Domain\SFA.DAS.Activities.Domain.csproj">
       <Project>{EEC952E7-F04A-41A3-9D5D-F25E64BD3FAB}</Project>
       <Name>SFA.DAS.Activities.Domain</Name>

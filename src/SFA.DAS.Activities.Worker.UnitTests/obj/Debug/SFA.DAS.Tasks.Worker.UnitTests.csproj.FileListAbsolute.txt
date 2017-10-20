@@ -7,7 +7,6 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Moq.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Newtonsoft.Json.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NLog.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NuGet.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NuGetProject.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\nunit.framework.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Application.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Worker.dll
@@ -29,7 +28,6 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsof
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.Data.Services.Client.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.Data.OData.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NuGet.pdb
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NuGetProject.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Application.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Worker.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Worker.dll.config

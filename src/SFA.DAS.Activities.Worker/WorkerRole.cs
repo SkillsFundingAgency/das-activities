@@ -10,6 +10,7 @@ using SFA.DAS.Activities.Worker.Configuration.Policies.SFA.DAS.EAS.Infrastructur
 using SFA.DAS.Activities.Worker.DependencyResolution;
 using StructureMap;
 using SFA.DAS.Messaging;
+using SFA.DAS.Messaging.Interfaces;
 
 namespace SFA.DAS.Activities.Worker
 {

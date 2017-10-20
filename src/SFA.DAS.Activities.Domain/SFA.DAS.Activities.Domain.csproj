@@ -57,10 +57,6 @@
       <Project>{948f920f-180e-4dab-b4a7-2eac7a72accb}</Project>
       <Name>NuGet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NuGetProject\NuGetProject.csproj">
-      <Project>{1C2AF663-E392-4954-9072-D996E16F2407}</Project>
-      <Name>NuGetProject</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

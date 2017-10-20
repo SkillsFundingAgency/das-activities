@@ -12,9 +12,7 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\NuGetProject.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Activities.Domain.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Activities.Domain.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Newtonsoft.Json.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\NuGetProject.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Configuration.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\NuGetProject.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Newtonsoft.Json.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\obj\Debug\SFA.DAS.Activities.Domain.csprojResolveAssemblyReference.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\obj\Debug\SFA.DAS.Activities.Domain.csproj.CoreCompileInputs.cache
