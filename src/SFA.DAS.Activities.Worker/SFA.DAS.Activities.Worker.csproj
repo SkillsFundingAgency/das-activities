@@ -138,12 +138,10 @@
   <ItemGroup>
     <Compile Include="Configuration\IConfigurationInfo.cs" />
     <Compile Include="Configuration\Policies\ConfigurationPolicy.cs" />
-    <Compile Include="Configuration\Policies\MessagePolicy.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="MessageProcessors\CohortApprovedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\ApprenticeChangesRequestedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\ApprenticeChangesApprovedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\CommitmentHasBeenApprovedMessageProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
@@ -164,6 +162,10 @@
     <ProjectReference Include="..\SFA.DAS.Activities.Domain\SFA.DAS.Activities.Domain.csproj">
       <Project>{EEC952E7-F04A-41A3-9D5D-F25E64BD3FAB}</Project>
       <Name>SFA.DAS.Activities.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities.Infrastructure\SFA.DAS.Activities.Infrastructure.csproj">
+      <Project>{28fa486e-5ef8-4a6b-9072-4e5f61d60eab}</Project>
+      <Name>SFA.DAS.Activities.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

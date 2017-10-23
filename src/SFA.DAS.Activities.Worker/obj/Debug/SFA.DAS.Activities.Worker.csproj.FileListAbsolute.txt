@@ -113,8 +113,10 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Microsoft.WindowsA
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Microsoft.WindowsAzure.Storage.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Newtonsoft.Json.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NLog.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGet.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Application.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Domain.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Infrastructure.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.AzureTableStorage.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.FileStorage.dll
@@ -130,8 +132,11 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WebActivatorEx.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WindowsAzureEventSource.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WindowsAzureTelemetryEvents.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\MonAgentListener.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Application.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Domain.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Infrastructure.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Infrastructure.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\AutoMapper.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Microsoft.Data.Edm.xml
@@ -190,5 +195,3 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\obj\Debug\SFA.DAS.Activities
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\obj\Debug\SFA.DAS.Activities.Worker.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\obj\Debug\SFA.DAS.Activities.Worker.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\obj\Debug\SFA.DAS.Activities.Worker.pdb
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGet.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGet.pdb

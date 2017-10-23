@@ -17,8 +17,6 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
     public class WhenIGetATask : QueryBaseTest<GetActivitiesByOwnerIdHandler, GetActivitiesByOwnerIdRequest, GetActivitiesByOwnerIdResponse>
     {
         private const string OwnerId = "123";
-        private Activity.ActivityType _activityType;
-        private DateTime _postedDateTime;
 
         private Mock<IActivitiesRepository> _repository;
         private Activity _activity;
@@ -31,12 +29,9 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         [SetUp]
         public void Arrange()
         {
-            _activityType = Activity.ActivityType.CommitmentHasBeenApproved;
-            _postedDateTime = DateTime.Parse("2013/10/14");
 
-            base.SetUp();
+            SetUp();
 
-            // _activity = new Activity(OwnerId, _activityType, "description", "url", _postedDateTime);
             _activity = new FluentActivity()
                 .OwnerId(OwnerId)
                 .Object();

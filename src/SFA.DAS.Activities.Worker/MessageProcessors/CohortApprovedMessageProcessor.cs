@@ -25,7 +25,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
             await _mediator.SendAsync(new SaveActivityCommand(
                 new FluentActivity()
                 .OwnerId(message.OwnerId)
-                .ActivityType(Activity.ActivityType.ApprenticeChangesApproved)
+                .ActivityType(Activity.ActivityType.CohortApproved)
                 .DescriptionSingular($"cohort approved with {message.ProviderName}")
                 .DescriptionPlural("cohorts approved")
                 .PostedDateTime(message.PostedDatedTime)

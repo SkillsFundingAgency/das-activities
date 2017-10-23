@@ -25,9 +25,9 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
             await _mediator.SendAsync(new SaveActivityCommand(
                 new FluentActivity()
                 .OwnerId(message.OwnerId)
-                .ActivityType(Activity.ActivityType.ApprenticeChangesApproved)
-                .DescriptionSingular("apprentice change approved")
-                .DescriptionPlural("apprentice changes approved")
+                .ActivityType(Activity.ActivityType.ApprenticeChangesRequested)
+                .DescriptionSingular("apprentice change requested")
+                .DescriptionPlural("apprentice changes requested")
                 .PostedDateTime(message.PostedDatedTime)
                 .Url(message.Url)
                 .Object()

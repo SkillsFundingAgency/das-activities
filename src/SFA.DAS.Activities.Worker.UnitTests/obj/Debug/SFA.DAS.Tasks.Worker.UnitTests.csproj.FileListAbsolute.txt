@@ -1,3 +1,5 @@
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\obj\Debug\SFA.DAS.Tasks.Worker.UnitTests.csprojResolveAssemblyReference.cache
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\obj\Debug\SFA.DAS.Tasks.Worker.UnitTests.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Tasks.Worker.UnitTests.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Tasks.Worker.UnitTests.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Tasks.Worker.UnitTests.pdb
@@ -15,18 +17,11 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.NLog.Logger.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.WindowsAzure.ServiceRuntime.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\StructureMap.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Configuration.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.WindowsAzure.Configuration.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Messaging.AzureServiceBus.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Configuration.FileStorage.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Configuration.AzureTableStorage.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Infrastructure.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\WindowsAzureTelemetryEvents.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.ServiceBus.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.WindowsAzure.Storage.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\WindowsAzureEventSource.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.Data.Edm.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.Data.Services.Client.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.Data.OData.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Application.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Worker.pdb
@@ -37,9 +32,8 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Newtonso
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\NLog.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\nunit.framework.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\StructureMap.xml
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Infrastructure.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\SFA.DAS.Activities.Infrastructure.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\bin\Debug\Microsoft.ServiceBus.xml
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\obj\Debug\SFA.DAS.Tasks.Worker.UnitTests.csprojResolveAssemblyReference.cache
-D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\obj\Debug\SFA.DAS.Tasks.Worker.UnitTests.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\obj\Debug\SFA.DAS.Tasks.Worker.UnitTests.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker.UnitTests\obj\Debug\SFA.DAS.Tasks.Worker.UnitTests.pdb

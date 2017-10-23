@@ -15,14 +15,14 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activ
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Application.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Application.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\MediatR.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\NuGet.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Domain.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Configuration.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Domain.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Newtonsoft.Json.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.csprojResolveAssemblyReference.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.pdb
-D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\NuGet.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\NuGet.pdb
