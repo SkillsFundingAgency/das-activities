@@ -29,7 +29,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 .DescriptionSingular($"cohort approved with {message.ProviderName}")
                 .DescriptionPlural("cohorts approved")
                 .PostedDateTime(message.PostedDatedTime)
-                .Url(message.Url)
+                .Url("todo")
                 .AddAssociatedThing(message.ProviderName)
                 .AddAssociatedThings(message.Apprentices)
                 .Object()

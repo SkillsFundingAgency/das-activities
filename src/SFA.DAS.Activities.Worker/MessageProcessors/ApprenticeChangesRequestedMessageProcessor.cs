@@ -29,7 +29,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 .DescriptionSingular("apprentice change requested")
                 .DescriptionPlural("apprentice changes requested")
                 .PostedDateTime(message.PostedDatedTime)
-                .Url(message.Url)
+                .Url("todo")
                 .Object()
                 ));
         }
