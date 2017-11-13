@@ -26,7 +26,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
             _logger = logger;
         }
 
-        public Task<IEnumerable<Activity>> GetActivities(string ownerId)
+        public Task<IEnumerable<Activity>> GetActivities(long accountId)
         {
             throw new NotImplementedException();
         }
@@ -38,14 +38,14 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                 .Size(1)
                 .Query(q => q
                     .Match(m => m
-                        .Field(f => f.OwnerId)
-                        .Query(activity.OwnerId)
+                        .Field(f => f.AccountId)
+                        .Query(activity.AccountId.ToString())
                     )
                 )
                 .Query(q=>q
                     .Match(m=>m
-                    .Field(f=>f.Type)
-                    .Query(activity.Type.ToString())
+                    .Field(f=>f.TypeOfActivity)
+                    .Query(activity.TypeOfActivity.ToString())
                     )
                 )
                 .Query(q => q

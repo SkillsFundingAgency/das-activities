@@ -8,7 +8,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
     public class WhenIValidateTheRequest
     {
         private SaveActivityRequestValidator _validator;
-        private const string OwnerId = "123";
+        private const long Account = 1234;
 
         [SetUp]
         public void Arrange()
@@ -20,7 +20,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldPassValidationWithAValidRequest()
         {
             //Arrange
-            var request = new SaveActivityCommand(new FluentActivity().OwnerId(OwnerId).Object());
+            var request = new SaveActivityCommand(new FluentActivity().AccountId(Account).Object());
 
             //Act
             var result = _validator.Validate(request);
@@ -33,14 +33,14 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldFailValidationIfOwnerIdIsNotPresent()
         {
             //Arrange
-            var request = new SaveActivityCommand(new FluentActivity().OwnerId(null).Object());
+            var request = new SaveActivityCommand(new FluentActivity().AccountId(0).Object());
 
             //Act
             var result = _validator.Validate(request);
 
             //Assert
             Assert.IsFalse(result.IsValid());
-            Assert.AreEqual("Cannot save Activity when owner ID is not given.", result.ValidationDictionary[nameof(request.Activity.OwnerId)]);
+            Assert.AreEqual("Cannot save Activity when hashed ID is not given.", result.ValidationDictionary[nameof(request.Activity.AccountId)]);
         }
     }
 }

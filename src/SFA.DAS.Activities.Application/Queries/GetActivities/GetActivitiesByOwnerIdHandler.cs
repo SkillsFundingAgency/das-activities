@@ -29,7 +29,7 @@ namespace SFA.DAS.Activities.Application.Queries.GetActivities
                 throw new InvalidRequestException(validationResult.ValidationDictionary);
             }
 
-            var result = await _repository.GetActivities(message.OwnerId);
+            var result = await _repository.GetActivities(message.AccountId);
 
             return new GetActivitiesByOwnerIdResponse {Activities = result};
         }

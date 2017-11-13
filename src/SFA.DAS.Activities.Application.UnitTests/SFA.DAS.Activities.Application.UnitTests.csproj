@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Commands\SaveTaskCommandTests\WhenISaveATask.cs" />
     <Compile Include="Commands\SaveTaskCommandTests\WhenIValidateTheRequest.cs" />
-    <Compile Include="Queries\GetTasksByOwnerIdTests\WhenIGetTasks.cs" />
+    <Compile Include="Queries\GetTasksByOwnerIdTests\WhenIGetActivities.cs" />
     <Compile Include="Queries\GetTasksByOwnerIdTests\WhenIValidateTheRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\GetTaskTests\WhenIGetATask.cs" />

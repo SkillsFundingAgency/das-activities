@@ -16,7 +16,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
 {
     public class WhenIGetATask : QueryBaseTest<GetActivitiesByOwnerIdHandler, GetActivitiesByOwnerIdRequest, GetActivitiesByOwnerIdResponse>
     {
-        private const string OwnerId = "123";
+        private const long AccountId = 1234;
 
         private Mock<IActivitiesRepository> _repository;
         private Activity _activity;
@@ -33,14 +33,14 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
             SetUp();
 
             _activity = new FluentActivity()
-                .OwnerId(OwnerId)
+                .AccountId(AccountId)
                 .Object();
              _repository = new Mock<IActivitiesRepository>();
 
             RequestHandler = new GetActivitiesByOwnerIdHandler(_repository.Object, RequestValidator.Object);
-            Query = new GetActivitiesByOwnerIdRequest(OwnerId);
+            Query = new GetActivitiesByOwnerIdRequest(AccountId);
 
-            _repository.Setup(x => x.GetActivities(It.IsAny<string>()))
+            _repository.Setup(x => x.GetActivities(It.IsAny<long>()))
                        .ReturnsAsync(new List<Activity>{_activity});
         }
         
@@ -49,7 +49,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         {
             await RequestHandler.Handle(Query);
 
-            _repository.Verify(x => x.GetActivities(Query.OwnerId), Times.Once);
+            _repository.Verify(x => x.GetActivities(Query.AccountId), Times.Once);
         }
 
         [Test]

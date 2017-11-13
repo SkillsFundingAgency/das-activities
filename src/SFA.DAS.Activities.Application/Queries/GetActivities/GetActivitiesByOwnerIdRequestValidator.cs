@@ -9,9 +9,9 @@ namespace SFA.DAS.Activities.Application.Queries.GetActivities
         {
             var validationResults = new ValidationResult();
 
-            if (string.IsNullOrEmpty(item.OwnerId))
+            if (item.AccountId<=0)
             {
-                validationResults.AddError(nameof(item.OwnerId), "Cannot get Activity when owner ID is not given.");
+                validationResults.AddError(nameof(item.AccountId), "Cannot get Activity when owner ID is not given.");
             }
 
             return validationResults;

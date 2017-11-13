@@ -12,6 +12,7 @@ C:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activ
 C:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Newtonsoft.Json.xml
 C:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.dll
 C:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Application.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Application.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Application.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\MediatR.dll
@@ -19,9 +20,14 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Newtonsoft.Js
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\NuGet.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Domain.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Configuration.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Nest.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Elasticsearch.Net.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Domain.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\SFA.DAS.Activities.Domain.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Nest.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application\bin\Debug\Elasticsearch.Net.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.csprojResolveAssemblyReference.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application\obj\Debug\SFA.DAS.Activities.Application.dll

@@ -14,9 +14,9 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
         {
             var validationResults = new ValidationResult();
 
-            if (string.IsNullOrEmpty(item.Activity.OwnerId))
+            if (item.Activity.AccountId<=0)
             {
-                validationResults.AddError(nameof(item.Activity.OwnerId), "Cannot save Activity when owner ID is not given.");
+                validationResults.AddError(nameof(item.Activity.AccountId), "Cannot save Activity when hashed ID is not given.");
             }
 
             return validationResults;

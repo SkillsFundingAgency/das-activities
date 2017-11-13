@@ -6,10 +6,10 @@ namespace SFA.DAS.Activities.Application.Queries.GetActivities
 {
     public class GetActivitiesByOwnerIdRequest : IAsyncRequest<GetActivitiesByOwnerIdResponse>
     {
-        public GetActivitiesByOwnerIdRequest(string ownerId)
+        public GetActivitiesByOwnerIdRequest(long accountId)
         {
-            OwnerId = ownerId;
+            AccountId = accountId;
         }
-        public string OwnerId { get;}
+        public long AccountId { get;}
     }
 }

@@ -11,6 +11,6 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
             Activity = activity;
         }
 
-        public Activity Activity { get; private set; }
+        public Activity Activity { get;  }
     }
 }

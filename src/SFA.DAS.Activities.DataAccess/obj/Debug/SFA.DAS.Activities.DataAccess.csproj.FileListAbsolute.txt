@@ -40,7 +40,9 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\System.Web.Htt
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Configuration.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Application.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Application.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Domain.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\SFA.DAS.Activities.Domain.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Elasticsearch.Net.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Nest.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.DataAccess\bin\Debug\Newtonsoft.Json.xml

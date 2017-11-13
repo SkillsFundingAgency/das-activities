@@ -11,7 +11,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 {
     public class WhenISaveATask : QueryBaseTest<SaveActivityCommandHandler, SaveActivityCommand, SaveActivityCommandResponse>
     {
-        private const string OwnerId = "123";
+        private const long AccountId = 1234;
 
         private Mock<IActivitiesRepository> _repository;
 
@@ -30,7 +30,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 
             RequestHandler = new SaveActivityCommandHandler(_repository.Object, RequestValidator.Object);
 
-            _testActivity = new FluentActivity().OwnerId(OwnerId).Object();
+            _testActivity = new FluentActivity().AccountId(AccountId).Object();
 
             Query = new SaveActivityCommand(_testActivity);
         }

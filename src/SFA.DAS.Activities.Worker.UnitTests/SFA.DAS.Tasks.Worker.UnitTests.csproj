@@ -52,8 +52,8 @@
     <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.40326, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.40326\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.43076, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.43076\lib\net45\SFA.DAS.Messaging.dll</HintPath>
+    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.44567, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.44567\lib\net45\SFA.DAS.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.37051, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.37051\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
@@ -68,7 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageProcessors\CommitmentHasBeenApprovedMessageProcessorTests\WhenIProcessAMessage.cs" />
+    <Compile Include="MessageProcessors\DiplayFunctionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +88,9 @@
       <Project>{f43ef579-7c59-4f43-8edd-6a54b51cd455}</Project>
       <Name>SFA.DAS.Activities.Worker</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MessageProcessors\CommitmentHasBeenApprovedMessageProcessorTests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

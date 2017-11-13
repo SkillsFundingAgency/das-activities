@@ -6,7 +6,7 @@ namespace SFA.DAS.Activities.Application.Repositories
 {
     public interface IActivitiesRepository
     {
-        Task<IEnumerable<Activity>> GetActivities(string ownerId);
+        Task<IEnumerable<Activity>> GetActivities(long accountId);
 
         Task<Activity> GetActivity(Activity activity);
 

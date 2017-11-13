@@ -120,6 +120,7 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.AzureTableStorage.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Configuration.FileStorage.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.EmployerAccounts.Events.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Messaging.AzureServiceBus.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Messaging.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.NLog.Logger.dll
@@ -131,10 +132,16 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\System.Spatial.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WebActivatorEx.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WindowsAzureEventSource.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\WindowsAzureTelemetryEvents.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Nest.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\MonAgentListener.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Elasticsearch.Net.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.EmployerAccounts.Events.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.EmployerAccounts.Events.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Application.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Application.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Domain.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Domain.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Infrastructure.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\SFA.DAS.Activities.Infrastructure.dll.config
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\AutoMapper.xml
@@ -155,6 +162,8 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\StructureMap.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\StructureMap.Web.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\StructureMap.Web.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\System.Spatial.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Nest.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\Elasticsearch.Net.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\de\Microsoft.Data.Edm.resources.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\es\Microsoft.Data.Edm.resources.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Worker\bin\Debug\fr\Microsoft.Data.Edm.resources.dll

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Moq;
 using NuGet;
-using NuGet.Messages;
 using NUnit.Framework;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Worker.MessageProcessors;

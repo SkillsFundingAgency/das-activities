@@ -87,8 +87,8 @@
     <Reference Include="SFA.DAS.Configuration.FileStorage, Version=1.0.0.38117, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.FileStorage.1.0.0.38117\lib\net45\SFA.DAS.Configuration.FileStorage.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.43076, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.43076\lib\net45\SFA.DAS.Messaging.dll</HintPath>
+    <Reference Include="SFA.DAS.Messaging, Version=3.0.0.44567, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.44567\lib\net45\SFA.DAS.Messaging.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Messaging.AzureServiceBus, Version=3.0.0.43076, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Messaging.AzureServiceBus.3.0.0.43076\lib\net45\SFA.DAS.Messaging.AzureServiceBus.dll</HintPath>
@@ -139,9 +139,15 @@
     <Compile Include="Configuration\IConfigurationInfo.cs" />
     <Compile Include="Configuration\Policies\ConfigurationPolicy.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
-    <Compile Include="MessageProcessors\CohortApprovedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\ApprenticeChangesRequestedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\ApprenticeChangesApprovedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\PayeSchemeDeletedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\AgreementCreatedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\UserJoinedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\UserInvitedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\LegalEntityRemovedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\AgreementSignedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\DisplayFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
@@ -151,6 +157,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\das-employerapprenticeshipsservice\src\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj">
+      <Project>{0e46510c-0d06-4b63-8e17-b9037db7c7ed}</Project>
+      <Name>SFA.DAS.EmployerAccounts.Events</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\NuGet.csproj">
       <Project>{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}</Project>
       <Name>NuGet</Name>
