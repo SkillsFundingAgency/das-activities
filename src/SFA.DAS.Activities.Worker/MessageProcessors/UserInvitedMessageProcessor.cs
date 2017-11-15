@@ -27,7 +27,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 .AccountId(message.AccountId)
                 .ActivityType(Activity.ActivityTypeStrings.UserInvited)
                 .DescriptionOne($"{message.PersonInvited} invited")
-                .DescriptionTwo($"At {message.PostedDatedTime.Format()} by {message.SignedByName}")
+                .DescriptionTwo($"At {message.PostedDatedTime.Format()} by {message.InvitedByName}")
                 .DescriptionSingular("user invited")
                 .DescriptionPlural("users invited")
                 .PostedDateTime(message.PostedDatedTime)

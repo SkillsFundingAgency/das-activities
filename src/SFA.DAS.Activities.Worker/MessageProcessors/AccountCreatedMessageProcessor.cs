@@ -27,7 +27,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 .AccountId(message.AccountId)
                 .ActivityType(Activity.ActivityTypeStrings.AccountCreated)
                 .DescriptionOne("Account created")
-                .DescriptionTwo($"At {message.PostedDatedTime.Format()} by {message.SignedByName}")
+                .DescriptionTwo($"At {message.PostedDatedTime.Format()} by {message.CreatedByName}")
                 .DescriptionSingular("account created")
                 .DescriptionPlural("accounts created")
                 .PostedDateTime(message.PostedDatedTime)

@@ -26,7 +26,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 new FluentActivity()
                 .AccountId(message.AccountId)
                 .ActivityType(Activity.ActivityTypeStrings.AgreementSigned)
-                .DescriptionOne($"agreement signed with {message.ProviderName}")
+                .DescriptionOne($"agreement signed with {message.SignedByName}")
                 .DescriptionTwo($"At {message.PostedDatedTime.Format()} by {message.SignedByName}")
                 .DescriptionSingular("agreement signed")
                 .DescriptionPlural("agreements signed")

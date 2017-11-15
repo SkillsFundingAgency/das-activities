@@ -26,7 +26,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 new FluentActivity()
                 .AccountId(message.AccountId)
                 .ActivityType(Activity.ActivityTypeStrings.UserJoined)
-                .DescriptionOne($"{message.SignedByName} joined")
+                .DescriptionOne($"{message.WhoJoinedName} joined")
                 .DescriptionTwo($"At {message.PostedDatedTime.Format()}")
                 .DescriptionSingular("user joined")
                 .DescriptionPlural("users joined")
