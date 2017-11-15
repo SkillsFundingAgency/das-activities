@@ -1,0 +1,12 @@
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\NuGet.dll
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\NuGet.pdb
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\Elasticsearch.Net.dll
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\Nest.dll
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\Elasticsearch.Net.xml
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\Nest.xml
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\obj\Debug\NuGet.csprojResolveAssemblyReference.cache
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\obj\Debug\NuGet.csproj.CoreCompileInputs.cache
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\obj\Debug\NuGet.dll
+D:\Dev\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\obj\Debug\NuGet.pdb

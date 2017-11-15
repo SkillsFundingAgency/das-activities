@@ -1,0 +1,12 @@
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\Elasticsearch.Net.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\Nest.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\Newtonsoft.Json.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\obj\Debug\SFA.DAS.Activities.Entities.csprojResolveAssemblyReference.cache
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\obj\Debug\SFA.DAS.Activities.Entities.csproj.CoreCompileInputs.cache
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\Elasticsearch.Net.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\Nest.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\Newtonsoft.Json.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\SFA.DAS.Activities.Entities.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\bin\Debug\SFA.DAS.Activities.Entities.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\obj\Debug\SFA.DAS.Activities.Entities.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Entities\obj\Debug\SFA.DAS.Activities.Entities.pdb
