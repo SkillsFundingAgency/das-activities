@@ -72,3 +72,6 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Ac
 D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\obj\Debug\SFA.DAS.Activities.Infrastructure.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\bin\Debug\Microsoft.WindowsAzure.Configuration.xml
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
+D:\Dev\das-activities\src\SFA.DAS.Activities.Infrastructure\bin\Debug\Microsoft.WindowsAzure.Storage.pdb

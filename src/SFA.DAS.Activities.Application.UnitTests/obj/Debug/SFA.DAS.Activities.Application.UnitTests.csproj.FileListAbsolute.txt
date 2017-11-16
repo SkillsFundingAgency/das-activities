@@ -46,3 +46,4 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\obj\Debug\SFA
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\obj\Debug\SFA.DAS.Activities.Application.UnitTests.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\obj\Debug\SFA.DAS.Activities.Application.UnitTests.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\obj\Debug\SFA.DAS.Activities.Application.UnitTests.pdb
+D:\Dev\das-activities\src\SFA.DAS.Activities.Application.UnitTests\bin\Debug\SFA.DAS.Configuration.dll

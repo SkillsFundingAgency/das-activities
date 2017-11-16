@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using Nest;
 using NuGet;
-using SFA.DAS.Activities.Application;
-using SFA.DAS.Activities.Application.Commands.SaveActivity;
-using SFA.DAS.Activities.Application.Configurations;
 using SFA.DAS.Activities.Application.Repositories;
+using SFA.DAS.Activities.Domain.Configurations;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {
@@ -19,7 +17,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 
         public ActivitiesRepository(ActivitiesConfiguration configuration, ILog logger)
         {
-            var elasticSettings = new ConnectionSettings(new Uri("http://localhost:9200")).DefaultIndex("activities");
+            var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl)).DefaultIndex("activities");
             //var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl)).DefaultIndex("activities");
             _elasticClient =new ElasticClient(elasticSettings);
 

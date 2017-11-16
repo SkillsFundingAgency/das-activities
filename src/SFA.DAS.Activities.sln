@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Worker", "SFA.DAS.Activities.Worker\SFA.DAS.Activities.Worker.csproj", "{F43EF579-7C59-4F43-8EDD-6A54B51CD455}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Application", "SFA.DAS.Activities.Application\SFA.DAS.Activities.Application.csproj", "{EE9585AE-D085-4B42-B40D-E33ED02FC886}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Domain", "SFA.DAS.Activities.Domain\SFA.DAS.Activities.Domain.csproj", "{EEC952E7-F04A-41A3-9D5D-F25E64BD3FAB}"
@@ -21,16 +19,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Tasks.Worker.UnitTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EmployerAccounts.Events", "..\..\das-employerapprenticeshipsservice\src\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj", "{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.Activities.CloudService", "SFA.DAS.Activities.CloudService\SFA.DAS.Activities.CloudService.ccproj", "{1C9E8A17-CF0A-4442-B49B-EADD00B80179}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.WorkerRole", "SFA.DAS.Activities.WorkerRole\SFA.DAS.Activities.WorkerRole.csproj", "{8A91E866-5794-451D-A875-BC6285F7744B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F43EF579-7C59-4F43-8EDD-6A54B51CD455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F43EF579-7C59-4F43-8EDD-6A54B51CD455}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F43EF579-7C59-4F43-8EDD-6A54B51CD455}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F43EF579-7C59-4F43-8EDD-6A54B51CD455}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE9585AE-D085-4B42-B40D-E33ED02FC886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE9585AE-D085-4B42-B40D-E33ED02FC886}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE9585AE-D085-4B42-B40D-E33ED02FC886}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +61,14 @@ Global
 		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A91E866-5794-451D-A875-BC6285F7744B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A91E866-5794-451D-A875-BC6285F7744B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A91E866-5794-451D-A875-BC6285F7744B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A91E866-5794-451D-A875-BC6285F7744B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

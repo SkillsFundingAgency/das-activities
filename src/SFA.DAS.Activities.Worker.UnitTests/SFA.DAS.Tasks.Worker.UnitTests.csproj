@@ -84,10 +84,6 @@
       <Project>{ee9585ae-d085-4b42-b40d-e33ed02fc886}</Project>
       <Name>SFA.DAS.Activities.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Activities.Worker\SFA.DAS.Activities.Worker.csproj">
-      <Project>{f43ef579-7c59-4f43-8edd-6a54b51cd455}</Project>
-      <Name>SFA.DAS.Activities.Worker</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MessageProcessors\CommitmentHasBeenApprovedMessageProcessorTests\" />
