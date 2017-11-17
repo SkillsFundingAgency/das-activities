@@ -55,6 +55,7 @@
     <Compile Include="Commands\SaveActivity\SaveActivityCommandResponse.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityRequestValidator.cs" />
     <Compile Include="Configurations\ActivitiesConfiguration.cs" />
+    <Compile Include="Configurations\IProvideSettings.cs" />
     <Compile Include="Exceptions\InvalidRequestException.cs" />
     <Compile Include="IConfigurationInfo.cs" />
     <Compile Include="Messages\ActivityProcessorQueueMessage.cs" />
