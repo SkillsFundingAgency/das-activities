@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Elasticsearch.Net;
 using SFA.DAS.NLog.Logger;
 using Nest;
 using NuGet;
@@ -17,17 +18,12 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
         private readonly ElasticClient _elasticClient;
         private readonly ILog _logger;
 
-        public ActivitiesRepository(ActivitiesConfiguration configuration, ILog logger)
+        public ActivitiesRepository(IActivitiesConfiguration configuration, ILog logger)
         {
             var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl)).DefaultIndex("activities");
             _elasticClient =new ElasticClient(elasticSettings);
 
             _logger = logger;
-        }
-
-        public Task<IEnumerable<Activity>> GetActivities(long accountId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Activity> GetActivity(Activity activity)
@@ -54,6 +50,11 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                     )
                 )
             );
+
+            if (!searchResponse.IsValid)
+            {
+                throw searchResponse.OriginalException;
+            }
 
             return searchResponse.Documents.FirstOrDefault();
         }

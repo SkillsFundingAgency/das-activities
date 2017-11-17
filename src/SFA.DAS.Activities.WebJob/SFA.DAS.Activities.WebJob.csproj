@@ -175,6 +175,10 @@
       <Project>{EE9585AE-D085-4B42-B40D-E33ED02FC886}</Project>
       <Name>SFA.DAS.Activities.Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities.DataAccess\SFA.DAS.Activities.DataAccess.csproj">
+      <Project>{715B9014-19D8-42AB-881B-3BECE27E7F4E}</Project>
+      <Name>SFA.DAS.Activities.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Infrastructure\SFA.DAS.Activities.Infrastructure.csproj">
       <Project>{28fa486e-5ef8-4a6b-9072-4e5f61d60eab}</Project>
       <Name>SFA.DAS.Activities.Infrastructure</Name>

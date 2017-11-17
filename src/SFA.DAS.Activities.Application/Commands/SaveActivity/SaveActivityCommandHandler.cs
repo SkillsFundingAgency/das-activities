@@ -12,20 +12,19 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
         private readonly IActivitiesRepository _repository;
         private readonly IValidator<SaveActivityCommand> _validator;
 
-        public SaveActivityCommandHandler(IActivitiesRepository repository, IValidator<SaveActivityCommand> validator)
+        public SaveActivityCommandHandler(IActivitiesRepository repository)
         {
             _repository = repository;
-            _validator = validator;
         }
 
         public async Task<SaveActivityCommandResponse> Handle(SaveActivityCommand command)
         {
-            var validationResult = _validator.Validate(command);
+            //var validationResult = _validator.Validate(command);
 
-            if (!validationResult.IsValid())
-            {
-                throw new InvalidRequestException(validationResult.ValidationDictionary);
-            }
+            //if (!validationResult.IsValid())
+            //{
+            //    throw new InvalidRequestException(validationResult.ValidationDictionary);
+            //}
 
             var savedActivity = await _repository.GetActivity(command.Activity);
 

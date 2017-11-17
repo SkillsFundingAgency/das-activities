@@ -17,7 +17,6 @@
 
 
 using SFA.DAS.Activities.Application.Configurations;
-using SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies;
 
 namespace SFA.DAS.Activities.WebJob.DependencyResolution {
     using StructureMap;
@@ -28,7 +27,7 @@ namespace SFA.DAS.Activities.WebJob.DependencyResolution {
             {
                     //c.Policies.Add(new SFA.DAS.Activities.WebJob.Configuration.Policies.ConfigurationPolicy<ActivitiesConfiguration>(ConfigName));
                     //c.Policies.Add(new SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies.MessagePublisherPolicy<ActivitiesConfiguration>(ConfigName));
-                    c.Policies.Add(new MessageSubscriberPolicy());
+                    //c.Policies.Add(new MessageSubscriberPolicy());
                 c.AddRegistry<DefaultRegistry>();
                 c.AddRegistry<MediatrRegistry>();
                 c.AddRegistry<InfrastructureRegistry>();

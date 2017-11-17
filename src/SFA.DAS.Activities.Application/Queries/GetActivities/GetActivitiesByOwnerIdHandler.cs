@@ -1,37 +1,37 @@
-﻿using System.Threading.Tasks;
-using MediatR;
-using SFA.DAS.Activities.Application.Exceptions;
-using SFA.DAS.Activities.Application.Repositories;
-using SFA.DAS.Activities.Application.Validation;
+﻿//using System.Threading.Tasks;
+//using MediatR;
+//using SFA.DAS.Activities.Application.Exceptions;
+//using SFA.DAS.Activities.Application.Repositories;
+//using SFA.DAS.Activities.Application.Validation;
 
-namespace SFA.DAS.Activities.Application.Queries.GetActivities
-{
-    public class
-        GetActivitiesByOwnerIdHandler : IAsyncRequestHandler<GetActivitiesByOwnerIdRequest,
-            GetActivitiesByOwnerIdResponse>
-    {
-        private readonly IActivitiesRepository _repository;
-        private readonly IValidator<GetActivitiesByOwnerIdRequest> _validator;
+//namespace SFA.DAS.Activities.Application.Queries.GetActivities
+//{
+//    public class
+//        GetActivitiesByOwnerIdHandler : IAsyncRequestHandler<GetActivitiesByOwnerIdRequest,
+//            GetActivitiesByOwnerIdResponse>
+//    {
+//        private readonly IActivitiesRepository _repository;
+//        private readonly IValidator<GetActivitiesByOwnerIdRequest> _validator;
 
-        public GetActivitiesByOwnerIdHandler(IActivitiesRepository repository,
-            IValidator<GetActivitiesByOwnerIdRequest> validator)
-        {
-            _repository = repository;
-            _validator = validator;
-        }
+//        public GetActivitiesByOwnerIdHandler(IActivitiesRepository repository,
+//            IValidator<GetActivitiesByOwnerIdRequest> validator)
+//        {
+//            _repository = repository;
+//            _validator = validator;
+//        }
 
-        public async Task<GetActivitiesByOwnerIdResponse> Handle(GetActivitiesByOwnerIdRequest message)
-        {
-            var validationResult = _validator.Validate(message);
+//        public async Task<GetActivitiesByOwnerIdResponse> Handle(GetActivitiesByOwnerIdRequest message)
+//        {
+//            var validationResult = _validator.Validate(message);
 
-            if (!validationResult.IsValid())
-            {
-                throw new InvalidRequestException(validationResult.ValidationDictionary);
-            }
+//            if (!validationResult.IsValid())
+//            {
+//                throw new InvalidRequestException(validationResult.ValidationDictionary);
+//            }
 
-            var result = await _repository.GetActivities(message.AccountId);
+//            var result = await _repository.GetActivities(message.AccountId);
 
-            return new GetActivitiesByOwnerIdResponse {Activities = result};
-        }
-    }
-}
+//            return new GetActivitiesByOwnerIdResponse {Activities = result};
+//        }
+//    }
+//}
