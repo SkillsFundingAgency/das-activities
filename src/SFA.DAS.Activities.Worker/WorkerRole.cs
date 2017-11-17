@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using SFA.DAS.Activities.Application.Configurations;
 using SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies;
-using SFA.DAS.Activities.Worker.Configuration.Policies;
 using SFA.DAS.Activities.Worker.DependencyResolution;
 using StructureMap;
 using SFA.DAS.Messaging;
@@ -49,9 +48,8 @@ namespace SFA.DAS.Activities.Worker
 
             _container = new Container(c =>
             {
-                c.Policies.Add(new ConfigurationPolicy<ActivitiesConfiguration>(ConfigName));
-                c.Policies.Add(new MessagePublisherPolicy<ActivitiesConfiguration>("SFA.DAS.Activities"));
-                c.Policies.Add(new MessageSubscriberPolicy<ActivitiesConfiguration>("SFA.DAS.Activities"));
+                //c.Policies.Add(new MessagePublisherPolicy());
+                c.Policies.Add(new MessageSubscriberPolicy());
                 c.AddRegistry<DefaultRegistry>();
             });
             return result;

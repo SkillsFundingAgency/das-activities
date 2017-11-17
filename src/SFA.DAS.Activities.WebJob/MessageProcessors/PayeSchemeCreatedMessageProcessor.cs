@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
 using MediatR;
 using NuGet;
-using SFA.DAS.Messaging;
-using SFA.DAS.NLog.Logger;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
+using SFA.DAS.Activities.Worker.MessageProcessors;
 using SFA.DAS.EmployerAccounts.Events.Messages;
+using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;
+using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Activities.Worker.MessageProcessors
+namespace SFA.DAS.Activities.WebJob.MessageProcessors
 {
     [TopicSubscription("Activity_PayeSchemeCreatedMessageProcessor")]
     public class PayeSchemeCreatedMessageProcessor : MessageProcessor<PayeSchemeCreatedMessage>

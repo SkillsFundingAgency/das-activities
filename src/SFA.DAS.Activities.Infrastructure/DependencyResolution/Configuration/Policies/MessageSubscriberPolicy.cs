@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
-using Microsoft.WindowsAzure;
-using SFA.DAS.Configuration;
-using SFA.DAS.Configuration.AzureTableStorage;
-using SFA.DAS.Configuration.FileStorage;
 using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.AzureServiceBus.Helpers;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
 using StructureMap.Pipeline;
-using System.Configuration;
-using Microsoft.Azure;
+using SFA.DAS.Activities.Application.Configurations;
 
 namespace SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies
 {
-    public class MessageSubscriberPolicy<T> : ConfiguredInstancePolicy where T : IConfiguration
+    public class MessageSubscriberPolicy : ConfiguredInstancePolicy
     {
-        private readonly string _serviceName;
+        private readonly IActivitiesConfiguration _settings;
 
-        public MessageSubscriberPolicy(string serviceName)
+        public MessageSubscriberPolicy()
         {
-            _serviceName = serviceName;
+            var provider = new AppConfigSettingsProvider(new MachineSettings("Activities:"));
+            _settings = new ActivitiesConfiguration(provider);
         }
 
         protected override void apply(Type pluginType, IConfiguredInstance instance)
@@ -31,11 +27,8 @@ namespace SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.P
 
             if (subscriberFactory == null) return;
 
-            var environment = GetEnvironmentName();
 
-            var messageQueueConnectionString = GetMessageQueueConnectionString(environment);
-
-            if (string.IsNullOrEmpty(messageQueueConnectionString))
+            if (string.IsNullOrEmpty(_settings.ServiceBusConnectionString))
             {
                 var groupFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/EAS_Queues/";
                 var factory = new FileSystemMessageSubscriberFactory(groupFolder);
@@ -46,7 +39,7 @@ namespace SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.P
             {
                 var subscriptionName = TopicSubscriptionHelper.GetMessageGroupName(instance.Constructor.DeclaringType);
 
-                var factory = new TopicSubscriberFactory(messageQueueConnectionString, subscriptionName);
+                var factory = new TopicSubscriberFactory(_settings.ServiceBusConnectionString, subscriptionName);
 
                 instance.Dependencies.AddForConstructorParameter(subscriberFactory, factory);
             }
@@ -58,41 +51,6 @@ namespace SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.P
                 .GetParameters().FirstOrDefault(x => x.ParameterType == typeof(IMessageSubscriberFactory));
 
             return factory;
-        }
-
-        private static string GetEnvironmentName()
-        {
-            var environment = Environment.GetEnvironmentVariable("DASENV");
-            if (string.IsNullOrEmpty(environment))
-            {
-                environment = CloudConfigurationManager.GetSetting("EnvironmentName");
-            }
-            return environment;
-        }
-
-        private string GetMessageQueueConnectionString(string environment)
-        {
-            var configurationService = new ConfigurationService(GetConfigurationRepository(),
-                new ConfigurationOptions(_serviceName, environment, "1.0"));
-
-            var config = configurationService.Get<T>();
-
-            var messageQueueConnectionString = config.MessageServiceBusConnectionString;
-            return messageQueueConnectionString;
-        }
-
-        private static IConfigurationRepository GetConfigurationRepository()
-        {
-            IConfigurationRepository configurationRepository;
-            if (bool.Parse(ConfigurationManager.AppSettings["LocalConfig"]))
-            {
-                configurationRepository = new FileStorageConfigurationRepository();
-            }
-            else
-            {
-                configurationRepository = new AzureTableStorageConfigurationRepository(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"));
-            }
-            return configurationRepository;
         }
     }
 }

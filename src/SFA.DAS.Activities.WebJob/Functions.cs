@@ -16,25 +16,29 @@ namespace SFA.DAS.Activities.WebJob
     public class Functions
     {
         [NoAutomaticTrigger]
-        public async Task ProcessQueueMessage(CancellationToken _cancellationTokenSource, TextWriter log)
+        public async Task ProcessMethod(CancellationToken _cancellationTokenSource, TextWriter log)
         {
-            var _container = IoC.Initialize();
-            var logger = _container.GetInstance<ILog>();
-            while (true)
+            var container = IoC.Initialize();
+            var logger = container.GetInstance<ILog>();
+            logger.Info("Starting WebJob...");
+            while (!_cancellationTokenSource.IsCancellationRequested)
             {
                 try
                 {
-                    var messageProcessors = _container.GetAllInstances<IMessageProcessor>();
+                    var messageProcessors = container.GetAllInstances<IMessageProcessor>();
                     var tasks = messageProcessors.Select(x => x.RunAsync(_cancellationTokenSource)).ToArray();
                     Task.WaitAll(tasks);
                 }
                 catch (Exception ex)
                 {
                     logger.Fatal(ex, "Unexpected Exception");
+                    log.WriteLine(ex.Message);
                 }
 
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromMilliseconds(50));
             }
+            logger.Info("Stopping WebJob...");
+
         }
     }
 }

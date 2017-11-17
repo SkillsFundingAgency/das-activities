@@ -18,21 +18,20 @@
 
 using SFA.DAS.Activities.Application.Configurations;
 using SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies;
-using SFA.DAS.Activities.Worker.DependencyResolution;
 
 namespace SFA.DAS.Activities.WebJob.DependencyResolution {
     using StructureMap;
 	
     public static class IoC {
-        private const string ConfigName = "SFA.DAS.Activities";
-
         public static IContainer Initialize() {
             return new Container(c =>
             {
-                    c.Policies.Add(new SFA.DAS.Activities.WebJob.Configuration.Policies.ConfigurationPolicy<ActivitiesConfiguration>(ConfigName));
-                    c.Policies.Add(new SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies.MessagePublisherPolicy<ActivitiesConfiguration>(ConfigName));
-                    c.Policies.Add(new MessageSubscriberPolicy<ActivitiesConfiguration>(ConfigName));
+                    //c.Policies.Add(new SFA.DAS.Activities.WebJob.Configuration.Policies.ConfigurationPolicy<ActivitiesConfiguration>(ConfigName));
+                    //c.Policies.Add(new SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies.MessagePublisherPolicy<ActivitiesConfiguration>(ConfigName));
+                    c.Policies.Add(new MessageSubscriberPolicy());
                 c.AddRegistry<DefaultRegistry>();
+                c.AddRegistry<MediatrRegistry>();
+                c.AddRegistry<InfrastructureRegistry>();
             });
         }
     }

@@ -1,8 +1,9 @@
-using MediatR;
-using StructureMap;
+using SFA.DAS.Activities.Application.Configurations;
+using SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration;
 using SFA.DAS.NLog.Logger;
+using StructureMap;
 
-namespace SFA.DAS.Activities.Worker.DependencyResolution
+namespace SFA.DAS.Activities.WebJob.DependencyResolution
 {
 
 
@@ -16,19 +17,8 @@ namespace SFA.DAS.Activities.Worker.DependencyResolution
                 scan.AssembliesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
-
-            AddMediatrRegistrations();
-
+            For<IProvideSettings>().Use(c => new AppConfigSettingsProvider(new MachineSettings("Activities:")));
             RegisterLogger();
-        }
-
-
-        private void AddMediatrRegistrations()
-        {
-            For<SingleInstanceFactory>().Use<SingleInstanceFactory>(ctx => t => ctx.GetInstance(t));
-            For<MultiInstanceFactory>().Use<MultiInstanceFactory>(ctx => t => ctx.GetAllInstances(t));
-
-            For<IMediator>().Use<Mediator>();
         }
 
         private void RegisterLogger()

@@ -1,12 +1,16 @@
-﻿using SFA.DAS.Configuration;
-
+﻿
 namespace SFA.DAS.Activities.Application.Configurations
 {
-    public class ActivitiesConfiguration : IConfiguration
+    public class ActivitiesConfiguration : IActivitiesConfiguration
     {
-        public string ElasticServerBaseUrl { get; set; } = "\"http://localhost:9200\"";
-        public string DatabaseConnectionString { get; set; }
-        public string ServiceBusConnectionString { get; set; }
-        public string MessageServiceBusConnectionString { get; set; }
+        private readonly IProvideSettings _settings;
+
+        public ActivitiesConfiguration(IProvideSettings settings)
+        {
+            _settings = settings;
+        }
+
+        public string ElasticServerBaseUrl => _settings.GetSetting("ElasticSearch:BaseUrl");
+        public string ServiceBusConnectionString => _settings.GetSetting("ServiceBus:ConnectionString");
     }
 }

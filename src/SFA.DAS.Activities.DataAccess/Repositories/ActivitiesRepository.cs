@@ -19,8 +19,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 
         public ActivitiesRepository(ActivitiesConfiguration configuration, ILog logger)
         {
-            var elasticSettings = new ConnectionSettings(new Uri("http://localhost:9200")).DefaultIndex("activities");
-            //var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl)).DefaultIndex("activities");
+            var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl)).DefaultIndex("activities");
             _elasticClient =new ElasticClient(elasticSettings);
 
             _logger = logger;

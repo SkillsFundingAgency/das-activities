@@ -9,7 +9,6 @@ using SFA.DAS.Activities.Application.Queries;
 using SFA.DAS.Activities.Application.Queries.GetActivities;
 using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Application.Validation;
-using SFA.DAS.Activities.Worker;
 
 
 namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
