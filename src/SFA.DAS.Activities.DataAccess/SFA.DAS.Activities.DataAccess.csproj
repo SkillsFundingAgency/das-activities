@@ -77,10 +77,6 @@
       <Project>{EE9585AE-D085-4B42-B40D-E33ED02FC886}</Project>
       <Name>SFA.DAS.Activities.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Activities.Domain\SFA.DAS.Activities.Domain.csproj">
-      <Project>{eec952e7-f04a-41a3-9d5d-f25e64bd3fab}</Project>
-      <Name>SFA.DAS.Activities.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
