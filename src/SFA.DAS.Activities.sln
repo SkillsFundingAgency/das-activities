@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Application", "SFA.DAS.Activities.Application\SFA.DAS.Activities.Application.csproj", "{EE9585AE-D085-4B42-B40D-E33ED02FC886}"
 EndProject
@@ -11,17 +11,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.DataAccess", "SFA.DAS.Activities.DataAccess\SFA.DAS.Activities.DataAccess.csproj", "{715B9014-19D8-42AB-881B-3BECE27E7F4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet", "..\..\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\NuGet.csproj", "{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Application.UnitTests", "SFA.DAS.Activities.Application.UnitTests\SFA.DAS.Activities.Application.UnitTests.csproj", "{09F60916-ACFE-403A-8822-FF5EF4EC3D1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Tasks.Worker.UnitTests", "SFA.DAS.Activities.Worker.UnitTests\SFA.DAS.Tasks.Worker.UnitTests.csproj", "{BBF03398-57DA-4FFE-AEE1-567E5E4D2461}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EmployerAccounts.Events", "..\..\das-employerapprenticeshipsservice\src\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj", "{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}"
 EndProject
+<<<<<<< HEAD
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.Activities.CloudService", "SFA.DAS.Activities.CloudService\SFA.DAS.Activities.CloudService.ccproj", "{1C9E8A17-CF0A-4442-B49B-EADD00B80179}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.WorkerRole", "SFA.DAS.Activities.WorkerRole\SFA.DAS.Activities.WorkerRole.csproj", "{8A91E866-5794-451D-A875-BC6285F7744B}"
+=======
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet", "NuGet\NuGet.csproj", "{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}"
+>>>>>>> master
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +47,6 @@ Global
 		{715B9014-19D8-42AB-881B-3BECE27E7F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{715B9014-19D8-42AB-881B-3BECE27E7F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{715B9014-19D8-42AB-881B-3BECE27E7F4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09F60916-ACFE-403A-8822-FF5EF4EC3D1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09F60916-ACFE-403A-8822-FF5EF4EC3D1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09F60916-ACFE-403A-8822-FF5EF4EC3D1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,6 +59,7 @@ Global
 		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.Build.0 = Release|Any CPU
+<<<<<<< HEAD
 		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C9E8A17-CF0A-4442-B49B-EADD00B80179}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -69,6 +68,12 @@ Global
 		{8A91E866-5794-451D-A875-BC6285F7744B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A91E866-5794-451D-A875-BC6285F7744B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A91E866-5794-451D-A875-BC6285F7744B}.Release|Any CPU.Build.0 = Release|Any CPU
+=======
+		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Release|Any CPU.Build.0 = Release|Any CPU
+>>>>>>> master
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
