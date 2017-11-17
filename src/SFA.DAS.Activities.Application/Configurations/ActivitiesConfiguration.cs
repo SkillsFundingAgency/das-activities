@@ -7,5 +7,6 @@ namespace SFA.DAS.Activities.Application.Configurations
         public string ElasticServerBaseUrl { get; set; } = "\"http://localhost:9200\"";
         public string DatabaseConnectionString { get; set; }
         public string ServiceBusConnectionString { get; set; }
+        public string MessageServiceBusConnectionString { get; set; }
     }
 }

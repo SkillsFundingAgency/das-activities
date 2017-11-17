@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Azure;
 using Microsoft.WindowsAzure;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;

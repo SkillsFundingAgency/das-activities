@@ -12,6 +12,7 @@ using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
 using StructureMap.Pipeline;
 using System.Configuration;
+using Microsoft.Azure;
 
 namespace SFA.DAS.Activities.Infrastructure.DependencyResolution.Configuration.Policies
 {
