@@ -37,6 +37,7 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
         {
             For<ILog>().Use(x => new NLogLogger(
                 x.ParentType,
+                null,
                 null)).AlwaysUnique();
         }
     }
