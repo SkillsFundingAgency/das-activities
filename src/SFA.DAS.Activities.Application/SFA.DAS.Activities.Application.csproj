@@ -67,8 +67,8 @@
     <Compile Include="Validation\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\das-shared-packages\SFA.DAS.UI\SFA.DAS.UI.Activities\NuGet\NuGet.csproj">
-      <Project>{948f920f-180e-4dab-b4a7-2eac7a72accb}</Project>
+    <ProjectReference Include="..\NuGet\NuGet.csproj">
+      <Project>{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}</Project>
       <Name>NuGet</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Domain\SFA.DAS.Activities.Domain.csproj">

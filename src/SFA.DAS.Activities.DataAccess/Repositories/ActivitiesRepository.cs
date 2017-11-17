@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.NLog.Logger;
 using Nest;
-using NuGet;
 using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.Activities.Domain.Configurations;
+using NuGet;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {

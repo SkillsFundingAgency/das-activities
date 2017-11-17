@@ -13,14 +13,8 @@ D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Activities
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Activities.Domain.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Activities.Domain.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Newtonsoft.Json.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\NuGet.dll
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\SFA.DAS.Configuration.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Nest.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Elasticsearch.Net.dll
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\NuGet.pdb
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Newtonsoft.Json.xml
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Nest.xml
-D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\bin\Debug\Elasticsearch.Net.xml
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\obj\Debug\SFA.DAS.Activities.Domain.csprojResolveAssemblyReference.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\obj\Debug\SFA.DAS.Activities.Domain.csproj.CoreCompileInputs.cache
 D:\Dev\das-activities\src\SFA.DAS.Activities.Domain\obj\Debug\SFA.DAS.Activities.Domain.dll
