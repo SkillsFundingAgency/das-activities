@@ -79,6 +79,10 @@
       <Project>{eec952e7-f04a-41a3-9d5d-f25e64bd3fab}</Project>
       <Name>SFA.DAS.Activities.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities.WorkerRole\SFA.DAS.Activities.WorkerRole.csproj">
+      <Project>{8a91e866-5794-451d-a875-bc6285f7744b}</Project>
+      <Name>SFA.DAS.Activities.WorkerRole</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

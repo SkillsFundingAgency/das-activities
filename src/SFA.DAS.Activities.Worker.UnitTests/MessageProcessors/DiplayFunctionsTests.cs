@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using SFA.DAS.Activities.Worker.MessageProcessors;
+using SFA.DAS.Activities.WorkerRole.MessageProcessors;
 
 namespace SFA.DAS.Tasks.Worker.UnitTests.MessageProcessors
 {
