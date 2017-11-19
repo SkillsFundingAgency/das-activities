@@ -13,11 +13,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Applicat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Tasks.Worker.UnitTests", "SFA.DAS.Activities.Worker.UnitTests\SFA.DAS.Tasks.Worker.UnitTests.csproj", "{BBF03398-57DA-4FFE-AEE1-567E5E4D2461}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EmployerAccounts.Events", "..\..\das-employerapprenticeshipsservice\src\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj", "{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet", "NuGet\NuGet.csproj", "{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.WebJob", "SFA.DAS.Activities.WebJob\SFA.DAS.Activities.WebJob.csproj", "{ADEFC772-9C53-40FE-A14F-FF87B7863122}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.EmployerAccounts.Events", "SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj", "{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,6 @@ Global
 		{BBF03398-57DA-4FFE-AEE1-567E5E4D2461}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBF03398-57DA-4FFE-AEE1-567E5E4D2461}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBF03398-57DA-4FFE-AEE1-567E5E4D2461}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{ADEFC772-9C53-40FE-A14F-FF87B7863122}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADEFC772-9C53-40FE-A14F-FF87B7863122}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADEFC772-9C53-40FE-A14F-FF87B7863122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

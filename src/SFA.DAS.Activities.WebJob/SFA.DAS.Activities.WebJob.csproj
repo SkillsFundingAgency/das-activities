@@ -163,10 +163,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\das-employerapprenticeshipsservice\src\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj">
-      <Project>{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}</Project>
-      <Name>SFA.DAS.EmployerAccounts.Events</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NuGet\NuGet.csproj">
       <Project>{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}</Project>
       <Name>NuGet</Name>
@@ -182,6 +178,10 @@
     <ProjectReference Include="..\SFA.DAS.Activities.Infrastructure\SFA.DAS.Activities.Infrastructure.csproj">
       <Project>{28fa486e-5ef8-4a6b-9072-4e5f61d60eab}</Project>
       <Name>SFA.DAS.Activities.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj">
+      <Project>{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}</Project>
+      <Name>SFA.DAS.EmployerAccounts.Events</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

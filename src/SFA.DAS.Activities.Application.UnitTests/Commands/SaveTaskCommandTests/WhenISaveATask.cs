@@ -28,7 +28,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 
             _repository = new Mock<IActivitiesRepository>();
 
-            RequestHandler = new SaveActivityCommandHandler(_repository.Object, RequestValidator.Object);
+            RequestHandler = new SaveActivityCommandHandler(_repository.Object);
 
             _testActivity = new FluentActivity().AccountId(AccountId).Object();
 
@@ -40,7 +40,6 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
         {
             await RequestHandler.Handle(Query);
 
-            _repository.Verify(x => x.GetActivity(_testActivity), Times.Once);
             _repository.Verify(x => x.SaveActivity(_testActivity));
         }
 
