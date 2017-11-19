@@ -19,7 +19,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Commands.SaveTaskCommandTests
 
         public override SaveActivityCommand Query { get; set; }
         public override SaveActivityCommandHandler RequestHandler { get; set; }
-        public override Mock<IValidator<SaveActivityCommand>> RequestValidator { get; set; }
+        //public override Mock<IValidator<SaveActivityCommand>> RequestValidator { get; set; }
 
         [SetUp]
         public void Arrange()
