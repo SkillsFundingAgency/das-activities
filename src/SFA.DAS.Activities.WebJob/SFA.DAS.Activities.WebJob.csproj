@@ -56,9 +56,6 @@
     <ManifestCertificateThumbprint>6CA39C00FED61C264C01924227E2C5BE4D78B51B</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>SFA.DAS.Activities.WebJob_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
