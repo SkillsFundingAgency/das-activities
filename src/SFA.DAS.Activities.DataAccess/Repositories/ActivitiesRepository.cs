@@ -15,56 +15,75 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 {
     public class ActivitiesRepository : IActivitiesRepository
     {
-        private readonly ElasticClient _elasticClient;
+        private readonly IActivitiesConfiguration _configuration;
         private readonly ILog _logger;
+
+        private string _currentIndex;
+        private ElasticClient _elasticClient;
 
         public ActivitiesRepository(IActivitiesConfiguration configuration, ILog logger)
         {
-            var elasticSettings = new ConnectionSettings(new Uri(configuration.ElasticServerBaseUrl)).DefaultIndex("activities");
-            _elasticClient =new ElasticClient(elasticSettings);
-
-            _logger = logger;
+           _configuration = configuration;
+           _logger = logger;
         }
-
-        public async Task<Activity> GetActivity(Activity activity)
-        {
-            var searchResponse = await _elasticClient.SearchAsync<Activity>(s => s
-                .From(0)
-                .Size(1)
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.AccountId)
-                        .Query(activity.AccountId.ToString())
-                    )
-                )
-                .Query(q=>q
-                    .Match(m=>m
-                    .Field(f=>f.TypeOfActivity)
-                    .Query(activity.TypeOfActivity.ToString())
-                    )
-                )
-                .Query(q => q
-                    .Match(m => m
-                        .Field(f => f.Url)
-                        .Query(activity.Url)
-                    )
-                )
-            );
-
-            if (!searchResponse.IsValid)
-            {
-                throw searchResponse.OriginalException;
-            }
-
-            return searchResponse.Documents.FirstOrDefault();
-        }
-
         public async Task SaveActivity(Activity activity)
         {
-            var activityAlreadyExists = await GetActivity(activity);
+            await ElasticClient.IndexAsync(activity);
+        }
 
-            if (activityAlreadyExists ==null)
-                await (_elasticClient.IndexAsync(activity));
+        private string GetIndexName()
+        {
+            return string.Format(_configuration.ElasticSearchIndexFormat, _configuration.EnvironmentName,
+                DateTime.UtcNow.ToString("yyyy-MM-dd"));
+        }
+
+        private ElasticClient ElasticClient
+        {
+            get
+            {
+                var indexName = GetIndexName();
+                if (string.IsNullOrEmpty(_currentIndex) || indexName != _currentIndex)
+                {
+                    var connectionSettings = new ConnectionSettings(new Uri(_configuration.ElasticServerBaseUrl))
+                        .DefaultIndex(indexName);
+                    _currentIndex = indexName;
+                    if (_configuration.RequiresAuthentication)
+                    {
+                        connectionSettings.BasicAuthentication(_configuration.ElasticSearchUserName,
+                            _configuration.ElasticSearchPassword);
+                    }
+                    _elasticClient = new ElasticClient(connectionSettings);
+
+                    if (!IndexExists(indexName))
+                    {
+                        CreateIndex(indexName);
+                    }
+                }
+
+                return _elasticClient;
+            }
+        }
+
+        private bool IndexExists(string name)
+        {
+            var request = new IndexExistsRequest(name);
+            var response = _elasticClient.IndexExists(request);
+            if (!response.IsValid)
+            {
+                throw response.OriginalException;
+            }
+
+            return response.Exists;
+        }
+
+        private void CreateIndex(string name)
+        {
+            var request = new CreateIndexRequest(name);
+            var response = _elasticClient.CreateIndex(request);
+            if (!response.IsValid)
+            {
+                throw response.OriginalException;
+            }
         }
     }
 }

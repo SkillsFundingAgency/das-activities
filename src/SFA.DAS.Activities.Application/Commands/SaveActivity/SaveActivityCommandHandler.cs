@@ -26,10 +26,8 @@ namespace SFA.DAS.Activities.Application.Commands.SaveActivity
             //    throw new InvalidRequestException(validationResult.ValidationDictionary);
             //}
 
-            var savedActivity = await _repository.GetActivity(command.Activity);
 
-            if (savedActivity==null)
-                await _repository.SaveActivity(command.Activity);
+            await _repository.SaveActivity(command.Activity);
 
 
             return new SaveActivityCommandResponse();
