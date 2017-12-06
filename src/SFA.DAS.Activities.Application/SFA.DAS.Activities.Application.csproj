@@ -51,9 +51,10 @@
     <Compile Include="Commands\SaveActivity\SaveActivityCommandHandler.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommandResponse.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityRequestValidator.cs" />
-    <Compile Include="Configurations\ActivitiesConfiguration.cs" />
-    <Compile Include="Configurations\IActivitiesConfiguration.cs" />
+    <Compile Include="Configurations\ElasticConfiguration.cs" />
+    <Compile Include="Configurations\EnvironmentConfiguration.cs" />
     <Compile Include="Configurations\IProvideSettings.cs" />
+    <Compile Include="Configurations\ServiceBusConfiguration.cs" />
     <Compile Include="Exceptions\InvalidRequestException.cs" />
     <Compile Include="IConfigurationInfo.cs" />
     <Compile Include="Messages\ActivityProcessorQueueMessage.cs" />
@@ -71,9 +72,12 @@
       <Project>{948f920f-180e-4dab-b4a7-2eac7a72accb}</Project>
       <Name>NuGet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Acitivities.Core\SFA.DAS.Acitivities.Core.csproj">
+      <Project>{36CC4F60-2296-4FF7-A8F8-76BCB61A2412}</Project>
+      <Name>SFA.DAS.Acitivities.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,17 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{28FA486E-5EF8-4A6B-9072-4E5F61D60EAB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ED9598CD-DDE8-453C-B36B-68033A453FE6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.Activities.Infrastructure</RootNamespace>
-    <AssemblyName>SFA.DAS.Activities.Infrastructure</AssemblyName>
+    <RootNamespace>SFA.DAS.Activities.WorkerRole</RootNamespace>
+    <AssemblyName>SFA.DAS.Activities.WorkerRole</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <RoleType>Worker</RoleType>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +33,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MediatR, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -51,6 +58,13 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Diagnostics, Version=2.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=2.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unofficial.Microsoft.WindowsAzure.ServiceRuntime.2.9.0.0\lib\net45\Microsoft.WindowsAzure.ServiceRuntime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=6.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WindowsAzure.Storage.6.2.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
@@ -76,12 +90,19 @@
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.39208, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.39208\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.NLog.Targets.Redis, Version=1.0.0.47445, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.NLog.Targets.Redis.1.0.0.47445\lib\net45\SFA.DAS.NLog.Targets.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.1.608.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StackExchange.Redis.1.1.608\lib\net46\StackExchange.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap, Version=4.5.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.5.2\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -97,50 +118,80 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Topshelf, Version=3.3.154.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Topshelf.3.3.1\lib\net40-full\Topshelf.dll</HintPath>
+    </Reference>
+    <Reference Include="Topshelf.Azure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Topshelf.Azure.1.4.1\lib\net45\Topshelf.Azure.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\AppSettingsProvider.cs" />
-    <Compile Include="Configuration\CloudConfigProvider.cs" />
-    <Compile Include="Configuration\ISettingsBuilder.cs" />
-    <Compile Include="Configuration\ISettingsProvider.cs" />
-    <Compile Include="Configuration\SettingsBuilder.cs" />
-    <Compile Include="Configuration\SettingsProvider.cs" />
-    <Compile Include="Configuration\TableStorageProvider.cs" />
-    <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\AgreementCreatedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\AgreementSignedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\DisplayFunctions.cs" />
-    <Compile Include="MessageProcessors\LegalEntityRemovedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\PayeSchemeDeletedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\UserInvitedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\UserJoinedMessageProcessor.cs" />
+    <Compile Include="DependencyResolution\ApplicationRegistry.cs" />
+    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
+    <Compile Include="DependencyResolution\InfrastructureRegistry.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="DependencyResolution\MediatrRegistry.cs" />
+    <Compile Include="HostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkerRole.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+      <TransformOnBuild>true</TransformOnBuild>
+    </None>
+    <None Include="app.Debug.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
+    <None Include="app.Release.config">
+      <DependentUpon>app.config</DependentUpon>
+      <IsTransformFile>True</IsTransformFile>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NuGet\NuGet.csproj">
-      <Project>{948F920F-180E-4DAB-B4A7-2EAC7A72ACCB}</Project>
-      <Name>NuGet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Acitivities.Core\SFA.DAS.Acitivities.Core.csproj">
       <Project>{36CC4F60-2296-4FF7-A8F8-76BCB61A2412}</Project>
       <Name>SFA.DAS.Acitivities.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Application\SFA.DAS.Activities.Application.csproj">
-      <Project>{EE9585AE-D085-4B42-B40D-E33ED02FC886}</Project>
+      <Project>{ee9585ae-d085-4b42-b40d-e33ed02fc886}</Project>
       <Name>SFA.DAS.Activities.Application</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.EmployerAccounts.Events\SFA.DAS.EmployerAccounts.Events.csproj">
-      <Project>{0E46510C-0D06-4B63-8E17-B9037DB7C7ED}</Project>
-      <Name>SFA.DAS.EmployerAccounts.Events</Name>
+    <ProjectReference Include="..\SFA.DAS.Activities.DataAccess\SFA.DAS.Activities.DataAccess.csproj">
+      <Project>{715B9014-19D8-42AB-881B-3BECE27E7F4E}</Project>
+      <Name>SFA.DAS.Activities.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities.Infrastructure\SFA.DAS.Activities.Infrastructure.csproj">
+      <Project>{28fa486e-5ef8-4a6b-9072-4e5f61d60eab}</Project>
+      <Name>SFA.DAS.Activities.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild" DependsOnTargets="SetGenerateManifests;GenerateApplicationManifest;GenerateDeploymentManifest">
+    <Copy SourceFiles="$(SolutionDir)SFA.DAS.Activities.WorkerRole\obj\$(Configuration)\SFA.DAS.Activities.WorkerRole.exe.manifest" DestinationFiles="$(SolutionDir)SFA.DAS.Activities.WorkerRole\bin\$(Configuration)\SFA.DAS.Activities.WorkerRole.exe.manifest" />
+    <Copy SourceFiles="$(SolutionDir)SFA.DAS.Activities.WorkerRole\obj\$(Configuration)\SFA.DAS.Activities.WorkerRole.application" DestinationFiles="$(SolutionDir)SFA.DAS.Activities.WorkerRole\bin\$(Configuration)\SFA.DAS.Activities.WorkerRole.application" />
+  </Target>
+  <PropertyGroup>
+    <!-- Setting AutoUnifyAssemblyReferences to false will allow the ResolveAssemblyReferences task to 
+    create warnings when detecting version missmatches among references.
+    -->
+    <AutoUnifyAssemblyReferences>false</AutoUnifyAssemblyReferences>
+  </PropertyGroup>
+  <Import Project="..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets" Condition="Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VisualStudio.SlowCheetah.3.0.61\build\Microsoft.VisualStudio.SlowCheetah.targets'))" />
+  </Target>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SFA.DAS.Activities.Application.Configurations
+namespace SFA.DAS.Acitivities.Core.Configuration
 {
     public interface IProvideSettings
     {

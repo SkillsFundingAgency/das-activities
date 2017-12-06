@@ -73,13 +73,16 @@
       <Project>{948f920f-180e-4dab-b4a7-2eac7a72accb}</Project>
       <Name>NuGet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Acitivities.Core\SFA.DAS.Acitivities.Core.csproj">
+      <Project>{36CC4F60-2296-4FF7-A8F8-76BCB61A2412}</Project>
+      <Name>SFA.DAS.Acitivities.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Application\SFA.DAS.Activities.Application.csproj">
       <Project>{EE9585AE-D085-4B42-B40D-E33ED02FC886}</Project>
       <Name>SFA.DAS.Activities.Application</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

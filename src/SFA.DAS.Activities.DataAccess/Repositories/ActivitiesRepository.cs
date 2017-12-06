@@ -6,6 +6,7 @@ using Elasticsearch.Net;
 using SFA.DAS.NLog.Logger;
 using Nest;
 using NuGet;
+using SFA.DAS.Acitivities.Core.Configuration;
 using SFA.DAS.Activities.Application;
 using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Application.Configurations;
@@ -15,16 +16,18 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 {
     public class ActivitiesRepository : IActivitiesRepository
     {
-        private readonly IActivitiesConfiguration _configuration;
+        private readonly IOptions<ElasticConfiguration> _elasticConfig;
+        private readonly IOptions<EnvironmentConfiguration> _envConfig;
         private readonly ILog _logger;
 
         private string _currentIndex;
         private ElasticClient _elasticClient;
 
-        public ActivitiesRepository(IActivitiesConfiguration configuration, ILog logger)
+        public ActivitiesRepository(IOptions<ElasticConfiguration> elasticConfig, IOptions<EnvironmentConfiguration> envConfig, ILog logger)
         {
-           _configuration = configuration;
-           _logger = logger;
+            _elasticConfig = elasticConfig;
+            _envConfig = envConfig;
+            _logger = logger;
         }
         public async Task SaveActivity(Activity activity)
         {
@@ -33,7 +36,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 
         private string GetIndexName()
         {
-            return string.Format(_configuration.ElasticSearchIndexFormat, _configuration.EnvironmentName,
+            return string.Format(_elasticConfig.Value.IndexFormat, _envConfig.Value.Name,
                 DateTime.UtcNow.ToString("yyyy-MM-dd"));
         }
 
@@ -44,13 +47,13 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
                 var indexName = GetIndexName();
                 if (string.IsNullOrEmpty(_currentIndex) || indexName != _currentIndex)
                 {
-                    var connectionSettings = new ConnectionSettings(new Uri(_configuration.ElasticServerBaseUrl))
+                    var connectionSettings = new ConnectionSettings(new Uri(_elasticConfig.Value.BaseUrl))
                         .DefaultIndex(indexName);
                     _currentIndex = indexName;
-                    if (_configuration.RequiresAuthentication)
+                    if (_elasticConfig.Value.RequiresAuthentication)
                     {
-                        connectionSettings.BasicAuthentication(_configuration.ElasticSearchUserName,
-                            _configuration.ElasticSearchPassword);
+                        connectionSettings.BasicAuthentication(_elasticConfig.Value.UserName,
+                            _elasticConfig.Value.Password);
                     }
                     _elasticClient = new ElasticClient(connectionSettings);
 
