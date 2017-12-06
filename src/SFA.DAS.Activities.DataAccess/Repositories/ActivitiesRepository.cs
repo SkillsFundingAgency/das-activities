@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Elasticsearch.Net;
-using SFA.DAS.NLog.Logger;
 using Nest;
 using NuGet;
 using SFA.DAS.Acitivities.Core.Configuration;
@@ -18,20 +17,22 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
     {
         private readonly IOptions<ElasticConfiguration> _elasticConfig;
         private readonly IOptions<EnvironmentConfiguration> _envConfig;
-        private readonly ILog _logger;
 
         private string _currentIndex;
         private ElasticClient _elasticClient;
 
-        public ActivitiesRepository(IOptions<ElasticConfiguration> elasticConfig, IOptions<EnvironmentConfiguration> envConfig, ILog logger)
+        public ActivitiesRepository(IOptions<ElasticConfiguration> elasticConfig, IOptions<EnvironmentConfiguration> envConfig)
         {
             _elasticConfig = elasticConfig;
             _envConfig = envConfig;
-            _logger = logger;
         }
         public async Task SaveActivity(Activity activity)
         {
-            await ElasticClient.IndexAsync(activity);
+            var response = await ElasticClient.IndexAsync(activity);
+            if (!response.IsValid)
+            {
+                throw new ApplicationException("Problem saving activity", response.ApiCall?.OriginalException);
+            }
         }
 
         private string GetIndexName()
@@ -73,7 +74,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
             var response = _elasticClient.IndexExists(request);
             if (!response.IsValid)
             {
-                throw response.OriginalException;
+                throw new ApplicationException("Problem checking if index exists", response.OriginalException);
             }
 
             return response.Exists;
@@ -85,7 +86,7 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
             var response = _elasticClient.CreateIndex(request);
             if (!response.IsValid)
             {
-                throw response.OriginalException;
+                throw new ApplicationException("Problem creating index", response.ApiCall?.OriginalException);
             }
         }
     }

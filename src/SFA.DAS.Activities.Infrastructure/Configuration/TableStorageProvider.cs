@@ -24,21 +24,25 @@ namespace SFA.DAS.Activities.Infrastructure.Configuration
 
         public TableStorageProvider AddSection(string serviceName)
         {
-            var environment = CloudConfigurationManager.GetSetting("Environment_Name") ?? ConfigurationManager.AppSettings["Environment:Name"];
-
-            var configurationRepository = GetConfigurationRepository();
-            try
+            var environment = CloudConfigurationManager.GetSetting("Environment_Name") ??
+                              ConfigurationManager.AppSettings["Environment:Name"];
+            if (!string.IsNullOrEmpty(_connectionString) && !string.IsNullOrEmpty(environment))
             {
-                var details = configurationRepository.Get(serviceName, environment.ToUpper(), "1.0");
-                var settings = JsonConvert.DeserializeObject<ExpandoObject>(details, new ExpandoObjectConverter());
-                AddToDictionary(settings);
-            }
-            catch (MissingMethodException ex)
-             {
-                // config is missing from table storage
+                var configurationRepository = GetConfigurationRepository();
+                try
+                {
+                    var details = configurationRepository.Get(serviceName, environment.ToUpper(), "1.0");
+                    var settings =
+                        JsonConvert.DeserializeObject<ExpandoObject>(details, new ExpandoObjectConverter());
+                    AddToDictionary(settings);
+                }
+                catch (Exception ex)
+                {
+                    // swallow exception
+                }
             }
 
-             return this;
+            return this;
         }
 
         private void AddToDictionary(ExpandoObject settings, string prefix = "")
@@ -48,13 +52,13 @@ namespace SFA.DAS.Activities.Infrastructure.Configuration
                 prefix += ":";
             }
 
-            foreach (var pair in ((IDictionary<string, object>) settings))
+            foreach (var pair in settings)
             {
                 if (pair.Value is ExpandoObject)
                 {
                     AddToDictionary((ExpandoObject) pair.Value, $"{prefix}{pair.Key}");
                 }
-                else
+                else if (pair.Value != null && !(pair.Value is string) || pair.Value is string && !string.IsNullOrEmpty((string) pair.Value))
                 {
                     Settings.Add($"{prefix}{pair.Key}", pair.Value);
                 }

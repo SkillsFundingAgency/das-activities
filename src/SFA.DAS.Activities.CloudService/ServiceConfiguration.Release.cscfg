@@ -9,4 +9,14 @@
       <Setting name="Logging_RedisConnectionString" value="__LoggingRedisConnectionString__" />
     </ConfigurationSettings>
   </Role>
+  <NetworkConfiguration>
+    <VirtualNetworkSite name="__vnet__" />
+    <AddressAssignments>
+      <InstanceAddress roleName="SFA.DAS.Activities.WorkerRole">
+        <Subnets>
+          <Subnet name="__subnet__" />
+        </Subnets>
+      </InstanceAddress>
+    </AddressAssignments>
+  </NetworkConfiguration>
 </ServiceConfiguration>

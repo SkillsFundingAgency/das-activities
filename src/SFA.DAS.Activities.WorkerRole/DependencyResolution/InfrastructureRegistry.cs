@@ -29,6 +29,12 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
                 {
                     var groupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                         "EAS_Queues");
+
+                    if (!Directory.Exists(groupFolder))
+                    {
+                        Directory.CreateDirectory(groupFolder);
+                    }
+
                     return new FileSystemMessageSubscriberFactory(groupFolder);
                 });
             }
@@ -49,12 +55,14 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
 
         private static SettingsProvider BuildSettingsProvider()
         {
+            var configConnectionString = CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString");
+
             return new SettingsBuilder()
+                .AddProvider(new TableStorageProvider(configConnectionString)
+                    .AddSection("SFA.DAS.Activities"))
                 .AddProvider(new CloudConfigProvider()
                     .AddSection<EnvironmentConfiguration>("Environment"))
                 .AddProvider(new AppSettingsProvider())
-                .AddProvider(new TableStorageProvider(CloudConfigurationManager.GetSetting("ConfigurationStorageConnectionString"))
-                    .AddSection("SFA.DAS.Activities"))
                 .Build();
         }
     }

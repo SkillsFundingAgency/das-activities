@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using NLog;
 using SFA.DAS.Activities.Application.Configurations;
 
 namespace SFA.DAS.Activities.Infrastructure.Configuration
@@ -22,6 +24,7 @@ namespace SFA.DAS.Activities.Infrastructure.Configuration
                 {
                     if (!values.ContainsKey(pair.Key))
                     {
+                        Console.WriteLine($"Loaded {provider.GetType().Name} > [{pair.Key}]");
                         values.Add(pair.Key, pair.Value);
                     }
                 }

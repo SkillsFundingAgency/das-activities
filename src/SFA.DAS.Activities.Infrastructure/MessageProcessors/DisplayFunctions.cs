@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.Activities.Worker.MessageProcessors
+namespace SFA.DAS.Activities.Infrastructure.MessageProcessors
 {
     public static class DisplayFunctions
     {

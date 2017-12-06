@@ -48,7 +48,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\SaveActivity\SaveActivityCommand.cs" />
-    <Compile Include="Commands\SaveActivity\SaveActivityCommandHandler.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityCommandResponse.cs" />
     <Compile Include="Commands\SaveActivity\SaveActivityRequestValidator.cs" />
     <Compile Include="Configurations\ElasticConfiguration.cs" />

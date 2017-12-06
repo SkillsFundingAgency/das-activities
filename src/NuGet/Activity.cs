@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Nest;
+//using Nest;
 
 namespace NuGet
 {
@@ -13,7 +13,7 @@ namespace NuGet
     { 
         public string TypeOfActivity { get; set; }
 
-        [Keyword(NullValue = "null")]
+        //[Keyword(NullValue = "null")]
         public string TypeOfActivityKeyword => TypeOfActivity;
 
         public string DescriptionOne { get; set; }
@@ -36,10 +36,10 @@ namespace NuGet
 
         public DateTime PostedDateTime { get;  set; }
 
-        [Keyword(NullValue = "null")]
+        //[Keyword(NullValue = "null")]
         public DateTime PostedDateTimeKeyword => PostedDateTime;
 
-        [Keyword(NullValue = "null")]
+        //[Keyword(NullValue = "null")]
         public DateTime PostedDateKeyword => PostedDateTime.Date;
 
         public long AccountId { get;  set; }

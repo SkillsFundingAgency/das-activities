@@ -27,7 +27,7 @@ namespace ESFA.DAS.Support.Indexer.Worker
         {
             _log.Info($"Service starting up");
 
-            _task = Idle();
+            _task = Run();
 
             return true;
         }
@@ -41,16 +41,8 @@ namespace ESFA.DAS.Support.Indexer.Worker
             return true;
         }
 
-        async Task Idle()
+        async Task Run()
         {
-            if (_cancel.Token.IsCancellationRequested)
-            {
-                _log.Info("Service stopping");
-                return;
-            }
-
-            await Task.Yield();
-
             try
             {
                 var tasks = _processors.Select(x => x.RunAsync(_cancel.Token)).ToArray();
@@ -60,15 +52,6 @@ namespace ESFA.DAS.Support.Indexer.Worker
             {
                 _log.Fatal(ex, "Unexpected Exception");
             }
-
-
-            if (Debugger.IsAttached)
-            {
-                _cancel.Cancel();
-            }
-
-            await Task.Delay(1000);
-            await Idle();
         }
     }
 }
