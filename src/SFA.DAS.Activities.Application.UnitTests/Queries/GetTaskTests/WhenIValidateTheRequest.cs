@@ -20,7 +20,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldPassValidationWithAValidRequest()
         {
             //Arrange
-            var request = new SaveActivityCommand(new FluentActivity().AccountId(Account).Object());
+            var request = new SaveActivityCommand(new Activity {AccountId = Account});
 
             //Act
             var result = _validator.Validate(request);
@@ -33,7 +33,7 @@ namespace SFA.DAS.Activities.Application.UnitTests.Queries.GetTaskTests
         public void ThenIShouldFailValidationIfOwnerIdIsNotPresent()
         {
             //Arrange
-            var request = new SaveActivityCommand(new FluentActivity().AccountId(0).Object());
+            var request = new SaveActivityCommand(new Activity());
 
             //Act
             var result = _validator.Validate(request);
