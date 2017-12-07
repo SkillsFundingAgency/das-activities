@@ -35,7 +35,8 @@
     <ServiceDefinition Include="ServiceDefinition.csdef" />
     <ServiceConfiguration Include="ServiceConfiguration.Local.cscfg" />
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
-	<ServiceConfiguration Include="ServiceConfiguration.Release.cscfg" />
+    <ServiceConfiguration Include="ServiceConfiguration.Release.cscfg" />
+    <Content Include="Configuration\ServiceDefinition.Release.csdef" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Activities.WorkerRole\SFA.DAS.Activities.WorkerRole.csproj">
@@ -48,6 +49,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Configuration\" />
     <Folder Include="SFA.DAS.Activities.WorkerRoleContent\" />
   </ItemGroup>
   <ItemGroup>

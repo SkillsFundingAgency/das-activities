@@ -5,8 +5,11 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
       <Setting name="Environment_Name" value="local" />
-      <Setting name="ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true;" />
       <Setting name="Logging_RedisConnectionString" value="" />
+      <Setting name="ElasticSearch_BaseUrl" value="http://localhost:9200" />
+      <Setting name="ElasticSearch_UserName" value="" />
+      <Setting name="ElasticSearch_Password" value="" />
+      <Setting name="ServiceBus_ConnectionString" value="" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
