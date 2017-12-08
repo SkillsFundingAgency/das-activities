@@ -8,7 +8,7 @@ namespace SFA.DAS.EmployerAccounts.Events.Messages
     {
         public string EmpRef { get; set; }
         public long AccountId { get; set; }
-        public DateTime PostedDatedTime { get; set; }
+        public DateTime PostedDateTime { get; set; }
         public string CreatedByName { get; set; }
     }
 }
