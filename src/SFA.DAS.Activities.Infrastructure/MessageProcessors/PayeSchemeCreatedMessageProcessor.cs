@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using MediatR;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using NuGet;
-using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Application.Repositories;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
@@ -23,17 +23,15 @@ namespace SFA.DAS.Activities.Infrastructure.MessageProcessors
 
         protected override async Task ProcessMessage(PayeSchemeCreatedMessage message)
         {
+            var meta = new Dictionary<string, string> {{"EmpRef", message.EmpRef}};
+
             await _repository.SaveActivity(
                 new Activity
                 {
                     AccountId = message.AccountId,
-                    TypeOfActivity = Activity.ActivityTypeStrings.AccountCreated,
-                    DescriptionOne = $"PAYE scheme {message.EmpRef} added",
-                    DescriptionTwo = $"At {message.PostedDatedTime.Format()} by {message.CreatedByName}",
-                    DescriptionSingular = "PAYE scheme added",
-                    DescriptionPlural = "PAYE schemes added",
+                    TypeOfActivity = ActivityTypeStrings.PayeSchemeCreated,
                     PostedDateTime = message.PostedDatedTime,
-                    Url = "todo"
+                    Data = meta.ToList()
                 }
             );
         }

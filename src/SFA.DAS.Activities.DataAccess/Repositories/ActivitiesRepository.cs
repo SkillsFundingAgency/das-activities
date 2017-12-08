@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Elasticsearch.Net;
 using Nest;
 using NuGet;
 using SFA.DAS.Acitivities.Core.Configuration;
-using SFA.DAS.Activities.Application;
-using SFA.DAS.Activities.Application.Commands.SaveActivity;
 using SFA.DAS.Activities.Application.Configurations;
 using SFA.DAS.Activities.Application.Repositories;
+using SFA.DAS.Activities.DataAccess.Models;
 
 namespace SFA.DAS.Activities.DataAccess.Repositories
 {
@@ -26,9 +22,11 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
             _elasticConfig = elasticConfig;
             _envConfig = envConfig;
         }
+
         public async Task SaveActivity(Activity activity)
         {
-            var response = await ElasticClient.IndexAsync(activity);
+            var document = new ActivityDocument(activity);
+            var response = await ElasticClient.IndexAsync(document);
             if (!response.IsValid)
             {
                 throw new ApplicationException("Problem saving activity", response.ApiCall?.OriginalException);
