@@ -74,25 +74,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MessageProcessors\DiplayFunctionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities.Application\SFA.DAS.Activities.Application.csproj">
-      <Project>{ee9585ae-d085-4b42-b40d-e33ed02fc886}</Project>
-      <Name>SFA.DAS.Activities.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Activities.Infrastructure\SFA.DAS.Activities.Infrastructure.csproj">
-      <Project>{28FA486E-5EF8-4A6B-9072-4E5F61D60EAB}</Project>
-      <Name>SFA.DAS.Activities.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MessageProcessors\CommitmentHasBeenApprovedMessageProcessorTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
