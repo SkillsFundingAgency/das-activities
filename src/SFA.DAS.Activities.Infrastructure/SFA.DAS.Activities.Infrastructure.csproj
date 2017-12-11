@@ -113,7 +113,7 @@
     <Compile Include="MessageProcessors\AgreementSignedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\DisplayFunctions.cs" />
     <Compile Include="MessageProcessors\LegalEntityRemovedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\PayeSchemeAddedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\PayeSchemeDeletedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\UserInvitedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\UserJoinedMessageProcessor.cs" />

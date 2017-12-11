@@ -4,7 +4,7 @@ using SFA.DAS.Messaging.Attributes;
 namespace SFA.DAS.EmployerAccounts.Events.Messages
 {
     [MessageGroup("add_paye_scheme")]
-    public class PayeSchemeCreatedMessage
+    public class PayeSchemeAddedMessage
     {
         public string PayeScheme { get; set; }
         public long AccountId { get; set; }

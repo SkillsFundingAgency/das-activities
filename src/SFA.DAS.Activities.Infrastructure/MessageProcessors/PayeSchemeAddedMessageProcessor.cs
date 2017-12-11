@@ -11,17 +11,17 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Infrastructure.MessageProcessors
 {
-    [TopicSubscription("Activity_PayeSchemeCreatedMessageProcessor")]
-    public class PayeSchemeCreatedMessageProcessor : MessageProcessor<PayeSchemeCreatedMessage>
+    [TopicSubscription("Activity_PayeSchemeAddedMessageProcessor")]
+    public class PayeSchemeAddedMessageProcessor : MessageProcessor<PayeSchemeAddedMessage>
     {
         private readonly IActivitiesRepository _repository;
 
-        public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivitiesRepository repository) : base(subscriberFactory, logger)
+        public PayeSchemeAddedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivitiesRepository repository) : base(subscriberFactory, logger)
         {
             _repository = repository;
         }
 
-        protected override async Task ProcessMessage(PayeSchemeCreatedMessage message)
+        protected override async Task ProcessMessage(PayeSchemeAddedMessage message)
         {
             var meta = new Dictionary<string, string> {{"PayeScheme", message.PayeScheme}};
 

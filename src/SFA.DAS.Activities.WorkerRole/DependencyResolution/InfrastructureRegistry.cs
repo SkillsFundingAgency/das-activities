@@ -21,7 +21,7 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
         public InfrastructureRegistry()
         {
             For<ISettingsProvider>().Use(BuildSettingsProvider()).Singleton();
-            For<IMessageProcessor>().Use<PayeSchemeCreatedMessageProcessor>().Named("PayeSchemeCreatedMessageProcessor");
+            For<IMessageProcessor>().Use<PayeSchemeAddedMessageProcessor>().Named("PayeSchemeAddedMessageProcessor");
 
             if (Debugger.IsAttached)
             {
@@ -42,7 +42,7 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
             {
                 For<IMessageSubscriberFactory>().Use("", x =>
                 {
-                    var subscriptionName = TopicSubscriptionHelper.GetMessageGroupName("Activity_PayeSchemeCreatedMessageProcessor");
+                    var subscriptionName = TopicSubscriptionHelper.GetMessageGroupName("Activity_PayeSchemeAddedMessageProcessor");
 
                     return new TopicSubscriberFactory(x.GetInstance<IOptions<ServiceBusConfiguration>>().Value.ConnectionString, subscriptionName);
 
