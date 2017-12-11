@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SFA.DAS.Activities.Data;
-using SFA.DAS.Activities.Models;
+using SFA.DAS.Activities.Client;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
@@ -13,18 +12,19 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
     [TopicSubscription("Activity_PayeSchemeCreatedMessageProcessor")]
     public class PayeSchemeCreatedMessageProcessor : MessageProcessor<PayeSchemeCreatedMessage>
     {
-        private readonly IActivitiesRepository _repository;
+        private readonly IActivitiesService _activitiesService;
 
-        public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivitiesRepository repository) : base(subscriberFactory, logger)
+        public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivitiesService activitiesService)
+            : base(subscriberFactory, logger)
         {
-            _repository = repository;
+            _activitiesService = activitiesService;
         }
 
         protected override async Task ProcessMessage(PayeSchemeCreatedMessage message)
         {
-            await _repository.SaveActivity(new Activity
+            await _activitiesService.AddActivity(new Activity
             {
-                Type = ActivityTypeEnum.PayeSchemeAdded,
+                Type = ActivityType.PayeSchemeAdded,
                 /*AccountId = message.AccountId,
                 At = message.CreatedAt,
                 CreatorName = message.CreatorName,

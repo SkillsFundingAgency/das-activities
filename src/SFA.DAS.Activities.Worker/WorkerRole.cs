@@ -1,3 +1,4 @@
+using SFA.DAS.Activities.Client;
 using StructureMap;
 using Topshelf;
 using Topshelf.HostConfigurators;
@@ -15,8 +16,8 @@ namespace SFA.DAS.Activities.Worker
         {
             var container = new Container(c =>
             {
-                c.AddRegistry<SFA.DAS.Activities.Registry>();
-                c.AddRegistry<SFA.DAS.Activities.Worker.Registry>();
+                c.AddRegistry<ActivitiesClientRegistry>();
+                c.AddRegistry<Registry>();
             });
 
             hostConfigurator.Service(settings => container.GetInstance<HostService>(), c =>

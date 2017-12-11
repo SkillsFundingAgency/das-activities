@@ -103,6 +103,7 @@
       <HintPath>..\packages\StructureMap.4.5.2\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
@@ -130,6 +131,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\AppSettingsProvider.cs" />
+    <Compile Include="Configuration\CloudConfigProvider.cs" />
+    <Compile Include="Configuration\EnvironmentConfiguration.cs" />
+    <Compile Include="Configuration\IProvideSettings.cs" />
+    <Compile Include="Configuration\ISettingsBuilder.cs" />
+    <Compile Include="Configuration\ISettingsProvider.cs" />
+    <Compile Include="Configuration\ServiceBusConfiguration.cs" />
+    <Compile Include="Configuration\SettingsBuilder.cs" />
+    <Compile Include="Configuration\SettingsProvider.cs" />
+    <Compile Include="Configuration\TableStorageProvider.cs" />
     <Compile Include="Registry.cs" />
     <Compile Include="HostService.cs" />
     <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
@@ -152,9 +163,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities\SFA.DAS.Activities.csproj">
-      <Project>{B4B1F88E-69A4-4AB6-B289-124CC70D7ED8}</Project>
-      <Name>SFA.DAS.Activities</Name>
+    <ProjectReference Include="..\SFA.DAS.Activities.Client\SFA.DAS.Activities.Client.csproj">
+      <Project>{45344A34-429E-441C-A69C-8D7539353C51}</Project>
+      <Name>SFA.DAS.Activities.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
