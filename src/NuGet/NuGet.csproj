@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity.cs" />
+    <Compile Include="ActivityTypeEnum.cs" />
     <Compile Include="ActivityTypeStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

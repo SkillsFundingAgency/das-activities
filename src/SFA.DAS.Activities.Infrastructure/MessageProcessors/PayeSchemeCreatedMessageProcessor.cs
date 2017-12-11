@@ -23,15 +23,16 @@ namespace SFA.DAS.Activities.Infrastructure.MessageProcessors
 
         protected override async Task ProcessMessage(PayeSchemeCreatedMessage message)
         {
-            var meta = new Dictionary<string, string> {{ "PayeScheme", message.PayeScheme}};
+            var meta = new Dictionary<string, string> {{"PayeScheme", message.PayeScheme}};
 
             await _repository.SaveActivity(
                 new Activity
                 {
                     AccountId = message.AccountId,
-                    TypeOfActivity = ActivityTypeStrings.PayeSchemeCreated,
-                    PostedDateTime = message.CreatedAt,
-                    Data = meta.ToList()
+                    Type = ActivityTypeEnum.PayeSchemeAdded,
+                    At = message.CreatedAt,
+                    Data = meta,
+                    CreatedBy = message.CreatedBy
                 }
             );
         }

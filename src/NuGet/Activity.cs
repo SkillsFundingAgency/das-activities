@@ -10,14 +10,16 @@ namespace NuGet
 {
     public class Activity
     { 
-        public string TypeOfActivity { get; set; }
+        public ActivityTypeEnum Type { get; set; }
 
-        public DateTime PostedDateTime { get;  set; }
+        public virtual DateTime At { get;  set; }
 
-        public long AccountId { get;  set; }
+        public virtual long? AccountId { get;  set; }
 
-        public long ProviderUkprn { get; set; }
+        public string CreatedBy { get; set; }
 
-        public ICollection<KeyValuePair<string, string>> Data { get; set; }
+        public virtual long? ProviderUkprn { get; set; }
+
+        public virtual IDictionary<string, string> Data { get; set; }
     }
 }
