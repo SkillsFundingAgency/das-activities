@@ -25,7 +25,18 @@ namespace SFA.DAS.Activities.DataAccess.Repositories
 
         public async Task SaveActivity(Activity activity)
         {
-            var document = new ActivityDocument(activity);
+            var document = new ActivityDocument
+            {
+                AccountId = activity.AccountId,
+                Data = activity.Data,
+                At = activity.At,
+                ProviderUkprn = activity.ProviderUkprn,
+                Type = activity.Type,
+                TypeDesc = activity.Type.ToString(),
+                Creator = activity.Creator,
+                CreatorUserRef = activity.CreatorUserRef
+            };
+
             var response = await ElasticClient.IndexAsync(document);
             if (!response.IsValid)
             {

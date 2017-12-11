@@ -2,7 +2,8 @@
 {
     public enum ActivityTypeEnum
     {
-        PayeSchemeAdded = 0,
-        PayeSchemeRemoved = 1
+        Unknown = 0,
+        PayeSchemeAdded,
+        PayeSchemeRemoved
     }
 }

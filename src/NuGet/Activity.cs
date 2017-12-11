@@ -16,7 +16,8 @@ namespace NuGet
 
         public virtual long? AccountId { get;  set; }
 
-        public string CreatedBy { get; set; }
+        public string Creator { get; set; }
+        public string CreatorUserRef { get; set; }
 
         public virtual long? ProviderUkprn { get; set; }
 

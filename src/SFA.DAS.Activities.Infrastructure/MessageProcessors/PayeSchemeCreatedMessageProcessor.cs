@@ -32,7 +32,7 @@ namespace SFA.DAS.Activities.Infrastructure.MessageProcessors
                     Type = ActivityTypeEnum.PayeSchemeAdded,
                     At = message.CreatedAt,
                     Data = meta,
-                    CreatedBy = message.CreatedBy
+                    Creator = message.CreatorName
                 }
             );
         }

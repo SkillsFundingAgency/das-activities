@@ -9,6 +9,7 @@ namespace SFA.DAS.EmployerAccounts.Events.Messages
         public string PayeScheme { get; set; }
         public long AccountId { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string CreatedBy { get; set; }
+        public string CreatorName { get; set; }
+        public string CreatorUserRef { get; set; }
     }
 }
