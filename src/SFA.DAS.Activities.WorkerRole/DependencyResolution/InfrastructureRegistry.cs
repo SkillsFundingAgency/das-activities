@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Azure;
@@ -13,6 +14,7 @@ using SFA.DAS.Messaging.AzureServiceBus.Helpers;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
+using SettingsProvider = SFA.DAS.Activities.Infrastructure.Configuration.SettingsProvider;
 
 namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
 {
@@ -44,8 +46,13 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
                 {
                     var subscriptionName = TopicSubscriptionHelper.GetMessageGroupName("Activity_PayeSchemeAddedMessageProcessor");
 
-                    return new TopicSubscriberFactory(x.GetInstance<IOptions<ServiceBusConfiguration>>().Value.ConnectionString, subscriptionName);
+                    var connectionString = x.GetInstance<IOptions<ServiceBusConfiguration>>().Value.ConnectionString;
+                    if (string.IsNullOrEmpty(connectionString))
+                    {
+                        throw new ConfigurationErrorsException("Connection string was empty");
+                    }
 
+                    return new TopicSubscriberFactory(connectionString, subscriptionName);
                 });
             }
 
