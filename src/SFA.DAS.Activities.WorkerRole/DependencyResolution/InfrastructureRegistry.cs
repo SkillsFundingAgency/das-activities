@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +13,9 @@ using SFA.DAS.Activities.Infrastructure.MessageProcessors;
 using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.AzureServiceBus.Helpers;
 using SFA.DAS.Messaging.FileSystem;
+using SFA.DAS.Messaging.Helpers;
 using SFA.DAS.Messaging.Interfaces;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
 using SettingsProvider = SFA.DAS.Activities.Infrastructure.Configuration.SettingsProvider;
 
@@ -51,6 +54,12 @@ namespace SFA.DAS.Activities.WorkerRole.DependencyResolution
                     {
                         throw new ConfigurationErrorsException("Connection string was empty");
                     }
+
+                    x.GetInstance<ILog>().Info("Creating subscriber", new Dictionary<string, object>
+                    {
+                        {"ConnectionString", connectionString},
+                        {"SubscriptionName", subscriptionName }
+                    });
 
                     return new TopicSubscriberFactory(connectionString, subscriptionName);
                 });
