@@ -1,4 +1,6 @@
+using System;
 using SFA.DAS.Activities.Client;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
 using Topshelf.HostConfigurators;
@@ -14,17 +16,24 @@ namespace SFA.DAS.Activities.Worker
 
         protected override void Configure(HostConfigurator hostConfigurator)
         {
-            var container = new Container(c =>
+            try
             {
-                c.AddRegistry<ActivitiesClientRegistry>();
-                c.AddRegistry<Registry>();
-            });
+                var container = new Container(c =>
+                {
+                    c.AddRegistry<ActivitiesClientRegistry>();
+                    c.AddRegistry<Registry>();
+                });
 
-            hostConfigurator.Service(settings => container.GetInstance<HostService>(), c =>
+                hostConfigurator.Service(settings => container.GetInstance<HostService>(), c =>
+                {
+                    //x.BeforeStartingService(context => _log.Info("Before starting service!!"));
+                    //x.AfterStoppingService(context => _log.Info("After stopping service!!"));
+                });
+            }
+            catch (Exception ex)
             {
-                //x.BeforeStartingService(context => _log.Info("Before starting service!!"));
-                //x.AfterStoppingService(context => _log.Info("After stopping service!!"));
-            });
+                new NLogLogger(null,null,null).Fatal(ex, "Unhandled exception");
+            }
         }
     }
 }
