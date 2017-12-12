@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SFA.DAS.Activities.Client</id>
+    <version>1.0.0</version>
+    <authors>DAS</authors>
+    <owners>DAS</owners>
+    <licenseUrl>https://github.com/SkillsFundingAgency/das-activities/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/SkillsFundingAgency/das-activities</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Client library for DAS Activities</description>
+    <summary>Client library for DAS Activities</summary>
+    <releaseNotes />
+    <dependencies>
+      <group targetFramework=".NETFramework4.6.2">
+        <dependency id="NEST" version="5.5.0" />
+        <dependency id="SFA.DAS.NLog.Logger" version="1.0.0.39208" />
+        <dependency id="StructureMap" version="4.5.2" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\SFA.DAS.Activities.Client.dll" target="lib\net45\SFA.DAS.Activities.Client.dll" />
+  </files>
+</package>
