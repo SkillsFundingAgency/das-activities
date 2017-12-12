@@ -39,21 +39,21 @@
     <Content Include="Configuration\ServiceDefinition.Release.csdef" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities.WorkerRole\SFA.DAS.Activities.WorkerRole.csproj">
-      <Name>SFA.DAS.Activities.WorkerRole</Name>
+    <ProjectReference Include="..\SFA.DAS.Activities.Worker\SFA.DAS.Activities.Worker.csproj">
+      <Name>SFA.DAS.Activities.Worker</Name>
       <Project>{ed9598cd-dde8-453c-b36b-68033a453fe6}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>SFA.DAS.Activities.WorkerRole</RoleName>
+      <RoleName>SFA.DAS.Activities.Worker</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="SFA.DAS.Activities.WorkerRoleContent\" />
+    <Folder Include="SFA.DAS.Activities.WorkerContent\" />
   </ItemGroup>
   <ItemGroup>
-    <DiagnosticsConfiguration Include="SFA.DAS.Activities.WorkerRoleContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SFA.DAS.Activities.WorkerContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
