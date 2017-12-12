@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.Activities.Client;
+using SFA.DAS.Activities.Worker.Services;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
@@ -27,14 +29,32 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                 Type = ActivityType.PayeSchemeAdded,
                 /*AccountId = message.AccountId,
                 At = message.CreatedAt,
-                CreatorName = message.CreatorName,
-                CreatorUserRef = message.CreatorUserRef
-                PayeScheme = message.PayeScheme*/
+                Data = new Dictionary<string, object>
+                {
+                    ["CreatorUserRef"] = message.CreatorUserRef,
+                    ["CreatorName"] = message.CreatorName,
+                    ["PayeScheme"] = message.PayeScheme
+                },
+                Keywords = new List<string>
+                {
+                    message.CreatorUserRef,
+                    message.CreatorName,
+                    message.PayeScheme
+                }*/
                 AccountId = 5,
                 At = DateTime.UtcNow,
-                CreatorName = "John Doe",
-                CreatorUserRef = "04FCDEC7-5758-4BD2-A2D4-3E288E9EE047",
-                PayeScheme = "333/AA00001"
+                Data = new Dictionary<string, string>
+                {
+                    ["CreatorUserRef"] = "04FCDEC7-5758-4BD2-A2D4-3E288E9EE047",
+                    ["CreatorName"] = "John Doe",
+                    ["PayeScheme"] = "333/AA00001"
+                },
+                Keywords = new List<string>
+                {
+                    "04FCDEC7-5758-4BD2-A2D4-3E288E9EE047",
+                    "John Doe",
+                    "333/AA00001"
+                }
             });
         }
     }

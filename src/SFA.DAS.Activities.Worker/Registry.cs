@@ -6,6 +6,7 @@ using System.IO;
 using SFA.DAS.Activities.Client;
 using SFA.DAS.Activities.Worker.Configuration;
 using SFA.DAS.Activities.Worker.MessageProcessors;
+using SFA.DAS.Activities.Worker.Services;
 using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.AzureServiceBus.Helpers;
 using SFA.DAS.Messaging.FileSystem;
@@ -32,6 +33,7 @@ namespace SFA.DAS.Activities.Worker
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
 
+            For<IActivitiesService>().Use<ActivitiesService>();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<IMessageProcessor>().Use<PayeSchemeCreatedMessageProcessor>().Named("PayeSchemeCreatedMessageProcessor");
             For<ISettingsProvider>().Use(settingsProvider).Singleton();

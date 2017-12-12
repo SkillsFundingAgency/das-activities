@@ -64,17 +64,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivitiesService.cs" />
+    <Compile Include="ActivitiesClient.cs" />
     <Compile Include="Activity.cs" />
-    <Compile Include="AggregatedActivity.cs" />
+    <Compile Include="AggregatedActivitiesResult.cs" />
     <Compile Include="ActivityType.cs" />
-    <Compile Include="Elastic\ElasticClientFactory.cs" />
     <Compile Include="ActivitiesClientConfiguration.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="IActivitiesService.cs" />
+    <Compile Include="Elastic\ElasticClientFactory.cs" />
     <Compile Include="Elastic\IElasticClientFactory.cs" />
+    <Compile Include="Elastic\IIndexAutoMapper.cs" />
+    <Compile Include="Elastic\IndexAutoMapper.cs" />
+    <Compile Include="IActivitiesClient.cs" />
+    <Compile Include="AggregatedActivityResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ActivitiesClientRegistry.cs" />
+    <Compile Include="ActivitiesResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

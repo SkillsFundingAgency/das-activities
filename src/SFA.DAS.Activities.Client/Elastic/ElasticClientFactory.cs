@@ -11,7 +11,10 @@ namespace SFA.DAS.Activities.Client.Elastic
 
         public ElasticClientFactory(ActivitiesClientConfiguration configuration)
         {
-            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) })).ThrowExceptions();
+            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) }))
+                .EnableDebugMode()
+                .PrettyJson()
+                .ThrowExceptions();
 
             if (configuration.RequiresAuthentication)
             {

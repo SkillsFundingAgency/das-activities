@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Nest;
 
 namespace SFA.DAS.Activities.Client
@@ -14,16 +15,10 @@ namespace SFA.DAS.Activities.Client
         [Date]
         public DateTime At { get; set; }
 
-        [Text]
-        public string CreatorName { get; set; }
+        [Nested]
+        public IDictionary<string, string> Data { get; set; }
 
-        [Keyword]
-        public string CreatorUserRef { get; set; }
-
-        [Text]
-        public string PayeScheme { get; set; }
-
-        [Keyword]
-        public long? ProviderUkprn { get; set; }
+        [Object]
+        public ICollection<string> Keywords { get; set; }
     }
 }

@@ -7,8 +7,10 @@ namespace SFA.DAS.Activities.Client
     {
         public ActivitiesClientRegistry()
         {
+            For<IActivitiesClient>().Use<ActivitiesClient>();
             For<IElasticClientFactory>().Use<ElasticClientFactory>().Singleton();
             For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().GetClient()).Singleton();
+            For<IIndexAutoMapper>().Use<IndexAutoMapper>().Singleton();
         }
     }
 }
