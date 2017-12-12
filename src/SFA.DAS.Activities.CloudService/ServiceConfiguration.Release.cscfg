@@ -8,8 +8,8 @@
       <Setting name="Logging_RedisConnectionString" value="__LoggingRedisConnectionString__" />
       <Setting name="ElasticSearch_BaseUrl" value="__ElasticSearchBaseUrl__" />
       <Setting name="ElasticSearch_UserName" value="__ElasticSearchUserName__" />
-      <Setting name="ElasticSearch_Password" value="__ElasticSearch_Password__" />
-      <Setting name="ServiceBus_ConnectionString" value="__ServiceBus_ConnectionString__" />
+      <Setting name="ElasticSearch_Password" value="__ElasticSearchPassword__" />
+      <Setting name="ServiceBus_ConnectionString" value="__ServiceBusConnectionString__" />
     </ConfigurationSettings>
   </Role>
   <NetworkConfiguration>
