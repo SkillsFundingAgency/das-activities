@@ -1,6 +1,6 @@
-﻿namespace SFA.DAS.Activities.Client
+﻿namespace SFA.DAS.Activities
 {
-    public class ActivitiesClientConfiguration
+    public class ActivitiesElasticConfiguration
     {
         public string BaseUrl { get; set; }
         public string UserName { get; set; }

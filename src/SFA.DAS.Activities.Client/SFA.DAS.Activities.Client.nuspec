@@ -9,8 +9,6 @@
     <projectUrl>https://github.com/SkillsFundingAgency/das-activities</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Client library for DAS Activities</description>
-    <summary>Client library for DAS Activities</summary>
-    <releaseNotes />
     <dependencies>
       <group targetFramework=".NETFramework4.6.2">
         <dependency id="NEST" version="5.5.0" />
@@ -20,6 +18,7 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="bin\Release\SFA.DAS.Activities.dll" target="lib\net45\SFA.DAS.Activities.dll" />
     <file src="bin\Release\SFA.DAS.Activities.Client.dll" target="lib\net45\SFA.DAS.Activities.Client.dll" />
   </files>
 </package>

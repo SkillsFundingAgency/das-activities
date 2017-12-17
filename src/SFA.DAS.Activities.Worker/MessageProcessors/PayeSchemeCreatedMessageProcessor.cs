@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using SFA.DAS.Activities.Client;
-using SFA.DAS.Activities.Client.Extensions;
+﻿using System.Threading.Tasks;
+using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Activities.Worker.Services;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
@@ -15,37 +12,19 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
     [TopicSubscription("Activity_PayeSchemeCreatedMessageProcessor")]
     public class PayeSchemeCreatedMessageProcessor : MessageProcessor<PayeSchemeCreatedMessage>
     {
+        private readonly IActivityMapper _activityMapper;
         private readonly IActivitiesService _activitiesService;
 
-        public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivitiesService activitiesService)
+        public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IActivitiesService activitiesService)
             : base(subscriberFactory, logger)
         {
+            _activityMapper = activityMapper;
             _activitiesService = activitiesService;
         }
 
         protected override async Task ProcessMessage(PayeSchemeCreatedMessage message)
         {
-            await _activitiesService.AddActivity(new Activity
-            {
-                /*AccountId = message.AccountId,
-                At = message.CreatedAt,
-                Data = new Dictionary<string, object>
-                {
-                    ["CreatorUserRef"] = message.CreatorUserRef,
-                    ["CreatorName"] = message.CreatorName,
-                    ["PayeScheme"] = message.PayeScheme
-                }*/
-                AccountId = 5,
-                At = DateTime.UtcNow,
-                Data = new Dictionary<string, string>
-                {
-                    ["CreatorUserRef"] = "04FCDEC7-5758-4BD2-A2D4-3E288E9EE047",
-                    ["CreatorName"] = "John Doe",
-                    ["PayeScheme"] = "333/AA00001"
-                },
-                Description = ActivityType.PayeSchemeAdded.GetDescription(),
-                Type = ActivityType.PayeSchemeAdded
-            });
+            await _activitiesService.AddActivity(_activityMapper.Map(message, ActivityType.PayeSchemeAdded));
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Nest;
 
-namespace SFA.DAS.Activities.Client
+namespace SFA.DAS.Activities
 {
     public class Activity
     {

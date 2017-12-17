@@ -79,13 +79,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\Elastic\ElasticClientFactoryTests.cs" />
-    <Compile Include="Client\Elastic\IndexMapperTests.cs" />
-    <Compile Include="Client\Extensions\ActivityTypeCategoryExtensionsTests.cs" />
-    <Compile Include="Client\Extensions\ActivityTypeExtensionsTests.cs" />
+    <Compile Include="Elastic\ElasticClientFactoryTests.cs" />
+    <Compile Include="Elastic\IndexMapperTests.cs" />
+    <Compile Include="Extensions\ActivityTypeCategoryExtensionsTests.cs" />
+    <Compile Include="Extensions\ActivityTypeExtensionsTests.cs" />
     <Compile Include="TestAsync.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Worker\ObjectMappers\ActivityMapperTests.cs" />
     <Compile Include="Worker\PayeSchemeCreatedMessageProcessorTests.cs" />
     <Compile Include="Worker\Services\ActivitiesServiceTests.cs" />
   </ItemGroup>
@@ -94,13 +95,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities.Client\SFA.DAS.Activities.Client.csproj">
-      <Project>{45344A34-429E-441C-A69C-8D7539353C51}</Project>
-      <Name>SFA.DAS.Activities.Client</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Worker\SFA.DAS.Activities.Worker.csproj">
       <Project>{ED9598CD-DDE8-453C-B36B-68033A453FE6}</Project>
       <Name>SFA.DAS.Activities.Worker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities\SFA.DAS.Activities.csproj">
+      <Project>{744fdb51-c5ff-4b5b-a380-9cde153277cf}</Project>
+      <Name>SFA.DAS.Activities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

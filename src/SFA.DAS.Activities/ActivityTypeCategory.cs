@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Activities.Client
+﻿namespace SFA.DAS.Activities
 {
     public enum ActivityTypeCategory
     {

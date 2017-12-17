@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.Activities.Client.Attributes
+namespace SFA.DAS.Activities.Attributes
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class CategoryAttribute : Attribute

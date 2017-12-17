@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using SFA.DAS.Activities.Client.Attributes;
+using SFA.DAS.Activities.Attributes;
 
-namespace SFA.DAS.Activities.Client.Extensions
+namespace SFA.DAS.Activities.Extensions
 {
     public static class ActivityTypeCategoryExtensions
     {

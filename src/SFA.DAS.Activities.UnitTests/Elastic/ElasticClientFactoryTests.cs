@@ -1,9 +1,8 @@
 ﻿using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.Client;
-using SFA.DAS.Activities.Client.Elastic;
+using SFA.DAS.Activities.Elastic;
 
-namespace SFA.DAS.Activities.UnitTests.Client.Elastic
+namespace SFA.DAS.Activities.UnitTests.Elastic
 {
     public static class ElasticClientFactoryTests
     {
@@ -14,7 +13,7 @@ namespace SFA.DAS.Activities.UnitTests.Client.Elastic
 
             protected override void Given()
             {
-                _factory = new ElasticClientFactory(new ActivitiesClientConfiguration { BaseUrl = "http://localhost:9200" });
+                _factory = new ElasticClientFactory(new ActivitiesElasticConfiguration { BaseUrl = "http://localhost:9200" });
             }
 
             protected override void When()
@@ -34,11 +33,11 @@ namespace SFA.DAS.Activities.UnitTests.Client.Elastic
         {
             private IElasticClientFactory _factory;
             private IElasticClient _client;
-            private ActivitiesClientConfiguration _configuration;
+            private ActivitiesElasticConfiguration _configuration;
 
             protected override void Given()
             {
-                _configuration = new ActivitiesClientConfiguration
+                _configuration = new ActivitiesElasticConfiguration
                 {
                     BaseUrl = "http://localhost:9200",
                     UserName = "elastic",
@@ -65,11 +64,11 @@ namespace SFA.DAS.Activities.UnitTests.Client.Elastic
         {
             private IElasticClientFactory _factory;
             private IElasticClient _client;
-            private ActivitiesClientConfiguration _configuration;
+            private ActivitiesElasticConfiguration _configuration;
 
             protected override void Given()
             {
-                _configuration = new ActivitiesClientConfiguration
+                _configuration = new ActivitiesElasticConfiguration
                 {
                     BaseUrl = "http://localhost:9200",
                     UserName = "",

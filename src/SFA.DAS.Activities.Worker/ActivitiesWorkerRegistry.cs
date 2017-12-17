@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using SFA.DAS.Activities.Client;
 using SFA.DAS.Activities.Worker.Configuration;
 using SFA.DAS.Activities.Worker.MessageProcessors;
+using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Activities.Worker.Services;
 using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.AzureServiceBus.Helpers;
 using SFA.DAS.Messaging.FileSystem;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
+using StructureMap;
 
 namespace SFA.DAS.Activities.Worker
 {
-    public class Registry : StructureMap.Registry
+    public class ActivitiesWorkerRegistry : Registry
     {
-        public Registry()
+        public ActivitiesWorkerRegistry()
         {
             var settingsProvider = new SettingsBuilder()
                 .AddProvider(new CloudConfigProvider()
-                    .AddSection<ActivitiesClientConfiguration>("ElasticSearch")
+                    .AddSection<ActivitiesElasticConfiguration>("ElasticSearch")
                     .AddSection<EnvironmentConfiguration>("Environment")
                     .AddSection<ServiceBusConfiguration>("ServiceBus"))
                 .AddProvider(new AppSettingsProvider())
@@ -33,12 +34,13 @@ namespace SFA.DAS.Activities.Worker
                 scan.RegisterConcreteTypesAgainstTheFirstInterface();
             });
 
+            For<IActivityMapper>().Use<ActivityMapper>();
             For<IActivitiesService>().Use<ActivitiesService>();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<IMessageProcessor>().Use<PayeSchemeCreatedMessageProcessor>().Named("PayeSchemeCreatedMessageProcessor");
             For<ISettingsProvider>().Use(settingsProvider).Singleton();
+            For<ActivitiesElasticConfiguration>().Use(c => c.GetInstance<ISettingsProvider>().GetSection<ActivitiesElasticConfiguration>("ElasticSearch"));
             For<EnvironmentConfiguration>().Use(c => c.GetInstance<ISettingsProvider>().GetSection<EnvironmentConfiguration>("Environment"));
-            For<ActivitiesClientConfiguration>().Use(c => c.GetInstance<ISettingsProvider>().GetSection<ActivitiesClientConfiguration>("ElasticSearch"));
             For<ServiceBusConfiguration>().Use(c => c.GetInstance<ISettingsProvider>().GetSection<ServiceBusConfiguration>("ServiceBus"));
 
             if (Debugger.IsAttached)

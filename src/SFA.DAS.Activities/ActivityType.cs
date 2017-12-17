@@ -1,6 +1,6 @@
-﻿using SFA.DAS.Activities.Client.Attributes;
+﻿using SFA.DAS.Activities.Attributes;
 
-namespace SFA.DAS.Activities.Client
+namespace SFA.DAS.Activities
 {
     public enum ActivityType
     {

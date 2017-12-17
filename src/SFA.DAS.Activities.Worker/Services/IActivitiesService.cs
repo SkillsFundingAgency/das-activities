@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using SFA.DAS.Activities.Client;
 
 namespace SFA.DAS.Activities.Worker.Services
 {

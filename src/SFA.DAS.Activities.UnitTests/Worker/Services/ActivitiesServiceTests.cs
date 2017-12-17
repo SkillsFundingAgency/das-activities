@@ -3,7 +3,6 @@ using System.Threading;
 using Moq;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.Client;
 using SFA.DAS.Activities.Worker.Services;
 
 namespace SFA.DAS.Activities.UnitTests.Worker.Services

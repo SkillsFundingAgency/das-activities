@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using SFA.DAS.Activities.Client;
-using SFA.DAS.Activities.Client.Extensions;
+using SFA.DAS.Activities.Extensions;
 
-namespace SFA.DAS.Activities.UnitTests.Client.Extensions
+namespace SFA.DAS.Activities.UnitTests.Extensions
 {
     public static class ActivityTypeCategoryExtensionsTests
     {

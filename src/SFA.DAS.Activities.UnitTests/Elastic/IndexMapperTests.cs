@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Moq;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.Client.Elastic;
+using SFA.DAS.Activities.Elastic;
 
-namespace SFA.DAS.Activities.UnitTests.Client.Elastic
+namespace SFA.DAS.Activities.UnitTests.Elastic
 {
     public static class IndexMapperTests
     {

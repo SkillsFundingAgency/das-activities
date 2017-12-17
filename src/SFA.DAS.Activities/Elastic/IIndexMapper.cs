@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Nest;
 
-namespace SFA.DAS.Activities.Client.Elastic
+namespace SFA.DAS.Activities.Elastic
 {
     public interface IIndexMapper
     {

@@ -1,5 +1,5 @@
 using System;
-using SFA.DAS.Activities.Client;
+using SFA.DAS.Activities;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
@@ -20,8 +20,8 @@ namespace SFA.DAS.Activities.Worker
             {
                 var container = new Container(c =>
                 {
-                    c.AddRegistry<ActivitiesClientRegistry>();
-                    c.AddRegistry<Registry>();
+                    c.AddRegistry<ActivitiesRegistry>();
+                    c.AddRegistry<ActivitiesWorkerRegistry>();
                 });
 
                 hostConfigurator.Service(settings => container.GetInstance<HostService>(), c =>

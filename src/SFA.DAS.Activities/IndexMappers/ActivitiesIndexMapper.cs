@@ -1,7 +1,7 @@
 ﻿using Nest;
-using SFA.DAS.Activities.Client.Elastic;
+using SFA.DAS.Activities.Elastic;
 
-namespace SFA.DAS.Activities.Client.IndexMappers
+namespace SFA.DAS.Activities.IndexMappers
 {
     public class ActivitiesIndexMapper : IndexMapper<Activity>
     {

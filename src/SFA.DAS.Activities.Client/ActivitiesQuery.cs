@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SFA.DAS.Activities;
 
 namespace SFA.DAS.Activities.Client
 {

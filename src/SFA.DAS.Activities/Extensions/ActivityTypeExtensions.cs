@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace SFA.DAS.Activities.Client.Extensions
+namespace SFA.DAS.Activities.Extensions
 {
     public static class ActivityTypeExtensions
     {

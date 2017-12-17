@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Nest;
 
-namespace SFA.DAS.Activities.Client.Elastic
+namespace SFA.DAS.Activities.Elastic
 {
     public class ElasticClientFactory : IElasticClientFactory
     {
         private readonly ElasticClient _client;
         private readonly ConnectionSettings _settings;
 
-        public ElasticClientFactory(ActivitiesClientConfiguration configuration)
+        public ElasticClientFactory(ActivitiesElasticConfiguration configuration)
         {
             _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) })).ThrowExceptions();
 

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Nest;
-using SFA.DAS.Activities.Client;
 
 namespace SFA.DAS.Activities.Worker.Services
 {

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45344A34-429E-441C-A69C-8D7539353C51}</ProjectGuid>
+    <ProjectGuid>{744FDB51-C5FF-4B5B-A380-9CDE153277CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.Activities.Client</RootNamespace>
-    <AssemblyName>SFA.DAS.Activities.Client</AssemblyName>
+    <RootNamespace>SFA.DAS.Activities</RootNamespace>
+    <AssemblyName>SFA.DAS.Activities</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,7 +40,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.3.7\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.39208, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.39208\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
@@ -65,25 +64,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivitiesClient.cs" />
-    <Compile Include="ActivitiesQuery.cs" />
-    <Compile Include="AggregatedActivitiesResult.cs" />
-    <Compile Include="IActivitiesClient.cs" />
-    <Compile Include="AggregatedActivityResult.cs" />
+    <Compile Include="ActivitiesRegistry.cs" />
+    <Compile Include="Activity.cs" />
+    <Compile Include="ActivityType.cs" />
+    <Compile Include="ActivityTypeCategory.cs" />
+    <Compile Include="Attributes\CategoryAttribute.cs" />
+    <Compile Include="ActivitiesElasticConfiguration.cs" />
+    <Compile Include="Elastic\ElasticClientFactory.cs" />
+    <Compile Include="Elastic\IElasticClientFactory.cs" />
+    <Compile Include="Elastic\IIndexMapper.cs" />
+    <Compile Include="Elastic\IndexMapper.cs" />
+    <Compile Include="Extensions\ActivityTypeCategoryExtensions.cs" />
+    <Compile Include="Extensions\ActivityTypeExtensions.cs" />
+    <Compile Include="IndexMappers\ActivitiesIndexMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ActivitiesClientRegistry.cs" />
-    <Compile Include="ActivitiesResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="SFA.DAS.Activities.Client.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities\SFA.DAS.Activities.csproj">
-      <Project>{744fdb51-c5ff-4b5b-a380-9cde153277cf}</Project>
-      <Name>SFA.DAS.Activities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

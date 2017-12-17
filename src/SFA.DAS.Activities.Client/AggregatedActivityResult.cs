@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Activities.Client
+﻿using SFA.DAS.Activities;
+
+namespace SFA.DAS.Activities.Client
 {
     public class AggregatedActivityResult
     {
