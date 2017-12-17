@@ -26,13 +26,13 @@ namespace SFA.DAS.Activities.Worker
 
                 hostConfigurator.Service(settings => container.GetInstance<HostService>(), c =>
                 {
-                    //x.BeforeStartingService(context => _log.Info("Before starting service!!"));
-                    //x.AfterStoppingService(context => _log.Info("After stopping service!!"));
+                    //c.BeforeStartingService(context => _log.Info("Before starting service!!"));
+                    //c.AfterStoppingService(context => _log.Info("After stopping service!!"));
                 });
             }
             catch (Exception ex)
             {
-                new NLogLogger(null,null,null).Fatal(ex, "Unhandled exception");
+                new NLogLogger().Fatal(ex, "Unhandled exception.");
             }
         }
     }

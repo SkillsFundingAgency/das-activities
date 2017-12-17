@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,12 +11,12 @@ namespace SFA.DAS.Activities.Worker
 {
     public class HostService : ServiceControl
     {
-        private readonly IMessageProcessor[] _processors;
+        private readonly IEnumerable<IMessageProcessor> _processors;
         private readonly ILog _log;
         private readonly CancellationTokenSource _cancel = new CancellationTokenSource();
         private Task _task;
 
-        public HostService(IMessageProcessor[] processors, ILog log)
+        public HostService(IEnumerable<IMessageProcessor> processors, ILog log)
         {
             _processors = processors;
             _log = log;
@@ -23,7 +24,7 @@ namespace SFA.DAS.Activities.Worker
 
         public bool Start(HostControl hostControl)
         {
-            _log.Info($"Service starting up");
+            _log.Info("Service starting up.");
             _task = Run();
 
             return true;
@@ -41,12 +42,12 @@ namespace SFA.DAS.Activities.Worker
         {
             try
             {
-                var tasks = _processors.Select(x => x.RunAsync(_cancel.Token)).ToArray();
+                var tasks = _processors.Select(p => p.RunAsync(_cancel.Token)).ToArray();
                 Task.WaitAll(tasks);
             }
             catch (Exception ex)
             {
-                _log.Fatal(ex, "Unexpected Exception");
+                _log.Fatal(ex, "Unexpected Exception.");
             }
         }
     }

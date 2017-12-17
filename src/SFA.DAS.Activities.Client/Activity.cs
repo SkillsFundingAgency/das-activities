@@ -6,19 +6,13 @@ namespace SFA.DAS.Activities.Client
 {
     public class Activity
     {
-        [Keyword]
-        public ActivityType Type { get; set; }
-
-        [Keyword]
         public long AccountId { get; set; }
-
-        [Date]
         public DateTime At { get; set; }
 
-        [Nested]
-        public IDictionary<string, string> Data { get; set; }
+        [Nested(IncludeInParent = true)]
+        public Dictionary<string, string> Data { get; set; }
 
-        [Object]
-        public ICollection<string> Keywords { get; set; }
+        public string Description { get; set; }
+        public ActivityType Type { get; set; }
     }
 }

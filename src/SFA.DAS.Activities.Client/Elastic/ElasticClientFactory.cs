@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Nest;
 
@@ -11,10 +14,7 @@ namespace SFA.DAS.Activities.Client.Elastic
 
         public ElasticClientFactory(ActivitiesClientConfiguration configuration)
         {
-            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) }))
-                .EnableDebugMode()
-                .PrettyJson()
-                .ThrowExceptions();
+            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) })).ThrowExceptions();
 
             if (configuration.RequiresAuthentication)
             {

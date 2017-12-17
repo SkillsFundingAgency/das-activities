@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using SFA.DAS.Activities.Client;
+using SFA.DAS.Activities.Client.Extensions;
 using SFA.DAS.Activities.Worker.Services;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
@@ -26,7 +27,6 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
         {
             await _activitiesService.AddActivity(new Activity
             {
-                Type = ActivityType.PayeSchemeAdded,
                 /*AccountId = message.AccountId,
                 At = message.CreatedAt,
                 Data = new Dictionary<string, object>
@@ -34,12 +34,6 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                     ["CreatorUserRef"] = message.CreatorUserRef,
                     ["CreatorName"] = message.CreatorName,
                     ["PayeScheme"] = message.PayeScheme
-                },
-                Keywords = new List<string>
-                {
-                    message.CreatorUserRef,
-                    message.CreatorName,
-                    message.PayeScheme
                 }*/
                 AccountId = 5,
                 At = DateTime.UtcNow,
@@ -49,12 +43,8 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
                     ["CreatorName"] = "John Doe",
                     ["PayeScheme"] = "333/AA00001"
                 },
-                Keywords = new List<string>
-                {
-                    "04FCDEC7-5758-4BD2-A2D4-3E288E9EE047",
-                    "John Doe",
-                    "333/AA00001"
-                }
+                Description = ActivityType.PayeSchemeAdded.GetDescription(),
+                Type = ActivityType.PayeSchemeAdded
             });
         }
     }

@@ -65,14 +65,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivitiesClient.cs" />
+    <Compile Include="ActivitiesQuery.cs" />
     <Compile Include="Activity.cs" />
+    <Compile Include="ActivityTypeCategory.cs" />
     <Compile Include="AggregatedActivitiesResult.cs" />
     <Compile Include="ActivityType.cs" />
     <Compile Include="ActivitiesClientConfiguration.cs" />
+    <Compile Include="Attributes\CategoryAttribute.cs" />
+    <Compile Include="Elastic\IndexMapper.cs" />
+    <Compile Include="IndexMappers\ActivitiesIndexMapper.cs" />
     <Compile Include="Elastic\ElasticClientFactory.cs" />
     <Compile Include="Elastic\IElasticClientFactory.cs" />
-    <Compile Include="Elastic\IIndexAutoMapper.cs" />
-    <Compile Include="Elastic\IndexAutoMapper.cs" />
+    <Compile Include="Elastic\IIndexMapper.cs" />
+    <Compile Include="Extensions\ActivityTypeCategoryExtensions.cs" />
+    <Compile Include="Extensions\ActivityTypeExtensions.cs" />
     <Compile Include="IActivitiesClient.cs" />
     <Compile Include="AggregatedActivityResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,64 +2,94 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Nest;
-using SFA.DAS.Activities.Client.Elastic;
+using SFA.DAS.Activities.Client.Extensions;
 
 namespace SFA.DAS.Activities.Client
 {
     public class ActivitiesClient : IActivitiesClient
     {
-        private const string IndexName = "activities";
-
-        private readonly IIndexAutoMapper _indexAutoMapper;
         private readonly IElasticClient _client;
 
-        public ActivitiesClient(IIndexAutoMapper indexAutoMapper, IElasticClient client)
+        public ActivitiesClient(IElasticClient client)
         {
-            _indexAutoMapper = indexAutoMapper;
             _client = client;
         }
 
-        public async Task<ActivitiesResult> GetActivities(long accountId, int? take = null, DateTime? from = null, DateTime? to = null)
+        public async Task<ActivitiesResult> GetActivities(ActivitiesQuery query)
         {
-            await _indexAutoMapper.EnureIndexExists<Activity>(IndexName);
-
             var now = DateTime.UtcNow;
             var today = now.Date;
             var oneYearAgo = today.AddYears(-1);
-
-            if (take == null)
-            {
-                take = 50;
-            }
-
-            if (from == null)
-            {
-                from = oneYearAgo;
-            }
-
-            if (to == null)
-            {
-                to = now;
-            }
+            var take = query.Take ?? 50;
+            var from = query.From ?? oneYearAgo;
+            var to = query.To ?? now;
 
             var response = await _client.SearchAsync<Activity>(s => s
-                .Index(IndexName)
-                .Query(q => q
-                    .Term(t => t
-                        .Field(f => f.AccountId)
-                        .Value(accountId)
-                    ) && q
-                    .DateRange(r => r
-                        .Field(f => f.At)
-                        .GreaterThanOrEquals(DateMath.Anchored(from.Value).RoundTo(TimeUnit.Day))
-                        .LessThanOrEquals(DateMath.Anchored(to.Value).RoundTo(TimeUnit.Day))
-                    )
-                )
+                .Query(q =>
+                {
+                    var where = q
+                        .Term(t => t
+                            .Field(a => a.AccountId)
+                            .Value(query.AccountId)
+                        ) && q
+                        .DateRange(r => r
+                            .Field(a => a.At)
+                            .GreaterThanOrEquals(DateMath.Anchored(from).RoundTo(TimeUnit.Day))
+                            .LessThanOrEquals(DateMath.Anchored(to).RoundTo(TimeUnit.Day))
+                        );
+
+                    if (query.Category != null)
+                    {
+                        where &= q
+                            .Terms(t => t
+                                .Field(a => a.Type)
+                                .Terms(query.Category.Value.GetActivityTypes())
+                            );
+                    }
+
+                    if (query.Data != null && query.Data.Any())
+                    {
+                        where &= q.Nested(n => n
+                            .Path(p => p.Data)
+                            .Query(nq =>
+                            {
+                                QueryContainer nestedWhere = null;
+
+                                foreach (var filter in query.Data)
+                                {
+                                    nestedWhere &= nq
+                                        .Term(t => t
+                                            .Field(a => a.Data[filter.Key + ".keyword"])
+                                            .Value(filter.Value)
+                                        );
+                                }
+
+                                return nestedWhere;
+                            })
+                        );
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(query.Term))
+                    {
+                        where &= q
+                            .MultiMatch(m => m
+                                .Type(TextQueryType.CrossFields)
+                                .Fields(f => f
+                                    .Field(a => a.Description)
+                                    .Field(a => a.Data["*"])
+                                )
+                                .Query(query.Term)
+                                .Operator(Operator.And)
+                            );
+                    }
+
+                    return where;
+                })
                 .Sort(srt => srt
                     .Descending(a => a.At)
                     .Descending("_uid")
                 )
-                .Take(take.Value)
+                .Take(take)
             );
 
             return new ActivitiesResult
@@ -71,14 +101,11 @@ namespace SFA.DAS.Activities.Client
 
         public async Task<AggregatedActivitiesResult> GetLatestActivities(long accountId)
         {
-            await _indexAutoMapper.EnureIndexExists<Activity>(IndexName);
-
             var now = DateTime.UtcNow;
             var today = now.Date;
             var oneYearAgo = today.AddYears(-1);
 
             var response = await _client.SearchAsync<Activity>(s => s
-                .Index(IndexName)
                 .Query(q => q
                     .Term(t => t
                         .Field(f => f.AccountId)
@@ -87,22 +114,22 @@ namespace SFA.DAS.Activities.Client
                 )
                 .Size(0)
                 .Aggregations(a => a
-                    .Terms("activities_per_type", t => t
+                    .Terms("activitiesByType", t => t
                         .Field(f => f.Type)
-                        .OrderDescending("max_at")
+                        .OrderDescending("maxAt")
                         .Size(4)
                         .Aggregations(a2 => a2
-                            .Max("max_at", m => m
+                            .Max("maxAt", m => m
                                 .Field(f => f.At)
                             )
-                            .DateHistogram("activities_per_day", d => d
+                            .DateHistogram("activitiesByDay", d => d
                                 .Field(f => f.At)
                                 .Interval(DateInterval.Day)
                                 .MinimumDocumentCount(1)
                                 .ExtendedBounds(oneYearAgo, now)
                                 .Order(HistogramOrder.KeyDescending)
                                 .Aggregations(a3 => a3
-                                    .TopHits("top_activity_hit", th => th
+                                    .TopHits("activityTopHit", th => th
                                         .Sort(srt => srt
                                             .Field(f => f.At)
                                             .Order(SortOrder.Descending)
@@ -117,9 +144,9 @@ namespace SFA.DAS.Activities.Client
             );
 
             var aggregates = (
-                from type in response.Aggs.Terms("activities_per_type").Buckets
-                let date = type.DateHistogram("activities_per_day").Buckets.FirstOrDefault()
-                let topHit = date?.TopHits("top_activity_hit").Hits<Activity>().Select(h => h.Source).First()
+                from type in response.Aggs.Terms("activitiesByType").Buckets
+                let date = type.DateHistogram("activitiesByDay").Buckets.FirstOrDefault()
+                let topHit = date?.TopHits("activityTopHit").Hits<Activity>().Select(h => h.Source).First()
                 where topHit != null
                 select new AggregatedActivityResult
                 {

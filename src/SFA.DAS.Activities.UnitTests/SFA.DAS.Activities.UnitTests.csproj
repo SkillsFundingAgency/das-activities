@@ -80,7 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Elastic\ElasticClientFactoryTests.cs" />
-    <Compile Include="Client\Elastic\IndexAutoMapperTests.cs" />
+    <Compile Include="Client\Elastic\IndexMapperTests.cs" />
+    <Compile Include="Client\Extensions\ActivityTypeCategoryExtensionsTests.cs" />
+    <Compile Include="Client\Extensions\ActivityTypeExtensionsTests.cs" />
     <Compile Include="TestAsync.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
