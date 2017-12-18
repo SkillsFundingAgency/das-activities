@@ -144,8 +144,6 @@
     <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
     <Compile Include="Policies\MessageSubscriberPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\ActivitiesService.cs" />
-    <Compile Include="Services\IActivitiesService.cs" />
     <Compile Include="WorkerRole.cs" />
   </ItemGroup>
   <ItemGroup>
