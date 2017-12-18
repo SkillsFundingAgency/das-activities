@@ -43,7 +43,7 @@ namespace SFA.DAS.Activities.Worker
             try
             {
                 var tasks = _processors.Select(p => p.RunAsync(_cancel.Token)).ToArray();
-                Task.WaitAll(tasks);
+                await Task.WhenAll(tasks);
             }
             catch (Exception ex)
             {

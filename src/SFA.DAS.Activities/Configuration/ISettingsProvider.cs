@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace SFA.DAS.Activities.Worker.Configuration
+namespace SFA.DAS.Activities.Configuration
 {
-    public interface IProvideSettings
+    public interface ISettingsProvider
     {
         IDictionary<string, object> Settings { get; }
     }

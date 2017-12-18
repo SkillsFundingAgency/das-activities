@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SFA.DAS.Activities.Worker.Configuration
+namespace SFA.DAS.Activities.Configuration
 {
     public class SettingsBuilder : ISettingsBuilder
     {
-        private readonly ICollection<IProvideSettings> _providers = new List<IProvideSettings>();
+        private readonly ICollection<ISettingsProvider> _providers = new List<ISettingsProvider>();
 
-        public SettingsBuilder AddProvider(IProvideSettings provider)
+        public SettingsBuilder AddProvider(ISettingsProvider provider)
         {
             _providers.Add(provider);
             return this;
         }
 
-        public SettingsProvider Build()
+        public Settings Build()
         {
             var values = new Dictionary<string, object>();
 
@@ -29,7 +29,7 @@ namespace SFA.DAS.Activities.Worker.Configuration
                 }
             }
 
-            return new SettingsProvider(values);
+            return new Settings(values);
         }
     }
 }

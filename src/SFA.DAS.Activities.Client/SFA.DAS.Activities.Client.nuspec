@@ -11,7 +11,10 @@
     <description>Client library for DAS Activities</description>
     <dependencies>
       <group targetFramework=".NETFramework4.6.2">
+        <dependency id="Microsoft.WindowsAzure.ConfigurationManager" version="3.2.3" />
         <dependency id="NEST" version="5.5.0" />
+        <dependency id="SFA.DAS.Configuration" version="1.0.0.43116" />
+        <dependency id="SFA.DAS.Configuration.AzureTableStorage" version="1.0.0.43116" />
         <dependency id="SFA.DAS.NLog.Logger" version="1.0.0.39208" />
         <dependency id="StructureMap" version="4.5.2" />
       </group>

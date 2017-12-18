@@ -12,12 +12,14 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
     [TopicSubscription("Activity_PayeSchemeCreatedMessageProcessor")]
     public class PayeSchemeCreatedMessageProcessor : MessageProcessor<PayeSchemeCreatedMessage>
     {
+        private readonly IMessageSubscriberFactory _subscriberFactory;
         private readonly IActivityMapper _activityMapper;
         private readonly IActivitiesService _activitiesService;
 
         public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IActivitiesService activitiesService)
             : base(subscriberFactory, logger)
         {
+            _subscriberFactory = subscriberFactory;
             _activityMapper = activityMapper;
             _activitiesService = activitiesService;
         }

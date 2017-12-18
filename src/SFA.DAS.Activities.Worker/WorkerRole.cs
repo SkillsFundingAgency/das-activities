@@ -1,5 +1,5 @@
 using System;
-using SFA.DAS.Activities;
+using SFA.DAS.Activities.Worker.Policies;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
@@ -9,6 +9,8 @@ namespace SFA.DAS.Activities.Worker
 {
     public class WorkerRole : TopshelfRoleEntryPoint
     {
+        private IContainer _container;
+
         public static int Main()
         {
             return (int)HostFactory.Run(new WorkerRole().Configure);
@@ -18,17 +20,14 @@ namespace SFA.DAS.Activities.Worker
         {
             try
             {
-                var container = new Container(c =>
+                _container = new Container(c =>
                 {
                     c.AddRegistry<ActivitiesRegistry>();
                     c.AddRegistry<ActivitiesWorkerRegistry>();
+                    c.Policies.Add(new MessageSubscriberPolicy(() => _container.GetInstance<ActivitiesServiceBusConfiguration>(), "SFA.DAS.Activities"));
                 });
-
-                hostConfigurator.Service(settings => container.GetInstance<HostService>(), c =>
-                {
-                    //c.BeforeStartingService(context => _log.Info("Before starting service!!"));
-                    //c.AfterStoppingService(context => _log.Info("After stopping service!!"));
-                });
+                
+                hostConfigurator.Service(s => _container.GetInstance<HostService>());
             }
             catch (Exception ex)
             {

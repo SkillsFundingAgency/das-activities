@@ -8,9 +8,9 @@ using Newtonsoft.Json.Converters;
 using SFA.DAS.Configuration;
 using SFA.DAS.Configuration.AzureTableStorage;
 
-namespace SFA.DAS.Activities.Worker.Configuration
+namespace SFA.DAS.Activities.Configuration
 {
-    public class TableStorageProvider : IProvideSettings
+    public class TableStorageProvider : ISettingsProvider
     {
         public IDictionary<string, object> Settings { get; } = new Dictionary<string, object>();
 

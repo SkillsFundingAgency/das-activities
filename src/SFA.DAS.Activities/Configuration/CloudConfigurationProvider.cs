@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Azure;
 
-namespace SFA.DAS.Activities.Worker.Configuration
+namespace SFA.DAS.Activities.Configuration
 {
-    public class CloudConfigProvider : IProvideSettings
+    public class CloudConfigurationProvider : ISettingsProvider
     {
         public IDictionary<string, object> Settings { get; set; } = new Dictionary<string, object>();
 
-        public CloudConfigProvider AddSection<T>(string name)
+        public CloudConfigurationProvider AddSection<T>(string name)
         {
             foreach (var propertyInfo in typeof(T).GetProperties())
             {

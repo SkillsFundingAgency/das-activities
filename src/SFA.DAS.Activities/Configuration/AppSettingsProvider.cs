@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 
-namespace SFA.DAS.Activities.Worker.Configuration
+namespace SFA.DAS.Activities.Configuration
 {
-    public class AppSettingsProvider : IProvideSettings
+    public class AppSettingsProvider : ISettingsProvider
     {
         public IDictionary<string, object> Settings { get; set; } = GetSettings();
 

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace SFA.DAS.Activities.Worker.Configuration
+namespace SFA.DAS.Activities.Configuration
 {
-    public class SettingsProvider : ISettingsProvider
+    public class Settings : ISettings
     {
         private readonly Dictionary<string, object> _values;
 
-        public SettingsProvider(Dictionary<string, object> values)
+        public Settings(Dictionary<string, object> values)
         {
             _values = values;
         }

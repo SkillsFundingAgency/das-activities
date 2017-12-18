@@ -1,6 +1,8 @@
-﻿namespace SFA.DAS.Activities
+﻿using SFA.DAS.Activities.Configuration;
+
+namespace SFA.DAS.Activities
 {
-    public class ActivitiesElasticConfiguration
+    public class ActivitiesElasticConfiguration : IElasticConfiguration
     {
         public string BaseUrl { get; set; }
         public string UserName { get; set; }

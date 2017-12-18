@@ -1,6 +1,7 @@
 ﻿using System;
 using Elasticsearch.Net;
 using Nest;
+using SFA.DAS.Activities.Configuration;
 
 namespace SFA.DAS.Activities.Elastic
 {
@@ -9,7 +10,7 @@ namespace SFA.DAS.Activities.Elastic
         private readonly ElasticClient _client;
         private readonly ConnectionSettings _settings;
 
-        public ElasticClientFactory(ActivitiesElasticConfiguration configuration)
+        public ElasticClientFactory(IElasticConfiguration configuration)
         {
             _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) })).ThrowExceptions();
 

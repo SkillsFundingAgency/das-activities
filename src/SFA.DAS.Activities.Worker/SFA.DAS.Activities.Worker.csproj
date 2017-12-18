@@ -137,21 +137,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\AppSettingsProvider.cs" />
-    <Compile Include="Configuration\CloudConfigProvider.cs" />
-    <Compile Include="Configuration\EnvironmentConfiguration.cs" />
-    <Compile Include="Configuration\IProvideSettings.cs" />
-    <Compile Include="Configuration\ISettingsBuilder.cs" />
-    <Compile Include="Configuration\ISettingsProvider.cs" />
-    <Compile Include="Configuration\ServiceBusConfiguration.cs" />
-    <Compile Include="Configuration\SettingsBuilder.cs" />
-    <Compile Include="Configuration\SettingsProvider.cs" />
-    <Compile Include="Configuration\TableStorageProvider.cs" />
     <Compile Include="ObjectMappers\ActivityMapper.cs" />
     <Compile Include="ObjectMappers\IActivityMapper.cs" />
     <Compile Include="ActivitiesWorkerRegistry.cs" />
     <Compile Include="HostService.cs" />
     <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
+    <Compile Include="Policies\MessageSubscriberPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ActivitiesService.cs" />
     <Compile Include="Services\IActivitiesService.cs" />
