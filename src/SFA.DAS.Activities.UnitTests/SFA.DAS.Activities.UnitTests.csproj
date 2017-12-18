@@ -88,7 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Worker\ObjectMappers\ActivityMapperTests.cs" />
     <Compile Include="Worker\PayeSchemeCreatedMessageProcessorTests.cs" />
-    <Compile Include="Worker\Services\ActivitiesServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

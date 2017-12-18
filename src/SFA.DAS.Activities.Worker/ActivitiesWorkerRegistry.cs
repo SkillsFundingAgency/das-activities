@@ -1,7 +1,5 @@
-using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Worker.MessageProcessors;
 using SFA.DAS.Activities.Worker.ObjectMappers;
-using SFA.DAS.Activities.Worker.Services;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
@@ -20,7 +18,6 @@ namespace SFA.DAS.Activities.Worker
             });
 
             For<IActivityMapper>().Use<ActivityMapper>();
-            For<IActivitiesService>().Use<ActivitiesService>();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<IMessageProcessor>().Use<PayeSchemeCreatedMessageProcessor>().Named("PayeSchemeCreatedMessageProcessor");
         }
