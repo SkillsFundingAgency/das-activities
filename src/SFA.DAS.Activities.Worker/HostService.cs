@@ -38,7 +38,7 @@ namespace SFA.DAS.Activities.Worker
             return true;
         }
 
-        async Task Run()
+        private async Task Run()
         {
             try
             {
