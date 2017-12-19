@@ -176,8 +176,8 @@
   </Target>
   -->
   <Target Name="AfterBuild" DependsOnTargets="SetGenerateManifests;GenerateApplicationManifest;GenerateDeploymentManifest">
-    <Copy SourceFiles="$(SolutionDir)SFA.DAS.Activities.Worker\obj\$(Configuration)\SFA.DAS.Activities.Worker.exe.manifest" DestinationFiles="$(SolutionDir)SFA.DAS.Activities.Worker\bin\$(Configuration)\SFA.DAS.Activities.Worker.exe.manifest" />
-    <Copy SourceFiles="$(SolutionDir)SFA.DAS.Activities.Worker\obj\$(Configuration)\SFA.DAS.Activities.Worker.application" DestinationFiles="$(SolutionDir)SFA.DAS.Activities.Worker\bin\$(Configuration)\SFA.DAS.Activities.Worker.application" />
+    <Copy SourceFiles="..\SFA.DAS.Activities.Worker\obj\$(Configuration)\SFA.DAS.Activities.Worker.exe.manifest" DestinationFiles="..\SFA.DAS.Activities.Worker\bin\$(Configuration)\SFA.DAS.Activities.Worker.exe.manifest" />
+    <Copy SourceFiles="..\SFA.DAS.Activities.Worker\obj\$(Configuration)\SFA.DAS.Activities.Worker.application" DestinationFiles="..\SFA.DAS.Activities.Worker\bin\$(Configuration)\SFA.DAS.Activities.Worker.application" />
   </Target>
   <PropertyGroup>
     <!-- Setting AutoUnifyAssemblyReferences to false will allow the ResolveAssemblyReferences task to 
