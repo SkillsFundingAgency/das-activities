@@ -34,7 +34,7 @@
 ```
 
 2. Open the solution.
-3. Set SFA.DAS.Activities.Work as the startup project.
+3. Set `SFA.DAS.Activities.Worker` as the startup project.
 4. Hit F5.
 5. Browse to `~\AppData\Roaming\SFA.DAS.Activities`
 6. Add a directory named `add_paye_scheme`.
@@ -50,4 +50,9 @@
 }
 ```
 
-8. HTTP GET http://elastic:changeme@localhost:9200/activities/_search
+8. HTTP GET http://localhost:9200/activities/_search
+
+[Choclatey]: https://chocolatey.org
+[Docker]: https://www.docker.com
+[Elastic Search]: https://www.elastic.co/products/elasticsearch
+[Visual Studio]: https://www.visualstudio.com
