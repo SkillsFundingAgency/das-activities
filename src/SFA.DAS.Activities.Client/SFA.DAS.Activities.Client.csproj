@@ -86,4 +86,5 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="Publish" DependsOnTargets="Build"></Target>
 </Project>
