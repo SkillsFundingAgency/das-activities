@@ -30,7 +30,7 @@
 
 ```PowerShell
 > cd .\tools\elasticsearch.5.5.3
-> docker-compose -d
+> docker-compose up -d
 ```
 
 2. Open the solution.
