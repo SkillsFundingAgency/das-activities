@@ -10,19 +10,19 @@ using SFA.DAS.NLog.Logger;
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
     [TopicSubscription("Activity_PayeSchemeCreatedMessageProcessor")]
-    public class PayeSchemeCreatedMessageProcessor : MessageProcessor<PayeSchemeCreatedMessage>
+    public class PayeSchemeAddedMessageProcessor : MessageProcessor<PayeSchemeAddedMessage>
     {
         private readonly IActivityMapper _activityMapper;
         private readonly IElasticClient _client;
 
-        public PayeSchemeCreatedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IElasticClient client)
+        public PayeSchemeAddedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IElasticClient client)
             : base(subscriberFactory, logger)
         {
             _activityMapper = activityMapper;
             _client = client;
         }
 
-        protected override async Task ProcessMessage(PayeSchemeCreatedMessage message)
+        protected override async Task ProcessMessage(PayeSchemeAddedMessage message)
         {
             await _client.IndexAsync(_activityMapper.Map(message, ActivityType.PayeSchemeAdded));
         }

@@ -87,8 +87,8 @@
     <Reference Include="SFA.DAS.Configuration.AzureTableStorage, Version=1.0.0.43116, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.AzureTableStorage.1.0.0.43116\lib\net45\SFA.DAS.Configuration.AzureTableStorage.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.48607, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.48607\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
+    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.50040, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.50040\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Messaging, Version=3.0.0.44567, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.44567\lib\net45\SFA.DAS.Messaging.dll</HintPath>
@@ -141,7 +141,7 @@
     <Compile Include="ObjectMappers\IActivityMapper.cs" />
     <Compile Include="ActivitiesWorkerRegistry.cs" />
     <Compile Include="HostService.cs" />
-    <Compile Include="MessageProcessors\PayeSchemeCreatedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\PayeSchemeAddedMessageProcessor.cs" />
     <Compile Include="Policies\MessageSubscriberPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerRole.cs" />
