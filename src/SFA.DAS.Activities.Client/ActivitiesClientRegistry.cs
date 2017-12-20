@@ -6,6 +6,7 @@ namespace SFA.DAS.Activities.Client
     {
         public ActivitiesClientRegistry()
         {
+            IncludeRegistry<ActivitiesRegistry>();
             For<IActivitiesClient>().Use<ActivitiesClient>();
         }
     }

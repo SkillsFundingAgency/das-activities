@@ -22,7 +22,6 @@ namespace SFA.DAS.Activities.Worker
             {
                 _container = new Container(c =>
                 {
-                    c.AddRegistry<ActivitiesRegistry>();
                     c.AddRegistry<ActivitiesWorkerRegistry>();
                     c.Policies.Add(new MessageSubscriberPolicy(() => _container.GetInstance<ActivitiesServiceBusConfiguration>(), "SFA.DAS.Activities"));
                 });

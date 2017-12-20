@@ -9,6 +9,8 @@ namespace SFA.DAS.Activities.Worker
     {
         public ActivitiesWorkerRegistry()
         {
+            IncludeRegistry<ActivitiesRegistry>();
+
             Scan(scan =>
             {
                 scan.AssembliesAndExecutablesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
