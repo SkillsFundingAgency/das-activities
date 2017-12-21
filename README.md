@@ -38,7 +38,7 @@
 4. Hit F5.
 5. Browse to `~\AppData\Roaming\SFA.DAS.Activities`
 6. Add a directory named `add_paye_scheme`.
-7. Add a file named `PayeSchemeCreatedMessage.json` containing the following json:
+7. Add a file to the above directory named `PayeSchemeAddedMessage.json` containing the following json:
 
 ```JavaScript
 {
