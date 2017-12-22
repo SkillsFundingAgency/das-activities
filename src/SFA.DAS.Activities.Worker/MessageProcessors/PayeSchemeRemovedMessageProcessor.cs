@@ -9,22 +9,22 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
-    [TopicSubscription("Activity_PayeSchemeAddedMessageProcessor")]
-    public class PayeSchemeAddedMessageProcessor : MessageProcessor<PayeSchemeAddedMessage>
+    [TopicSubscription("Activity_PayeSchemeDeletedMessageProcessor")]
+    public class PayeSchemeRemovedMessageProcessor : MessageProcessor<PayeSchemeDeletedMessage>
     {
         private readonly IActivityMapper _activityMapper;
         private readonly IElasticClient _client;
 
-        public PayeSchemeAddedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IElasticClient client)
+        public PayeSchemeRemovedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IElasticClient client)
             : base(subscriberFactory, logger)
         {
             _activityMapper = activityMapper;
             _client = client;
         }
 
-        protected override async Task ProcessMessage(PayeSchemeAddedMessage message)
+        protected override async Task ProcessMessage(PayeSchemeDeletedMessage message)
         {
-            await _client.IndexAsync(_activityMapper.Map(message, ActivityType.PayeSchemeAdded));
+            await _client.IndexAsync(_activityMapper.Map(message, ActivityType.PayeSchemeRemoved));
         }
     }
 }
