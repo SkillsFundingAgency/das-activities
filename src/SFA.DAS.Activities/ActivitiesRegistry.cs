@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Nest;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Elastic;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
 using StructureMap.Building.Interception;
 
@@ -32,7 +33,7 @@ namespace SFA.DAS.Activities
                 .Use(c => c.GetInstance<IElasticClientFactory>().GetClient())
                 .Singleton()
                 .InterceptWith(new ActivatorInterceptor<IElasticClient>((context, client) => 
-                    Task.WaitAll(context.GetAllInstances<IIndexMapper>().Select(m => m.EnureIndexExists(client)).ToArray()))
+                    Task.WaitAll(context.GetAllInstances<IIndexMapper>().Select(m => m.EnureIndexExists(client, context.GetInstance<ILog>())).ToArray()))
                 );
 
             For<ISettings>().Use(settings);

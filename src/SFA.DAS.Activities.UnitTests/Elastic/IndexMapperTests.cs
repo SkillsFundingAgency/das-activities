@@ -5,6 +5,7 @@ using Moq;
 using Nest;
 using NUnit.Framework;
 using SFA.DAS.Activities.Elastic;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.UnitTests.Elastic
 {
@@ -42,7 +43,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
             protected override async Task When()
             {
-                await _indexMapper.EnureIndexExists(_client.Object);
+                await _indexMapper.EnureIndexExists(_client.Object, Mock.Of<ILog>());
             }
 
             [Test]
@@ -89,7 +90,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
             protected override async Task When()
             {
-                await _indexMapper.EnureIndexExists(_client.Object);
+                await _indexMapper.EnureIndexExists(_client.Object, Mock.Of<ILog>());
             }
 
             [Test]
@@ -109,6 +110,47 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             public void Then_should_not_map_index()
             {
                 Assert.That(_indexMapper.MapCallCount, Is.EqualTo(0));
+            }
+        }
+
+        public class When_ensuring_index_exists_and_an_exception_is_thrown : TestAsync
+        {
+            private StubIndexMapper _indexMapper;
+            private readonly Mock<IElasticClient> _client = new Mock<IElasticClient>();
+            private readonly Mock<ILog> _logger = new Mock<ILog>();
+            private readonly Exception _thrownException = new Exception();
+            private Exception _ex;
+
+            protected override void Given()
+            {
+                _client.Setup(c => c.ConnectionSettings).Throws(_thrownException);
+
+                _indexMapper = new StubIndexMapper();
+            }
+
+            protected override async Task When()
+            {
+                try
+                {
+                    await _indexMapper.EnureIndexExists(_client.Object, _logger.Object);
+                }
+                catch (Exception ex)
+                {
+                    _ex = ex;
+                }
+            }
+
+            [Test]
+            public void Then_should_log_exception()
+            {
+                _logger.Verify(l => l.Error(_thrownException, $"Failed to create '{StubIndexName}' index."));
+            }
+
+            [Test]
+            public void Then_should_rethrow_exception()
+            {
+                Assert.That(_ex, Is.Not.Null);
+                Assert.That(_ex, Is.SameAs(_thrownException));
             }
         }
 

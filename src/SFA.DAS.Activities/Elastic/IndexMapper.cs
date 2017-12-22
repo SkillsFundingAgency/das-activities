@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Nest;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Elastic
 {
@@ -7,23 +9,31 @@ namespace SFA.DAS.Activities.Elastic
     {
         protected abstract string IndexName { get; }
 
-        public async Task EnureIndexExists(IElasticClient client)
+        public async Task EnureIndexExists(IElasticClient client, ILog logger)
         {
-            client.ConnectionSettings.DefaultIndices.Add(typeof(T), IndexName);
-
-            var response = await client.IndexExistsAsync(IndexName).ConfigureAwait(false);
-
-            if (!response.Exists)
+            try
             {
-                await client.CreateIndexAsync(IndexName, i => i
-                    .Mappings(ms => ms
-                        .Map<T>(m =>
-                        {
-                            Map(m);
-                            return m;
-                        })
-                    )
-                );
+                client.ConnectionSettings.DefaultIndices.Add(typeof(T), IndexName);
+
+                var response = await client.IndexExistsAsync(IndexName).ConfigureAwait(false);
+
+                if (!response.Exists)
+                {
+                    await client.CreateIndexAsync(IndexName, i => i
+                        .Mappings(ms => ms
+                            .Map<T>(m =>
+                            {
+                                Map(m);
+                                return m;
+                            })
+                        )
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Failed to create '{IndexName}' index.");
+                throw;
             }
         }
 
