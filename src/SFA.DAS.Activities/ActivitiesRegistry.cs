@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Nest;
+﻿using Nest;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Elastic;
-using SFA.DAS.NLog.Logger;
 using StructureMap;
-using StructureMap.Building.Interception;
 
 namespace SFA.DAS.Activities
 {
     public class ActivitiesRegistry : Registry
     {
+        private static readonly object Lock = new object();
+
+        private static IElasticClientFactory _elasticClientFactory;
+
         public ActivitiesRegistry()
         {
             var settings = new SettingsBuilder()
@@ -27,19 +27,28 @@ namespace SFA.DAS.Activities
                 s.AddAllTypesOf<IIndexMapper>();
             });
             
-            For<IElasticClientFactory>().Use<ElasticClientFactory>().Singleton().Ctor<IElasticConfiguration>().Is(c => c.GetInstance<ActivitiesElasticConfiguration>());
-
-            For<IElasticClient>()
-                .Use(c => c.GetInstance<IElasticClientFactory>().GetClient())
-                .Singleton()
-                .InterceptWith(new ActivatorInterceptor<IElasticClient>((context, client) => 
-                    Task.WaitAll(context.GetAllInstances<IIndexMapper>().Select(m => m.EnureIndexExists(client, context.GetInstance<ILog>())).ToArray()))
-                );
-
+            For<IElasticClientFactory>().Use(c => GetElasticClientFactory(c)).Singleton();
+            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().GetClient());
             For<ISettings>().Use(settings);
             For<ActivitiesElasticConfiguration>().Use(c => c.GetInstance<ISettings>().GetSection<ActivitiesElasticConfiguration>("ElasticSearch"));
             For<ActivitiesEnvironmentConfiguration>().Use(c => c.GetInstance<ISettings>().GetSection<ActivitiesEnvironmentConfiguration>("Environment"));
             For<ActivitiesServiceBusConfiguration>().Use(c => c.GetInstance<ISettings>().GetSection<ActivitiesServiceBusConfiguration>("ServiceBus"));
+        }
+
+        private IElasticClientFactory GetElasticClientFactory(IContext context)
+        {
+            lock (Lock)
+            {
+                if (_elasticClientFactory == null)
+                {
+                    var configuration = context.GetInstance<ActivitiesElasticConfiguration>();
+                    var indexMappers = context.GetAllInstances<IIndexMapper>();
+
+                    _elasticClientFactory = new ElasticClientFactory(configuration, indexMappers);
+                }
+            }
+
+            return _elasticClientFactory;
         }
     }
 }

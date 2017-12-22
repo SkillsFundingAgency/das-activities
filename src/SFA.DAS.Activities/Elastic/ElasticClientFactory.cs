@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Nest;
 using SFA.DAS.Activities.Configuration;
@@ -10,7 +13,7 @@ namespace SFA.DAS.Activities.Elastic
         private readonly ElasticClient _client;
         private readonly ConnectionSettings _settings;
 
-        public ElasticClientFactory(IElasticConfiguration configuration)
+        public ElasticClientFactory(IElasticConfiguration configuration, IEnumerable<IIndexMapper> indexMappers)
         {
             _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) })).ThrowExceptions();
 
@@ -20,6 +23,8 @@ namespace SFA.DAS.Activities.Elastic
             }
 
             _client = new ElasticClient(_settings);
+
+            Task.WaitAll(indexMappers.Select(m => m.EnureIndexExists(_client)).ToArray());
         }
 
         public IElasticClient GetClient()

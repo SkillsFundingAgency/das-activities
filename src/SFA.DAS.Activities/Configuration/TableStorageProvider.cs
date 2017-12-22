@@ -23,7 +23,12 @@ namespace SFA.DAS.Activities.Configuration
 
         public TableStorageProvider AddSection(string serviceName)
         {
-            var environment = CloudConfigurationManager.GetSetting("Environment_Name") ?? ConfigurationManager.AppSettings["Environment:Name"];
+            var environment = ConfigurationManager.AppSettings["Environment_Name"];
+
+            if (string.IsNullOrEmpty(environment))
+            {
+                environment = CloudConfigurationManager.GetSetting("Environment_Name");
+            }
 
             if (!string.IsNullOrEmpty(_connectionString) && !string.IsNullOrEmpty(environment))
             {

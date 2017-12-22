@@ -10,7 +10,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
         {
             private IActivityMapper _mapper;
 
-            private readonly StubEvent _event = new StubEvent
+            private readonly EventStub _event = new EventStub
             {
                 AccountId = 123,
                 CreatedAt = DateTime.UtcNow,
@@ -47,7 +47,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
         {
             private IActivityMapper _mapper;
 
-            private readonly StubEvent _event = new StubEvent
+            private readonly EventStub _event = new EventStub
             {
                 AccountId = 123,
                 CreatedAt = DateTime.UtcNow,
@@ -84,7 +84,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
         {
             private IActivityMapper _mapper;
 
-            private readonly StubEventWithNullProps _event = new StubEventWithNullProps
+            private readonly EventStubWithNullProps _event = new EventStubWithNullProps
             {
                 AccountId = null,
                 CreatedAt = DateTime.UtcNow
@@ -121,7 +121,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
         {
             private IActivityMapper _mapper;
 
-            private readonly StubEventWithNullProps _event = new StubEventWithNullProps
+            private readonly EventStubWithNullProps _event = new EventStubWithNullProps
             {
                 AccountId = 123,
                 CreatedAt = null
@@ -158,7 +158,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
         {
             private IActivityMapper _mapper;
 
-            private readonly StubEventWithNoAccountIdProp _event = new StubEventWithNoAccountIdProp
+            private readonly EventStubWithNoAccountIdProp _event = new EventStubWithNoAccountIdProp
             {
                 CreatedAt = DateTime.UtcNow
             };
@@ -194,7 +194,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
         {
             private IActivityMapper _mapper;
 
-            private readonly StubEventWithNoCreatedAtProp _event = new StubEventWithNoCreatedAtProp
+            private readonly EventStubWithNoCreatedAtProp _event = new EventStubWithNoCreatedAtProp
             {
                 AccountId = 123
             };
@@ -226,25 +226,25 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
             }
         }
 
-        private class StubEvent
+        private class EventStub
         {
             public long AccountId { get; set; }
             public DateTime CreatedAt { get; set; }
             public string Foo { get; set; }
         }
 
-        private class StubEventWithNullProps
+        private class EventStubWithNullProps
         {
             public long? AccountId { get; set; }
             public DateTime? CreatedAt { get; set; }
         }
 
-        private class StubEventWithNoAccountIdProp
+        private class EventStubWithNoAccountIdProp
         {
             public DateTime CreatedAt { get; set; }
         }
 
-        private class StubEventWithNoCreatedAtProp
+        private class EventStubWithNoCreatedAtProp
         {
             public long AccountId { get; set; }
         }

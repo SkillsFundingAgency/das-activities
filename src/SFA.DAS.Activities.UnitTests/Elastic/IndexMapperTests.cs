@@ -5,7 +5,6 @@ using Moq;
 using Nest;
 using NUnit.Framework;
 using SFA.DAS.Activities.Elastic;
-using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.UnitTests.Elastic
 {
@@ -15,7 +14,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
         public class When_ensuring_non_existant_index_exists : TestAsync
         {
-            private StubIndexMapper _indexMapper;
+            private IndexMapperStub _indexMapper;
             private readonly Mock<IElasticClient> _client = new Mock<IElasticClient>();
             private readonly Mock<IExistsResponse> _indexExistsResponse = new Mock<IExistsResponse>();
             private readonly Mock<IConnectionSettingsValues> _connectionSettings = new Mock<IConnectionSettingsValues>();
@@ -38,18 +37,18 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                     .Callback<IndexName, Func<CreateIndexDescriptor, ICreateIndexRequest>, CancellationToken>((s, i, c) => i(_indexDescriptor))
                     .ReturnsAsync(_createIndexReponse.Object);
 
-                _indexMapper = new StubIndexMapper();
+                _indexMapper = new IndexMapperStub();
             }
 
             protected override async Task When()
             {
-                await _indexMapper.EnureIndexExists(_client.Object, Mock.Of<ILog>());
+                await _indexMapper.EnureIndexExists(_client.Object);
             }
 
             [Test]
             public void Then_should_infer_index_name_for_type()
             {
-                Assert.That(_defaultIndices.TryGetValue(typeof(StubActivity), out var indexName), Is.True);
+                Assert.That(_defaultIndices.TryGetValue(typeof(ActivityStub), out var indexName), Is.True);
                 Assert.That(indexName, Is.EqualTo(StubIndexName));
             }
 
@@ -68,7 +67,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
         public class When_ensuring_existant_index_exists : TestAsync
         {
-            private StubIndexMapper _indexMapper;
+            private IndexMapperStub _indexMapper;
             private readonly Mock<IElasticClient> _client = new Mock<IElasticClient>();
             private readonly Mock<IExistsResponse> _indexExistsResponse = new Mock<IExistsResponse>();
             private readonly Mock<IConnectionSettingsValues> _connectionSettings = new Mock<IConnectionSettingsValues>();
@@ -85,18 +84,18 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                 _client.Setup(c => c.IndexExistsAsync(StubIndexName, It.IsAny<Func<IndexExistsDescriptor, IIndexExistsRequest>>(), It.IsAny<CancellationToken>()))
                     .ReturnsAsync(_indexExistsResponse.Object);
 
-                _indexMapper = new StubIndexMapper();
+                _indexMapper = new IndexMapperStub();
             }
 
             protected override async Task When()
             {
-                await _indexMapper.EnureIndexExists(_client.Object, Mock.Of<ILog>());
+                await _indexMapper.EnureIndexExists(_client.Object);
             }
 
             [Test]
             public void Then_should_infer_index_name_for_type()
             {
-                Assert.That(_defaultIndices.TryGetValue(typeof(StubActivity), out var indexName), Is.True);
+                Assert.That(_defaultIndices.TryGetValue(typeof(ActivityStub), out var indexName), Is.True);
                 Assert.That(indexName, Is.EqualTo(StubIndexName));
             }
 
@@ -113,60 +112,19 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             }
         }
 
-        public class When_ensuring_index_exists_and_an_exception_is_thrown : TestAsync
-        {
-            private StubIndexMapper _indexMapper;
-            private readonly Mock<IElasticClient> _client = new Mock<IElasticClient>();
-            private readonly Mock<ILog> _logger = new Mock<ILog>();
-            private readonly Exception _thrownException = new Exception();
-            private Exception _ex;
-
-            protected override void Given()
-            {
-                _client.Setup(c => c.ConnectionSettings).Throws(_thrownException);
-
-                _indexMapper = new StubIndexMapper();
-            }
-
-            protected override async Task When()
-            {
-                try
-                {
-                    await _indexMapper.EnureIndexExists(_client.Object, _logger.Object);
-                }
-                catch (Exception ex)
-                {
-                    _ex = ex;
-                }
-            }
-
-            [Test]
-            public void Then_should_log_exception()
-            {
-                _logger.Verify(l => l.Error(_thrownException, $"Failed to create '{StubIndexName}' index."));
-            }
-
-            [Test]
-            public void Then_should_rethrow_exception()
-            {
-                Assert.That(_ex, Is.Not.Null);
-                Assert.That(_ex, Is.SameAs(_thrownException));
-            }
-        }
-
-        private class StubIndexMapper : IndexMapper<StubActivity>
+        private class IndexMapperStub : IndexMapper<ActivityStub>
         {
             public int MapCallCount { get; private set; }
 
             protected override string IndexName => StubIndexName;
 
-            protected override void Map(TypeMappingDescriptor<StubActivity> mapper)
+            protected override void Map(TypeMappingDescriptor<ActivityStub> mapper)
             {
                 MapCallCount++;
             }
         }
 
-        private class StubActivity
+        private class ActivityStub
         {
         }
     }
