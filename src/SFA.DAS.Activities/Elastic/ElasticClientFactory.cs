@@ -13,13 +13,13 @@ namespace SFA.DAS.Activities.Elastic
         private readonly ElasticClient _client;
         private readonly ConnectionSettings _settings;
 
-        public ElasticClientFactory(IElasticConfiguration configuration, IEnumerable<IIndexMapper> indexMappers)
+        public ElasticClientFactory(IElasticConfiguration config, IEnumerable<IIndexMapper> indexMappers)
         {
-            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(configuration.BaseUrl) })).ThrowExceptions();
+            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(config.ElasticUrl) })).ThrowExceptions();
 
-            if (configuration.RequiresAuthentication)
+            if (!string.IsNullOrEmpty(config.ElasticUsername) && !string.IsNullOrEmpty(config.ElasticPassword))
             {
-                _settings.BasicAuthentication(configuration.UserName, configuration.Password);
+                _settings.BasicAuthentication(config.ElasticUsername, config.ElasticPassword);
             }
 
             _client = new ElasticClient(_settings);

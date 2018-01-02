@@ -2,9 +2,8 @@
 {
     public interface IElasticConfiguration
     {
-        string BaseUrl { get; }
-        string UserName { get; }
-        string Password { get; }
-        bool RequiresAuthentication { get; }
+        string ElasticUrl { get; set; }
+        string ElasticUsername { get; set; }
+        string ElasticPassword { get; set; }
     }
 }

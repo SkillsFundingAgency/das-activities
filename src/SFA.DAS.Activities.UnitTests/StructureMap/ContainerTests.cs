@@ -44,7 +44,7 @@ namespace SFA.DAS.Activities.UnitTests.StructureMap
             }
             
             [Test]
-            [Ignore("I think this test failure is a bug in StructureMap so I've used a lock instead in ActivitiesRegistry.GetElasticClientFactory().")]
+            [Ignore("This test failure is a bug in StructureMap 4.5.2 so I've used a lock instead in ActivitiesRegistry.GetElasticClientFactory().")]
             public void Then_should_initialize_one_instance()
             {
                 Assert.That(_initCallCount, Is.EqualTo(1));

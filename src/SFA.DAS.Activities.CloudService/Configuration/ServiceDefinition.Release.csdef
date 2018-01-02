@@ -3,12 +3,10 @@
   <WorkerRole name="SFA.DAS.Activities.Worker" vmsize="Standard_D1_v2">
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
-      <Setting name="Environment_Name" />
-      <Setting name="Logging_RedisConnectionString" />
-      <Setting name="ElasticSearch_BaseUrl" />
-      <Setting name="ElasticSearch_UserName" />
-      <Setting name="ElasticSearch_Password" />
-      <Setting name="ServiceBus_ConnectionString" />
+      <Setting name="ConfigurationStorageConnectionString" />
+      <Setting name="EnvironmentName" />
+      <Setting name="LoggingRedisConnectionString" />
+      <Setting name="LoggingRedisKey" />
     </ConfigurationSettings>
   </WorkerRole>
 </ServiceDefinition>

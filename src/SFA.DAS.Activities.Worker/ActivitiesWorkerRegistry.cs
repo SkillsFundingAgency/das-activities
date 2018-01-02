@@ -1,4 +1,7 @@
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Worker.ObjectMappers;
+using SFA.DAS.Activities.Worker.Policies;
+using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
@@ -7,19 +10,24 @@ namespace SFA.DAS.Activities.Worker
 {
     public class ActivitiesWorkerRegistry : Registry
     {
+        private const string ServiceName = "SFA.DAS.Activities.Worker";
+
         public ActivitiesWorkerRegistry()
         {
+            var config = ConfigurationHelper.GetConfiguration<ActivitiesWorkerConfiguration>(ServiceName);
+
             IncludeRegistry<ActivitiesRegistry>();
-
-            Scan(scan =>
-            {
-                scan.AssembliesAndExecutablesFromApplicationBaseDirectory(a => a.GetName().Name.StartsWith("SFA.DAS."));
-                scan.RegisterConcreteTypesAgainstTheFirstInterface();
-                scan.AddAllTypesOf<IMessageProcessor>();
-            });
-
             For<IActivityMapper>().Use<ActivityMapper>();
+            For<IElasticConfiguration>().Use(config);
+            For<IMessageServiceBusConfiguration>().Use(config);
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
+            Policies.Add(new MessageSubscriberPolicy<ActivitiesWorkerConfiguration>(ServiceName, new NLogLogger(typeof(TopicSubscriberFactory))));
+
+            Scan(s =>
+            {
+                s.AssemblyContainingType<ActivitiesWorkerRegistry>();
+                s.AddAllTypesOf<IMessageProcessor>();
+            });
         }
     }
 }

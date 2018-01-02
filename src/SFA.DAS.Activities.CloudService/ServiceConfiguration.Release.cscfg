@@ -3,13 +3,11 @@
   <Role name="SFA.DAS.Activities.Worker">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Environment_Name" value="__EnvironmentName__" />
-      <Setting name="Logging_RedisConnectionString" value="__LoggingRedisConnectionString__" />
-      <Setting name="ElasticSearch_BaseUrl" value="__ElasticSearchBaseUrl__" />
-      <Setting name="ElasticSearch_UserName" value="__ElasticSearchUserName__" />
-      <Setting name="ElasticSearch_Password" value="__ElasticSearchPassword__" />
-      <Setting name="ServiceBus_ConnectionString" value="__ServiceBusConnectionString__" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="__StorageConnectionString__" />
+      <Setting name="ConfigurationStorageConnectionString" value="__ConfigurationStorageConnectionString__" />
+      <Setting name="EnvironmentName" value="__EnvironmentName__" />
+      <Setting name="LoggingRedisConnectionString" value="__LoggingRedisConnectionString__" />
+      <Setting name="LoggingRedisKey" value="__LoggingRedisKey__" />
     </ConfigurationSettings>
   </Role>
   <NetworkConfiguration>

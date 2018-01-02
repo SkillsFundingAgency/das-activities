@@ -13,26 +13,14 @@ namespace SFA.DAS.Activities
 
         public ActivitiesRegistry()
         {
-            var settings = new SettingsBuilder()
-                .AddProvider(new CloudConfigurationProvider()
-                    .AddSection<ActivitiesElasticConfiguration>("ElasticSearch")
-                    .AddSection<ActivitiesEnvironmentConfiguration>("Environment")
-                    .AddSection<ActivitiesServiceBusConfiguration>("ServiceBus"))
-                .AddProvider(new AppSettingsProvider())
-                .Build();
+            For<IElasticClientFactory>().Use(c => GetElasticClientFactory(c)).Singleton();
+            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().GetClient());
 
             Scan(s =>
             {
                 s.AssemblyContainingType<ActivitiesRegistry>();
                 s.AddAllTypesOf<IIndexMapper>();
             });
-            
-            For<IElasticClientFactory>().Use(c => GetElasticClientFactory(c)).Singleton();
-            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().GetClient());
-            For<ISettings>().Use(settings);
-            For<ActivitiesElasticConfiguration>().Use(c => c.GetInstance<ISettings>().GetSection<ActivitiesElasticConfiguration>("ElasticSearch"));
-            For<ActivitiesEnvironmentConfiguration>().Use(c => c.GetInstance<ISettings>().GetSection<ActivitiesEnvironmentConfiguration>("Environment"));
-            For<ActivitiesServiceBusConfiguration>().Use(c => c.GetInstance<ISettings>().GetSection<ActivitiesServiceBusConfiguration>("ServiceBus"));
         }
 
         private IElasticClientFactory GetElasticClientFactory(IContext context)
@@ -41,10 +29,10 @@ namespace SFA.DAS.Activities
             {
                 if (_elasticClientFactory == null)
                 {
-                    var configuration = context.GetInstance<ActivitiesElasticConfiguration>();
+                    var config = context.GetInstance<IElasticConfiguration>();
                     var indexMappers = context.GetAllInstances<IIndexMapper>();
 
-                    _elasticClientFactory = new ElasticClientFactory(configuration, indexMappers);
+                    _elasticClientFactory = new ElasticClientFactory(config, indexMappers);
                 }
             }
 

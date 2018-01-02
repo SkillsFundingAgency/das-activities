@@ -110,7 +110,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
             }
 
             [Test]
-            public void Then_should_create_activity()
+            public void Then_should_throw_exception()
             {
                 Assert.That(_ex, Is.Not.Null);
                 Assert.That(_ex.Message, Is.EqualTo("'AccountId' cannot be null."));
@@ -147,7 +147,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
             }
 
             [Test]
-            public void Then_should_create_activity()
+            public void Then_should_throw_exception()
             {
                 Assert.That(_ex, Is.Not.Null);
                 Assert.That(_ex.Message, Is.EqualTo("'CreatedAt' cannot be null."));
@@ -183,7 +183,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
             }
 
             [Test]
-            public void Then_should_create_activity()
+            public void Then_should_throw_exception()
             {
                 Assert.That(_ex, Is.Not.Null);
                 Assert.That(_ex.Message, Is.EqualTo("Could not find an 'AccountId' property."));
@@ -219,7 +219,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
             }
 
             [Test]
-            public void Then_should_create_activity()
+            public void Then_should_throw_exception()
             {
                 Assert.That(_ex, Is.Not.Null);
                 Assert.That(_ex.Message, Is.EqualTo("Could not find a 'CreatedAt' property."));

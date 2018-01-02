@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Moq;
 using Nest;
 using NUnit.Framework;
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Elastic;
+using SFA.DAS.Activities.Worker;
 
 namespace SFA.DAS.Activities.UnitTests.Elastic
 {
@@ -15,9 +17,9 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClient _client;
             private IElasticClientFactory _factory;
 
-            private readonly ActivitiesElasticConfiguration _configuration = new ActivitiesElasticConfiguration
+            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
             {
-                BaseUrl = "http://localhost:9200"
+                ElasticUrl = "http://localhost:9200"
             };
 
             private IEnumerable<Mock<IIndexMapper>> _mappers;
@@ -62,9 +64,9 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClient _client1;
             private IElasticClient _client2;
 
-            private readonly ActivitiesElasticConfiguration _configuration = new ActivitiesElasticConfiguration
+            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
             {
-                BaseUrl = "http://localhost:9200"
+                ElasticUrl = "http://localhost:9200"
             };
 
             private IEnumerable<Mock<IIndexMapper>> _mappers;
@@ -108,11 +110,11 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClientFactory _factory;
             private IElasticClient _client;
 
-            private readonly ActivitiesElasticConfiguration _configuration = new ActivitiesElasticConfiguration
+            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
             {
-                BaseUrl = "http://localhost:9200",
-                UserName = "elastic",
-                Password = "changeme"
+                ElasticUrl = "http://localhost:9200",
+                ElasticUsername = "elastic",
+                ElasticPassword = "changeme"
             };
 
             protected override void Given()
@@ -128,8 +130,8 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             [Test]
             public void Then_should_return_client_with_basic_auth_enabled()
             {
-                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Username, Is.EqualTo(_configuration.UserName));
-                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Password, Is.EqualTo(_configuration.Password));
+                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Username, Is.EqualTo(_configuration.ElasticUsername));
+                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Password, Is.EqualTo(_configuration.ElasticPassword));
             }
         }
 
@@ -138,11 +140,11 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClientFactory _factory;
             private IElasticClient _client;
 
-            private readonly ActivitiesElasticConfiguration _configuration = new ActivitiesElasticConfiguration
+            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
             {
-                BaseUrl = "http://localhost:9200",
-                UserName = "",
-                Password = ""
+                ElasticUrl = "http://localhost:9200",
+                ElasticUsername = "",
+                ElasticPassword = ""
             };
 
             protected override void Given()

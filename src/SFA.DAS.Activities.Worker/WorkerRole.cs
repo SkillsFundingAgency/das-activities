@@ -1,5 +1,4 @@
 using System;
-using SFA.DAS.Activities.Worker.Policies;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
@@ -23,7 +22,6 @@ namespace SFA.DAS.Activities.Worker
                 _container = new Container(c =>
                 {
                     c.AddRegistry<ActivitiesWorkerRegistry>();
-                    c.Policies.Add(new MessageSubscriberPolicy(() => _container.GetInstance<ActivitiesServiceBusConfiguration>(), "SFA.DAS.Activities"));
                 });
                 
                 hostConfigurator.Service(s => _container.GetInstance<HostService>());

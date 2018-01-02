@@ -64,8 +64,8 @@ namespace SFA.DAS.Activities.Worker.ObjectMappers
 
             return new Activity
             {
-                AccountId = accountId.Invoke(from),
-                At =  createdAt.Invoke(from),
+                AccountId = accountId(from),
+                At =  createdAt(from),
                 Created = DateTime.UtcNow,
                 Data = data,
                 Description = to.GetDescription(),

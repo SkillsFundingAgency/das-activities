@@ -4,12 +4,10 @@
     <Instances count="1" />
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-      <Setting name="Environment_Name" value="local" />
-      <Setting name="Logging_RedisConnectionString" value="" />
-      <Setting name="ElasticSearch_BaseUrl" value="http://localhost:9200" />
-      <Setting name="ElasticSearch_UserName" value="" />
-      <Setting name="ElasticSearch_Password" value="" />
-      <Setting name="ServiceBus_ConnectionString" value="" />
+      <Setting name="ConfigurationStorageConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="EnvironmentName" value="LOCAL" />
+      <Setting name="LoggingRedisConnectionString" value="" />
+      <Setting name="LoggingRedisKey" value="" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
