@@ -11,6 +11,9 @@ namespace SFA.DAS.Activities
         PayeSchemeAdded = 1,
         
         [Category(ActivityTypeCategory.AccountAdmin)]
-        PayeSchemeRemoved = 2
+        PayeSchemeRemoved = 2,
+
+        [Category(ActivityTypeCategory.AccountAdmin)]
+        AccountCreated = 3,
     }
 }
