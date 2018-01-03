@@ -20,7 +20,7 @@
 
 ```PowerShell
 > iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-> choco install docker
+> choco install docker-for-windows
 > docker pull docker.elastic.co/elasticsearch/elasticsearch:5.5.3
 ```
 
