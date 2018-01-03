@@ -8,6 +8,7 @@ namespace SFA.DAS.Activities.Worker
 {
     public class WorkerRole : TopshelfRoleEntryPoint
     {
+        private static readonly ILog Log = new NLogLogger(typeof(WorkerRole));
         private IContainer _container;
 
         public static int Main()
@@ -23,12 +24,26 @@ namespace SFA.DAS.Activities.Worker
                 {
                     c.AddRegistry<ActivitiesWorkerRegistry>();
                 });
-                
-                hostConfigurator.Service(s => _container.GetInstance<HostService>());
+
+                hostConfigurator.Service(Init).OnException(ex => Log.Fatal(ex, "Processing failed."));
             }
             catch (Exception ex)
             {
-                new NLogLogger().Fatal(ex, "Unhandled exception.");
+                Log.Fatal(ex, "Configuration failed.");
+                throw;
+            }
+        }
+
+        private ServiceControl Init()
+        {
+            try
+            {
+                return _container.GetInstance<HostService>();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Initialization failed.");
+                throw;
             }
         }
     }
