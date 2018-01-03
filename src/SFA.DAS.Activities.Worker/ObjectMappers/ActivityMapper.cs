@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Linq;
 using SFA.DAS.Activities.Extensions;
+using SFA.DAS.EmployerAccounts.Events.Messages;
 
 namespace SFA.DAS.Activities.Worker.ObjectMappers
 {
     public class ActivityMapper : IActivityMapper
     {
-        private const string AccountIdPropertyName = "AccountId";
-        private const string CreatedAtPropertyName = "CreatedAt";
-
         public Activity Map<T>(T from, ActivityType to, Func<T, long> accountId = null, Func<T, DateTime> createdAt = null) where T : class
         {
             var data = from.GetType()
@@ -22,24 +20,24 @@ namespace SFA.DAS.Activities.Worker.ObjectMappers
                 {
                     switch (x.Key)
                     {
-                        case AccountIdPropertyName:
+                        case nameof(AccountMessageBase.AccountId):
                             if (accountId == null)
                             {
                                 if (x.Value == null)
                                 {
-                                    throw new Exception($"'{AccountIdPropertyName}' cannot be null.");
+                                    throw new Exception($"'{nameof(AccountMessageBase.AccountId)}' cannot be null.");
                                 }
 
                                 accountId = a => (long)x.Value;
                             }
 
                             return false;
-                        case CreatedAtPropertyName:
+                        case nameof(AccountMessageBase.CreatedAt):
                             if (createdAt == null)
                             {
                                 if (x.Value == null)
                                 {
-                                    throw new Exception($"'{CreatedAtPropertyName}' cannot be null.");
+                                    throw new Exception($"'{nameof(AccountMessageBase.CreatedAt)}' cannot be null.");
                                 }
 
                                 createdAt = a => (DateTime)x.Value;
@@ -54,12 +52,12 @@ namespace SFA.DAS.Activities.Worker.ObjectMappers
 
             if (accountId == null)
             {
-                throw new Exception($"Could not find an '{AccountIdPropertyName}' property.");
+                throw new Exception($"Could not find an '{nameof(AccountMessageBase.AccountId)}' property.");
             }
 
             if (createdAt == null)
             {
-                throw new Exception($"Could not find a '{CreatedAtPropertyName}' property.");
+                throw new Exception($"Could not find a '{nameof(AccountMessageBase.CreatedAt)}' property.");
             }
 
             return new Activity
