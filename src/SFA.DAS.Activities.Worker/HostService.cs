@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,7 +23,7 @@ namespace SFA.DAS.Activities.Worker
 
         public bool Start(HostControl hostControl)
         {
-            _log.Info("Service starting up.");
+            _log.Info("Service starting.");
             _task = Run();
 
             return true;
@@ -32,6 +31,7 @@ namespace SFA.DAS.Activities.Worker
 
         public bool Stop(HostControl hostControl)
         {
+            _log.Info("Service stopping.");
             _cancel.Cancel();
             _task.Wait();
 
@@ -40,15 +40,7 @@ namespace SFA.DAS.Activities.Worker
 
         private async Task Run()
         {
-            try
-            {
-                var tasks = _processors.Select(p => p.RunAsync(_cancel.Token)).ToArray();
-                await Task.WhenAll(tasks);
-            }
-            catch (Exception ex)
-            {
-                _log.Fatal(ex, "Unexpected Exception.");
-            }
+            await Task.WhenAll(_processors.Select(p => p.RunAsync(_cancel.Token)).ToArray());
         }
     }
 }
