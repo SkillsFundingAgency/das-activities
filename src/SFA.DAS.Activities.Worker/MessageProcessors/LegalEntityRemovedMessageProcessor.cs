@@ -3,11 +3,13 @@ using Nest;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
+using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
+    [TopicSubscription("Activity_LegalEntityRemovedMessageProcessor")]
     public class LegalEntityRemovedMessageProcessor : MessageProcessor<LegalEntityRemovedMessage>
     {
         private readonly IActivityMapper _activityMapper;
