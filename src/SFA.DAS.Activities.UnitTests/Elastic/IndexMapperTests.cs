@@ -13,7 +13,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
     {
         private const string EnvironmentName = "LOCAL";
         private const string StubIndexName = "stubs";
-        private static string ExpandedStubIndexName = $"{EnvironmentName}-{StubIndexName}";
+        private static string ExpandedStubIndexName = $"{EnvironmentName.ToLower()}-{StubIndexName}";
 
         public class When_ensuring_non_existant_index_exists : TestAsync
         {

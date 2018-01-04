@@ -1,12 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Elasticsearch.Net;
 using Moq;
 using Nest;
 using NUnit.Framework;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Elastic;
 using SFA.DAS.Activities.Worker;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.UnitTests.Elastic
 {
@@ -38,7 +41,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                     new Mock<IIndexMapper>()
                 };
 
-                _factory = new ElasticClientFactory(_configuration, EnvironmentConfig, _mappers.Select(m => m.Object));
+                _factory = new ElasticClientFactory(_configuration, EnvironmentConfig, _mappers.Select(m => m.Object), Mock.Of<ILog>());
             }
 
             protected override void When()
@@ -69,11 +72,6 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClient _client1;
             private IElasticClient _client2;
 
-            private readonly IEnvironmentConfiguration _environmentConfig = new EnvironmentConfiguration
-            {
-                EnvironmentName = "LOCAL"
-            };
-
             private readonly IElasticConfiguration _elasticConfig = new ActivitiesWorkerConfiguration
             {
                 ElasticUrl = "http://localhost:9200"
@@ -90,7 +88,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                     new Mock<IIndexMapper>()
                 };
 
-                _factory = new ElasticClientFactory(_elasticConfig, EnvironmentConfig, _mappers.Select(m => m.Object));
+                _factory = new ElasticClientFactory(_elasticConfig, EnvironmentConfig, _mappers.Select(m => m.Object), Mock.Of<ILog>());
             }
 
             protected override void When()
@@ -129,7 +127,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
             protected override void Given()
             {
-                _factory = new ElasticClientFactory(_elasticConfiguration, EnvironmentConfig, new List<IIndexMapper>());
+                _factory = new ElasticClientFactory(_elasticConfiguration, EnvironmentConfig, new List<IIndexMapper>(), Mock.Of<ILog>());
             }
 
             protected override void When()
@@ -159,7 +157,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
             protected override void Given()
             {
-                _factory = new ElasticClientFactory(_elasticConfiguration, EnvironmentConfig, new List<IIndexMapper>());
+                _factory = new ElasticClientFactory(_elasticConfiguration, EnvironmentConfig, new List<IIndexMapper>(), Mock.Of<ILog>());
             }
 
             protected override void When()
@@ -172,6 +170,43 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             {
                 Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials, Is.Null);
                 Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials, Is.Null);
+            }
+        }
+
+        public class When_a_request_is_unsuccessful : Test
+        {
+            private IElasticClient _client;
+            private IElasticClientFactory _factory;
+
+            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
+            {
+                ElasticUrl = "http://localhost:9200"
+            };
+            
+            private readonly Mock<ILog> _log = new Mock<ILog>();
+            private readonly Mock<IApiCallDetails> _apiCallDetails = new Mock<IApiCallDetails>();
+            private readonly Exception _ex = new Exception();
+            private string _debugInfo = "Foobar";
+
+            protected override void Given()
+            {
+                _factory = new ElasticClientFactory(_configuration, EnvironmentConfig, new List<IIndexMapper>(), _log.Object);
+                _client = _factory.GetClient();
+                _apiCallDetails.Setup(r => r.Success).Returns(false);
+                _apiCallDetails.Setup(r => r.OriginalException).Returns(_ex);
+                _apiCallDetails.Setup(r => r.DebugInformation).Returns(_debugInfo);
+            }
+
+            protected override void When()
+            {
+                _client.ConnectionSettings.OnRequestCompleted(_apiCallDetails.Object);
+            }
+
+            [Test]
+            public void Then_should_log_any_unsuccessful_requests()
+            {
+                Assert.That(_client.ConnectionSettings.OnRequestCompleted, Is.Not.Null);
+                _log.Verify(l => l.Error(_ex, _debugInfo));
             }
         }
     }

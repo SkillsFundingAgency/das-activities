@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Nest;
 using SFA.DAS.Activities.Configuration;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Elastic
 {
@@ -13,9 +14,17 @@ namespace SFA.DAS.Activities.Elastic
         private readonly ElasticClient _client;
         private readonly ConnectionSettings _settings;
 
-        public ElasticClientFactory(IElasticConfiguration elasticConfig, IEnvironmentConfiguration environmentConfig, IEnumerable<IIndexMapper> indexMappers)
+        public ElasticClientFactory(IElasticConfiguration elasticConfig, IEnvironmentConfiguration environmentConfig, IEnumerable<IIndexMapper> indexMappers, ILog log)
         {
-            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(elasticConfig.ElasticUrl) })).ThrowExceptions();
+            _settings = new ConnectionSettings(new SingleNodeConnectionPool(new Uri(elasticConfig.ElasticUrl)))
+                .ThrowExceptions()
+                .OnRequestCompleted(r =>
+                {
+                    if (!r.Success)
+                    {
+                        log.Error(r.OriginalException, r.DebugInformation);
+                    }
+                });
 
             if (!string.IsNullOrEmpty(elasticConfig.ElasticUsername) && !string.IsNullOrEmpty(elasticConfig.ElasticPassword))
             {

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Nest;
-using SFA.DAS.Activities;
 using SFA.DAS.Activities.Extensions;
 
 namespace SFA.DAS.Activities.Client
