@@ -1,7 +1,6 @@
 ﻿using Nest;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Elastic;
-using SFA.DAS.NLog.Logger;
 using StructureMap;
 
 namespace SFA.DAS.Activities
@@ -33,12 +32,7 @@ namespace SFA.DAS.Activities
             {
                 if (_elasticClientFactory == null)
                 {
-                    var elasticConfig = context.GetInstance<IElasticConfiguration>();
-                    var environmentConfig = context.GetInstance<IEnvironmentConfiguration>();
-                    var indexMappers = context.GetAllInstances<IIndexMapper>();
-                    var log = context.GetInstance<ILog>();
-
-                    _elasticClientFactory = new ElasticClientFactory(elasticConfig, environmentConfig, indexMappers, log);
+                    _elasticClientFactory = context.GetInstance<ElasticClientFactory>();
                 }
             }
 

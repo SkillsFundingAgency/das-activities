@@ -39,7 +39,7 @@ namespace SFA.DAS.Activities.Worker
         {
             try
             {
-                return _container.GetInstance<HostService>();
+                return _container.GetInstance<ServiceControl>();
             }
             catch (Exception ex)
             {

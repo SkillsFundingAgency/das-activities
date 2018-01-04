@@ -5,6 +5,7 @@ using SFA.DAS.Messaging.AzureServiceBus;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
+using Topshelf;
 
 namespace SFA.DAS.Activities.Worker
 {
@@ -22,6 +23,7 @@ namespace SFA.DAS.Activities.Worker
             For<IElasticConfiguration>().Use(config);
             For<IMessageServiceBusConfiguration>().Use(config);
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
+            For<ServiceControl>().Use<HostService>();
             Policies.Add(new MessageSubscriberPolicy<ActivitiesWorkerConfiguration>(ServiceName, Version, new NLogLogger(typeof(TopicSubscriberFactory))));
 
             Scan(s =>
