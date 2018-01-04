@@ -33,7 +33,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
                 _subscriber.Setup(s => s.ReceiveAsAsync()).ReturnsAsync(_logicalMessage.Object).Callback(_cancellationTokenSource.Cancel);
                 _subscriberFactory.Setup(s => s.GetSubscriber<LegalEntityRemovedMessage>()).Returns(_subscriber.Object);
 
-                _activityMapper.Setup(m => m.Map(_message, ActivityType.AccountCreated, null, null))
+                _activityMapper.Setup(m => m.Map(_message, ActivityType.LegalEntityRemoved, null, null))
                     .Returns(_mappedActivity);
 
                 _client.Setup(c => c.IndexAsync(_mappedActivity, It.IsAny<Func<IndexDescriptor<Activity>, IIndexRequest>>(), It.IsAny<CancellationToken>()))

@@ -15,5 +15,11 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         AccountCreated = 3,
+
+        [Category(ActivityTypeCategory.AccountAdmin)]
+        UserJoined = 4,
+
+        [Category(ActivityTypeCategory.AccountAdmin)]
+        LegalEntityRemoved = 5,
     }
 }

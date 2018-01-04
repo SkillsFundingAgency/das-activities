@@ -28,7 +28,7 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
 
         protected override async Task ProcessMessage(LegalEntityRemovedMessage message)
         {
-            var activity = _activityMapper.Map(message, ActivityType.AccountCreated);
+            var activity = _activityMapper.Map(message, ActivityType.LegalEntityRemoved);
             await _client.IndexAsync(activity);
         }
     }

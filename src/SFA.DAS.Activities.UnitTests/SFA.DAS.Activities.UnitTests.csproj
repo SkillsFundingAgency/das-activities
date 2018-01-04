@@ -100,6 +100,7 @@
     <Compile Include="TestAsync.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Worker\MessageProcessors\LegalEntityRemovedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\UserJoinedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\AccountCreatedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\PayeSchemeRemovedMessageProcessorTests.cs" />
