@@ -13,8 +13,11 @@ namespace SFA.DAS.Activities
 
         public ActivitiesRegistry()
         {
+            var environmentConfig = ConfigurationHelper.GetEnvironmentName();
+
             For<IElasticClientFactory>().Use(c => GetElasticClientFactory(c)).Singleton();
             For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().GetClient());
+            For<IEnvironmentConfiguration>().Use(environmentConfig);
 
             Scan(s =>
             {
@@ -29,10 +32,11 @@ namespace SFA.DAS.Activities
             {
                 if (_elasticClientFactory == null)
                 {
-                    var config = context.GetInstance<IElasticConfiguration>();
+                    var elasticConfig = context.GetInstance<IElasticConfiguration>();
+                    var environmentConfig = context.GetInstance<IEnvironmentConfiguration>();
                     var indexMappers = context.GetAllInstances<IIndexMapper>();
 
-                    _elasticClientFactory = new ElasticClientFactory(config, indexMappers);
+                    _elasticClientFactory = new ElasticClientFactory(elasticConfig, environmentConfig, indexMappers);
                 }
             }
 

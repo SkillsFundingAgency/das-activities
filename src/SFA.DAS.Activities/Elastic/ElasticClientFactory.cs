@@ -13,18 +13,18 @@ namespace SFA.DAS.Activities.Elastic
         private readonly ElasticClient _client;
         private readonly ConnectionSettings _settings;
 
-        public ElasticClientFactory(IElasticConfiguration config, IEnumerable<IIndexMapper> indexMappers)
+        public ElasticClientFactory(IElasticConfiguration elasticConfig, IEnvironmentConfiguration environmentConfig, IEnumerable<IIndexMapper> indexMappers)
         {
-            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(config.ElasticUrl) })).ThrowExceptions();
+            _settings = new ConnectionSettings(new StaticConnectionPool(new [] { new Uri(elasticConfig.ElasticUrl) })).ThrowExceptions();
 
-            if (!string.IsNullOrEmpty(config.ElasticUsername) && !string.IsNullOrEmpty(config.ElasticPassword))
+            if (!string.IsNullOrEmpty(elasticConfig.ElasticUsername) && !string.IsNullOrEmpty(elasticConfig.ElasticPassword))
             {
-                _settings.BasicAuthentication(config.ElasticUsername, config.ElasticPassword);
+                _settings.BasicAuthentication(elasticConfig.ElasticUsername, elasticConfig.ElasticPassword);
             }
 
             _client = new ElasticClient(_settings);
 
-            Task.WaitAll(indexMappers.Select(m => m.EnureIndexExists(_client)).ToArray());
+            Task.WaitAll(indexMappers.Select(m => m.EnureIndexExists(environmentConfig, _client)).ToArray());
         }
 
         public IElasticClient GetClient()

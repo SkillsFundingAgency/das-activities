@@ -98,7 +98,9 @@
     <Compile Include="ActivityTypeCategory.cs" />
     <Compile Include="Attributes\CategoryAttribute.cs" />
     <Compile Include="Configuration\ConfigurationHelper.cs" />
+    <Compile Include="Configuration\EnvironmentConfiguration.cs" />
     <Compile Include="Configuration\IElasticConfiguration.cs" />
+    <Compile Include="Configuration\IEnvironmentConfiguration.cs" />
     <Compile Include="Configuration\IMessageServiceBusConfiguration.cs" />
     <Compile Include="Elastic\ElasticClientFactory.cs" />
     <Compile Include="Elastic\IElasticClientFactory.cs" />

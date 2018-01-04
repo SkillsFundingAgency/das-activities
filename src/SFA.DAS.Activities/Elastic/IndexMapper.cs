@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Nest;
+using SFA.DAS.Activities.Configuration;
 
 namespace SFA.DAS.Activities.Elastic
 {
@@ -7,15 +8,17 @@ namespace SFA.DAS.Activities.Elastic
     {
         protected abstract string IndexName { get; }
 
-        public async Task EnureIndexExists(IElasticClient client)
+        public async Task EnureIndexExists(IEnvironmentConfiguration config, IElasticClient client)
         {
-            client.ConnectionSettings.DefaultIndices.Add(typeof(T), IndexName);
+            var indexName = $"{config.EnvironmentName}-{IndexName}";
 
-            var response = await client.IndexExistsAsync(IndexName).ConfigureAwait(false);
+            client.ConnectionSettings.DefaultIndices.Add(typeof(T), indexName);
+
+            var response = await client.IndexExistsAsync(indexName).ConfigureAwait(false);
 
             if (!response.Exists)
             {
-                await client.CreateIndexAsync(IndexName, i => i
+                await client.CreateIndexAsync(indexName, i => i
                     .Mappings(ms => ms
                         .Map<T>(m =>
                         {

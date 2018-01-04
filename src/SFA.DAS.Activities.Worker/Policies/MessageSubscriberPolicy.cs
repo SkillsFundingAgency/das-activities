@@ -15,11 +15,13 @@ namespace SFA.DAS.Activities.Worker.Policies
     public class MessageSubscriberPolicy<T> : ConfiguredInstancePolicy where T : IMessageServiceBusConfiguration
     {
         private readonly string _serviceName;
+        private readonly string _version;
         private readonly ILog _logger;
 
-        public MessageSubscriberPolicy(string serviceName, ILog logger)
+        public MessageSubscriberPolicy(string serviceName, string version, ILog logger)
         {
             _serviceName = serviceName;
+            _version = version;
             _logger = logger;
         }
 
@@ -32,7 +34,7 @@ namespace SFA.DAS.Activities.Worker.Policies
                 return;
             }
 
-            var config = ConfigurationHelper.GetConfiguration<T>(_serviceName);
+            var config = ConfigurationHelper.GetConfiguration<T>(_serviceName, _version);
 
             if (string.IsNullOrEmpty(config.MessageServiceBusConnectionString))
             {

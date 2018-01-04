@@ -12,6 +12,11 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 {
     public static class ElasticClientFactoryTests
     {
+        private static readonly IEnvironmentConfiguration EnvironmentConfig = new EnvironmentConfiguration
+        {
+            EnvironmentName = "LOCAL"
+        };
+
         public class When_getting_client : Test
         {
             private IElasticClient _client;
@@ -33,7 +38,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                     new Mock<IIndexMapper>()
                 };
 
-                _factory = new ElasticClientFactory(_configuration, _mappers.Select(m => m.Object));
+                _factory = new ElasticClientFactory(_configuration, EnvironmentConfig, _mappers.Select(m => m.Object));
             }
 
             protected override void When()
@@ -53,7 +58,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             {
                 foreach (var mapper in _mappers)
                 {
-                    mapper.Verify(m => m.EnureIndexExists(_client), Times.Once);
+                    mapper.Verify(m => m.EnureIndexExists(EnvironmentConfig, _client), Times.Once);
                 }
             }
         }
@@ -64,7 +69,12 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClient _client1;
             private IElasticClient _client2;
 
-            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
+            private readonly IEnvironmentConfiguration _environmentConfig = new EnvironmentConfiguration
+            {
+                EnvironmentName = "LOCAL"
+            };
+
+            private readonly IElasticConfiguration _elasticConfig = new ActivitiesWorkerConfiguration
             {
                 ElasticUrl = "http://localhost:9200"
             };
@@ -80,7 +90,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                     new Mock<IIndexMapper>()
                 };
 
-                _factory = new ElasticClientFactory(_configuration, _mappers.Select(m => m.Object));
+                _factory = new ElasticClientFactory(_elasticConfig, EnvironmentConfig, _mappers.Select(m => m.Object));
             }
 
             protected override void When()
@@ -100,7 +110,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             {
                 foreach (var mapper in _mappers)
                 {
-                    mapper.Verify(m => m.EnureIndexExists(_client1), Times.Once);
+                    mapper.Verify(m => m.EnureIndexExists(EnvironmentConfig, _client1), Times.Once);
                 }
             }
         }
@@ -110,7 +120,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClientFactory _factory;
             private IElasticClient _client;
 
-            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
+            private readonly IElasticConfiguration _elasticConfiguration = new ActivitiesWorkerConfiguration
             {
                 ElasticUrl = "http://localhost:9200",
                 ElasticUsername = "elastic",
@@ -119,7 +129,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
             protected override void Given()
             {
-                _factory = new ElasticClientFactory(_configuration, new List<IIndexMapper>());
+                _factory = new ElasticClientFactory(_elasticConfiguration, EnvironmentConfig, new List<IIndexMapper>());
             }
 
             protected override void When()
@@ -130,8 +140,8 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             [Test]
             public void Then_should_return_client_with_basic_auth_enabled()
             {
-                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Username, Is.EqualTo(_configuration.ElasticUsername));
-                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Password, Is.EqualTo(_configuration.ElasticPassword));
+                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Username, Is.EqualTo(_elasticConfiguration.ElasticUsername));
+                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials.Password, Is.EqualTo(_elasticConfiguration.ElasticPassword));
             }
         }
 
@@ -140,7 +150,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             private IElasticClientFactory _factory;
             private IElasticClient _client;
 
-            private readonly IElasticConfiguration _configuration = new ActivitiesWorkerConfiguration
+            private readonly IElasticConfiguration _elasticConfiguration = new ActivitiesWorkerConfiguration
             {
                 ElasticUrl = "http://localhost:9200",
                 ElasticUsername = "",
@@ -149,7 +159,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 
             protected override void Given()
             {
-                _factory = new ElasticClientFactory(_configuration, new List<IIndexMapper>());
+                _factory = new ElasticClientFactory(_elasticConfiguration, EnvironmentConfig, new List<IIndexMapper>());
             }
 
             protected override void When()
