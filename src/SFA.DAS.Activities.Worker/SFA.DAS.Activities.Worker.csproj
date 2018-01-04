@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivitiesWorkerConfiguration.cs" />
+    <Compile Include="MessageProcessors\LegalEntityRemovedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\PayeSchemeRemovedMessageProcessor.cs" />
     <Compile Include="ObjectMappers\ActivityMapper.cs" />
