@@ -20,10 +20,7 @@ namespace SFA.DAS.Activities.Elastic
                 .ThrowExceptions()
                 .OnRequestCompleted(r =>
                 {
-                    if (!r.Success)
-                    {
-                        log.Error(r.OriginalException, r.DebugInformation);
-                    }
+                    log.Debug(r.DebugInformation);
                 });
 
             if (!string.IsNullOrEmpty(elasticConfig.ElasticUsername) && !string.IsNullOrEmpty(elasticConfig.ElasticPassword))

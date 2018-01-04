@@ -173,7 +173,7 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             }
         }
 
-        public class When_a_request_is_unsuccessful : Test
+        public class When_a_request_is_completed : Test
         {
             private IElasticClient _client;
             private IElasticClientFactory _factory;
@@ -185,15 +185,12 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             
             private readonly Mock<ILog> _log = new Mock<ILog>();
             private readonly Mock<IApiCallDetails> _apiCallDetails = new Mock<IApiCallDetails>();
-            private readonly Exception _ex = new Exception();
             private string _debugInfo = "Foobar";
 
             protected override void Given()
             {
                 _factory = new ElasticClientFactory(_configuration, EnvironmentConfig, new List<IIndexMapper>(), _log.Object);
                 _client = _factory.GetClient();
-                _apiCallDetails.Setup(r => r.Success).Returns(false);
-                _apiCallDetails.Setup(r => r.OriginalException).Returns(_ex);
                 _apiCallDetails.Setup(r => r.DebugInformation).Returns(_debugInfo);
             }
 
@@ -203,10 +200,9 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             }
 
             [Test]
-            public void Then_should_log_any_unsuccessful_requests()
+            public void Then_should_log_debug_info()
             {
-                Assert.That(_client.ConnectionSettings.OnRequestCompleted, Is.Not.Null);
-                _log.Verify(l => l.Error(_ex, _debugInfo));
+                _log.Verify(l => l.Debug(_debugInfo));
             }
         }
     }
