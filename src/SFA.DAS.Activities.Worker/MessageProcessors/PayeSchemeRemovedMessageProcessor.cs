@@ -24,7 +24,8 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
 
         protected override async Task ProcessMessage(PayeSchemeDeletedMessage message)
         {
-            await _client.IndexAsync(_activityMapper.Map(message, ActivityType.PayeSchemeRemoved));
+            var activity = _activityMapper.Map(message, ActivityType.PayeSchemeRemoved);
+            await _client.IndexAsync(activity);
         }
     }
 }

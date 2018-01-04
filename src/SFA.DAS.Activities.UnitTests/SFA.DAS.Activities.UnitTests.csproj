@@ -103,6 +103,7 @@
     <Compile Include="Worker\MessageProcessors\LegalEntityRemovedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\UserJoinedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\AccountCreatedMessageProcessorTests.cs" />
+    <Compile Include="Worker\MessageProcessors\MessageProcessorTest.cs" />
     <Compile Include="Worker\MessageProcessors\PayeSchemeRemovedMessageProcessorTests.cs" />
     <Compile Include="Worker\ObjectMappers\ActivityMapperTests.cs" />
     <Compile Include="Worker\MessageProcessors\PayeSchemeAddedMessageProcessorTests.cs" />

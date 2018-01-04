@@ -9,6 +9,7 @@ namespace SFA.DAS.Activities.Worker
     public class WorkerRole : TopshelfRoleEntryPoint
     {
         private static readonly ILog Log = new NLogLogger(typeof(WorkerRole));
+
         private IContainer _container;
 
         public static int Main()
@@ -25,7 +26,7 @@ namespace SFA.DAS.Activities.Worker
                     c.AddRegistry<ActivitiesWorkerRegistry>();
                 });
 
-                hostConfigurator.Service(Init).OnException(ex => Log.Fatal(ex, "Processing failed."));
+                hostConfigurator.Service(GetService).OnException(ex => Log.Fatal(ex, "Processing failed."));
             }
             catch (Exception ex)
             {
@@ -34,7 +35,7 @@ namespace SFA.DAS.Activities.Worker
             }
         }
 
-        private ServiceControl Init()
+        private ServiceControl GetService()
         {
             try
             {
