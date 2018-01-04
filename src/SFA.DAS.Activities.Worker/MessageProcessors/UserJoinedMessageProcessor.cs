@@ -9,13 +9,13 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
-    [TopicSubscription("Activity_LegalEntityRemovedMessageProcessor")]
-    public class LegalEntityRemovedMessageProcessor : MessageProcessor<LegalEntityRemovedMessage>
+    [TopicSubscription("Activity_UserJoinedMessageProcessor")]
+    public class UserJoinedMessageProcessor : MessageProcessor<UserJoinedMessage>
     {
         private readonly IActivityMapper _activityMapper;
         private readonly IElasticClient _client;
 
-        public LegalEntityRemovedMessageProcessor(
+        public UserJoinedMessageProcessor(
             IMessageSubscriberFactory subscriberFactory, 
             ILog log, 
             IActivityMapper activityMapper, 
@@ -26,9 +26,9 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
             _client = client;
         }
 
-        protected override async Task ProcessMessage(LegalEntityRemovedMessage message)
+        protected override async Task ProcessMessage(UserJoinedMessage message)
         {
-            var activity = _activityMapper.Map(message, ActivityType.LegalEntityRemoved);
+            var activity = _activityMapper.Map(message, ActivityType.UserJoined);
             await _client.IndexAsync(activity);
         }
     }
