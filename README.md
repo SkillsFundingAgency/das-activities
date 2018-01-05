@@ -21,7 +21,7 @@
 ```PowerShell
 > iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
 > choco install docker-for-windows
-> docker pull docker.elastic.co/elasticsearch/elasticsearch:5.5.3
+> docker pull docker.elastic.co/elasticsearch/elasticsearch:5.6.5
 ```
 
 ## Run
@@ -29,7 +29,7 @@
 1. Run [Elastic Search] container.
 
 ```PowerShell
-> cd .\tools\elasticsearch.5.5.3
+> cd .\tools\elasticsearch.5.6.5
 > docker-compose up -d
 ```
 
