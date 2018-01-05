@@ -9,7 +9,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
         [Test]
         public void When_processing_PayeSchemeRemovedMessage_then_should_index_PayeSchemeRemoved_activity()
         {
-            Test(new PayeSchemeDeletedMessage(), ActivityType.PayeSchemeRemoved);
+            From(new PayeSchemeDeletedMessage()).To(ActivityType.PayeSchemeRemoved).Verify();
         }
     }
 }
