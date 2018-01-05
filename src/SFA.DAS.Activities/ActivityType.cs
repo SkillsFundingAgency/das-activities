@@ -21,5 +21,8 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         LegalEntityRemoved = 5,
+
+        [Category(ActivityTypeCategory.AccountAdmin)]
+        LegalEntityAdded = 6,
     }
 }
