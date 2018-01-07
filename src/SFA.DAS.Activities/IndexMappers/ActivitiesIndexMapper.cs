@@ -1,4 +1,5 @@
-﻿using Nest;
+﻿using System.Collections.Generic;
+using Nest;
 using SFA.DAS.Activities.Elastic;
 
 namespace SFA.DAS.Activities.IndexMappers
@@ -9,7 +10,13 @@ namespace SFA.DAS.Activities.IndexMappers
 
         protected override void Map(TypeMappingDescriptor<Activity> mapper)
         {
-            mapper.AutoMap(-1);
+            mapper.AutoMap()
+                .Properties(p => p
+                    .Nested<Dictionary<string, string>>(n => n
+                        .Name(a => a.Data)
+                        .IncludeInParent()
+                    )
+                );
         }
     }
 }

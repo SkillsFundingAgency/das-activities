@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using Moq;
 using Nest;
@@ -22,7 +21,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
 
         protected class FromMessage<TMessage> where TMessage : class, new()
         {
-            private static TMessage _from;
+            private readonly TMessage _from;
 
             public FromMessage(TMessage from)
             {
@@ -96,12 +95,12 @@ namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
 
                 var messageProcessor = (TMessageProcessor)Activator.CreateInstance(typeof(TMessageProcessor), subscriberFactory.Object, Mock.Of<ILog>(), activityMapper.Object, client.Object);
                 var topicSubscriptionAttribute = typeof(TMessageProcessor).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(TopicSubscriptionAttribute));
-                var messageGroupAttributeData = typeof(TMessage).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(MessageGroupAttribute));
+                var messageGroupAttribute = typeof(TMessage).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(MessageGroupAttribute));
 
                 messageProcessor.RunAsync(cancellationTokenSource.Token).Wait();
 
                 Assert.That(topicSubscriptionAttribute, Is.Not.Null);
-                Assert.That(messageGroupAttributeData, Is.Not.Null);
+                Assert.That(messageGroupAttribute, Is.Not.Null);
                 Assert.That(indexedActivity, Is.Not.Null);
                 Assert.That(indexedActivity, Is.SameAs(mappedActivity));
 
