@@ -68,8 +68,8 @@
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.50333, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.50333\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
+    <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.51148, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.51148\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Messaging, Version=3.0.0.49552, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Messaging.3.0.0.49552\lib\net45\SFA.DAS.Messaging.dll</HintPath>
@@ -110,6 +110,7 @@
     <Compile Include="TestAsync.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Worker\MessageProcessors\AccountNameChangedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\LegalEntityRemovedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\LegalEntityAddedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\UserJoinedMessageProcessorTests.cs" />
