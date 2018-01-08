@@ -9,7 +9,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
-    [TopicSubscription("Activity_AccountCreatedMessageProcessor")]
+    [TopicSubscription("Activity_AccountNameChangedMessageProcessor")]
     public class AccountNameChangedMessageProcessor : MessageProcessor<AccountNameChangedMessage>
     {
         private readonly IActivityMapper _activityMapper;
