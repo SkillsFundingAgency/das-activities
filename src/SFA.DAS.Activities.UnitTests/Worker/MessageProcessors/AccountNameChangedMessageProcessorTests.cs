@@ -7,7 +7,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
     public class AccountNameChangedMessageProcessorTests : MessageProcessorTest<AccountNameChangedMessageProcessor>
     {
         [Test]
-        public void When_processing_AccountCreatedMessage_then_should_index_AccountCreated_activity()
+        public void When_processing_AccountNameChangedMessage_then_should_index_AccountNameChanged_activity()
         {
             From(new AccountNameChangedMessage()).To(ActivityType.AccountNameChanged).Verify();
         }
