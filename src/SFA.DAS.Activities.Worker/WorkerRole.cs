@@ -26,7 +26,7 @@ namespace SFA.DAS.Activities.Worker
                     c.AddRegistry<ActivitiesWorkerRegistry>();
                 });
 
-                hostConfigurator.Service(GetService).OnException(ex => Log.Fatal(ex, "Processing failed."));
+                hostConfigurator.Service(GetService, c => c.AfterStoppingService(Cleanup)).OnException(ex => Log.Fatal(ex, "Processing failed."));
             }
             catch (Exception ex)
             {
@@ -45,6 +45,18 @@ namespace SFA.DAS.Activities.Worker
             {
                 Log.Fatal(ex, "Initialization failed.");
                 throw;
+            }
+        }
+
+        private void Cleanup()
+        {
+            try
+            {
+                _container.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Cleanup failed.");
             }
         }
     }

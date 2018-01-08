@@ -5,7 +5,7 @@ namespace SFA.DAS.Activities.UnitTests
     public abstract class Test
     {
         [OneTimeSetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
             Given();
             When();

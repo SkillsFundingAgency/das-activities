@@ -12,7 +12,10 @@ namespace SFA.DAS.Activities.Extensions
         {
             return Enum.GetValues(typeof(ActivityType))
                 .Cast<ActivityType>()
-                .Where(t => t.GetType().GetField(t.ToString()).GetCustomAttribute<CategoryAttribute>().Category == category)
+                .Where(t => t
+                    .GetType()
+                    .GetField(t.ToString())
+                    .GetCustomAttribute<CategoryAttribute>().Category == category)
                 .ToList();
         }
     }

@@ -96,7 +96,9 @@
     <Compile Include="Activity.cs" />
     <Compile Include="ActivityType.cs" />
     <Compile Include="ActivityTypeCategory.cs" />
+    <Compile Include="Attributes\Action.cs" />
     <Compile Include="Attributes\CategoryAttribute.cs" />
+    <Compile Include="Attributes\Localizer.cs" />
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\EnvironmentConfiguration.cs" />
     <Compile Include="Configuration\IElasticConfiguration.cs" />
@@ -108,7 +110,17 @@
     <Compile Include="Elastic\IndexMapper.cs" />
     <Compile Include="Extensions\ActivityTypeCategoryExtensions.cs" />
     <Compile Include="Extensions\ActivityTypeExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="IndexMappers\ActivitiesIndexMapper.cs" />
+    <Compile Include="Localizers\AccountCreatedActivityLocalizer.cs" />
+    <Compile Include="Localizers\AccountNameChangedActivityLocalizer.cs" />
+    <Compile Include="Localizers\IActivityLocalizer.cs" />
+    <Compile Include="Localizers\LegalEntityAddedActivityLocalizer.cs" />
+    <Compile Include="Localizers\LegalEntityRemovedActivityLocalizer.cs" />
+    <Compile Include="Localizers\PayeSchemeAddedActivityLocalizer.cs" />
+    <Compile Include="Localizers\PayeSchemeRemovedActivityLocalizer.cs" />
+    <Compile Include="Localizers\UnknownActivityLocalizer.cs" />
+    <Compile Include="Localizers\UserJoinedActivityLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

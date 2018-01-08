@@ -6,11 +6,11 @@ using Nest;
 using NUnit.Framework;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Messaging.Attributes;
-using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
+using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
+namespace SFA.DAS.Activities.UnitTests
 {
     public abstract class MessageProcessorTest<TMessageProcessor> where TMessageProcessor : IMessageProcessor
     {
