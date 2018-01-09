@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SFA.DAS.Activities;
 
 namespace SFA.DAS.Activities.Client
 {
@@ -7,5 +6,10 @@ namespace SFA.DAS.Activities.Client
     {
         public IEnumerable<Activity> Activities { get; set; }
         public long Total { get; set; }
+
+        public ActivitiesResult()
+        {
+            Activities = new List<Activity>();
+        }
     }
 }

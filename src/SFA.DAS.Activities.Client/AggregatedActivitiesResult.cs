@@ -6,5 +6,10 @@ namespace SFA.DAS.Activities.Client
     {
         public IEnumerable<AggregatedActivityResult> Aggregates { get; set; }
         public long Total { get; set; }
+
+        public AggregatedActivitiesResult()
+        {
+            Aggregates = new List<AggregatedActivityResult>();
+        }
     }
 }
