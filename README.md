@@ -35,11 +35,10 @@
 
 2. Open the solution.
 3. Set `SFA.DAS.Activities.Worker` as the startup project.
-4. Hit F5.
-5. Browse to `~\AppData\Roaming`
-6. Add a directory named `SFA.DAS.Activities.Worker`.
-7. Add a directory to the above directory named `add_paye_scheme`.
-8. Add a file to the above directory named `PayeSchemeAddedMessage.json` containing the following json:
+4. Browse to `~\AppData\Roaming`
+5. Add a directory named `SFA.DAS.Activities.Worker`.
+6. Add a directory to the above directory named `add_paye_scheme`.
+7. Add a file to the above directory named `PayeSchemeAddedMessage.json` containing the following json:
 
 ```JavaScript
 {
@@ -51,7 +50,8 @@
 }
 ```
 
-8. HTTP GET http://localhost:9200/activities/_search
+8. Hit F5 to run the worker.
+9. HTTP GET http://localhost:9200/local-activities/_search
 
 [Choclatey]: https://chocolatey.org
 [Docker]: https://www.docker.com
