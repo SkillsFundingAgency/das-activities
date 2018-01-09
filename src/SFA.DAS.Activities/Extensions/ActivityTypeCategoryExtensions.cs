@@ -8,15 +8,21 @@ namespace SFA.DAS.Activities.Extensions
 {
     public static class ActivityTypeCategoryExtensions
     {
-        public static List<ActivityType> GetActivityTypes(this ActivityTypeCategory category)
-        {
-            return Enum.GetValues(typeof(ActivityType))
+        private static readonly Dictionary<ActivityTypeCategory, List<ActivityType>> TypeCache = Enum
+            .GetValues(typeof(ActivityTypeCategory))
+            .Cast<ActivityTypeCategory>()
+            .ToDictionary(c => c, c => Enum
+                .GetValues(typeof(ActivityType))
                 .Cast<ActivityType>()
                 .Where(t => t
                     .GetType()
                     .GetField(t.ToString())
-                    .GetCustomAttribute<CategoryAttribute>().Category == category)
-                .ToList();
+                    .GetCustomAttribute<CategoryAttribute>().Category == c)
+                .ToList());
+
+        public static List<ActivityType> GetActivityTypes(this ActivityTypeCategory category)
+        {
+            return TypeCache[category];
         }
     }
 }

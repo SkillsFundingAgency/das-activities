@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using SFA.DAS.Activities.Attributes;
@@ -8,26 +10,45 @@ namespace SFA.DAS.Activities.Extensions
 {
     public static class ActivityTypeExtensions
     {
+        private static readonly Dictionary<ActivityType, Tuple<string, string>> ActionCache = Enum
+            .GetValues(typeof(ActivityType))
+            .Cast<ActivityType>()
+            .Select(t => new
+            {
+                Type = t,
+                Attribute = t.GetType()
+                    .GetField(t.ToString())
+                    .GetCustomAttribute<ActionAttribute>()
+            })
+            .ToDictionary(x => x.Type, x => x.Attribute == null ? null : new Tuple<string, string>(x.Attribute.Action, x.Attribute.Controller));
+
+        private static readonly Dictionary<ActivityType, IActivityLocalizer> LocalizerCache = Enum
+            .GetValues(typeof(ActivityType))
+            .Cast<ActivityType>()
+            .Select(t => new
+            {
+                Type = t,
+                Attribute = t.GetType()
+                    .GetField(t.ToString())
+                    .GetCustomAttribute<LocalizerAttribute>()
+            })
+            .ToDictionary(x => x.Type, x => (IActivityLocalizer)Activator.CreateInstance(x.Attribute.Type));
+
+        private static readonly Regex Regex = new Regex("([A-Z])", RegexOptions.Compiled);
+
         public static Tuple<string, string> GetAction(this ActivityType type)
         {
-            var actionAttribute = type.GetType().GetField(type.ToString()).GetCustomAttribute<ActionAttribute>();
-
-            return actionAttribute != null
-                ? new Tuple<string, string>(actionAttribute.Action, actionAttribute.Controller)
-                : null;
+            return ActionCache[type];
         }
 
         public static string GetDescription(this ActivityType type)
         {
-            return Regex.Replace(type.ToString(), "([A-Z])", " $1").Trim();
+            return Regex.Replace(type.ToString(), " $1").Trim();
         }
 
         public static IActivityLocalizer GetLocalizer(this ActivityType type)
         {
-            var localizerAttribute = type.GetType().GetField(type.ToString()).GetCustomAttribute<LocalizerAttribute>();
-            var localizer = (IActivityLocalizer)Activator.CreateInstance(localizerAttribute.Type);
-
-            return localizer;
+            return LocalizerCache[type];
         }
     }
 }

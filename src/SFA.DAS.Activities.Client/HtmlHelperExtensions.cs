@@ -19,7 +19,6 @@ namespace SFA.DAS.Activities.Client
                 foreach (var activity in result.Activities)
                 {
                     var at = activity.At.ToGmtStandardTime();
-                    var url = htmlHelper.ActivityUrl(activity);
 
                     ol.Add("li", li => li
                         .AddClass(activity.At.Date != date ? "first" : "")
@@ -28,13 +27,15 @@ namespace SFA.DAS.Activities.Client
                                 .AppendText(at.ToRelativeFormat(now)))
                             .Append("p", p => p
                                 .AddClass("activity")
-                                .Append(htmlHelper.Activity(activity)))
+                                .AppendText(htmlHelper.Activity(activity)))
                             .Append("p", p =>
                             {
                                 p.AddClass("meta")
                                     .AppendText("At")
                                     .AppendHtml(" ")
                                         .Append("time", time => time.AppendText(at.ToString("h:mm tt"))).AppendHtml(" ");
+
+                                var url = htmlHelper.GetActivityUrl(activity);
 
                                 if (!string.IsNullOrEmpty(url))
                                 {
@@ -50,7 +51,7 @@ namespace SFA.DAS.Activities.Client
                 {
                     ol.Add("li", li => li
                         .Append("a", a => a
-                            .Attr("href", htmlHelper.ActivitiesUrl(result.Total))
+                            .Attr("href", htmlHelper.GetActivitiesUrl(result.Total))
                             .AppendText("See all activity")));
                 }
 
@@ -60,7 +61,15 @@ namespace SFA.DAS.Activities.Client
             return new HtmlTag("p").AppendText("You have no recent activity");
         }
 
-        public static string ActivitiesUrl(this HtmlHelper htmlHelper, long? total = null)
+        public static string Activity(this HtmlHelper htmlHelper, Activity activity, long count = 1)
+        {
+            var localizer = activity.Type.GetLocalizer();
+            var text = count > 1 ? localizer.GetPluralText(activity, count) : localizer.GetSingularText(activity);
+            
+            return text;
+        }
+
+        public static string GetActivitiesUrl(this HtmlHelper htmlHelper, long? total = null)
         {
             var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
             var url = urlHelper.Action("Activity", "EmployerTeam", new { take = total });
@@ -68,27 +77,13 @@ namespace SFA.DAS.Activities.Client
             return url;
         }
 
-        public static HtmlTag Activity(this HtmlHelper htmlHelper, Activity activity, long count = 1)
+        public static string GetActivityUrl(this HtmlHelper htmlHelper, Activity activity)
         {
-            var localizer = activity.Type.GetLocalizer();
-            var text = count > 1 ? localizer.GetPluralText(activity, count) : localizer.GetSingularText(activity);
-            
-            return HtmlTag.Placeholder().AppendText(text);
-        }
-
-        public static string ActivityUrl(this HtmlHelper htmlHelper, Activity activity, long count = 1)
-        {
+            var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
             var action = activity.Type.GetAction();
+            var url = action != null ? urlHelper.Action(action.Item1, action.Item2) : null;
 
-            if (action != null)
-            {
-                var urlHelper = new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
-                var url = urlHelper.Action(action.Item1, action.Item2);
-
-                return url;
-            }
-
-            return null;
+            return url;
         }
 
         public static HtmlTag LatestActivities(this HtmlHelper htmlHelper, AggregatedActivitiesResult result)
@@ -109,7 +104,7 @@ namespace SFA.DAS.Activities.Client
                                 .AppendText(at.ToRelativeFormat(now)))
                             .Append("div", div => div
                                 .AddClass("item-description")
-                                .Append(htmlHelper.Activity(aggregate.TopHit, aggregate.Count))));
+                                .AppendText(htmlHelper.Activity(aggregate.TopHit, aggregate.Count))));
                 }
                 
                 ol.Add("li", li => li
@@ -117,7 +112,7 @@ namespace SFA.DAS.Activities.Client
                     .Append("div", div => div
                         .AddClass("item-label")
                         .Append("a", a => a
-                            .Attr("href", htmlHelper.ActivitiesUrl())
+                            .Attr("href", htmlHelper.GetActivitiesUrl())
                             .AppendText("See all activity"))));
 
                 return ol;
