@@ -21,13 +21,14 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
             _objectContainer = objectContainer;
         }
 
-        [When(@"(add_paye_scheme) message get publish")]
+        [When(@"(PayeSchemeAddedMessage) message get publish")]
         public void WhenAgreement_CreatedMessageGetPublish(string message)
         {
-            var testData = _objectContainer.Resolve<TestData>();
             var messagePublisher = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
-            messagePublisher.PublishAsync(new PayeSchemeAddedMessage("123/3456", testData.AccountId, "Test", "ABC"));
+            Type type = Type.GetType("Namespace.MyClass, MyAssembly");
+
+            messagePublisher.PublishAsync(_objectContainer.Resolve(type, message));
         }
         
         [Then(@"I should have a (PayeSchemeAdded) Activity")]

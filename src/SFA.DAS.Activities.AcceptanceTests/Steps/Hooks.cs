@@ -27,7 +27,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         {
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IActivitiesClient>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IAzureTopicMessageBus>());
-            _objectContainer.RegisterInstanceAs(new TestData());
+            _objectContainer.RegisterInstanceAs(new TestData(_objectContainer));
         }
     }
 }

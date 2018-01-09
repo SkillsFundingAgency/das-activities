@@ -72,7 +72,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Features
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
-testRunner.When("add_paye_scheme message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("PayeSchemeAddedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
 testRunner.Then("I should have a PayeSchemeAdded Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
