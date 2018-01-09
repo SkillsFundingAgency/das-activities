@@ -17,7 +17,7 @@ namespace SFA.DAS.Activities.Elastic
         public ElasticClientFactory(IElasticConfiguration elasticConfig, IEnvironmentConfiguration environmentConfig, IEnumerable<IIndexMapper> indexMappers, ILog log)
         {
             _settings = new ConnectionSettings(new SingleNodeConnectionPool(new Uri(elasticConfig.ElasticUrl)))
-                .ThrowExceptions().DisableDirectStreaming()
+                .ThrowExceptions()
                 .OnRequestCompleted(r =>
                 {
                     log.Debug(r.DebugInformation);
