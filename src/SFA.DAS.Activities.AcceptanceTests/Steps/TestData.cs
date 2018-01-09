@@ -14,7 +14,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         {
             _objectContainer =objectContainer;
             AccountId = new Random().Next(10000, 99999);
-            _objectContainer.RegisterInstanceAs(PayeSchemeAddedMessage,"PayeSchemeAddedMessage");
+            _objectContainer.RegisterInstanceAs(PayeSchemeAddedMessage);
         }
 
         private PayeSchemeAddedMessage PayeSchemeAddedMessage => new PayeSchemeAddedMessage("123/3456", AccountId, "Test", "ABC");

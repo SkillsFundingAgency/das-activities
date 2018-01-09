@@ -26,9 +26,12 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         {
             var messagePublisher = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
-            Type type = Type.GetType("Namespace.MyClass, MyAssembly");
+            //Type type = Type.GetType($"SFA.DAS.EmployerAccounts.Events.Messages.{message}, SFA.DAS.EmployerAccounts.Events");
 
-            messagePublisher.PublishAsync(_objectContainer.Resolve(type, message));
+            Type messageType = typeof(AccountMessageBase);
+            Type type = Type.GetType($"{messageType.Namespace}.{message}, {messageType.Assembly.FullName}");
+
+            messagePublisher.PublishAsync(_objectContainer.Resolve(type));
         }
         
         [Then(@"I should have a (PayeSchemeAdded) Activity")]
