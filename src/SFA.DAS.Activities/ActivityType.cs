@@ -38,6 +38,10 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(AccountNameChangedActivityLocalizer))]
-        AccountNameChanged = 7
+        AccountNameChanged = 7,
+
+        [Category(ActivityTypeCategory.Payments)]
+        [Localizer(typeof(AccountNameChangedActivityLocalizer))]
+        PaymentCreated = 8
     }
 }
