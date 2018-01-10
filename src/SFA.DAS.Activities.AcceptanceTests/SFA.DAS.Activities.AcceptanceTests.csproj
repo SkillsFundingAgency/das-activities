@@ -154,6 +154,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivitiesAcceptanceTestsConfiguration.cs" />
     <Compile Include="Azure\AzureTopicMessageBus.cs" />
     <Compile Include="Azure\IAzureTopicMessageBus.cs" />
     <Compile Include="Features\Activities.feature.cs">
@@ -184,12 +185,6 @@
       <LastGenOutput>Activities.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities.Worker\SFA.DAS.Activities.Worker.csproj">
-      <Project>{ED9598CD-DDE8-453C-B36B-68033A453FE6}</Project>
-      <Name>SFA.DAS.Activities.Worker</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
