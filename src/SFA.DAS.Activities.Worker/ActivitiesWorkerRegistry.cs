@@ -24,7 +24,7 @@ namespace SFA.DAS.Activities.Worker
             For<IMessageServiceBusConfiguration>().Use(config);
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<ServiceControl>().Use<HostService>();
-            Policies.Add(new MessageSubscriberPolicy<ActivitiesWorkerConfiguration>(ServiceName, Version, new NLogLogger(typeof(TopicSubscriberFactory))));
+            Policies.Add(new MessageSubscriberPolicy(ServiceName, config, new NLogLogger(typeof(TopicSubscriberFactory))));
 
             Scan(s =>
             {

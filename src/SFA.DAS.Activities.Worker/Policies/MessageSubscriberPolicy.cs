@@ -12,16 +12,16 @@ using StructureMap.Pipeline;
 
 namespace SFA.DAS.Activities.Worker.Policies
 {
-    public class MessageSubscriberPolicy<T> : ConfiguredInstancePolicy where T : IMessageServiceBusConfiguration
+    public class MessageSubscriberPolicy : ConfiguredInstancePolicy
     {
         private readonly string _serviceName;
-        private readonly string _version;
+        private readonly IMessageServiceBusConfiguration _config;
         private readonly ILog _logger;
 
-        public MessageSubscriberPolicy(string serviceName, string version, ILog logger)
+        public MessageSubscriberPolicy(string serviceName, IMessageServiceBusConfiguration config, ILog logger)
         {
             _serviceName = serviceName;
-            _version = version;
+            _config = config;
             _logger = logger;
         }
 
@@ -34,9 +34,7 @@ namespace SFA.DAS.Activities.Worker.Policies
                 return;
             }
 
-            var config = ConfigurationHelper.GetConfiguration<T>(_serviceName, _version);
-
-            if (string.IsNullOrEmpty(config.MessageServiceBusConnectionString))
+            if (string.IsNullOrEmpty(_config.MessageServiceBusConnectionString))
             {
                 var groupFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), _serviceName);
                 var factory = new FileSystemMessageSubscriberFactory(groupFolder);
@@ -46,7 +44,7 @@ namespace SFA.DAS.Activities.Worker.Policies
             else
             {
                 var subscriptionName = TopicSubscriptionHelper.GetMessageGroupName(instance.Constructor.DeclaringType);
-                var factory = new TopicSubscriberFactory(config.MessageServiceBusConnectionString, subscriptionName, _logger);
+                var factory = new TopicSubscriberFactory(_config.MessageServiceBusConnectionString, subscriptionName, _logger);
 
                 instance.Dependencies.AddForConstructorParameter(factoryParameter, factory);
             }
