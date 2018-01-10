@@ -112,6 +112,7 @@
     <Compile Include="Extensions\ActivityTypeExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="IndexMappers\ActivitiesIndexMapper.cs" />
+    <Compile Include="Localizers\PaymentCreatedActivityLocalizer.cs" />
     <Compile Include="Localizers\AccountCreatedActivityLocalizer.cs" />
     <Compile Include="Localizers\AccountNameChangedActivityLocalizer.cs" />
     <Compile Include="Localizers\IActivityLocalizer.cs" />
