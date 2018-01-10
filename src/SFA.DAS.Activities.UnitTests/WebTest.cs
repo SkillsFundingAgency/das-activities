@@ -53,16 +53,18 @@ namespace SFA.DAS.Activities.UnitTests
                 tempData,
                 new StreamWriter(new MemoryStream()));
 
-            ViewContext = viewContext.Object;
-            HttpContextBase = context.Object;
-            ViewDataContainer = viewDataContainer.Object;
-            Routes = new RouteCollection();
+            var routes = new RouteCollection();
 
-            Routes.MapRoute(
+            routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            HttpContextBase = context.Object;
+            ViewDataContainer = viewDataContainer.Object;
+            ViewContext = viewContext.Object;
+            Routes = routes;
 
             base.SetUp();
         }

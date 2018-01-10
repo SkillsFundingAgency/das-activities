@@ -16,12 +16,12 @@ namespace SFA.DAS.Activities.Client
                 var now = DateTime.UtcNow.ToGmtStandardTime();
                 var ol = new HtmlTag("ol").AddClass("timeline").AddClass("timeline--complete");
                 var urlHelper = htmlHelper.GetUrlHelper();
-                var activitiesUrl = urlHelper.GetActivitiesUrl(result.Total);
+                var activitiesUrl = urlHelper.Activities(result.Total);
 
                 foreach (var activity in result.Activities)
                 {
                     var at = activity.At.ToGmtStandardTime();
-                    var activityUrl = urlHelper.GetActivityUrl(activity);
+                    var activityUrl = urlHelper.Activity(activity);
                     var activityText = GetActivityText(activity);
 
                     ol.Add("li", li => li.AddClass(activity.At.Date != date ? "first" : "")
@@ -60,7 +60,7 @@ namespace SFA.DAS.Activities.Client
                 var now = DateTime.UtcNow.ToGmtStandardTime();
                 var ol = new HtmlTag("ol").Id("item-list");
                 var urlHelper = htmlHelper.GetUrlHelper();
-                var activitiesUrl = urlHelper.GetActivitiesUrl();
+                var activitiesUrl = urlHelper.Activities();
 
                 foreach (var aggregate in result.Aggregates)
                 {
