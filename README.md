@@ -15,18 +15,27 @@
 ## Requirements
 
 1. Install [Visual Studio].
-2. Install [Docker].
-3. Install [Elastic Search] image.
+2. Install [Choclatey]:
 
 ```PowerShell
 > iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+```
+
+3. Install [Docker]:
+
+```PowerShell
 > choco install docker-for-windows
+```
+
+4. Install [Elastic Search] image:
+
+```PowerShell
 > docker pull docker.elastic.co/elasticsearch/elasticsearch:5.6.5
 ```
 
 ## Run
 
-1. Run [Elastic Search] container.
+1. Run [Elastic Search] container:
 
 ```PowerShell
 > cd .\tools\elasticsearch.5.6.5
@@ -35,7 +44,7 @@
 
 2. Open the solution.
 3. Set `SFA.DAS.Activities.Worker` as the startup project.
-4. Browse to `~\AppData\Roaming`
+4. Browse to `~\AppData\Roaming`.
 5. Add a directory named `SFA.DAS.Activities.Worker`.
 6. Add a directory to the above directory named `add_paye_scheme`.
 7. Add a file to the above directory named `PayeSchemeAddedMessage.json` containing the following json:
