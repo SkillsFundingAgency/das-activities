@@ -11,7 +11,7 @@ namespace SFA.DAS.Activities.Worker
 {
     public class ActivitiesWorkerRegistry : Registry
     {
-        private const string ServiceName = "SFA.DAS.Activities.Worker";
+        private const string ServiceName = "SFA.DAS.Activities";
         private const string Version = "1.0";
 
         public ActivitiesWorkerRegistry()

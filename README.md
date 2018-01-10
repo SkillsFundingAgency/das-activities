@@ -45,7 +45,7 @@
 2. Open the solution.
 3. Set `SFA.DAS.Activities.Worker` as the startup project.
 4. Browse to `~\AppData\Roaming`.
-5. Add a directory named `SFA.DAS.Activities.Worker`.
+5. Add a directory named `SFA.DAS.Activities`.
 6. Add a directory to the above directory named `add_paye_scheme`.
 7. Add a file to the above directory named `PayeSchemeAddedMessage.json` containing the following json:
 
