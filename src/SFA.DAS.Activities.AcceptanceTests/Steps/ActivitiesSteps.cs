@@ -46,7 +46,12 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
                 .ExecuteAsync(async () => await activitiesClient.GetActivities(new ActivitiesQuery { AccountId = testData.AccountId }));
 
             Check.That(result.Activities.Count()).IsEqualTo(1);
-            Check.That(result.Activities.Single().Type).IsEqualTo(ActivityType.PayeSchemeAdded);
+
+            Type type = Type.GetType($"SFA.DAS.Activities.{activityType}, SFA.DAS.Activities");
+
+            var activity = Activator.CreateInstance(type);
+
+            Check.That(result.Activities.Single().Type).IsEqualTo(activity);
         }
     }
 }
