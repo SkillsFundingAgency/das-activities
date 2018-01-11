@@ -12,7 +12,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
 
         public TestData(IObjectContainer objectContainer)
         {
-            _objectContainer =objectContainer;
+            _objectContainer = objectContainer;
             AccountId = new Random().Next(10000, 99999);
             _objectContainer.RegisterInstanceAs(PayeSchemeAddedMessage);
         }

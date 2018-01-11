@@ -14,11 +14,13 @@ namespace SFA.DAS.Activities.AcceptanceTests
 
         public ActivitiesAcceptanceTestRegistry()
         {
+            var envConfigForClient = new EnvironmentConfiguration { EnvironmentName = "AT" };
             var config = ConfigurationHelper.GetConfiguration<ActivitiesAcceptanceTestsConfiguration>(ServiceName, Version);
 
             IncludeRegistry<ActivitiesRegistry>();
             IncludeRegistry<ActivitiesClientRegistry>();
             For<IElasticConfiguration>().Use(config);
+            For<IEnvironmentConfiguration>().Use(envConfigForClient);
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<IMessageServiceBusConfiguration>().Use(config);
             For<IAzureTopicMessageBus>().Use(new AzureTopicMessageBus(config.MessageServiceBusConnectionString, ""));

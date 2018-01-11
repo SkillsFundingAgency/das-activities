@@ -11,10 +11,6 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 {
     public static class IndexMapperTests
     {
-        private const string EnvironmentName = "LOCAL";
-        private const string StubIndexName = "stubs";
-        private static string ExpandedStubIndexName = $"{EnvironmentName.ToLower()}-{StubIndexName}";
-
         public class When_ensuring_non_existant_index_exists : TestAsync
         {
             private IndexMapperStub _indexMapper;
@@ -114,6 +110,10 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                 Assert.That(_indexMapper.MapCallCount, Is.EqualTo(0));
             }
         }
+
+        private const string EnvironmentName = "LOCAL";
+        private const string StubIndexName = "stubs";
+        private static readonly string ExpandedStubIndexName = $"{EnvironmentName.ToLower()}-{StubIndexName}";
 
         private class IndexMapperStub : IndexMapper<ActivityStub>
         {

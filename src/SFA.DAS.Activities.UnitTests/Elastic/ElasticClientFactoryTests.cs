@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Elasticsearch.Net;
 using Moq;
 using Nest;
@@ -15,11 +13,6 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
 {
     public static class ElasticClientFactoryTests
     {
-        private static readonly IEnvironmentConfiguration EnvironmentConfig = new EnvironmentConfiguration
-        {
-            EnvironmentName = "LOCAL"
-        };
-
         public class When_getting_client : Test
         {
             private IElasticClient _client;
@@ -169,7 +162,6 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
             public void Then_should_return_client_with_basic_auth_disabled()
             {
                 Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials, Is.Null);
-                Assert.That(_client.ConnectionSettings.BasicAuthenticationCredentials, Is.Null);
             }
         }
 
@@ -205,5 +197,10 @@ namespace SFA.DAS.Activities.UnitTests.Elastic
                 _log.Verify(l => l.Debug(_debugInfo));
             }
         }
+
+        private static readonly IEnvironmentConfiguration EnvironmentConfig = new EnvironmentConfiguration
+        {
+            EnvironmentName = "LOCAL"
+        };
     }
 }

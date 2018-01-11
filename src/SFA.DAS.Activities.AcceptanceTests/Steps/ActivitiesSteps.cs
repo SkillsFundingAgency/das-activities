@@ -24,34 +24,27 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [When(@"(PayeSchemeAddedMessage) message get publish")]
         public void WhenAgreement_CreatedMessageGetPublish(string message)
         {
-            var messagePublisher = _objectContainer.Resolve<IAzureTopicMessageBus>();
+            var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
+            var messageBaseType = typeof(AccountMessageBase);
+            var messageType = Type.GetType($"{messageBaseType.Namespace}.{message}, {messageBaseType.Assembly.FullName}");
 
-            //Type type = Type.GetType($"SFA.DAS.EmployerAccounts.Events.Messages.{message}, SFA.DAS.EmployerAccounts.Events");
-
-            Type messageType = typeof(AccountMessageBase);
-            Type type = Type.GetType($"{messageType.Namespace}.{message}, {messageType.Assembly.FullName}");
-
-            messagePublisher.PublishAsync(_objectContainer.Resolve(type));
+            bus.PublishAsync(_objectContainer.Resolve(messageType));
         }
         
         [Then(@"I should have a (PayeSchemeAdded) Activity")]
-        public async Task ThenIShouldHaveAAgreementToSignActivity(string activityType)
+        public async Task ThenIShouldHaveAAgreementToSignActivity(string activity)
         {
-            var testData = _objectContainer.Resolve<TestData>();
             var activitiesClient = _objectContainer.Resolve<IActivitiesClient>();
+            var testData = _objectContainer.Resolve<TestData>();
+            var activityType = Enum.Parse(typeof(ActivityType), activity);
 
             var result = await Policy
                 .HandleResult<ActivitiesResult>(r => r.Activities.Any())
-                .WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(3) })
+                .WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7) })
                 .ExecuteAsync(async () => await activitiesClient.GetActivities(new ActivitiesQuery { AccountId = testData.AccountId }));
 
             Check.That(result.Activities.Count()).IsEqualTo(1);
-
-            Type type = Type.GetType($"SFA.DAS.Activities.{activityType}, SFA.DAS.Activities");
-
-            var activity = Activator.CreateInstance(type);
-
-            Check.That(result.Activities.Single().Type).IsEqualTo(activity);
+            Check.That(result.Activities.Single().Type).IsEqualTo(activityType);
         }
     }
 }
