@@ -145,6 +145,7 @@
     <Compile Include="Worker\MessageProcessors\AccountNameChangedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\LegalEntityRemovedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\LegalEntityAddedMessageProcessorTests.cs" />
+    <Compile Include="Worker\MessageProcessors\UserInvitedMessageProcessor.cs" />
     <Compile Include="Worker\MessageProcessors\UserJoinedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\AccountCreatedMessageProcessorTests.cs" />
     <Compile Include="MessageProcessorTest.cs" />

@@ -120,6 +120,7 @@
     <Compile Include="Localizers\PayeSchemeAddedActivityLocalizer.cs" />
     <Compile Include="Localizers\PayeSchemeRemovedActivityLocalizer.cs" />
     <Compile Include="Localizers\UnknownActivityLocalizer.cs" />
+    <Compile Include="Localizers\UserInvitedActivityLocalizer.cs" />
     <Compile Include="Localizers\UserJoinedActivityLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
