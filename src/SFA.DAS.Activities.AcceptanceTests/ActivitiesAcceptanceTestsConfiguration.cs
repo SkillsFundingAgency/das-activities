@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Activities.AcceptanceTests
 {
-    public class ActivitiesAcceptanceTestsConfiguration : IElasticConfiguration, IMessageServiceBusConfiguration
+    public class ActivitiesAcceptanceTestsConfiguration : IMessageServiceBusConfiguration
     {
         public string ElasticUrl { get; set; }
         public string ElasticUsername { get; set; }
