@@ -66,6 +66,9 @@
     <Reference Include="SFA.DAS.Configuration.AzureTableStorage, Version=1.0.0.43116, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.AzureTableStorage.1.0.0.43116\lib\net45\SFA.DAS.Configuration.AzureTableStorage.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.Elastic, Version=1.0.0.52227, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Elastic.1.0.0.52227\lib\net45\SFA.DAS.Elastic.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.NLog.Logger, Version=1.0.0.47445, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.NLog.Logger.1.0.0.47445\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
@@ -92,7 +95,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivitiesRegistry.cs" />
     <Compile Include="Activity.cs" />
     <Compile Include="ActivityType.cs" />
     <Compile Include="ActivityTypeCategory.cs" />
@@ -100,14 +102,7 @@
     <Compile Include="Attributes\CategoryAttribute.cs" />
     <Compile Include="Attributes\Localizer.cs" />
     <Compile Include="Configuration\ConfigurationHelper.cs" />
-    <Compile Include="Configuration\EnvironmentConfiguration.cs" />
-    <Compile Include="Configuration\IElasticConfiguration.cs" />
-    <Compile Include="Configuration\IEnvironmentConfiguration.cs" />
     <Compile Include="Configuration\IMessageServiceBusConfiguration.cs" />
-    <Compile Include="Elastic\ElasticClientFactory.cs" />
-    <Compile Include="Elastic\IElasticClientFactory.cs" />
-    <Compile Include="Elastic\IIndexMapper.cs" />
-    <Compile Include="Elastic\IndexMapper.cs" />
     <Compile Include="Extensions\ActivityTypeCategoryExtensions.cs" />
     <Compile Include="Extensions\ActivityTypeExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />

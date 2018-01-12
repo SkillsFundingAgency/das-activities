@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nest;
-using SFA.DAS.Activities.Elastic;
+using SFA.DAS.Elastic;
 
 namespace SFA.DAS.Activities.IndexMappers
 {

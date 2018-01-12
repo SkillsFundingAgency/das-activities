@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Activities.Worker
 {
-    public class ActivitiesWorkerConfiguration : IElasticConfiguration, IMessageServiceBusConfiguration
+    public class ActivitiesWorkerConfiguration : IMessageServiceBusConfiguration
     {
         public string ElasticUrl { get; set; }
         public string ElasticUsername { get; set; }
