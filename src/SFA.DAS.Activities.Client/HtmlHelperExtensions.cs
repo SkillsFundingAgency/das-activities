@@ -22,7 +22,7 @@ namespace SFA.DAS.Activities.Client
                 {
                     var at = activity.At.ToGmtStandardTime();
                     var activityUrl = urlHelper.Activity(activity);
-                    var activityText = GetActivityText(activity);
+                    var activityText = htmlHelper.Activity(activity);
 
                     ol.Add("li", li => li.AddClass(activity.At.Date != date ? "first" : "")
                         .Append("h4", h4 => h4.Title(at.ToString("U")).AppendText(at.ToRelativeFormat(now)))
@@ -65,7 +65,7 @@ namespace SFA.DAS.Activities.Client
                 foreach (var aggregate in result.Aggregates)
                 {
                     var at = aggregate.TopHit.At.ToGmtStandardTime();
-                    var activityText = GetActivityText(aggregate.TopHit, aggregate.Count);
+                    var activityText = htmlHelper.Activity(aggregate.TopHit, aggregate.Count);
 
                     ol.Add("li", li => li.AddClass("item")
                         .Append("div", div => div.AddClass("item-label").AppendText(at.ToRelativeFormat(now)))
@@ -85,17 +85,17 @@ namespace SFA.DAS.Activities.Client
             return new HtmlTag("p").AppendText("You have no recent activity");
         }
 
-        public static UrlHelper GetUrlHelper(this HtmlHelper htmlHelper)
-        {
-            return new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
-        }
-
-        private static string GetActivityText(Activity activity, long count = 1)
+        public static string Activity(this HtmlHelper htmlHelper, Activity activity, long count = 1)
         {
             var localizer = activity.Type.GetLocalizer();
             var text = count > 1 ? localizer.GetPluralText(activity, count) : localizer.GetSingularText(activity);
 
             return text;
+        }
+
+        public static UrlHelper GetUrlHelper(this HtmlHelper htmlHelper)
+        {
+            return new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
         }
     }
 }
