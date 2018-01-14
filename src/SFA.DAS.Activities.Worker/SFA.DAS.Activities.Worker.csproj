@@ -69,8 +69,8 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Elastic, Version=1.0.0.52346, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.Elastic.1.0.0.52346\lib\net45\SFA.DAS.Elastic.dll</HintPath>
+    <Reference Include="SFA.DAS.Elastic, Version=1.0.0.52365, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Elastic.1.0.0.52365\lib\net45\SFA.DAS.Elastic.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.51739, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.51739\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
