@@ -6,15 +6,15 @@ using Topshelf.HostConfigurators;
 
 namespace SFA.DAS.Activities.Worker
 {
-    public class WorkerRole : TopshelfRoleEntryPoint
+    public class Program : TopshelfRoleEntryPoint
     {
-        private static readonly ILog Log = new NLogLogger(typeof(WorkerRole));
+        private static readonly ILog Log = new NLogLogger(typeof(Program));
 
         private IContainer _container;
 
         public static int Main()
         {
-            return (int)HostFactory.Run(new WorkerRole().Configure);
+            return (int)HostFactory.Run(new Program().Configure);
         }
 
         protected override void Configure(HostConfigurator hostConfigurator)

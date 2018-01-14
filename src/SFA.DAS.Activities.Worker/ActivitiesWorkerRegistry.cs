@@ -36,7 +36,7 @@ namespace SFA.DAS.Activities.Worker
             For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
             For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
-            For<ServiceControl>().Use<HostService>();
+            For<ServiceControl>().Use<Service>();
             Policies.Add(new MessageSubscriberPolicy(ServiceName, config, Log));
 
             Scan(s =>

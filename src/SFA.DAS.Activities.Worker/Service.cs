@@ -8,14 +8,14 @@ using Topshelf;
 
 namespace SFA.DAS.Activities.Worker
 {
-    public class HostService : ServiceControl
+    public class Service : ServiceControl
     {
         private readonly IEnumerable<IMessageProcessor> _processors;
         private readonly ILog _log;
         private readonly CancellationTokenSource _cancel = new CancellationTokenSource();
         private Task _task;
 
-        public HostService(IEnumerable<IMessageProcessor> processors, ILog log)
+        public Service(IEnumerable<IMessageProcessor> processors, ILog log)
         {
             _processors = processors;
             _log = log;
