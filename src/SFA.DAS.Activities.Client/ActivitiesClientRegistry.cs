@@ -1,5 +1,4 @@
 ﻿using Nest;
-using NLog.Fluent;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
 using SFA.DAS.Elastic;
@@ -29,11 +28,9 @@ namespace SFA.DAS.Activities.Client
                 elasticConfig.UseBasicAuthentication(config.ElasticUsername, config.ElasticPassword);
             }
 
-            var elasticClientFactory = elasticConfig.CreateClientFactory();
-
             For<IActivitiesClient>().Use<ActivitiesClient>();
             For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
-            For<IElasticClientFactory>().Use(elasticClientFactory);
+            For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
         }
     }
 }
