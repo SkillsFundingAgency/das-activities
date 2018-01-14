@@ -60,6 +60,9 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.8.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.8.0\lib\net45\Moq.dll</HintPath>
     </Reference>
@@ -74,6 +77,9 @@
     </Reference>
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.Elastic, Version=1.0.0.52365, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.Elastic.1.0.0.52365\lib\net45\SFA.DAS.Elastic.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.EmployerAccounts.Events, Version=1.0.0.51739, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.EmployerAccounts.Events.1.0.0.51739\lib\net45\SFA.DAS.EmployerAccounts.Events.dll</HintPath>
@@ -131,6 +137,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityTypeTests.cs" />
     <Compile Include="Client\UrlHelperExtensionsTests.cs" />
     <Compile Include="WebTest.cs" />
     <Compile Include="Client\HtmlHelperExtensionsTests.cs" />
