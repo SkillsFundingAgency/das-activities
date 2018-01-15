@@ -9,26 +9,22 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Worker.MessageProcessors
 {
-    [TopicSubscription("Activity_AccountNameChangedMessageProcessor")]
-    public class AccountNameChangedMessageProcessor : MessageProcessor<AccountNameChangedMessage>
+    [TopicSubscription("Activity_AgreementSignedMessageProcessor")]
+    public class AgreementSignedMessageProcessor : MessageProcessor<AgreementSignedMessage>
     {
         private readonly IActivityMapper _activityMapper;
         private readonly IElasticClient _client;
 
-        public AccountNameChangedMessageProcessor(
-            IMessageSubscriberFactory subscriberFactory, 
-            ILog log, 
-            IActivityMapper activityMapper, 
-            IElasticClient client) 
-            : base(subscriberFactory, log)
+        public AgreementSignedMessageProcessor(IMessageSubscriberFactory subscriberFactory, ILog logger, IActivityMapper activityMapper, IElasticClient client)
+            : base(subscriberFactory, logger)
         {
             _activityMapper = activityMapper;
             _client = client;
         }
 
-        protected override async Task ProcessMessage(AccountNameChangedMessage message)
+        protected override async Task ProcessMessage(AgreementSignedMessage message)
         {
-            var activity = _activityMapper.Map(message, ActivityType.AccountNameChanged);
+            var activity = _activityMapper.Map(message, ActivityType.AgreementSigned);
             await _client.IndexAsync(activity);
         }
     }

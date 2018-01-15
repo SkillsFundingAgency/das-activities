@@ -120,12 +120,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivitiesWorkerConfiguration.cs" />
-    <Compile Include="MessageProcessors\AccountNameChangedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\LegalEntityAddedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\LegalEntityRemovedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\AgreementSignedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\UserInvitedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\UserJoinedMessageProcessor.cs" />
-    <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
+    <Compile Include="MessageProcessors\AccountNameChangedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\PayeSchemeRemovedMessageProcessor.cs" />
     <Compile Include="ObjectMappers\ActivityMapper.cs" />
     <Compile Include="ObjectMappers\IActivityMapper.cs" />

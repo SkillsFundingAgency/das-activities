@@ -42,6 +42,11 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(UserInvitedActivityLocalizer))]
-        UserInvited = 8
+        UserInvited = 8,
+
+        [Category(ActivityTypeCategory.AccountAdmin)]
+        [Localizer(typeof(AgreementSignedActivityLocalizer))]
+        [Action("Index", "EmployerAgreement")]
+        AgreementSigned = 9
     }
 }
