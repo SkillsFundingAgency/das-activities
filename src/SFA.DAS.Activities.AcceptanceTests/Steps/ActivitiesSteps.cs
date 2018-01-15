@@ -21,8 +21,8 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
             _objectContainer = objectContainer;
         }
 
-        [When(@"(PayeSchemeAddedMessage) message get publish")]
-        public void WhenAgreement_CreatedMessageGetPublish(string message)
+        [When(@"([^ ]*) message get publish")]
+        public void WhenMessageGetPublish(string message)
         {
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
             var messageBaseType = typeof(AccountMessageBase);
@@ -30,18 +30,26 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
 
             bus.PublishAsync(_objectContainer.Resolve(messageType));
         }
-        
-        [Then(@"I should have a (PayeSchemeAdded) Activity")]
-        public async Task ThenIShouldHaveAAgreementToSignActivity(string activity)
+
+        [Then(@"I should have a ([^ ]*) Activity")]
+        public async Task ThenIShouldHaveAnActivity(string activity)
         {
             var activitiesClient = _objectContainer.Resolve<IActivitiesClient>();
-            var testData = _objectContainer.Resolve<TestData>();
+            var accountId = _objectContainer.Resolve<TestData>().AccountId;
             var activityType = Enum.Parse(typeof(ActivityType), activity);
 
             var result = await Policy
-                .HandleResult<ActivitiesResult>(r => r.Activities.Any())
-                .WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7) })
-                .ExecuteAsync(async () => await activitiesClient.GetActivities(new ActivitiesQuery { AccountId = testData.AccountId }));
+                .HandleResult<ActivitiesResult>(r => 
+                {
+                    return !r.Activities.Any();
+                })
+                .WaitAndRetryAsync(new[] { TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(3), TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(7) })
+                .ExecuteAsync(async () => 
+                {
+                    Console.WriteLine($"Quering {activityType} activity for Accoount id {accountId}");
+                    var response = await activitiesClient.GetActivities(new ActivitiesQuery { AccountId = accountId });
+                    return response;
+                });
 
             Check.That(result.Activities.Count()).IsEqualTo(1);
             Check.That(result.Activities.Single().Type).IsEqualTo(activityType);
