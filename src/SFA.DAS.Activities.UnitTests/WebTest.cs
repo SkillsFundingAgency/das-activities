@@ -40,11 +40,12 @@ namespace SFA.DAS.Activities.UnitTests
             context.Setup(c => c.Server).Returns(server.Object);
 
             var viewData = new ViewDataDictionary();
-            var tempData = new TempDataDictionary();
-            var routeData = new RouteData();
             var viewDataContainer = new Mock<IViewDataContainer>();
 
             viewDataContainer.Setup(c => c.ViewData).Returns(viewData);
+
+            var tempData = new TempDataDictionary();
+            var routeData = new RouteData();
 
             var viewContext = new Mock<ViewContext>(
                 new ControllerContext(context.Object, routeData, new Mock<ControllerBase>().Object),
