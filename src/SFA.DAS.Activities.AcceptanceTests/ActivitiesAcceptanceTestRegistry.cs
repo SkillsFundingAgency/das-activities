@@ -32,11 +32,9 @@ namespace SFA.DAS.Activities.AcceptanceTests
                 elasticConfig.UseBasicAuthentication(config.ElasticUsername, config.ElasticPassword);
             }
 
-            var elasticClientFactory = elasticConfig.CreateClientFactory();
-
             For<IActivitiesClient>().Use<ActivitiesClient>();
             For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
-            For<IElasticClientFactory>().Use(elasticClientFactory);
+            For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<IMessageServiceBusConfiguration>().Use(config);
             For<IAzureTopicMessageBus>().Use(new AzureTopicMessageBus(config.MessageServiceBusConnectionString, ""));
