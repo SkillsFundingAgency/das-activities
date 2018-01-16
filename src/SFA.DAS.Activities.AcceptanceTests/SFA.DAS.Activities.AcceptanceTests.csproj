@@ -87,10 +87,12 @@
     <Reference Include="Polly, Version=5.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Polly.5.7.0\lib\net45\Polly.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Activities, Version=0.1.139.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SFA.DAS.Activities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SFA.DAS.Activities.Client.0.1.139\lib\net45\SFA.DAS.Activities.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.Activities.Client, Version=0.1.139.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="SFA.DAS.Activities.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SFA.DAS.Activities.Client.0.1.139\lib\net45\SFA.DAS.Activities.Client.dll</HintPath>
     </Reference>
     <Reference Include="SFA.DAS.Configuration, Version=1.0.0.49931, Culture=neutral, processorArchitecture=MSIL">
@@ -158,8 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivitiesAcceptanceTestsConfiguration.cs" />
-    <Compile Include="Azure\AzureTopicMessageBus.cs" />
-    <Compile Include="Azure\IAzureTopicMessageBus.cs" />
+    <Compile Include="Steps\Account.cs" />
+    <Compile Include="Utilities\AzureTopicMessageBus.cs" />
+    <Compile Include="Utilities\IAzureTopicMessageBus.cs" />
     <Compile Include="Features\Activities.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -169,7 +172,10 @@
     <Compile Include="ActivitiesAcceptanceTestRegistry.cs" />
     <Compile Include="Steps\ActivitiesSteps.cs" />
     <Compile Include="Steps\Hooks.cs" />
-    <Compile Include="Steps\TestData.cs" />
+    <Compile Include="Steps\Context.cs" />
+    <Compile Include="Steps\Transforms.cs" />
+    <Compile Include="Utilities\IObjectCreator.cs" />
+    <Compile Include="Utilities\ObjectCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

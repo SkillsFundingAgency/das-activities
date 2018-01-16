@@ -31,8 +31,8 @@ namespace SFA.DAS.Activities.AcceptanceTests.Features
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Activities", "AS AN employer \r\nI WANT a list of activies \r\nSO THAT I can check it or use it for" +
-                    " audit purpose", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Activities", "AS AN employer \r\nI WANT a list of activies \r\nSO THAT I can use it for auditing pu" +
+                    "rposes", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -69,12 +69,14 @@ namespace SFA.DAS.Activities.AcceptanceTests.Features
         public virtual void AddPayeScheme()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Paye Scheme", ((string[])(null)));
-#line 7
+#line 6
 this.ScenarioSetup(scenarioInfo);
+#line 7
+testRunner.Given("a PayeSchemeAddedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
-testRunner.When("PayeSchemeAddedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
-testRunner.Then("I should have a PayeSchemeAdded Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("I should have 1 PayeSchemeAdded activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -87,9 +89,11 @@ testRunner.Then("I should have a PayeSchemeAdded Activity", ((string)(null)), ((
 #line 11
 this.ScenarioSetup(scenarioInfo);
 #line 12
-testRunner.When("PayeSchemeDeletedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Given("a PayeSchemeDeletedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 13
-testRunner.Then("I should have a PayeSchemeRemoved Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 14
+testRunner.Then("I should have 1 PayeSchemeRemoved activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -99,12 +103,14 @@ testRunner.Then("I should have a PayeSchemeRemoved Activity", ((string)(null)), 
         public virtual void AgreementSigned()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agreement Signed", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
 #line 16
-testRunner.When("AgreementSignedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 17
-testRunner.Then("I should have a AgreementSigned Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Given("a AgreementSignedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 18
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 19
+testRunner.Then("I should have 1 AgreementSigned activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -114,12 +120,14 @@ testRunner.Then("I should have a AgreementSigned Activity", ((string)(null)), ((
         public virtual void UserJoined()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User Joined", ((string[])(null)));
-#line 19
-this.ScenarioSetup(scenarioInfo);
-#line 20
-testRunner.When("UserJoinedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 21
-testRunner.Then("I should have a UserJoined Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioSetup(scenarioInfo);
+#line 22
+testRunner.Given("a UserJoinedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 24
+testRunner.Then("I should have 1 UserJoined activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -129,12 +137,14 @@ testRunner.Then("I should have a UserJoined Activity", ((string)(null)), ((TechT
         public virtual void UserInvited()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User Invited", ((string[])(null)));
-#line 23
+#line 26
 this.ScenarioSetup(scenarioInfo);
-#line 24
-testRunner.When("UserInvitedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 25
-testRunner.Then("I should have a UserInvited Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 27
+testRunner.Given("a UserInvitedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 28
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+testRunner.Then("I should have 1 UserInvited activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -144,12 +154,14 @@ testRunner.Then("I should have a UserInvited Activity", ((string)(null)), ((Tech
         public virtual void LegalEntityRemoved()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Legal Entity Removed", ((string[])(null)));
-#line 27
+#line 31
 this.ScenarioSetup(scenarioInfo);
-#line 28
-testRunner.When("LegalEntityRemovedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 29
-testRunner.Then("I should have a LegalEntityRemoved Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 32
+testRunner.Given("a LegalEntityRemovedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 33
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+testRunner.Then("I should have 1 LegalEntityRemoved activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -159,27 +171,31 @@ testRunner.Then("I should have a LegalEntityRemoved Activity", ((string)(null)),
         public virtual void LegalEntityAdded()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Legal Entity Added", ((string[])(null)));
-#line 31
+#line 36
 this.ScenarioSetup(scenarioInfo);
-#line 32
-testRunner.When("LegalEntityAddedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 33
-testRunner.Then("I should have a LegalEntityAdded Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 37
+testRunner.Given("a LegalEntityAddedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 38
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 39
+testRunner.Then("I should have 1 LegalEntityAdded activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Account Name changed")]
+        [NUnit.Framework.DescriptionAttribute("Account Name Changed")]
         public virtual void AccountNameChanged()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Account Name changed", ((string[])(null)));
-#line 35
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Account Name Changed", ((string[])(null)));
+#line 41
 this.ScenarioSetup(scenarioInfo);
-#line 36
-testRunner.When("AccountNameChangedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 37
-testRunner.Then("I should have a AccountNameChanged Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 42
+testRunner.Given("a AccountNameChangedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 43
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 44
+testRunner.Then("I should have 1 AccountNameChanged activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -189,12 +205,160 @@ testRunner.Then("I should have a AccountNameChanged Activity", ((string)(null)),
         public virtual void AccountCreated()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Account Created", ((string[])(null)));
-#line 39
+#line 46
 this.ScenarioSetup(scenarioInfo);
-#line 40
-testRunner.When("AccountCreatedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 41
-testRunner.Then("I should have a AccountCreated Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 47
+testRunner.Given("a AccountCreatedMessage message for Account A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 48
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 49
+testRunner.Then("I should have 1 AccountCreated activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get latest activities")]
+        public virtual void GetLatestActivities()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get latest activities", ((string[])(null)));
+#line 51
+this.ScenarioSetup(scenarioInfo);
+#line 52
+testRunner.Given("a AccountCreatedMessage message for Account A and CreatedAt 0 days ago is publish" +
+                    "ed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 53
+testRunner.Given("a AccountCreatedMessage message for Account B and CreatedAt 0 days ago is publish" +
+                    "ed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 54
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 1 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 55
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 0 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 56
+testRunner.Given("a PayeSchemeDeletedMessage message for Account A and CreatedAt 0 days ago is publ" +
+                    "ished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 57
+testRunner.Given("a PayeSchemeDeletedMessage message for Account A and CreatedAt 0 days ago is publ" +
+                    "ished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 58
+testRunner.When("I get latest activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 59
+testRunner.Then("I should have 1 AccountCreated activities for 1 aggregations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 60
+testRunner.Then("I should have 1 PayeSchemeAdded activities for 1 aggregations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 61
+testRunner.Then("I should have 2 PayeSchemeRemoved activities for 1 aggregations", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get activities")]
+        public virtual void GetActivities()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get activities", ((string[])(null)));
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 64
+testRunner.Given("a AccountCreatedMessage message for Account A and CreatedAt 0 days ago is publish" +
+                    "ed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 65
+testRunner.Given("a AccountCreatedMessage message for Account B and CreatedAt 0 days ago is publish" +
+                    "ed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 66
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 1 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 67
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 0 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 68
+testRunner.Given("a PayeSchemeDeletedMessage message for Account A and CreatedAt 0 days ago is publ" +
+                    "ished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 69
+testRunner.Given("a PayeSchemeDeletedMessage message for Account A and CreatedAt 0 days ago is publ" +
+                    "ished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 70
+testRunner.When("I get activities for Account A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 71
+testRunner.Then("I should have 1 AccountCreated activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 72
+testRunner.Then("I should have 2 PayeSchemeAdded activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 73
+testRunner.Then("I should have 2 PayeSchemeRemoved activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get activities by Take")]
+        public virtual void GetActivitiesByTake()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get activities by Take", ((string[])(null)));
+#line 75
+this.ScenarioSetup(scenarioInfo);
+#line 76
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 1 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 77
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 0 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 78
+testRunner.Given("a PayeSchemeDeletedMessage message for Account A and CreatedAt 0 days ago is publ" +
+                    "ished", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 79
+testRunner.When("I get activities for Account A and Take 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 80
+testRunner.Then("I should have 1 PayeSchemeAdded activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 81
+testRunner.Then("I should have 1 PayeSchemeRemoved activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get activities by From and To")]
+        public virtual void GetActivitiesByFromAndTo()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get activities by From and To", ((string[])(null)));
+#line 83
+this.ScenarioSetup(scenarioInfo);
+#line 84
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 3 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 85
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 2 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 86
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 1 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 87
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and CreatedAt 0 days ago is publis" +
+                    "hed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 88
+testRunner.When("I get activities for Account A and From 2 days ago and To 1 days ago", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 89
+testRunner.Then("I should have 2 PayeSchemeAdded activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get activities by PayeScheme")]
+        public virtual void GetActivitiesByPayeScheme()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get activities by PayeScheme", ((string[])(null)));
+#line 91
+this.ScenarioSetup(scenarioInfo);
+#line 92
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and PayeScheme A is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 93
+testRunner.Given("a PayeSchemeAddedMessage message for Account A and PayeScheme B is published", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 94
+testRunner.When("I get activities for Account A and PayeScheme A", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 95
+testRunner.Then("I should have 1 PayeSchemeAdded activities", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -1,6 +1,10 @@
-﻿using TechTalk.SpecFlow;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using TechTalk.SpecFlow;
 using BoDi;
+using Nest;
 using SFA.DAS.Activities.AcceptanceTests.Azure;
+using SFA.DAS.Activities.AcceptanceTests.Utilities;
 using SFA.DAS.Activities.Client;
 using StructureMap;
 
@@ -25,9 +29,29 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [BeforeScenario]
         public void BeforeScenario()
         {
+            _objectContainer.RegisterInstanceAs(new Context());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IActivitiesClient>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IAzureTopicMessageBus>());
-            _objectContainer.RegisterInstanceAs(new TestData(_objectContainer));
+            _objectContainer.RegisterInstanceAs(_container.GetInstance<IElasticClient>());
+            _objectContainer.RegisterInstanceAs(_container.GetInstance<IObjectCreator>());
+        }
+
+        [AfterScenario]
+        public async Task AfterScenario()
+        {
+            var context = _objectContainer.Resolve<Context>();
+            var client = _objectContainer.Resolve<IElasticClient>();
+
+            await Task.WhenAll(context.GetAccounts().Select(a =>
+                client.DeleteByQueryAsync<Activity>(s => s
+                    .Query(q => q
+                        .Term(t => t
+                            .Field(f => f.AccountId)
+                            .Value(a.Id)
+                        )
+                    )
+                )
+            ));
         }
     }
 }
