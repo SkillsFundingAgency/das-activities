@@ -93,6 +93,111 @@ testRunner.Then("I should have a PayeSchemeRemoved Activity", ((string)(null)), 
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Agreement Signed")]
+        public virtual void AgreementSigned()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Agreement Signed", ((string[])(null)));
+#line 15
+this.ScenarioSetup(scenarioInfo);
+#line 16
+testRunner.When("AgreementSignedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 17
+testRunner.Then("I should have a AgreementSigned Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("User Joined")]
+        public virtual void UserJoined()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User Joined", ((string[])(null)));
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+testRunner.When("UserJoinedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 21
+testRunner.Then("I should have a UserJoined Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("User Invited")]
+        public virtual void UserInvited()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User Invited", ((string[])(null)));
+#line 23
+this.ScenarioSetup(scenarioInfo);
+#line 24
+testRunner.When("UserInvitedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 25
+testRunner.Then("I should have a UserInvited Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Legal Entity Removed")]
+        public virtual void LegalEntityRemoved()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Legal Entity Removed", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+testRunner.When("LegalEntityRemovedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+testRunner.Then("I should have a LegalEntityRemoved Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Legal Entity Added")]
+        public virtual void LegalEntityAdded()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Legal Entity Added", ((string[])(null)));
+#line 31
+this.ScenarioSetup(scenarioInfo);
+#line 32
+testRunner.When("LegalEntityAddedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 33
+testRunner.Then("I should have a LegalEntityAdded Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Account Name changed")]
+        public virtual void AccountNameChanged()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Account Name changed", ((string[])(null)));
+#line 35
+this.ScenarioSetup(scenarioInfo);
+#line 36
+testRunner.When("AccountNameChangedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
+testRunner.Then("I should have a AccountNameChanged Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Account Created")]
+        public virtual void AccountCreated()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Account Created", ((string[])(null)));
+#line 39
+this.ScenarioSetup(scenarioInfo);
+#line 40
+testRunner.When("AccountCreatedMessage message get publish", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+testRunner.Then("I should have a AccountCreated Activity", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore
