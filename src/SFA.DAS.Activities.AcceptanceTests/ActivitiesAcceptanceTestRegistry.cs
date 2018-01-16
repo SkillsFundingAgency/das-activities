@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Nest;
 using SFA.DAS.Activities.AcceptanceTests.Azure;
+using SFA.DAS.Activities.AcceptanceTests.Utilities;
 using SFA.DAS.Activities.Client;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
@@ -33,11 +34,12 @@ namespace SFA.DAS.Activities.AcceptanceTests
             }
 
             For<IActivitiesClient>().Use<ActivitiesClient>();
+            For<IAzureTopicMessageBus>().Use(new AzureTopicMessageBus(config.MessageServiceBusConnectionString, ""));
             For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
             For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<IMessageServiceBusConfiguration>().Use(config);
-            For<IAzureTopicMessageBus>().Use(new AzureTopicMessageBus(config.MessageServiceBusConnectionString, ""));
+            For<IObjectCreator>().Use<ObjectCreator>();
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
         }
