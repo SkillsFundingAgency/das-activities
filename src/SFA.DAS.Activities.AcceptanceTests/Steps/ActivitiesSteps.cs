@@ -21,7 +21,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
             TimeSpan.FromSeconds(2),
             TimeSpan.FromSeconds(3),
             TimeSpan.FromSeconds(5),
-            TimeSpan.FromSeconds(7)
+            TimeSpan.FromSeconds(8)
         };
 
         private readonly IObjectContainer _objectContainer;

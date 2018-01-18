@@ -15,8 +15,9 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         public Account(string name, ILog logger)
         {
             Id = long.Parse(DateTime.UtcNow.ToString("yyyyMMddhhmmssffff") + (char.ToUpper(name.ToCharArray().Single()) - 64));
-            logger.Info($"Account Id for {name} : {Id}");
             Name = name;
+
+            logger.Info($"Account created with Id '{Id}' and Name '{Name}'.");
         }
 
         public T GetResult<T>()

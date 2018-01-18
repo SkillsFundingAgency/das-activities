@@ -7,8 +7,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
     {
         private readonly Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         private readonly Dictionary<string, object> _data = new Dictionary<string, object>();
-
-        private ILog _logger;
+        private readonly ILog _logger;
 
         public Context(ILog logger)
         {
@@ -24,7 +23,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         {
             if (!_accounts.TryGetValue(accountName, out var account))
             {
-                account = _accounts[accountName] = new Account(accountName,_logger);
+                account = _accounts[accountName] = new Account(accountName, _logger);
             }
 
             return account;
