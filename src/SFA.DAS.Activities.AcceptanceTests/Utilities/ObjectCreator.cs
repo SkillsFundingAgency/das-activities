@@ -40,10 +40,10 @@ namespace SFA.DAS.Activities.AcceptanceTests.Utilities
                     switch (to.Name)
                     {
                         case "CreatorName":
-                            to.SetValue(message, "Test");
+                            to.SetValue(message, type.Assembly.GetName().Name);
                             break;
                         case "CreatorUserRef":
-                            to.SetValue(message, "AT");
+                            to.SetValue(message, GetType());
                             break;
                         default:
                             to.SetValue(message, to.Name);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SFA.DAS.NLog.Logger;
+using System.Collections.Generic;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
 {
@@ -6,6 +7,13 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
     {
         private readonly Dictionary<string, Account> _accounts = new Dictionary<string, Account>();
         private readonly Dictionary<string, object> _data = new Dictionary<string, object>();
+
+        private ILog _logger;
+
+        public Context(ILog logger)
+        {
+            _logger = logger;
+        }
         
         public T Get<T>()
         {
@@ -16,7 +24,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         {
             if (!_accounts.TryGetValue(accountName, out var account))
             {
-                account = _accounts[accountName] = new Account(accountName);
+                account = _accounts[accountName] = new Account(accountName,_logger);
             }
 
             return account;

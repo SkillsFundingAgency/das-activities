@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
 {
@@ -10,9 +12,10 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
 
         private object _result;
 
-        public Account(string name)
+        public Account(string name, ILog logger)
         {
-            Id = long.Parse(DateTime.UtcNow.ToString("yyyyMMddhhmmssffff"));
+            Id = long.Parse(DateTime.UtcNow.ToString("yyyyMMddhhmmssffff") + (char.ToUpper(name.ToCharArray().Single()) - 64));
+            logger.Info($"Account Id for {name} : {Id}");
             Name = name;
         }
 

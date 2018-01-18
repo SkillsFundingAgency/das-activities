@@ -29,7 +29,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [BeforeScenario]
         public void BeforeScenario()
         {
-            _objectContainer.RegisterInstanceAs(new Context());
+            _objectContainer.RegisterInstanceAs(_container.GetInstance<Context>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IActivitiesClient>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IAzureTopicMessageBus>());
             _objectContainer.RegisterInstanceAs(_container.GetInstance<IElasticClient>());

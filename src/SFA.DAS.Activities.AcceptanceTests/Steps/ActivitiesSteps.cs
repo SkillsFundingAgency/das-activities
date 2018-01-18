@@ -27,19 +27,20 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         private readonly IObjectContainer _objectContainer;
         private readonly IObjectCreator _objectCreator;
         private readonly IActivitiesClient _activitiesClient;
+        private readonly Context _context;
 
         public ActivitiesSteps(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
             _objectCreator = _objectContainer.Resolve<IObjectCreator>();
             _activitiesClient = _objectContainer.Resolve<IActivitiesClient>();
+            _context = _objectContainer.Resolve<Context>();
         }
 
         [Given(@"a ([^ ]* message) for Account ([^ ]*) is published")]
         public void GivenAMessageIsPublished(Type messageType, string accountName)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
             var message = _objectCreator.Create(messageType, new { AccountId = account.Id });
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
@@ -50,8 +51,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [Given(@"a ([^ ]* message) for Account ([^ ]*) and CreatedAt (\d+ days ago) is published")]
         public void GivenAMessageIsPublished(Type messageType, string accountName, DateTime createdAt)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
             var message = _objectCreator.Create(messageType, new { AccountId = account.Id, CreatedAt = createdAt });
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
@@ -62,8 +62,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [Given(@"a ([^ ]* message) for Account ([^ ]*) and PayeScheme ([^ ]*) is published")]
         public void GivenAMessageIsPublished(Type messageType, string accountName, string payeScheme)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
             var message = _objectCreator.Create(messageType, new { AccountId = account.Id, PayeScheme = payeScheme });
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
@@ -74,12 +73,11 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [When(@"I get latest activities for Account ([^ ]*)")]
         public async Task WhenIGetLatestActivities(string accountName)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
 
-            context.Set(account);
+            _context.Set(account);
 
-            await Task.WhenAll(context.GetAccounts().Select(async a =>
+            await Task.WhenAll(_context.GetAccounts().Select(async a =>
             {
                 var result = await Policy
                     .HandleResult<AggregatedActivitiesResult>(r => r.Total != a.MessageCount)
@@ -93,12 +91,11 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [When(@"I get activities for Account ([^ ]*)")]
         public async Task WhenIGetActivities(string accountName)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
 
-            context.Set(account);
+            _context.Set(account);
 
-            await Task.WhenAll(context.GetAccounts().Select(async a =>
+            await Task.WhenAll(_context.GetAccounts().Select(async a =>
             {
                 var result = await Policy
                     .HandleResult<ActivitiesResult>(r => r.Total != a.MessageCount)
@@ -115,12 +112,11 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [When(@"I get activities for Account ([^ ]*) and Take (\d+)")]
         public async Task WhenIGetActivities(string accountName, int take)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
 
-            context.Set(account);
+            _context.Set(account);
 
-            await Task.WhenAll(context.GetAccounts().Select(async a =>
+            await Task.WhenAll(_context.GetAccounts().Select(async a =>
             {
                 var result = await Policy
                     .HandleResult<ActivitiesResult>(r => r.Total != a.MessageCount)
@@ -138,12 +134,11 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [When(@"I get activities for Account ([^ ]*) and From (\d+ days ago) and To (\d+ days ago)")]
         public async Task WhenIGetActivities(string accountName, DateTime from, DateTime to)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
 
-            context.Set(account);
+            _context.Set(account);
             
-            await Task.WhenAll(context.GetAccounts().Select(async a =>
+            await Task.WhenAll(_context.GetAccounts().Select(async a =>
             {
                 var result = await Policy
                     .HandleResult<ActivitiesResult>(r => r.Total != a.MessageCount)
@@ -162,12 +157,11 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [When(@"I get activities for Account ([^ ]*) and PayeScheme ([^ ]*)")]
         public async Task WhenIGetActivities(string accountName, string payeScheme)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.GetAccount(accountName);
+            var account = _context.GetAccount(accountName);
 
-            context.Set(account);
+            _context.Set(account);
             
-            await Task.WhenAll(context.GetAccounts().Select(async a =>
+            await Task.WhenAll(_context.GetAccounts().Select(async a =>
             {
                 var result = await Policy
                     .HandleResult<ActivitiesResult>(r => r.Total != a.MessageCount)
@@ -188,8 +182,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [Then(@"I should have (\d+) ([^ ]*) activities for (\d+) aggregations")]
         public void ThenIShouldHaveAnActivityAggregation(int count, ActivityType activityType, int aggregationCount)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.Get<Account>();
+            var account = _context.Get<Account>();
             var result = account.GetResult<AggregatedActivitiesResult>();
             
             Check.That(result.Aggregates.Count(a => a.TopHit.Type == activityType && a.Count == count)).IsEqualTo(aggregationCount);
@@ -198,8 +191,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         [Then(@"I should have (\d+) ([^ ]*) activities")]
         public void ThenIShouldHaveAnActivity(int count, ActivityType activityType)
         {
-            var context = _objectContainer.Resolve<Context>();
-            var account = context.Get<Account>();
+            var account = _context.Get<Account>();
             var result = account.GetResult<ActivitiesResult>();
 
             Check.That(result.Activities.Count(a => a.Type == activityType)).IsEqualTo(count);
