@@ -2,7 +2,7 @@
 using System.Linq;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Activities.AcceptanceTests.Steps
+namespace SFA.DAS.Activities.AcceptanceTests.Models
 {
     public class Account
     {

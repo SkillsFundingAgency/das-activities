@@ -4,8 +4,8 @@ using TechTalk.SpecFlow;
 using BoDi;
 using Nest;
 using SFA.DAS.Activities.AcceptanceTests.Azure;
-using SFA.DAS.Activities.AcceptanceTests.Utilities;
 using SFA.DAS.Activities.Client;
+using SFA.DAS.Activities.Tests.Utilities;
 using StructureMap;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
@@ -22,7 +22,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
 
             _container = new Container(s =>
             {
-                s.AddRegistry<ActivitiesAcceptanceTestRegistry>();
+                s.AddRegistry<ActivitiesAcceptanceTestsRegistry>();
             });
         }
 

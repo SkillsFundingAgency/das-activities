@@ -7,8 +7,9 @@ using BoDi;
 using NFluent;
 using Polly;
 using SFA.DAS.Activities.AcceptanceTests.Azure;
-using SFA.DAS.Activities.AcceptanceTests.Utilities;
+using SFA.DAS.Activities.AcceptanceTests.Models;
 using SFA.DAS.Activities.Client;
+using SFA.DAS.Activities.Tests.Utilities;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
 {

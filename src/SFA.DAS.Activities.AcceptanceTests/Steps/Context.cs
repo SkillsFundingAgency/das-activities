@@ -1,5 +1,6 @@
 ﻿using SFA.DAS.NLog.Logger;
 using System.Collections.Generic;
+using SFA.DAS.Activities.AcceptanceTests.Models;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
 {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SFA.DAS.Activities.AcceptanceTests.Utilities
+namespace SFA.DAS.Activities.Tests.Utilities
 {
     public class ObjectCreator : IObjectCreator
     {
@@ -17,15 +17,11 @@ namespace SFA.DAS.Activities.AcceptanceTests.Utilities
             _defaults = new Dictionary<Type, object>
             {
                 [typeof(int)] = random.Next(1, 2000),
-                [typeof(long)] = random.Next(2001, 4000),
-                [typeof(double)] = random.Next(4001, 6000),
-                [typeof(float)] = random.Next(6001, 8000),
-                [typeof(decimal)] = random.Next(8001, 10000),
                 [typeof(DateTime)] = sixMonthsAgo.AddDays(random.Next(daysSinceSixMonthsAgo))
             };
         }
         
-        public object Create(Type type, object properties)
+        public object Create(Type type, object properties = null)
         {
             var message = Activator.CreateInstance(type);
 
@@ -52,16 +48,19 @@ namespace SFA.DAS.Activities.AcceptanceTests.Utilities
                 }
             }
 
-            foreach (var from in properties.GetType().GetProperties())
+            if (properties != null)
             {
-                var to = message.GetType().GetProperty(from.Name);
-
-                if (to == null)
+                foreach (var from in properties.GetType().GetProperties())
                 {
-                    throw new Exception($"Type '{type.Name}' does not have a property named '{from.Name}'.");
-                }
+                    var to = message.GetType().GetProperty(from.Name);
 
-                to.SetValue(message, from.GetValue(properties));
+                    if (to == null)
+                    {
+                        throw new Exception($"Type '{type.Name}' does not have a property named '{from.Name}'.");
+                    }
+
+                    to.SetValue(message, from.GetValue(properties));
+                }
             }
 
             return message;
