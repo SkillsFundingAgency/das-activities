@@ -17,7 +17,7 @@ namespace SFA.DAS.Activities.IntegrationTests
     public class ElasticBackupTests
     {
 
-        private static readonly List<int> AccountIds = Enumerable.Range(1, 1).ToList();
+        private static readonly List<int> AccountIds = Enumerable.Range(1, 20).ToList();
         private static readonly string FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "activities.json");
 
         private static readonly Dictionary<Type, ActivityType> Types = new Dictionary<Type, ActivityType>
