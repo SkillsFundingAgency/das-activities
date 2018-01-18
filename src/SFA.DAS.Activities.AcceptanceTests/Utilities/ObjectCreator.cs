@@ -43,7 +43,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Utilities
                             to.SetValue(message, type.Assembly.GetName().Name);
                             break;
                         case "CreatorUserRef":
-                            to.SetValue(message, GetType());
+                            to.SetValue(message, GetType().ToString());
                             break;
                         default:
                             to.SetValue(message, to.Name);
