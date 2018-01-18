@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SFA.DAS.Activities.Tests.Utilities
 {
     public class ObjectCreator : IObjectCreator
     {
-        private readonly Dictionary<Type, object> _defaults;
+        private const string Chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+
+        private readonly Dictionary<Type, Func<object>> _defaults;
 
         public ObjectCreator()
         {
@@ -14,10 +17,11 @@ namespace SFA.DAS.Activities.Tests.Utilities
             var daysSinceSixMonthsAgo = (now - sixMonthsAgo).Days;
             var random = new Random();
 
-            _defaults = new Dictionary<Type, object>
+            _defaults = new Dictionary<Type, Func<object>>
             {
-                [typeof(int)] = random.Next(1, 2000),
-                [typeof(DateTime)] = sixMonthsAgo.AddDays(random.Next(daysSinceSixMonthsAgo))
+                [typeof(DateTime)] = () => sixMonthsAgo.AddDays(random.Next(daysSinceSixMonthsAgo)),
+                [typeof(int)] = () => random.Next(1, 2000),
+                [typeof(string)] = () => new string(Chars.Select(c => Chars[random.Next(Chars.Length)]).Take(8).ToArray())
             };
         }
         
@@ -27,24 +31,21 @@ namespace SFA.DAS.Activities.Tests.Utilities
 
             foreach (var to in type.GetProperties())
             {
-                if (to.PropertyType.IsValueType && _defaults.ContainsKey(to.PropertyType))
+                switch (to.Name)
                 {
-                    to.SetValue(message, _defaults[to.PropertyType]);
-                }
-                else if (to.PropertyType == typeof(string))
-                {
-                    switch (to.Name)
-                    {
-                        case "CreatorName":
-                            to.SetValue(message, type.Assembly.GetName().Name);
-                            break;
-                        case "CreatorUserRef":
-                            to.SetValue(message, GetType().ToString());
-                            break;
-                        default:
-                            to.SetValue(message, to.Name);
-                            break;
-                    }
+                    case "CreatorName":
+                        to.SetValue(message, GetType().ToString());
+                        break;
+                    case "CreatorUserRef":
+                        to.SetValue(message, GetType().Assembly.GetName().Name);
+                        break;
+                    default:
+                        if (_defaults.ContainsKey(to.PropertyType))
+                        {
+                            to.SetValue(message, _defaults[to.PropertyType]());
+                        }
+
+                        break;
                 }
             }
 

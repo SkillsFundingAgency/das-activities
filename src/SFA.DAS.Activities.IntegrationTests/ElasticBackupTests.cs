@@ -17,7 +17,7 @@ namespace SFA.DAS.Activities.IntegrationTests
     public class ElasticBackupTests
     {
 
-        private static readonly List<int> AccountIds = Enumerable.Range(1, 20).ToList();
+        private static readonly List<int> AccountIds = Enumerable.Range(1, 50).ToList();
         private static readonly string FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "activities.json");
 
         private static readonly Dictionary<Type, ActivityType> Types = new Dictionary<Type, ActivityType>
@@ -66,13 +66,15 @@ namespace SFA.DAS.Activities.IntegrationTests
                         return activity;
                     })
                 )
+                .OrderBy(a => a.AccountId)
+                .ThenBy(a => a.Type)
                 .ToList();
 
             await Task.WhenAll(activitiesFromMemory.Select(a => _client.IndexAsync(a, i => i.Refresh(Refresh.True))));
 
             var activitiesFromElastic = await GetActivitiesFromElastic();
 
-            Assert.That(activitiesFromElastic.Count, Is.EqualTo(activitiesFromMemory.Count));
+            Verify(activitiesFromMemory, activitiesFromElastic);
 
             File.WriteAllText(FilePath, JsonConvert.SerializeObject(activitiesFromElastic));
         }
@@ -84,7 +86,7 @@ namespace SFA.DAS.Activities.IntegrationTests
             var activitiesFromMemory = JsonConvert.DeserializeObject<List<Activity>>(File.ReadAllText(FilePath));
             var activitiesFromElastic = await GetActivitiesFromElastic();
 
-            Assert.That(activitiesFromElastic.Count, Is.EqualTo(activitiesFromMemory.Count));
+            Verify(activitiesFromMemory, activitiesFromElastic);
 
             File.Delete(FilePath);
         }
@@ -100,11 +102,52 @@ namespace SFA.DAS.Activities.IntegrationTests
                                 .Value(i)
                             )
                         )
+                        .Sort(srt => srt
+                            .Ascending(a => a.AccountId)
+                            .Ascending(a => a.Type)
+                        )
                     )
                  )
                 .ToArray());
 
             return result.SelectMany(r => r.Documents).ToList();
+        }
+
+        private void Verify(List<Activity> activitiesFromMemory, List<Activity> activitiesFromElastic)
+        {
+            Assert.That(activitiesFromElastic.Count, Is.EqualTo(activitiesFromMemory.Count));
+
+            for (var i = 0; i < activitiesFromMemory.Count; i++)
+            {
+                var memoryObj = activitiesFromMemory[i];
+                var elasticObj = activitiesFromElastic[i];
+                var memoryObjProps = memoryObj.GetType().GetProperties();
+                var elasticProps = elasticObj.GetType().GetProperties();
+
+                Assert.That(memoryObjProps.Length, Is.EqualTo(elasticProps.Length));
+
+                for (var j = 0; j < memoryObjProps.Length; j++)
+                {
+                    var memoryProp = memoryObjProps[j];
+                    var elasticProp = elasticObj.GetType().GetProperty(memoryProp.Name);
+
+                    Assert.That(elasticProp, Is.Not.Null);
+
+                    var memoryPropVal = memoryProp.GetValue(memoryObj);
+                    var elasticPropVal = elasticProp.GetValue(elasticObj);
+
+                    Assert.That(memoryProp.PropertyType, Is.EqualTo(elasticProp.PropertyType));
+
+                    if (memoryProp.PropertyType.IsValueType)
+                    {
+                        Assert.That(elasticPropVal, Is.EqualTo(memoryPropVal));
+                    }
+                    else
+                    {
+                        // TODO
+                    }
+                }
+            }
         }
     }
 }
