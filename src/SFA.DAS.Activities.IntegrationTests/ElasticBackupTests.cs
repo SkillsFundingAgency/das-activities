@@ -124,7 +124,7 @@ namespace SFA.DAS.Activities.IntegrationTests
                 var memoryObjProps = memoryObj.GetType().GetProperties();
                 var elasticProps = elasticObj.GetType().GetProperties();
 
-                Assert.That(memoryObjProps.Length, Is.EqualTo(elasticProps.Length));
+                Assert.That(elasticProps.Length, Is.EqualTo(memoryObjProps.Length));
 
                 for (var j = 0; j < memoryObjProps.Length; j++)
                 {
@@ -138,13 +138,17 @@ namespace SFA.DAS.Activities.IntegrationTests
 
                     Assert.That(memoryProp.PropertyType, Is.EqualTo(elasticProp.PropertyType));
 
-                    if (memoryProp.PropertyType.IsValueType)
+                    if (memoryProp.PropertyType.IsValueType || memoryProp.PropertyType == typeof(string))
                     {
                         Assert.That(elasticPropVal, Is.EqualTo(memoryPropVal));
                     }
                     else
                     {
-                        // TODO
+                        var memoryPropDict = (Dictionary<string, string>)memoryPropVal;
+                        var elasticPropDict = (Dictionary<string, string>)elasticPropVal;
+                        var match = elasticPropDict.Count == memoryPropDict.Count && !elasticPropDict.Except(memoryPropDict).Any();
+
+                        Assert.That(match, Is.True);
                     }
                 }
             }

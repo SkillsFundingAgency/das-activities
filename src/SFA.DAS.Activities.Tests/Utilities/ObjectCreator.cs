@@ -6,7 +6,7 @@ namespace SFA.DAS.Activities.Tests.Utilities
 {
     public class ObjectCreator : IObjectCreator
     {
-        private const string Chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        private const string Chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
         private readonly Dictionary<Type, Func<object>> _defaults;
 
