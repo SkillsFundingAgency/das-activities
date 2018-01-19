@@ -24,6 +24,11 @@ namespace SFA.DAS.Activities.Client
             var from = query.From ?? oneYearAgo;
             var to = query.To ?? now;
 
+            if (take > 500)
+            {
+                take = 500;
+            }
+
             var response = await _client.SearchAsync<Activity>(s => s
                 .Query(q =>
                 {
