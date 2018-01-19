@@ -115,6 +115,11 @@ namespace SFA.DAS.Activities.Client
                     .Term(t => t
                         .Field(a => a.AccountId)
                         .Value(accountId)
+                    ) && q
+                    .DateRange(r => r
+                        .Field(a => a.At)
+                        .GreaterThanOrEquals(DateMath.Anchored(oneYearAgo).RoundTo(TimeUnit.Day))
+                        .LessThanOrEquals(DateMath.Anchored(now).RoundTo(TimeUnit.Day))
                     )
                 )
                 .Size(0)
