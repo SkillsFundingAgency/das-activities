@@ -22,19 +22,19 @@ namespace SFA.DAS.Activities.Client
                 {
                     var at = activity.At.ToGmtStandardTime();
                     var activityUrl = urlHelper.Activity(activity);
-                    var activityText = GetActivityText(activity);
+                    var activityText = htmlHelper.Activity(activity);
 
                     ol.Add("li", li => li.AddClass(activity.At.Date != date ? "first" : "")
-                        .Append("h4", h4 => h4.Title(at.ToString("U")).AppendText(at.ToRelativeFormat(now)))
-                        .Append("p", p => p.AddClass("activity").AppendText(activityText))
+                        .Append("h4", h4 => h4.Title(at.ToString("U")).Text(at.ToRelativeFormat(now)))
+                        .Append("p", p => p.AddClass("activity").Text(activityText))
                         .Append("p", p =>
                         {
                             p.AddClass("meta").AppendText("At").AppendHtml(" ")
-                                .Append("time", time => time.AppendText(at.ToString("h:mm tt"))).AppendHtml(" ");
+                                .Append("time", time => time.Text(at.ToString("h:mm tt"))).AppendHtml(" ");
 
                             if (!string.IsNullOrEmpty(activityUrl))
                             {
-                                p.Add("a", a => a.Attr("href", activityUrl).AppendText("See details"));
+                                p.Add("a", a => a.Attr("href", activityUrl).Text("See details"));
                             }
                         })
                     );
@@ -44,13 +44,13 @@ namespace SFA.DAS.Activities.Client
 
                 if (result.Activities.Count() != result.Total)
                 {
-                    ol.Add("li", li => li.Append("a", a => a.Attr("href", activitiesUrl).AppendText("See all activity")));
+                    ol.Add("li", li => li.Add("a", a => a.Attr("href", activitiesUrl).Text("See all activity")));
                 }
 
                 return ol;
             }
 
-            return new HtmlTag("p").AppendText("You have no recent activity");
+            return new HtmlTag("p").Text("You have no recent activity");
         }
 
         public static HtmlTag LatestActivities(this HtmlHelper htmlHelper, AggregatedActivitiesResult result)
@@ -65,37 +65,37 @@ namespace SFA.DAS.Activities.Client
                 foreach (var aggregate in result.Aggregates)
                 {
                     var at = aggregate.TopHit.At.ToGmtStandardTime();
-                    var activityText = GetActivityText(aggregate.TopHit, aggregate.Count);
+                    var activityText = htmlHelper.Activity(aggregate.TopHit, aggregate.Count);
 
                     ol.Add("li", li => li.AddClass("item")
-                        .Append("div", div => div.AddClass("item-label").AppendText(at.ToRelativeFormat(now)))
-                        .Append("div", div => div.AddClass("item-description").AppendText(activityText))
+                        .Append("div", div => div.AddClass("item-label").Text(at.ToRelativeFormat(now)))
+                        .Append("div", div => div.AddClass("item-description").Text(activityText))
                     );
                 }
                 
                 ol.Add("li", li => li.AddClass("item all-activity")
                     .Append("div", div => div.AddClass("item-label")
-                        .Append("a", a => a.Attr("href", activitiesUrl).AppendText("See all activity"))
+                        .Append("a", a => a.Attr("href", activitiesUrl).Text("See all activity"))
                     )
                 );
 
                 return ol;
             }
 
-            return new HtmlTag("p").AppendText("You have no recent activity");
+            return new HtmlTag("p").Text("You have no recent activity");
         }
 
-        public static UrlHelper GetUrlHelper(this HtmlHelper htmlHelper)
-        {
-            return new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
-        }
-
-        private static string GetActivityText(Activity activity, long count = 1)
+        public static string Activity(this HtmlHelper htmlHelper, Activity activity, long count = 1)
         {
             var localizer = activity.Type.GetLocalizer();
             var text = count > 1 ? localizer.GetPluralText(activity, count) : localizer.GetSingularText(activity);
 
             return text;
+        }
+
+        public static UrlHelper GetUrlHelper(this HtmlHelper htmlHelper)
+        {
+            return new UrlHelper(htmlHelper.ViewContext.RequestContext, htmlHelper.RouteCollection);
         }
     }
 }

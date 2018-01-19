@@ -1,8 +1,6 @@
-﻿using SFA.DAS.Activities.Configuration;
-
-namespace SFA.DAS.Activities.Client
+﻿namespace SFA.DAS.Activities.Client
 {
-    public class ActivitiesClientConfiguration : IElasticConfiguration
+    public class ActivitiesClientConfiguration
     {
         public string ElasticUrl { get; set; }
         public string ElasticUsername { get; set; }

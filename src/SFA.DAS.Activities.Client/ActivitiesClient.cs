@@ -108,31 +108,31 @@ namespace SFA.DAS.Activities.Client
             var response = await _client.SearchAsync<Activity>(s => s
                 .Query(q => q
                     .Term(t => t
-                        .Field(f => f.AccountId)
+                        .Field(a => a.AccountId)
                         .Value(accountId)
                     )
                 )
                 .Size(0)
-                .Aggregations(a => a
+                .Aggregations(aggs => aggs
                     .Terms("activitiesByType", t => t
-                        .Field(f => f.Type)
+                        .Field(a => a.Type)
                         .OrderDescending("maxAt")
                         .Size(4)
-                        .Aggregations(a2 => a2
+                        .Aggregations(aggs2 => aggs2
                             .Max("maxAt", m => m
-                                .Field(f => f.At)
+                                .Field(a => a.At)
                             )
                             .DateHistogram("activitiesByDay", d => d
-                                .Field(f => f.At)
+                                .Field(a => a.At)
                                 .Interval(DateInterval.Day)
                                 .MinimumDocumentCount(1)
-                                .ExtendedBounds(oneYearAgo, now)
+                                .ExtendedBoundsDateMath(oneYearAgo, now)
                                 .Order(HistogramOrder.KeyDescending)
-                                .Aggregations(a3 => a3
+                                .Aggregations(aggs3 => aggs3
                                     .TopHits("activityTopHit", th => th
                                         .Sort(srt => srt
-                                            .Field(f => f.At)
-                                            .Order(SortOrder.Descending)
+                                            .Descending(a => a.At)
+                                            .Descending("_uid")
                                         )
                                         .Size(1)
                                     )

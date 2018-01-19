@@ -15,10 +15,11 @@
         <dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
         <dependency id="Microsoft.WindowsAzure.ConfigurationManager" version="3.2.3" />
         <dependency id="NEST" version="5.6.0" />
-        <dependency id="SFA.DAS.Configuration" version="1.0.0.43116" />
-        <dependency id="SFA.DAS.Configuration.AzureTableStorage" version="1.0.0.43116" />
+        <dependency id="SFA.DAS.Configuration" version="1.0.0.49931" />
+        <dependency id="SFA.DAS.Configuration.AzureTableStorage" version="1.0.0.49931" />
+        <dependency id="SFA.DAS.Elastic" version="1.0.0.52762" />
         <dependency id="SFA.DAS.NLog.Logger" version="1.0.0.39208" />
-        <dependency id="StructureMap" version="4.5.3" />
+        <dependency id="StructureMap" version="4.6.0" />
       </group>
     </dependencies>
   </metadata>
