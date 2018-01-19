@@ -77,7 +77,7 @@ namespace SFA.DAS.Activities.UnitTests.Client
                                 "<a href=\"/EmployerAccountPaye\">See details</a>" +
                             "</p>" +
                         "</li>" +
-                        "<li class=\"first\">" +
+                        "<li class=\"first last\">" +
                             "<h4 title=\"" + AccountCreated.At.ToGmtStandardTime().ToString("U") + "\">Yesterday</h4>" +
                             "<p class=\"activity\">" +
                                 $"Account created by {AccountCreated.Data["CreatorName"]}" +

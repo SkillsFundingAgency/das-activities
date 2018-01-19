@@ -14,6 +14,7 @@ namespace SFA.DAS.Activities.Client
             {
                 var date = DateTime.MinValue;
                 var now = DateTime.UtcNow.ToGmtStandardTime();
+                var lastActivity = result.Activities.Last();
                 var ol = new HtmlTag("ol").AddClass("timeline").AddClass("timeline--complete");
                 var urlHelper = htmlHelper.GetUrlHelper();
                 var activitiesUrl = urlHelper.Activities(result.Total);
@@ -24,7 +25,7 @@ namespace SFA.DAS.Activities.Client
                     var activityUrl = urlHelper.Activity(activity);
                     var activityText = htmlHelper.Activity(activity);
 
-                    ol.Add("li", li => li.AddClass(activity.At.Date != date ? "first" : "")
+                    ol.Add("li", li => li.AddClasses(activity.At.Date != date ? "first" : "", activity == lastActivity ? "last" : "")
                         .Append("h4", h4 => h4.Title(at.ToString("U")).Text(at.ToRelativeFormat(now)))
                         .Append("p", p => p.AddClass("activity").Text(activityText))
                         .Append("p", p =>
