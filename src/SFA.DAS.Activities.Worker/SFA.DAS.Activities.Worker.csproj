@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivitiesWorkerConfiguration.cs" />
+    <Compile Include="MessageProcessors\PaymentCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\LegalEntityAddedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\LegalEntityRemovedMessageProcessor.cs" />

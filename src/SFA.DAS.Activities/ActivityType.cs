@@ -47,6 +47,10 @@ namespace SFA.DAS.Activities
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(AgreementSignedActivityLocalizer))]
         [Action("Index", "EmployerAgreement")]
-        AgreementSigned = 9
+        AgreementSigned = 9,
+		
+		[Category(ActivityTypeCategory.Payments)]
+        [Localizer(typeof(AccountNameChangedActivityLocalizer))]
+        PaymentCreated = 10
     }
 }
