@@ -97,7 +97,7 @@ namespace SFA.DAS.Activities.UnitTests
                 var topicSubscriptionAttribute = typeof(TMessageProcessor).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(TopicSubscriptionAttribute));
                 var messageGroupAttribute = typeof(TMessage).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(MessageGroupAttribute));
 
-                messageProcessor.RunAsync(cancellationTokenSource.Token).Wait();
+                messageProcessor.RunAsync(cancellationTokenSource).Wait();
 
                 Assert.That(topicSubscriptionAttribute, Is.Not.Null);
                 Assert.That(messageGroupAttribute, Is.Not.Null);

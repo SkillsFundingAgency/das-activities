@@ -40,7 +40,7 @@ namespace SFA.DAS.Activities.Worker
 
         private async Task Run()
         {
-            await Task.WhenAll(_processors.Select(p => p.RunAsync(_cancel.Token)).ToArray());
+            await Task.WhenAll(_processors.Select(p => p.RunAsync(_cancel)).ToArray());
         }
     }
 }
