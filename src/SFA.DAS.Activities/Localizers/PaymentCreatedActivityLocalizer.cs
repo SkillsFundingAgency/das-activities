@@ -9,7 +9,6 @@
 
         public string GetSingularText(Activity activity)
         {
-
             return $"£{activity.Data["Amount"]} payment made to {activity.Data["ProviderName"]}";
         }
     }
