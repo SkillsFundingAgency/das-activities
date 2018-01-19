@@ -16,7 +16,6 @@ namespace SFA.DAS.Activities.IntegrationTests
 {
     public class ElasticBackupTests
     {
-
         private static readonly List<int> AccountIds = Enumerable.Range(1, 50).ToList();
         private static readonly string FilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "activities.json");
 
@@ -37,7 +36,6 @@ namespace SFA.DAS.Activities.IntegrationTests
         private IActivityMapper _activityMapper;
         private IElasticClient _client;
         private IObjectCreator _objectCreator;
-
 
         [OneTimeSetUp]
         public virtual void SetUp()
@@ -122,31 +120,31 @@ namespace SFA.DAS.Activities.IntegrationTests
                 var memoryObj = activitiesFromMemory[i];
                 var elasticObj = activitiesFromElastic[i];
                 var memoryObjProps = memoryObj.GetType().GetProperties();
-                var elasticProps = elasticObj.GetType().GetProperties();
+                var elasticObjProps = elasticObj.GetType().GetProperties();
 
-                Assert.That(elasticProps.Length, Is.EqualTo(memoryObjProps.Length));
+                Assert.That(elasticObjProps.Length, Is.EqualTo(memoryObjProps.Length));
 
                 for (var j = 0; j < memoryObjProps.Length; j++)
                 {
-                    var memoryProp = memoryObjProps[j];
-                    var elasticProp = elasticObj.GetType().GetProperty(memoryProp.Name);
+                    var memoryObjProp = memoryObjProps[j];
+                    var elasticObjProp = elasticObj.GetType().GetProperty(memoryObjProp.Name);
 
-                    Assert.That(elasticProp, Is.Not.Null);
+                    Assert.That(elasticObjProp, Is.Not.Null);
 
-                    var memoryPropVal = memoryProp.GetValue(memoryObj);
-                    var elasticPropVal = elasticProp.GetValue(elasticObj);
+                    var memoryObjPropVal = memoryObjProp.GetValue(memoryObj);
+                    var elasticObjPropVal = elasticObjProp.GetValue(elasticObj);
 
-                    Assert.That(memoryProp.PropertyType, Is.EqualTo(elasticProp.PropertyType));
+                    Assert.That(memoryObjProp.PropertyType, Is.EqualTo(elasticObjProp.PropertyType));
 
-                    if (memoryProp.PropertyType.IsValueType || memoryProp.PropertyType == typeof(string))
+                    if (memoryObjProp.PropertyType.IsValueType || memoryObjProp.PropertyType == typeof(string))
                     {
-                        Assert.That(elasticPropVal, Is.EqualTo(memoryPropVal));
+                        Assert.That(elasticObjPropVal, Is.EqualTo(memoryObjPropVal));
                     }
                     else
                     {
-                        var memoryPropDict = (Dictionary<string, string>)memoryPropVal;
-                        var elasticPropDict = (Dictionary<string, string>)elasticPropVal;
-                        var match = elasticPropDict.Count == memoryPropDict.Count && !elasticPropDict.Except(memoryPropDict).Any();
+                        var memoryObjPropDict = (Dictionary<string, string>)memoryObjPropVal;
+                        var elasticObjPropDict = (Dictionary<string, string>)elasticObjPropVal;
+                        var match = elasticObjPropDict.Count == memoryObjPropDict.Count && !elasticObjPropDict.Except(memoryObjPropDict).Any();
 
                         Assert.That(match, Is.True);
                     }
