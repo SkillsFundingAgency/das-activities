@@ -45,7 +45,9 @@ namespace SFA.DAS.Activities.Client
 
                 if (result.Activities.Count() != result.Total)
                 {
-                    ol.Add("li", li => li.Add("a", a => a.Attr("href", activitiesUrl).Text("See all activity")));
+                    ol.Add("li", li => li.AddClass("all-activity")
+                        .Add("p", p => p.AddClass("activity"))
+                        .Add("a", a => a.Attr("href", activitiesUrl).Text("See all activity")));
                 }
 
                 return ol;

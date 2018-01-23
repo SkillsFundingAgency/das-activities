@@ -24,6 +24,92 @@ namespace SFA.DAS.Activities.UnitTests.Client
                     PayeSchemeCreated1,
                     AccountCreated
                 },
+                Total = 100
+            };
+
+            protected override void Given()
+            {
+                _htmlHelper = new HtmlHelper(ViewContext, ViewDataContainer, Routes);
+            }
+
+            protected override void When()
+            {
+                _htmlTag = _htmlHelper.Activities(_result);
+            }
+
+            [Test]
+            public void Then_should_return_correct_html()
+            {
+                Assert.That(_htmlTag, Is.Not.Null);
+
+                Assert.That(_htmlTag.ToString(), Is.EqualTo(
+                    "<ol class=\"timeline timeline--complete\">" +
+                        "<li class=\"first\">" +
+                            "<h4 title=\"" + PayeSchemeCreated2.At.ToGmtStandardTime().ToString("U") + "\">Today</h4>" +
+                            "<p class=\"activity\">" +
+                                $"PAYE scheme {PayeSchemeCreated2.Data["PayeScheme"]} added by {PayeSchemeCreated2.Data["CreatorName"]}" +
+                            "</p>" +
+                            "<p class=\"meta\">" +
+                                "At " +
+                                "<time>" + PayeSchemeCreated2.At.ToGmtStandardTime().ToString("h:mm tt") + "</time> " +
+                                "<a href=\"/EmployerAccountPaye\">See details</a>" +
+                            "</p>" +
+                        "</li>" +
+                        "<li>" +
+                            "<h4 title=\"" + PayeSchemeDeleted.At.ToGmtStandardTime().ToString("U") + "\">Today</h4>" +
+                            "<p class=\"activity\">" +
+                                $"PAYE scheme {PayeSchemeDeleted.Data["PayeScheme"]} removed by {PayeSchemeDeleted.Data["CreatorName"]}" +
+                            "</p>" +
+                            "<p class=\"meta\">" +
+                                "At " +
+                                "<time>" + PayeSchemeDeleted.At.ToGmtStandardTime().ToString("h:mm tt") + "</time> " +
+                                "<a href=\"/EmployerAccountPaye\">See details</a>" +
+                            "</p>" +
+                        "</li>" +
+                        "<li>" +
+                            "<h4 title=\"" + PayeSchemeCreated1.At.ToGmtStandardTime().ToString("U") + "\">Today</h4>" +
+                            "<p class=\"activity\">" +
+                                $"PAYE scheme {PayeSchemeCreated1.Data["PayeScheme"]} added by {PayeSchemeCreated1.Data["CreatorName"]}" +
+                            "</p>" +
+                            "<p class=\"meta\">" + 
+                                "At " + 
+                                "<time>" + PayeSchemeCreated1.At.ToGmtStandardTime().ToString("h:mm tt") + "</time> " +
+                                "<a href=\"/EmployerAccountPaye\">See details</a>" +
+                            "</p>" +
+                        "</li>" +
+                        "<li class=\"first last\">" +
+                            "<h4 title=\"" + AccountCreated.At.ToGmtStandardTime().ToString("U") + "\">Yesterday</h4>" +
+                            "<p class=\"activity\">" +
+                                $"Account created by {AccountCreated.Data["CreatorName"]}" +
+                            "</p>" +
+                            "<p class=\"meta\">" +
+                                "At " +
+                                "<time>" + AccountCreated.At.ToGmtStandardTime().ToString("h:mm tt") + "</time> " +
+                            "</p>" +
+                        "</li>" +
+                        "<li class=\"all-activity\">" +
+                            "<p class=\"activity\">" +
+                                "<a href=\"/EmployerTeam/Activity?take=100\">See all activity</a>" +
+                            "</p>" +
+                        "</li>" +
+                    "</ol>"));
+            }
+        }
+
+        public class When_getting_all_activities_html : WebTest
+        {
+            private HtmlHelper _htmlHelper;
+            private HtmlTag _htmlTag;
+
+            private readonly ActivitiesResult _result = new ActivitiesResult
+            {
+                Activities = new List<Activity>
+                {
+                    PayeSchemeCreated2,
+                    PayeSchemeDeleted,
+                    PayeSchemeCreated1,
+                    AccountCreated
+                },
                 Total = 4
             };
 
