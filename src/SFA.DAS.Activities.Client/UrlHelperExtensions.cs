@@ -7,7 +7,7 @@ namespace SFA.DAS.Activities.Client
     {
         public static string Activities(this UrlHelper urlHelper, long? take = null)
         {
-            var url = urlHelper.Action("Activity", "EmployerTeam", new { take });
+            var url = urlHelper.Action("Index", "Activities", new { take });
 
             return url;
         }

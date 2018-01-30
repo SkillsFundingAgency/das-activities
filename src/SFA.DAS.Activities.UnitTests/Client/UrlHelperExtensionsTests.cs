@@ -25,7 +25,7 @@ namespace SFA.DAS.Activities.UnitTests.Client
             public void Then_should_return_correct_url()
             {
                 Assert.That(_url, Is.Not.Null);
-                Assert.That(_url, Is.EqualTo("/EmployerTeam/Activity"));
+                Assert.That(_url, Is.EqualTo("/Activities"));
             }
         }
 
@@ -50,7 +50,7 @@ namespace SFA.DAS.Activities.UnitTests.Client
             public void Then_should_return_correct_url()
             {
                 Assert.That(_url, Is.Not.Null);
-                Assert.That(_url, Is.EqualTo("/EmployerTeam/Activity?take=" + Take));
+                Assert.That(_url, Is.EqualTo("/Activities?take=" + Take));
             }
         }
 

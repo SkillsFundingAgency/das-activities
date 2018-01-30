@@ -89,7 +89,7 @@ namespace SFA.DAS.Activities.UnitTests.Client
                         "</li>" +
                         "<li class=\"all-activity\">" +
                             "<p class=\"activity\">" +
-                                "<a href=\"/EmployerTeam/Activity?take=100\">See all activity</a>" +
+                                "<a href=\"/Activities?take=100\">See all activity</a>" +
                             "</p>" +
                         "</li>" +
                     "</ol>"));
@@ -242,7 +242,7 @@ namespace SFA.DAS.Activities.UnitTests.Client
                         "</li>" +
                         "<li class=\"item all-activity\">" +
                             "<div class=\"item-label\">" +
-                                "<a href=\"/EmployerTeam/Activity\">See all activity</a>" +
+                                "<a href=\"/Activities\">See all activity</a>" +
                             "</div>" +
                         "</li>" +
                     "</ol>"));
