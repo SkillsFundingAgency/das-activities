@@ -50,7 +50,8 @@ namespace SFA.DAS.Activities
         AgreementSigned = 9,
 		
 		[Category(ActivityTypeCategory.Payments)]
-        [Localizer(typeof(AccountNameChangedActivityLocalizer))]
+        [Localizer(typeof(PaymentCreatedActivityLocalizer))]
+        [Action("Index", "EmployerAccountTransactions")]
         PaymentCreated = 10
     }
 }
