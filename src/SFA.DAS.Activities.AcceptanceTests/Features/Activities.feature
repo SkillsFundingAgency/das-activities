@@ -48,6 +48,11 @@ Given a AccountCreatedMessage message for Account A is published
 When I get activities for Account A
 Then I should have 1 AccountCreated activities
 
+Scenario: Payment Created
+Given a PaymentCreatedMessage message for Account A is published
+When I get activities for Account A
+Then I should have 1 PaymentCreated activities
+
 Scenario: Get latest activities
 Given a AccountCreatedMessage message for Account A and CreatedAt 0 days ago is published
 Given a AccountCreatedMessage message for Account B and CreatedAt 0 days ago is published
