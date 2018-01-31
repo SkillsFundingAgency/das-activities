@@ -45,6 +45,17 @@ namespace SFA.DAS.Activities.UnitTests
                     Assert.That(activityType.GetCustomAttribute<LocalizerAttribute>(), Is.Not.Null);
                 }
             }
+
+            [Test]
+            public void Then_activity_type_localizers_should_be_distinct()
+            {
+                var localizerTypes = _activityTypes.Select(a => a.GetCustomAttribute<LocalizerAttribute>().Type).GroupBy(t => t);
+
+                foreach (var localizerType in localizerTypes)
+                {
+                    Assert.That(localizerType.Count(), Is.EqualTo(1));
+                }
+            }
         }
     }
 }
