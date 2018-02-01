@@ -16,21 +16,26 @@ namespace SFA.DAS.Activities.Client
 
         public ActivitiesClientRegistry()
         {
-            var config = ConfigurationHelper.GetConfiguration<ActivitiesClientConfiguration>(ServiceName, Version);
+            For<ActivitiesClientConfiguration>().Use(() => ConfigurationHelper.GetConfiguration<ActivitiesClientConfiguration>(ServiceName, Version)).Singleton();
+            For<ElasticConfiguration>().Use(c => GetElasticConfiguration(c.GetInstance<ActivitiesClientConfiguration>())).Singleton();
+            For<IActivitiesClient>().Use<ActivitiesClient>();
+            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
+            For<IElasticClientFactory>().Use(c => c.GetInstance<ElasticConfiguration>().CreateClientFactory()).Singleton();
+        }
 
+        private ElasticConfiguration GetElasticConfiguration(ActivitiesClientConfiguration activitiesdClientConfig)
+        {
             var elasticConfig = new ElasticConfiguration()
-                .UseSingleNodeConnectionPool(config.ElasticUrl)
+                .UseSingleNodeConnectionPool(activitiesdClientConfig.ElasticUrl)
                 .ScanForIndexMappers(typeof(ActivitiesIndexMapper).Assembly)
                 .OnRequestCompleted(r => Log.Debug(r.DebugInformation));
 
-            if (!string.IsNullOrWhiteSpace(config.ElasticUsername) && !string.IsNullOrWhiteSpace(config.ElasticPassword))
+            if (!string.IsNullOrWhiteSpace(activitiesdClientConfig.ElasticUsername) && !string.IsNullOrWhiteSpace(activitiesdClientConfig.ElasticPassword))
             {
-                elasticConfig.UseBasicAuthentication(config.ElasticUsername, config.ElasticPassword);
+                elasticConfig.UseBasicAuthentication(activitiesdClientConfig.ElasticUsername, activitiesdClientConfig.ElasticPassword);
             }
 
-            For<IActivitiesClient>().Use<ActivitiesClient>();
-            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
-            For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
+            return elasticConfig;
         }
     }
 }
