@@ -4,7 +4,7 @@ using SFA.DAS.Activities.AcceptanceTests.Azure;
 using SFA.DAS.Activities.Client;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
-using SFA.DAS.Activities.Tests.Utilities;
+using SFA.DAS.ApiSubstitute.Utilities;
 using SFA.DAS.Elastic;
 using SFA.DAS.NLog.Logger;
 using StructureMap;

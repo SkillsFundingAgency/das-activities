@@ -9,7 +9,7 @@ using Polly;
 using SFA.DAS.Activities.AcceptanceTests.Azure;
 using SFA.DAS.Activities.AcceptanceTests.Models;
 using SFA.DAS.Activities.Client;
-using SFA.DAS.Activities.Tests.Utilities;
+using SFA.DAS.ApiSubstitute.Utilities;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
 {
@@ -38,11 +38,15 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
             _context = _objectContainer.Resolve<Context>();
         }
 
+        private static Func<Type, string> CreatorName = (x) => {return x.GetType().ToString(); };
+
+        private static Func<Type, string> CreatorUserRef = (x) => { return x.GetType().Assembly.GetName().Name; };
+
         [Given(@"a ([^ ]* message) for Account ([^ ]*) is published")]
         public void GivenAMessageIsPublished(Type messageType, string accountName)
         {
             var account = _context.GetAccount(accountName);
-            var message = _objectCreator.Create(messageType, new { AccountId = account.Id });
+            var message = _objectCreator.Create(messageType, new { AccountId = account.Id, CreatorName = CreatorName(messageType), CreatorUserRef = CreatorUserRef(messageType) });
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
             bus.PublishAsync(message);
@@ -53,7 +57,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         public void GivenAMessageIsPublished(Type messageType, string accountName, DateTime createdAt)
         {
             var account = _context.GetAccount(accountName);
-            var message = _objectCreator.Create(messageType, new { AccountId = account.Id, CreatedAt = createdAt });
+            var message = _objectCreator.Create(messageType, new { AccountId = account.Id, CreatedAt = createdAt, CreatorName = CreatorName(messageType), CreatorUserRef = CreatorUserRef(messageType) });
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
             bus.PublishAsync(message);
@@ -64,7 +68,7 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         public void GivenAMessageIsPublished(Type messageType, string accountName, string payeScheme)
         {
             var account = _context.GetAccount(accountName);
-            var message = _objectCreator.Create(messageType, new { AccountId = account.Id, PayeScheme = payeScheme });
+            var message = _objectCreator.Create(messageType, new { AccountId = account.Id, PayeScheme = payeScheme, CreatorName = CreatorName(messageType), CreatorUserRef = CreatorUserRef(messageType) });
             var bus = _objectContainer.Resolve<IAzureTopicMessageBus>();
 
             bus.PublishAsync(message);
@@ -199,3 +203,4 @@ namespace SFA.DAS.Activities.AcceptanceTests.Steps
         }
     }
 }
+

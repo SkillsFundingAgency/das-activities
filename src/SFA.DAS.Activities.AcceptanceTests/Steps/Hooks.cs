@@ -5,7 +5,7 @@ using BoDi;
 using Nest;
 using SFA.DAS.Activities.AcceptanceTests.Azure;
 using SFA.DAS.Activities.Client;
-using SFA.DAS.Activities.Tests.Utilities;
+using SFA.DAS.ApiSubstitute.Utilities;
 using StructureMap;
 
 namespace SFA.DAS.Activities.AcceptanceTests.Steps
