@@ -94,6 +94,9 @@
     <Reference Include="SFA.DAS.Activities.Client, Version=1.0.0.56587, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Activities.Client.1.0.0.56587\lib\net45\SFA.DAS.Activities.Client.dll</HintPath>
     </Reference>
+    <Reference Include="SFA.DAS.ApiSubstitute.Utilities, Version=1.0.0.56774, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.ApiSubstitute.Utilities.1.0.0.56774\lib\net45\SFA.DAS.ApiSubstitute.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="SFA.DAS.Configuration, Version=1.0.0.49931, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Configuration.1.0.0.49931\lib\net45\SFA.DAS.Configuration.dll</HintPath>
     </Reference>
@@ -191,12 +194,6 @@
       <LastGenOutput>Activities.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SFA.DAS.Activities.Tests\SFA.DAS.Activities.Tests.csproj">
-      <Project>{0837636C-62F0-4474-B14D-450E1D04478F}</Project>
-      <Name>SFA.DAS.Activities.Tests</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
