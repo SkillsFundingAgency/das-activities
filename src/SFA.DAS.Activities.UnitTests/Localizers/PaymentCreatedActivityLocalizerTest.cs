@@ -10,6 +10,7 @@ namespace SFA.DAS.Activities.UnitTests.Localizers
     {
         [TestCase("5614578.00", "£5,614,578.00")]
         [TestCase("14578.00", "£14,578.00")]
+        [TestCase("0", "£0.00")]
         [TestCase("8.00", "£8.00")]
         [TestCase("18", "£18.00")]
         [TestCase("20.5", "£20.50")]
