@@ -34,7 +34,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(LegalEntityAddedActivityLocalizer))]
-        [Action("agreements", "EmployerAgreement")]
+        [Action("Index", "EmployerAgreement")]
         LegalEntityAdded = 6,
 
         [Category(ActivityTypeCategory.AccountAdmin)]
