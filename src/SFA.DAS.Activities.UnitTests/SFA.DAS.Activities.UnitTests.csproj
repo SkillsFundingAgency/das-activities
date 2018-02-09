@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="ActivityTypeTests.cs" />
     <Compile Include="Client\UrlHelperExtensionsTests.cs" />
+    <Compile Include="Localizers\PaymentCreatedActivityLocalizerTest.cs" />
     <Compile Include="WebTest.cs" />
     <Compile Include="Client\HtmlHelperExtensionsTests.cs" />
     <Compile Include="Extensions\ActivityTypeCategoryExtensionsTests.cs" />
