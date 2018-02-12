@@ -38,6 +38,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(AccountNameChangedActivityLocalizer))]
+        [Action("Index", "EmployerTeam")]
         AccountNameChanged = 7,
 
         [Category(ActivityTypeCategory.AccountAdmin)]
