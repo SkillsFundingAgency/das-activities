@@ -13,7 +13,7 @@ namespace SFA.DAS.Activities
         [Localizer(typeof(PayeSchemeAddedActivityLocalizer))]
         [Action("Index", "EmployerAccountPaye")]
         PayeSchemeAdded = 1,
-        
+
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(PayeSchemeRemovedActivityLocalizer))]
         [Action("Index", "EmployerAccountPaye")]
@@ -34,6 +34,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(LegalEntityAddedActivityLocalizer))]
+        [Action("Index", "EmployerAgreement")]
         LegalEntityAdded = 6,
 
         [Category(ActivityTypeCategory.AccountAdmin)]
@@ -50,8 +51,8 @@ namespace SFA.DAS.Activities
         [Localizer(typeof(AgreementSignedActivityLocalizer))]
         [Action("Index", "EmployerAgreement")]
         AgreementSigned = 9,
-		
-		[Category(ActivityTypeCategory.Payments)]
+
+        [Category(ActivityTypeCategory.Payments)]
         [Localizer(typeof(PaymentCreatedActivityLocalizer))]
         [Action("Index", "EmployerAccountTransactions")]
         PaymentCreated = 10
