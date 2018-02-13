@@ -43,6 +43,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(UserInvitedActivityLocalizer))]
+        [Action("ViewTeam", "EmployerTeam")]
         UserInvited = 8,
 
         [Category(ActivityTypeCategory.AccountAdmin)]
