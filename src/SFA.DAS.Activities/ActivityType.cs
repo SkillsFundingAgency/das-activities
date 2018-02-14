@@ -30,6 +30,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(LegalEntityRemovedActivityLocalizer))]
+        [Action("Index", "EmployerAgreement")]
         LegalEntityRemoved = 5,
 
         [Category(ActivityTypeCategory.AccountAdmin)]
