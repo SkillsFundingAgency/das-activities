@@ -25,7 +25,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.AccountAdmin)]
         [Localizer(typeof(UserJoinedActivityLocalizer))]
-        [Action("Index", "EmployerTeam")]
+        [Action("ViewTeam", "EmployerTeam")]
         UserJoined = 4,
 
         [Category(ActivityTypeCategory.AccountAdmin)]
