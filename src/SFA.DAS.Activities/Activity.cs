@@ -5,6 +5,7 @@ namespace SFA.DAS.Activities
 {
     public class Activity
     {
+        public string Id { get; set; }
         public long AccountId { get; set; }
         public DateTime At { get; set; }
         public DateTime Created { get; set; }

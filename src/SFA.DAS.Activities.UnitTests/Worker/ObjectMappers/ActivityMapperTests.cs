@@ -26,13 +26,14 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
 
             protected override void When()
             {
-                _activity = _mapper.Map(_event, ActivityType.PayeSchemeAdded, e => e.AccountId, e => e.CreatedAt);
+                _activity = _mapper.Map(_event, ActivityType.PayeSchemeAdded, e => e.AccountId, e => e.CreatedAt, messageId: Guid.NewGuid().ToString());
             }
 
             [Test]
             public void Then_should_create_activity()
             {
                 Assert.That(_activity, Is.Not.Null);
+                Assert.That(_activity.Id, Is.Not.Null);
                 Assert.That(_activity.Type, Is.EqualTo(ActivityType.PayeSchemeAdded));
                 Assert.That(_activity.AccountId, Is.EqualTo(_event.AccountId));
                 Assert.That(_activity.At, Is.EqualTo(_event.CreatedAt));

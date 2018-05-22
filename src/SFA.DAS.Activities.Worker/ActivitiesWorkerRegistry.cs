@@ -1,9 +1,11 @@
 using Nest;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
+using SFA.DAS.Activities.Worker.ActivitySavers;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Activities.Worker.Policies;
 using SFA.DAS.Elastic;
+using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
@@ -20,6 +22,7 @@ namespace SFA.DAS.Activities.Worker
 
         public ActivitiesWorkerRegistry()
         {
+
             var config = ConfigurationHelper.GetConfiguration<ActivitiesWorkerConfiguration>(ServiceName, Version);
             
             var elasticConfig = new ElasticConfiguration()
@@ -37,6 +40,10 @@ namespace SFA.DAS.Activities.Worker
             For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<ServiceControl>().Use<Service>();
+            For<ICosmosClient>().Use<CosmosClient>().Singleton();
+            For<IActivitySaver>().Use<ActivitySaver>().Singleton();
+            For<IMessageContextProvider>().Use<MessageContextProvider>().Singleton();
+            For<IMessageServiceBusConfiguration>().Use(config);
             Policies.Add(new MessageSubscriberPolicy(ServiceName, config, Log));
 
             Scan(s =>

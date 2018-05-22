@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Nest;
-using SFA.DAS.Activities.Worker.ObjectMappers;
+using SFA.DAS.Activities.Worker.ActivitySavers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
@@ -12,24 +11,21 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
     [TopicSubscription("Activity_AccountCreatedMessageProcessor")]
     public class AccountCreatedMessageProcessor : MessageProcessor<AccountCreatedMessage>
     {
-        private readonly IActivityMapper _activityMapper;
-        private readonly IElasticClient _client;
+        private readonly IActivitySaver _activitySaver;
 
         public AccountCreatedMessageProcessor(
             IMessageSubscriberFactory subscriberFactory, 
-            ILog log, 
-            IActivityMapper activityMapper, 
-            IElasticClient client) 
-            : base(subscriberFactory, log)
+            ILog log,
+            IActivitySaver activitySaver,
+            IMessageContextProvider messageContextProvider) 
+            : base(subscriberFactory, log, messageContextProvider)
         {
-            _activityMapper = activityMapper;
-            _client = client;
+            _activitySaver = activitySaver;
         }
 
-        protected override async Task ProcessMessage(AccountCreatedMessage message)
+        protected override Task ProcessMessage(AccountCreatedMessage message)
         {
-            var activity = _activityMapper.Map(message, ActivityType.AccountCreated);
-            await _client.IndexAsync(activity);
+            return _activitySaver.SaveActivity(message, ActivityType.AccountCreated);
         }
     }
 }

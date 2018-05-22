@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using Nest;
+using SFA.DAS.Activities.Worker.ActivitySavers;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
@@ -12,24 +14,22 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
     [TopicSubscription("Activity_AccountNameChangedMessageProcessor")]
     public class AccountNameChangedMessageProcessor : MessageProcessor<AccountNameChangedMessage>
     {
-        private readonly IActivityMapper _activityMapper;
-        private readonly IElasticClient _client;
+        private readonly IActivitySaver _activitySaver;
 
         public AccountNameChangedMessageProcessor(
             IMessageSubscriberFactory subscriberFactory, 
-            ILog log, 
-            IActivityMapper activityMapper, 
-            IElasticClient client) 
-            : base(subscriberFactory, log)
+            ILog log,
+            IActivitySaver activitySaver,
+            IMessageContextProvider messageContextProvider)
+            : base(subscriberFactory, log, messageContextProvider)
         {
-            _activityMapper = activityMapper;
-            _client = client;
+            _activitySaver = activitySaver;
         }
 
-        protected override async Task ProcessMessage(AccountNameChangedMessage message)
+        protected override Task ProcessMessage(AccountNameChangedMessage message)
         {
-            var activity = _activityMapper.Map(message, ActivityType.AccountNameChanged);
-            await _client.IndexAsync(activity);
+            return _activitySaver.SaveActivity(message, ActivityType.AccountNameChanged);
+
         }
     }
 }

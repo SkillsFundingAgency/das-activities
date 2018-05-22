@@ -9,7 +9,13 @@ namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors
         [Test]
         public void When_processing_PayeSchemeAddedMessage_then_should_index_PayeSchemeAdded_activity()
         {
-            From(new PayeSchemeAddedMessage()).To(ActivityType.PayeSchemeAdded).Verify();
+            From(new PayeSchemeAddedMessage()).To(ActivityType.PayeSchemeAdded).Verify(CreateMessageProcessor);
+        }
+
+        private PayeSchemeAddedMessageProcessor CreateMessageProcessor(
+            MessageProcessorTestFixtures<PayeSchemeAddedMessage> fixtures)
+        {
+            return new PayeSchemeAddedMessageProcessor(fixtures.SubscriberFactory, fixtures.Log, fixtures.ActivitySaver, fixtures.MessageContextProvider);
         }
     }
 }
