@@ -1,4 +1,5 @@
 using System;
+using SFA.DAS.Activities.DependencyResolver;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
@@ -23,6 +24,7 @@ namespace SFA.DAS.Activities.Worker
             {
                 _container = new Container(c =>
                 {
+                    c.AddRegistry<CommonWorkerRegistry>();
                     c.AddRegistry<ActivitiesWorkerRegistry>();
                 });
 

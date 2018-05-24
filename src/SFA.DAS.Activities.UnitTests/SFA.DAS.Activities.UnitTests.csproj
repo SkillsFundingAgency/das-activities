@@ -156,6 +156,9 @@
     <Compile Include="ActivityTypeTests.cs" />
     <Compile Include="Client\ActivitiesClientTests.cs" />
     <Compile Include="Client\UrlHelperExtensionsTests.cs" />
+    <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyFinderTests.cs" />
+    <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyQueueTests.cs" />
+    <Compile Include="IntegrityChecker\Utils\ZipperTests.cs" />
     <Compile Include="Localizers\PaymentCreatedActivityLocalizerTest.cs" />
     <Compile Include="WebTest.cs" />
     <Compile Include="Client\HtmlHelperExtensionsTests.cs" />

@@ -9,4 +9,9 @@
       <Setting name="LoggingRedisKey" />
     </ConfigurationSettings>
   </WorkerRole>
+  <WorkerRole name="SFA.DAS.IntegrityChecker.Worker" vmsize="Small">
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" />
+    </ConfigurationSettings>
+  </WorkerRole>
 </ServiceDefinition>

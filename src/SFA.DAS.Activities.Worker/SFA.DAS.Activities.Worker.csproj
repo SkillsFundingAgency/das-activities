@@ -126,11 +126,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActivitiesWorkerConfiguration.cs" />
+    <Compile Include="ActivitiesWorkerRegistry.cs" />
     <Compile Include="ActivitySavers\ActivitySaver.cs" />
-    <Compile Include="ActivitySavers\CosmosClient.cs" />
-    <Compile Include="ActivitySavers\IActivitySaver.cs" />
-    <Compile Include="ActivitySavers\ICosmosClient.cs" />
     <Compile Include="MessageProcessors\PaymentCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\LegalEntityAddedMessageProcessor.cs" />
@@ -142,7 +139,6 @@
     <Compile Include="MessageProcessors\PayeSchemeRemovedMessageProcessor.cs" />
     <Compile Include="ObjectMappers\ActivityMapper.cs" />
     <Compile Include="ObjectMappers\IActivityMapper.cs" />
-    <Compile Include="ActivitiesWorkerRegistry.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="MessageProcessors\PayeSchemeAddedMessageProcessor.cs" />
     <Compile Include="Policies\MessageSubscriberPolicy.cs" />

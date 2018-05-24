@@ -52,13 +52,23 @@
       <RoleName>SFA.DAS.Activities.Worker</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.IntegrityChecker.Worker\SFA.DAS.IntegrityChecker.Worker.csproj">
+      <Name>SFA.DAS.IntegrityChecker.Worker</Name>
+      <Project>{59db7e32-5fa4-47b0-ac7b-d74ff3d67edc}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>SFA.DAS.IntegrityChecker.Worker</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
     <Folder Include="SFA.DAS.Activities.WorkerContent\" />
+    <Folder Include="SFA.DAS.IntegrityChecker.WorkerContent\" />
   </ItemGroup>
   <ItemGroup>
     <DiagnosticsConfiguration Include="SFA.DAS.Activities.WorkerContent\diagnostics.wadcfgx" />
+    <DiagnosticsConfiguration Include="SFA.DAS.IntegrityChecker.WorkerContent\diagnostics.wadcfgx" />
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>
