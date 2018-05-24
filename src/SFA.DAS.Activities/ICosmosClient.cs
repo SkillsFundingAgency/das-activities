@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Azure.Documents.Client;
 
-namespace SFA.DAS.Activities.Worker.ActivitySavers
+namespace SFA.DAS.Activities
 {
     public interface ICosmosClient
     {

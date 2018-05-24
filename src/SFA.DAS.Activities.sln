@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SFA.DAS.Activities.CloudService", "SFA.DAS.Activities.CloudService\SFA.DAS.Activities.CloudService.ccproj", "{291916AB-7AC4-45B9-9112-D9D846401E66}"
 EndProject
@@ -26,6 +26,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.AcceptanceTests", "SFA.DAS.Activities.AcceptanceTests\SFA.DAS.Activities.AcceptanceTests.csproj", "{BF163CC2-E2E7-4320-BC7B-DCD980E4B23A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.IntegrationTests", "SFA.DAS.Activities.IntegrationTests\SFA.DAS.Activities.IntegrationTests.csproj", "{D1B06E53-A92E-4BA7-9472-A5F013B80987}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.IntegrityChecker.Worker", "SFA.DAS.IntegrityChecker.Worker\SFA.DAS.IntegrityChecker.Worker.csproj", "{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,10 @@ Global
 		{D1B06E53-A92E-4BA7-9472-A5F013B80987}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1B06E53-A92E-4BA7-9472-A5F013B80987}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1B06E53-A92E-4BA7-9472-A5F013B80987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace SFA.DAS.Activities.Worker.ActivitySavers
+namespace SFA.DAS.Activities
 {
     public interface IActivitySaver
     {

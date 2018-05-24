@@ -1,6 +1,7 @@
 using Nest;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
+using SFA.DAS.Activities.Worker;
 using SFA.DAS.Activities.Worker.ActivitySavers;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Activities.Worker.Policies;
@@ -11,7 +12,7 @@ using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
 
-namespace SFA.DAS.Activities.Worker
+namespace SFA.DAS.Activities.DependencyResolver
 {
     public class ActivitiesWorkerRegistry : Registry
     {
@@ -24,23 +25,9 @@ namespace SFA.DAS.Activities.Worker
         {
 
             var config = ConfigurationHelper.GetConfiguration<ActivitiesWorkerConfiguration>(ServiceName, Version);
-            
-            var elasticConfig = new ElasticConfiguration()
-                .UseSingleNodeConnectionPool(config.ElasticUrl)
-                .ScanForIndexMappers(typeof(ActivitiesIndexMapper).Assembly)
-                .OnRequestCompleted(r => Log.Debug(r.DebugInformation));
-
-            if (!string.IsNullOrWhiteSpace(config.ElasticUsername) && !string.IsNullOrWhiteSpace(config.ElasticPassword))
-            {
-                elasticConfig.UseBasicAuthentication(config.ElasticUsername, config.ElasticPassword);
-            }
 
             For<IActivityMapper>().Use<ActivityMapper>();
-            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
-            For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
-            For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
             For<ServiceControl>().Use<Service>();
-            For<ICosmosClient>().Use<CosmosClient>().Singleton();
             For<IActivitySaver>().Use<ActivitySaver>().Singleton();
             For<IMessageContextProvider>().Use<MessageContextProvider>().Singleton();
             For<IMessageServiceBusConfiguration>().Use(config);
