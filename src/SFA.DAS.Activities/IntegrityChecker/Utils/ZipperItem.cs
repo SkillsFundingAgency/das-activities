@@ -12,5 +12,8 @@
         public T Item { get; }
         public bool IsInA { get; }
         public bool IsInB { get; }
+        public bool IsMissing => !IsInA || !IsInB;
+        public bool IsMissingInA => !IsInA;
+        public bool IsMissingInB => !IsInB;
     }
 }

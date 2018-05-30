@@ -1,13 +1,14 @@
-﻿using SFA.DAS.Activities.IntegrityChecker.Dto;
+﻿using System.Collections.Concurrent;
+using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Fixers
 {
-    public class NotFoundInElasticFixer : IActivityDiscrepancyFixer
+    public class NotFoundInCosmosFixer : IActivityDiscrepancyFixer
     {
         private readonly IFixActionLogger _actionLogger;
 
-        public NotFoundInElasticFixer(IFixActionLogger actionLogger)
+        public NotFoundInCosmosFixer(IFixActionLogger actionLogger)
         {
             _actionLogger = actionLogger;
         }
@@ -21,7 +22,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Fixers
         {
             _actionLogger.Add(new FixActionLoggerItem
             {
-                FixerType = typeof(NotFoundInElasticFixer),
+                FixerType = typeof(NotFoundInCosmosFixer),
                 Discrepancy = discrepancy.Issues,
                 Id = discrepancy.Id.Id
             });

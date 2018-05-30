@@ -1,15 +1,17 @@
-﻿namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
+﻿using SFA.DAS.Activities.IntegrityChecker.Repositories;
+
+namespace SFA.DAS.Activities.IntegrityChecker.Dto
 {
     public class ActivityPageResult
     {
-        public ActivityPageResult(Activity[] activities, bool atEnd)
+        public ActivityPageResult(Activity[] activities, IPagingData pagingData)
         {
             Activities = activities;
-            AtEnd = atEnd;
+            PagingData = pagingData;
         }
 
         public Activity[] Activities { get; }
-        public bool AtEnd { get; set; }
 
+        public IPagingData PagingData { get; set; }
     }
 }

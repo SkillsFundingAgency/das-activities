@@ -1,18 +1,14 @@
-using Nest;
 using SFA.DAS.Activities.Configuration;
-using SFA.DAS.Activities.IndexMappers;
-using SFA.DAS.Activities.Worker;
 using SFA.DAS.Activities.Worker.ActivitySavers;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Activities.Worker.Policies;
-using SFA.DAS.Elastic;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 using Topshelf;
 
-namespace SFA.DAS.Activities.DependencyResolver
+namespace SFA.DAS.Activities.Worker
 {
     public class ActivitiesWorkerRegistry : Registry
     {

@@ -7,7 +7,9 @@ using Castle.Components.DictionaryAdapter;
 using Moq;
 using NUnit.Framework;
 using SFA.DAS.Activities.IntegrityChecker;
+using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
+using SFA.DAS.Activities.IntegrityChecker.Repositories;
 using SFA.DAS.Activities.IntegrityChecker.Utils;
 
 namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
@@ -26,7 +28,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
         /// <summary>
         ///     We're testing that the pager functions are being called the expected number of times.
         ///     The pager function will be called until it returns null or an empty enumeration. This is
-        ///     true even if the enumeration is less than the requested page size. 
+        ///     true even if the actual page size is less than the requested page size. 
         /// </summary>
         /// Number of pages, normal page size, last page size, expected number of function calls
         [TestCase(1, 5, 0, 1)]
@@ -49,8 +51,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             var fixtures = new ActivityDiscrepancyFinderTestFixtures()
                 .AddCosmosPages(numberOfPages, pageSize, lastPageSize)
                 .UsingBatchSize(pageSize)
-                .AssertCosmosPageCallCount(expectedPageCalls)
-                .AssertCosmosPageCallsInSequence();
+                .AssertCosmosPageCallCount(expectedPageCalls);
         }
 
         [TestCase("a,b,c,d,e", "a,b,c,d,e")]
@@ -75,37 +76,46 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public ActivityDiscrepancyFinderTestFixtures()
         {
-            CosmosRepoMock = new Mock<IActivityDocumentRepository>();    
-            ElasticRepoMock = new Mock<IActivityDocumentRepository>();
+            CosmosRepoMock = new Mock<ICosmosActivityDocumentRepository>();
+            CosmosPagingDataMock = new Mock<IPagingData>();
+
+            ElasticRepoMock = new Mock<IElasticActivityDocumentRepository>();
+            ElasticPagingDataMock = new Mock<IPagingData>();
 
             CosmosRepoMock
-                .Setup(r => r.GetActivitiesAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(r => r.GetActivitiesAsync(It.IsAny<IPagingData>()))
                 .ReturnsAsync(GetCosmosPage)
-                .Callback<int, int>((startpage, pagesize) => LogCall(CosmosPageCalls, startpage, pagesize));
+                .Callback<IPagingData>(pagingData => LogCall(CosmosPageCalls, pagingData.RequiredPageSize));
 
             ElasticRepoMock
-                .Setup(r => r.GetActivitiesAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(r => r.GetActivitiesAsync(It.IsAny<IPagingData>()))
                 .ReturnsAsync(GetElasticPage)
-                .Callback<int, int>((startpage, pagesize) => LogCall(ElasticPageCalls, startpage, pagesize));
+                .Callback<IPagingData>((pagingData) => LogCall(ElasticPageCalls, pagingData.RequiredPageSize));
 
             BatchSize = 5;
 
             _results = new Lazy<ActivityDiscrepancy[]>(RunScan);
         }
 
-        public Mock<IActivityDocumentRepository> CosmosRepoMock { get; set; }
-        public IActivityDocumentRepository CosmosRepo => CosmosRepoMock.Object;
+        public Mock<IPagingData> CosmosPagingDataMock { get; set; }
+        public IPagingData CosmosPagingData => CosmosPagingDataMock.Object;
 
-        public Mock<IActivityDocumentRepository> ElasticRepoMock { get; set; }
-        public IActivityDocumentRepository ElasticRepo => ElasticRepoMock.Object;
+        public Mock<ICosmosActivityDocumentRepository> CosmosRepoMock { get; set; }
+        public ICosmosActivityDocumentRepository CosmosRepo => CosmosRepoMock.Object;
+
+        public Mock<IPagingData> ElasticPagingDataMock { get; set; }
+        public IPagingData ElasticPagingData => ElasticPagingDataMock.Object;
+
+        public Mock<IElasticActivityDocumentRepository> ElasticRepoMock { get; set; }
+        public IElasticActivityDocumentRepository ElasticRepo => ElasticRepoMock.Object;
 
 
         public List<Activity[]> CosmosPages { get; } = new List<Activity[]>();
         public List<Activity[]> ElasticPages { get; } = new List<Activity[]>();
 
-        private void LogCall(List<PageCallDetails> log, int startPage, int pagesize)
+        private void LogCall(List<PageCallDetails> log, int pageSize)
         {
-            var callDetails = new PageCallDetails {PageSize =  pagesize, StartPage =  startPage};
+            var callDetails = new PageCallDetails {PageSize =  pageSize};
             log.Add(callDetails);
         }
 
@@ -147,12 +157,12 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             return this;
         }
 
-        public ActivityPageResult GetCosmosPage()
+        public Activity[] GetCosmosPage()
         {
             return GetPage(CosmosPages);
         }
 
-        public ActivityPageResult GetElasticPage()
+        public Activity[] GetElasticPage()
         {
             return GetPage(ElasticPages);
         }
@@ -186,17 +196,6 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             return this;
         }
 
-        public ActivityDiscrepancyFinderTestFixtures AssertCosmosPageCallsInSequence()
-        {
-            EnsureScanCompleted();
-            for (int i = 0; i < CosmosPageCalls.Count-1; i++)
-            {
-                Assert.AreEqual(CosmosPageCalls[i].StartPage + 1, CosmosPageCalls[i+1].StartPage);
-            }
-
-            return this;
-        }
-
         public ActivityDiscrepancyFinderTestFixtures AssertElasticPageCallCount(int expectedNumberOfCallsToElastic)
         {
             EnsureScanCompleted();
@@ -221,16 +220,16 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             repo.Add(activities);
         }
 
-        private ActivityPageResult GetPage(List<Activity[]> pages)
+        private Activity[] GetPage(List<Activity[]> pages)
         {
             if (pages.Count == 0)
             {
-                return new ActivityPageResult(null, true);
+                return new Activity[0];
             }
 
             var activities = pages[0];
             pages.RemoveAt(0);
-            return new ActivityPageResult(activities, false);
+            return activities;
         }
 
         private void EnsureScanCompleted()
@@ -250,7 +249,6 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
     public class PageCallDetails
     {
-        public int StartPage { get; set; }
         public int PageSize { get; set; }
     }
 }

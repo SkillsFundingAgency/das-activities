@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using SFA.DAS.Activities.IntegrityChecker;
+using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Utils;
 
 namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils

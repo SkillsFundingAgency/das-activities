@@ -24,7 +24,8 @@ namespace SFA.DAS.Activities.Worker
             {
                 _container = new Container(c =>
                 {
-                    c.AddRegistry<CommonWorkerRegistry>();
+                    c.AddRegistry<ElasticRegistry>();
+                    c.AddRegistry<CosmosRegistry>();
                     c.AddRegistry<ActivitiesWorkerRegistry>();
                 });
 

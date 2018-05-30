@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
+using SFA.DAS.Activities.IntegrityChecker.Repositories;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Utils
 {
@@ -12,7 +14,8 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
         private readonly IActivityDocumentRepository _elasticRepository;
 
         public ActivityDiscrepancyFinder(
-            IActivityDocumentRepository cosmosRepository, IActivityDocumentRepository elasticRepository)
+            ICosmosActivityDocumentRepository cosmosRepository, 
+            IElasticActivityDocumentRepository elasticRepository)
         {
             _cosmosRepository = cosmosRepository;
             _elasticRepository = elasticRepository;
@@ -25,44 +28,27 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
 
         public IEnumerable<ActivityDiscrepancy> Scan(int batchSize, int? maxInspections)
         {
-            var cosmosPagerInfo = new ActivityPagerInfo(_cosmosRepository, batchSize, maxInspections);
-            var elasticPagerInfo = new ActivityPagerInfo(_elasticRepository, batchSize, maxInspections);
+            var cosmosPagingData = new CosmosPagingData(_cosmosRepository, batchSize, maxInspections);
+            var elasticPagingData = new ElasticPagingData(_elasticRepository, batchSize, maxInspections);
 
             return Zipper
                 .Zip(
-                    () => FetchNextPageOfActivities(cosmosPagerInfo).Result, 
-                    () => FetchNextPageOfActivities(elasticPagerInfo).Result)
-                .Where(z => z.IsInA == false || z.IsInB == false)
-                .Select(z => new ActivityDiscrepancy(z.Item,
-                    z.IsInA ? ActivityDiscrepancyType.NotFoundInElastic : ActivityDiscrepancyType.NotFoundInCosmos));
+                    () => FetchNextPageOfActivities(cosmosPagingData).Result, 
+                    () => FetchNextPageOfActivities(elasticPagingData).Result)
+                .Where(z => z.IsMissing)
+                .Select(z => new ActivityDiscrepancy(z.Item, z.IsMissingInA ? ActivityDiscrepancyType.NotFoundInCosmos : ActivityDiscrepancyType.NotFoundInElastic));
         }
 
-        private class ActivityPagerInfo
+        private async Task<IEnumerable<Activity>> FetchNextPageOfActivities(IPagingData pagingData)
         {
-            public ActivityPagerInfo(IActivityDocumentRepository repository, int requiredPageSize, int? maximumInspections)
-            {
-                Repository = repository;
-                RequiredPageSize = requiredPageSize;
-                MaximumInspections = maximumInspections;
-            }
-
-            public int CurrentPage { get; set; }
-            public int RequiredPageSize { get; }
-            public int Inspections { get; set; }
-            public IActivityDocumentRepository Repository { get; }
-            public int? MaximumInspections { get; }
-        }
-
-        private async Task<IEnumerable<Activity>> FetchNextPageOfActivities(ActivityPagerInfo pagerInfo)
-        {
-            if (pagerInfo.MaximumInspections.HasValue && pagerInfo.MaximumInspections <= pagerInfo.Inspections)
+            if (pagingData.MaximumInspections.HasValue && pagingData.MaximumInspections <= pagingData.Inspections)
             {
                 return new Activity[] {};
             }
 
-            var page = await pagerInfo.Repository.GetActivitiesAsync(pagerInfo.CurrentPage++, pagerInfo.RequiredPageSize);
-            pagerInfo.Inspections = pagerInfo.Inspections + page.Activities?.Length ?? 0;
-            return page.Activities;
+            var page = await pagingData.Repository.GetActivitiesAsync(pagingData);
+            pagingData.Inspections = pagingData.Inspections + page.Length;
+            return page;
         }
     }
 }
