@@ -20,31 +20,31 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ActivitySavers
         [Test]
         public void Constructor_MissingActivity_ShouldThrowException()
         {
-            Assert.Throws<ArgumentException>( () => new ActivitySaver(null, CosmosClient, ElasticClient, Logger, MessageContextProvider, MessageServiceBusConfiguration));
+            Assert.Throws<ArgumentException>( () => new ActivitySaver(null, CosmosClient, ElasticClient, Logger, MessageContextProvider, CosmosConfiguration));
         }
 
         [Test]
         public void Constructor_MissingCosmosClient_ShouldThrowException()
         {
-            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, null, ElasticClient, Logger, MessageContextProvider, MessageServiceBusConfiguration));
+            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, null, ElasticClient, Logger, MessageContextProvider, CosmosConfiguration));
         }
 
         [Test]
         public void Constructor_MissingElasticClient_ShouldThrowException()
         {
-            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, CosmosClient, null, Logger, MessageContextProvider, MessageServiceBusConfiguration));
+            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, CosmosClient, null, Logger, MessageContextProvider, CosmosConfiguration));
         }
 
         [Test]
         public void Constructor_MissingLogger_ShouldThrowException()
         {
-            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, CosmosClient, ElasticClient, null, MessageContextProvider, MessageServiceBusConfiguration));
+            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, CosmosClient, ElasticClient, null, MessageContextProvider, CosmosConfiguration));
         }
 
         [Test]
         public void Constructor_MissingMessageContextProvider_ShouldThrowException()
         {
-            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, CosmosClient, ElasticClient, Logger, null, MessageServiceBusConfiguration));
+            Assert.Throws<ArgumentException>(() => new ActivitySaver(ActivityMapper, CosmosClient, ElasticClient, Logger, null, CosmosConfiguration));
         }
 
         [Test]
@@ -68,7 +68,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ActivitySavers
         public Mock<IMessageContextProvider> MessageContextProviderMock = new Mock<IMessageContextProvider>();
         public IMessageContextProvider MessageContextProvider => MessageContextProviderMock.Object;
 
-        public Mock<IMessageServiceBusConfiguration> MessageServiceBusConfigurationMock = new Mock<IMessageServiceBusConfiguration>();
-        public IMessageServiceBusConfiguration MessageServiceBusConfiguration => MessageServiceBusConfigurationMock.Object;
+        public Mock<ICosmosConfiguration> CosmosConfigurationMock = new Mock<ICosmosConfiguration>();
+        public ICosmosConfiguration CosmosConfiguration => CosmosConfigurationMock.Object;
     }
 }

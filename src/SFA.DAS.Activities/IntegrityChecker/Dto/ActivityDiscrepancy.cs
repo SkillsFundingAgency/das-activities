@@ -1,4 +1,4 @@
-﻿namespace SFA.DAS.Activities.IntegrityChecker
+﻿namespace SFA.DAS.Activities.IntegrityChecker.Dto
 {
     public class ActivityDiscrepancy
     {

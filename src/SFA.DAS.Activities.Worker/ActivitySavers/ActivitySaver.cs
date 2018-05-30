@@ -18,7 +18,7 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
         private readonly IElasticClient _elasticClient;
         private readonly ILog _logger;
         private readonly IMessageContextProvider _messageContextProvider;
-        private readonly IMessageServiceBusConfiguration _config;
+        private readonly ICosmosConfiguration _config;
 
         public ActivitySaver(
             IActivityMapper activityMapper,
@@ -26,7 +26,7 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             IElasticClient elasticClient,
             ILog logger,
             IMessageContextProvider messageContextProvider,
-            IMessageServiceBusConfiguration messageServiceBusConfiguration
+            ICosmosConfiguration config
         )
         {
             StringBuilder errors = null;
@@ -34,11 +34,11 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             AssertConstructorArgument(nameof(cosmosClient), cosmosClient, ref errors);
             AssertConstructorArgument(nameof(elasticClient), elasticClient, ref errors);
             AssertConstructorArgument(nameof(messageContextProvider), messageContextProvider, ref errors);
-            AssertConstructorArgument(nameof(messageServiceBusConfiguration), messageServiceBusConfiguration, ref errors);
-            AssertConstructorArgument(nameof(messageServiceBusConfiguration.CosmosDatabase), messageServiceBusConfiguration?.CosmosDatabase, ref errors);
-            AssertConstructorArgument(nameof(messageServiceBusConfiguration.CosmosCollectionName), messageServiceBusConfiguration?.CosmosCollectionName, ref errors);
-            AssertConstructorArgument(nameof(messageServiceBusConfiguration.CosmosEndpointUrl), messageServiceBusConfiguration?.CosmosEndpointUrl, ref errors);
-            AssertConstructorArgument(nameof(messageServiceBusConfiguration.CosmosPrimaryKey), messageServiceBusConfiguration?.CosmosPrimaryKey, ref errors);
+            AssertConstructorArgument(nameof(config), config, ref errors);
+            AssertConstructorArgument(nameof(config.CosmosDatabase), config?.CosmosDatabase, ref errors);
+            AssertConstructorArgument(nameof(config.CosmosCollectionName), config?.CosmosCollectionName, ref errors);
+            AssertConstructorArgument(nameof(config.CosmosEndpointUrl), config?.CosmosEndpointUrl, ref errors);
+            AssertConstructorArgument(nameof(config.CosmosPrimaryKey), config?.CosmosPrimaryKey, ref errors);
 
             if (errors != null)
             {
@@ -49,7 +49,7 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             _cosmosClient = cosmosClient;
             _elasticClient = elasticClient;
             _messageContextProvider = messageContextProvider;
-            _config = messageServiceBusConfiguration;
+            _config = config;
         }
 
         public async Task SaveActivity<TMessage>(TMessage message, ActivityType activityType) where TMessage : class

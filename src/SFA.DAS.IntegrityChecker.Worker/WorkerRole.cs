@@ -5,13 +5,14 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Diagnostics;
 using Microsoft.WindowsAzure.ServiceRuntime;
 using Microsoft.WindowsAzure.Storage;
 using SFA.DAS.Activities;
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.DependencyResolver;
+using SFA.DAS.IntegrityChecker.Worker.Infrastructure;
 using StructureMap;
 
 namespace SFA.DAS.IntegrityChecker.Worker
@@ -28,11 +29,19 @@ namespace SFA.DAS.IntegrityChecker.Worker
         {
             Trace.TraceInformation("SFA.DAS.IntegrityChecker.Worker is running");
 
-            _container = IoC.Initialize();
-            ServiceLocator.Initialise(_container);
+            try
+            {
+                _container = WebJob.InitializeIoC();
+                ServiceLocator.Initialise(_container);
 
-            var host = _container.GetInstance<JobHost>();
-            host.RunAndBlock();
+                var jobHostFactory = _container.GetInstance<IJobHostFactory>();
+                var host = jobHostFactory.CreateJobHost();
+                host.RunAndBlock();
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError($"Failed to start up {nameof(WorkerRole)} {ex.GetType().Name} - {ex.Message}");
+            }
         }
 
         public override bool OnStart()

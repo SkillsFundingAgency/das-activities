@@ -7,7 +7,7 @@ namespace SFA.DAS.Activities.IntegrityChecker
     /// <summary>
     ///     Scans activities in Cosmos and Elastic looking for missing data.
     /// </summary>
-    public class IntegrityCheck
+    public class IntegrityCheck 
     {
         private readonly IActivitiesScan _scanner;
         private readonly IActivitiesFix _fixer;

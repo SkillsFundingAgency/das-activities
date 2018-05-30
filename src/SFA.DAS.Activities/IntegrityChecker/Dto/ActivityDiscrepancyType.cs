@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.Activities.IntegrityChecker
+namespace SFA.DAS.Activities.IntegrityChecker.Dto
 {
     [Flags]
     public enum ActivityDiscrepancyType
