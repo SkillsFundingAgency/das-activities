@@ -1,0 +1,100 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templateBaseUrl": {
+            "type": "string"
+        },
+        "appServicePlanName": {
+            "type": "string"
+        },
+        "aseName": {
+            "type": "string"
+        },
+        "aseResourceGroup": {
+            "type": "string"
+        },
+        "appServiceName": {
+            "type": "string"
+        },
+        "cosmosDbName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "appServiceResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/app-service-resources.json')]",
+        "cosmosDbResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/cosmos-db-resources.json')]",
+        "aspResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/app-service-plan-resources.json')]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-08-01",
+            "name": "app-service-plan-resources-deployment",
+            "type": "Microsoft.Resources/deployments",
+            "comments": "Deployment disabled until required",
+            "condition": false,
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('aspResourcesTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServicePlanName": {
+                        "value": "[parameters('appServicePlanName')]"
+                    },
+                    "aseName": {
+                        "value": "[parameters('aseName')]"
+                    },
+                    "aseResourceGroup": {
+                        "value": "[parameters('aseResourceGroup')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "app-service-resources-deployment",
+            "type": "Microsoft.Resources/deployments",
+            "comments": "Deployment disabled until required",
+            "condition": false,
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('appServiceResourcesTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appServiceName": {
+                        "value": "[parameters('appServiceName')]"
+                    },
+                    "appServicePlanId": {
+                        "value": "[reference('app-service-plan-resources-deployment').outputs.ASPResourceId.value]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "app-service-plan-resources-deployment"
+            ]
+        },
+        {
+            "apiVersion": "2017-08-01",
+            "name": "cosmos-db-resources-deployment",
+            "dependsOn": [],
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('cosmosDbResourcesTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "cosmosDbName": {
+                        "value": "[parameters('cosmosDbName')]"
+                    }
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
