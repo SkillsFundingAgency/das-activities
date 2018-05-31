@@ -31,8 +31,6 @@
             "apiVersion": "2017-08-01",
             "name": "app-service-plan-resources-deployment",
             "type": "Microsoft.Resources/deployments",
-            "comments": "Deployment disabled until required",
-            "condition": false,
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
@@ -56,8 +54,6 @@
             "apiVersion": "2017-08-01",
             "name": "app-service-resources-deployment",
             "type": "Microsoft.Resources/deployments",
-            "comments": "Deployment disabled until required",
-            "condition": false,
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
