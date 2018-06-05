@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nest;
 using SFA.DAS.Activities.Configuration;
+using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.Worker.MessageProcessors;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Messaging.Interfaces;
@@ -14,31 +15,24 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
     public class ActivitySaver : IActivitySaver
     {
         private readonly IActivityMapper _activityMapper;
-        private readonly ICosmosClient _cosmosClient;
-        private readonly IElasticClient _elasticClient;
+        private readonly ICosmosActivityDocumentRepository _cosmosActivityRepository;
+        private readonly IElasticActivityDocumentRepository _elasticActivityRepository;
         private readonly ILog _logger;
         private readonly IMessageContextProvider _messageContextProvider;
-        private readonly ICosmosConfiguration _config;
 
         public ActivitySaver(
             IActivityMapper activityMapper,
-            ICosmosClient cosmosClient,
-            IElasticClient elasticClient,
+            ICosmosActivityDocumentRepository cosmosActivityRepository,
+            IElasticActivityDocumentRepository elasticActivityRepository,
             ILog logger,
-            IMessageContextProvider messageContextProvider,
-            ICosmosConfiguration config
+            IMessageContextProvider messageContextProvider
         )
         {
             StringBuilder errors = null;
             AssertConstructorArgument(nameof(activityMapper), activityMapper, ref errors);
-            AssertConstructorArgument(nameof(cosmosClient), cosmosClient, ref errors);
-            AssertConstructorArgument(nameof(elasticClient), elasticClient, ref errors);
+            AssertConstructorArgument(nameof(cosmosActivityRepository), cosmosActivityRepository, ref errors);
+            AssertConstructorArgument(nameof(elasticActivityRepository), elasticActivityRepository, ref errors);
             AssertConstructorArgument(nameof(messageContextProvider), messageContextProvider, ref errors);
-            AssertConstructorArgument(nameof(config), config, ref errors);
-            AssertConstructorArgument(nameof(config.CosmosDatabase), config?.CosmosDatabase, ref errors);
-            AssertConstructorArgument(nameof(config.CosmosCollectionName), config?.CosmosCollectionName, ref errors);
-            AssertConstructorArgument(nameof(config.CosmosEndpointUrl), config?.CosmosEndpointUrl, ref errors);
-            AssertConstructorArgument(nameof(config.CosmosPrimaryKey), config?.CosmosPrimaryKey, ref errors);
 
             if (errors != null)
             {
@@ -46,20 +40,21 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             }
 
             _activityMapper = activityMapper;
-            _cosmosClient = cosmosClient;
-            _elasticClient = elasticClient;
+            _cosmosActivityRepository = cosmosActivityRepository;
+            _elasticActivityRepository = elasticActivityRepository;
             _messageContextProvider = messageContextProvider;
-            _config = config;
         }
 
-        public async Task SaveActivity<TMessage>(TMessage message, ActivityType activityType) where TMessage : class
+        public async Task<Activity> SaveActivity<TMessage>(TMessage message, ActivityType activityType) where TMessage : class
         {
             var messageContext = _messageContextProvider.GetContextForMessageBody(message);
 
             var activity = _activityMapper.Map(message, activityType, messageId: messageContext.MessageId);
 
-            await RunWithTry(() => _cosmosClient.UpsertDocumentAsync(_config.CosmosCollectionName, activity), "Saving activity to CosmosDB");
-            await RunWithTry(() => _elasticClient.IndexAsync(activity), "Saving activity to Elastic");
+            await RunWithTry(() => _cosmosActivityRepository.UpsertActivityAsync(activity), "Saving activity to CosmosDB");
+            await RunWithTry(() => _elasticActivityRepository.UpsertActivityAsync(activity), "Saving activity to Elastic");
+
+            return activity;
         }
 
         private async Task RunWithTry(Func<Task> run, string description)

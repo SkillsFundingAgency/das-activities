@@ -4,6 +4,6 @@ namespace SFA.DAS.Activities
 {
     public interface IActivitySaver
     {
-        Task SaveActivity<TMessage>(TMessage message, ActivityType activityType) where TMessage : class;
+        Task<Activity> SaveActivity<TMessage>(TMessage message, ActivityType activityType) where TMessage : class;
     }
 }

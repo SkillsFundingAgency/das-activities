@@ -13,10 +13,10 @@ namespace SFA.DAS.IntegrityChecker.Worker
 {
     public class IntegrityCheckerJob
     {
-        public void PaymentCheck(
+        public void IntegrityCheck(
             //            {second} {minute} {hour} {day} {month} {day-of-week}
             //[TimerTrigger("0 30 0 * * *")] TimerInfo timer, 
-            [TimerTrigger("5 * * * * *")] TimerInfo timer,
+            //[TimerTrigger("5 * * * * *")] TimerInfo timer,
             TraceWriter logger,
             CancellationToken cancellationToken)
         {

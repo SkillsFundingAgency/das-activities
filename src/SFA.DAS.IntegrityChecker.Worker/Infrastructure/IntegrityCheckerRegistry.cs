@@ -22,8 +22,6 @@ namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
 
         public IntegrityCheckerRegistry()
         {
-            var config = ConfigurationHelper.GetConfiguration<IntegrityCheckerWorkerConfiguration>(ServiceName, Version);
-
             For<IWebJobConfiguration>().Use(new WebJobConfig
             {
                 DashboardConnectionString = CloudConfigurationManager.GetSetting("DashboardConnectionString"),
@@ -43,9 +41,6 @@ namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
                 scan.Include(type => type.IsConcreteAndAssignableTo(typeof(IActivityDiscrepancyFixer)));
                 scan.With(new SingletonConvention<IActivityDiscrepancyFixer>());
             });
-
-            For<ICosmosActivityDocumentRepository>().Use<CosmosActivityDocumentRepository>();
-            For<IElasticActivityDocumentRepository>().Use<ElasticActivityDocumentRepository>();
         }
     }
 

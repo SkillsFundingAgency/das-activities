@@ -11,6 +11,7 @@ using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.IntegrityChecker.Repositories;
 using SFA.DAS.Activities.IntegrityChecker.Utils;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 {
@@ -81,9 +82,10 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
             ElasticRepoMock = new Mock<IElasticActivityDocumentRepository>();
             ElasticPagingDataMock = new Mock<IPagingData>();
+	        LoggerMock = new Mock<ILog>();
 
-            CosmosRepoMock
-                .Setup(r => r.GetActivitiesAsync(It.IsAny<IPagingData>()))
+			CosmosRepoMock
+				.Setup(r => r.GetActivitiesAsync(It.IsAny<IPagingData>()))
                 .ReturnsAsync(GetCosmosPage)
                 .Callback<IPagingData>(pagingData => LogCall(CosmosPageCalls, pagingData.RequiredPageSize));
 
@@ -109,6 +111,8 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
         public Mock<IElasticActivityDocumentRepository> ElasticRepoMock { get; set; }
         public IElasticActivityDocumentRepository ElasticRepo => ElasticRepoMock.Object;
 
+	    public Mock<ILog> LoggerMock { get; set; }
+	    public ILog Logger => LoggerMock.Object;
 
         public List<Activity[]> CosmosPages { get; } = new List<Activity[]>();
         public List<Activity[]> ElasticPages { get; } = new List<Activity[]>();
@@ -169,7 +173,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public ActivityDiscrepancyFinder CreateActivityDiscrepancyFinder()
         {
-            return new ActivityDiscrepancyFinder(CosmosRepo, ElasticRepo);
+            return new ActivityDiscrepancyFinder(CosmosRepo, ElasticRepo, Logger);
         }
 
         public ActivityDiscrepancyFinderTestFixtures AssertResultCount(int expectedNumberOfDiscrepancies)
