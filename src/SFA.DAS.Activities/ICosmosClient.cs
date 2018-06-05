@@ -33,10 +33,15 @@ namespace SFA.DAS.Activities
         /// <param name="orderby">The order in which the results are required.</param>
         /// <param name="pageSize">The size of page results that are required.</param>
         /// <returns></returns>
-        Task<CosmosClientQueryResult<TDocumentType>> GetPage<TDocumentType, TKey>(
+        Task<CosmosClientQueryResult<TDocumentType>> GetPageAsync<TDocumentType, TKey>(
             string collection,
             string continuationToken, 
             Expression<Func<TDocumentType, TKey>> orderby, 
             int pageSize);
+
+        Task<TDocumentType> GetDocumentAsync<TDocumentType>(string collection, Expression<Func<TDocumentType, bool>> selector);
+
+        Task DeleteDocumentsAsync<TDocumentType>(string collectionName, Expression<Func<TDocumentType, bool>> selector);
+        Task RecreateCollection(string collectionName);
     }
 }

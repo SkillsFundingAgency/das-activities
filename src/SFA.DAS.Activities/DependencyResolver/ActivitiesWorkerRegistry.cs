@@ -2,6 +2,8 @@ using Nest;
 using SFA.DAS.Activities.ActivitySavers;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
+using SFA.DAS.Activities.IntegrityChecker.Interfaces;
+using SFA.DAS.Activities.IntegrityChecker.Repositories;
 using SFA.DAS.Activities.Worker;
 using SFA.DAS.Elastic;
 using SFA.DAS.NLog.Logger;
@@ -24,6 +26,7 @@ namespace SFA.DAS.Activities.DependencyResolver
             For<ICosmosClient>().Use<CosmosClient>().Singleton();
 
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
+            For<ICosmosActivityDocumentRepository>().Use<CosmosActivityDocumentRepository>();
         }
     }
 
@@ -49,10 +52,10 @@ namespace SFA.DAS.Activities.DependencyResolver
                 elasticConfig.UseBasicAuthentication(config.ElasticUsername, config.ElasticPassword);
             }
 
-            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
             For<IElasticClientFactory>().Use(() => elasticConfig.CreateClientFactory()).Singleton();
+            For<IElasticClient>().Use(c => c.GetInstance<IElasticClientFactory>().CreateClient()).Singleton();
             For<ILog>().Use(c => new NLogLogger(c.ParentType, null, null)).AlwaysUnique();
-            For<ICosmosClient>().Use<CosmosClient>().Singleton();
+            For<IElasticActivityDocumentRepository>().Use<ElasticActivityDocumentRepository>();
         }
     }
 }

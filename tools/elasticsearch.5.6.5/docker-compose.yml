@@ -5,11 +5,13 @@ services:
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
+      - path.logs=/usr/share/elasticsearch/logs
     ports:
       - 9200:9200
       - 9300:9300
     volumes:
       - esdata:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/logs
 volumes:
   esdata:
     driver: local

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
+using Nest;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SFA.DAS.Activities.Configuration;
@@ -35,7 +36,7 @@ namespace SFA.DAS.Activities.ActivitySavers
             return Client.UpsertDocumentAsync(collectionUri, entity, _requestOptions);
         }
 
-        public async Task<CosmosClientQueryResult<TDocumentType>> GetPage<TDocumentType, TKey>(string collection, string continuationToken, Expression<Func<TDocumentType, TKey>> orderby, int pageSize) 
+        public async Task<CosmosClientQueryResult<TDocumentType>> GetPageAsync<TDocumentType, TKey>(string collection, string continuationToken, Expression<Func<TDocumentType, TKey>> orderby, int pageSize) 
         {
             var collectionUri = _collections.GetOrAdd(collection, GetCollectionUri);
 
@@ -60,13 +61,73 @@ namespace SFA.DAS.Activities.ActivitySavers
             return pageResult;
         }
 
+        public async Task<TDocumentType> GetDocumentAsync<TDocumentType>(string collection, Expression<Func<TDocumentType, bool>> selector)
+        {
+            var collectionUri = _collections.GetOrAdd(collection, GetCollectionUri);
+
+            var options = new FeedOptions
+            {
+                MaxItemCount = 1
+            };
+
+            var query = _client.Value
+                .CreateDocumentQuery<TDocumentType>(collectionUri, options)
+                .Where(selector)
+                .AsDocumentQuery();
+
+            var item = await query.ExecuteNextAsync<TDocumentType>();
+
+            return item.SingleOrDefault();
+        }
+
+        public async Task DeleteDocumentsAsync<TDocumentType>(string collectionName, Expression<Func<TDocumentType, bool>> selector)
+        {
+            var collectionUri = _collections.GetOrAdd(collectionName, GetCollectionUri);
+
+            var options = new FeedOptions
+            {
+                MaxItemCount = 1
+            };
+
+            var query = _client.Value
+                .CreateDocumentQuery<TDocumentType>(collectionUri, options)
+                .Where(selector)
+                .AsDocumentQuery();
+
+            while (query.HasMoreResults)
+            {
+                Parallel.ForEach(await query.ExecuteNextAsync<Document>(),
+                    document =>
+                    {
+                        _client.Value.DeleteDocumentAsync(document.SelfLink);
+                    });
+            }
+        }
+
+        public async Task RecreateCollection(string collectionName)
+        {
+            var collectionUri = _collections.GetOrAdd(collectionName, GetCollectionUri);
+            await _client.Value.DeleteDocumentCollectionAsync(collectionUri);
+
+            await EnsureCollectionExists(collectionName);
+        }
+
         private Uri GetCollectionUri(string collectionName)
         {
-            var collectionUri = UriFactory.CreateDocumentCollectionUri(_config.CosmosDatabase, collectionName);
+            RunWithTimeOut(EnsureCollectionExists(collectionName));
 
-            var databaseUri = UriFactory.CreateDatabaseUri(_config.CosmosDatabase);
-            RunWithTimeOut(Client.CreateDocumentCollectionIfNotExistsAsync(databaseUri, new DocumentCollection { Id = collectionName }));
-            return collectionUri;
+            return UriFactory.CreateDocumentCollectionUri(_config.CosmosDatabase, collectionName);
+        }
+
+        private Task EnsureCollectionExists(string collectionName)
+        {
+            var databaseUri = GetDatabaseUri();
+            return Client.CreateDocumentCollectionIfNotExistsAsync(databaseUri, new DocumentCollection { Id = collectionName });
+        }
+
+        private Uri GetDatabaseUri()
+        {
+            return UriFactory.CreateDatabaseUri(_config.CosmosDatabase);
         }
 
         private DocumentClient InitialiseClient()

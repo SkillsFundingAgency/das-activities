@@ -7,16 +7,10 @@ namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
 
     public interface IActivityDocumentRepository
     {
-        Task<Activity[]> GetActivitiesAsync(IPagingData pagingData);
-    }
-
-    public interface ICosmosActivityDocumentRepository : IActivityDocumentRepository
-    {
-
-    }
-
-    public interface IElasticActivityDocumentRepository : IActivityDocumentRepository
-    {
-
+	    Task UpsertActivityAsync(Activity activity);
+		Task<Activity[]> GetActivitiesAsync(IPagingData pagingData);
+        Task<Activity> GetActivityAsync(string messageId);
+        Task DeleteActivityAsync(string messageId);
+        Task DeleteAllActivitiesFromRepoAsync();
     }
 }
