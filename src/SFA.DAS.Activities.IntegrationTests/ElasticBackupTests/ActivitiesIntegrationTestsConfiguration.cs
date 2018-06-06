@@ -2,7 +2,7 @@
 
 namespace SFA.DAS.Activities.IntegrationTests
 {
-    public class ActivitiesIntegrationTestsConfiguration : IMessageServiceBusConfiguration, ICosmosConfiguration
+    public class ActivitiesIntegrationTestsConfiguration : IMessageServiceBusConfiguration, ICosmosConfiguration, IAzureBlobStorageConfiguration
     {
         public string ElasticUrl { get; set; }
         public string ElasticUsername { get; set; }
@@ -12,5 +12,6 @@ namespace SFA.DAS.Activities.IntegrationTests
         public string CosmosPrimaryKey { get; set; }
         public string CosmosCollectionName { get; set; }
         public string MessageServiceBusConnectionString { get; set; }
+        public string LogStorageConnectionString { get; set; }
     }
 }

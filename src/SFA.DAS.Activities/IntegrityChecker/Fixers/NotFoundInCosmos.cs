@@ -1,4 +1,6 @@
 ﻿using System.Collections.Concurrent;
+using System.Threading;
+using System.Threading.Tasks;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
@@ -6,26 +8,21 @@ namespace SFA.DAS.Activities.IntegrityChecker.Fixers
 {
     public class NotFoundInCosmosFixer : IActivityDiscrepancyFixer
     {
-        private readonly IFixActionLogger _actionLogger;
+        private readonly ICosmosActivityDocumentRepository _cosmosRepo;
 
-        public NotFoundInCosmosFixer(IFixActionLogger actionLogger)
+        public NotFoundInCosmosFixer(ICosmosActivityDocumentRepository cosmosRepo)
         {
-            _actionLogger = actionLogger;
+            _cosmosRepo = cosmosRepo;
         }
 
         public bool CanHandle(ActivityDiscrepancy discrepancy)
         {
-            return discrepancy.Issues.HasFlag(ActivityDiscrepancyType.NotFoundInElastic);
+            return discrepancy.Issues.HasFlag(ActivityDiscrepancyType.NotFoundInCosmos);
         }
 
-        public void Fix(ActivityDiscrepancy discrepancy)
+        public Task FixAsync(ActivityDiscrepancy discrepancy, CancellationToken cancellationToken)
         {
-            _actionLogger.Add(new FixActionLoggerItem
-            {
-                FixerType = typeof(NotFoundInCosmosFixer),
-                Discrepancy = discrepancy.Issues,
-                Id = discrepancy.Id.Id
-            });
+            return _cosmosRepo.UpsertActivityAsync(discrepancy.Activity);
         }
     }
 }

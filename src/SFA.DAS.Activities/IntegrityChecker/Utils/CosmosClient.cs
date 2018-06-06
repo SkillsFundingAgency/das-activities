@@ -13,32 +13,35 @@ using SFA.DAS.Activities.Configuration;
 
 namespace SFA.DAS.Activities.ActivitySavers
 {
-
     class CosmosClient : ICosmosClient
     {
         private readonly ICosmosConfiguration _config;
+        private readonly IDocumentCollectionConfigurator _documentCollectionConfigurator;
         private readonly Lazy<DocumentClient> _client;
+        private readonly ConcurrentDictionary<string, DocumentCollection> _knownCollections;
         private readonly ConcurrentDictionary<string, Uri> _collections = new ConcurrentDictionary<string, Uri>();
         private RequestOptions _requestOptions;
 
-        public CosmosClient(ICosmosConfiguration messageServiceBusConfiguration)
+        public CosmosClient(ICosmosConfiguration messageServiceBusConfiguration, IDocumentCollectionConfigurator documentCollectionConfigurator)
         {
             _client = new Lazy<DocumentClient>(InitialiseClient);
+            _documentCollectionConfigurator = documentCollectionConfigurator;
             _config = messageServiceBusConfiguration;
+            _knownCollections = new ConcurrentDictionary<string, DocumentCollection>();
         }
 
         public DocumentClient Client => _client.Value;
 
         public Task UpsertDocumentAsync(string collection, object entity)
         {
-            var collectionUri = _collections.GetOrAdd(collection, GetCollectionUri);
+            var collectionUri = GetCollectionUri(collection);
 
             return Client.UpsertDocumentAsync(collectionUri, entity, _requestOptions);
         }
 
-        public async Task<CosmosClientQueryResult<TDocumentType>> GetPageAsync<TDocumentType, TKey>(string collection, string continuationToken, Expression<Func<TDocumentType, TKey>> orderby, int pageSize) 
+        public async Task<CosmosClientQueryResult<TDocumentType>> GetPageAsync<TDocumentType, TKey>(string collection, string continuationToken, Expression<Func<TDocumentType, TKey>> orderby, int pageSize)
         {
-            var collectionUri = _collections.GetOrAdd(collection, GetCollectionUri);
+            var collectionUri = GetCollectionUri(collection);
 
             var options = new FeedOptions
             {
@@ -63,7 +66,7 @@ namespace SFA.DAS.Activities.ActivitySavers
 
         public async Task<TDocumentType> GetDocumentAsync<TDocumentType>(string collection, Expression<Func<TDocumentType, bool>> selector)
         {
-            var collectionUri = _collections.GetOrAdd(collection, GetCollectionUri);
+            var collectionUri = GetCollectionUri(collection);
 
             var options = new FeedOptions
             {
@@ -77,12 +80,12 @@ namespace SFA.DAS.Activities.ActivitySavers
 
             var item = await query.ExecuteNextAsync<TDocumentType>();
 
-            return item.SingleOrDefault();
+            return item.Single();
         }
 
-        public async Task DeleteDocumentsAsync<TDocumentType>(string collectionName, Expression<Func<TDocumentType, bool>> selector)
+        public async Task DeleteDocumentsAsync<TDocumentType>(string collection, Expression<Func<TDocumentType, bool>> selector)
         {
-            var collectionUri = _collections.GetOrAdd(collectionName, GetCollectionUri);
+            var collectionUri = GetCollectionUri(collection);
 
             var options = new FeedOptions
             {
@@ -104,25 +107,36 @@ namespace SFA.DAS.Activities.ActivitySavers
             }
         }
 
-        public async Task RecreateCollection(string collectionName)
+        public async Task RecreateCollection(string collection)
         {
-            var collectionUri = _collections.GetOrAdd(collectionName, GetCollectionUri);
+            var collectionUri = GetCollectionUri(collection);
+
             await _client.Value.DeleteDocumentCollectionAsync(collectionUri);
 
-            await EnsureCollectionExists(collectionName);
+            await EnsureCollectionExists(collection);
+        }
+
+        private Uri EnsureCollectionAndGetUri(string collectionName)
+        {
+            RunWithTimeOut(EnsureCollectionExists(collectionName));
+
+            return GetCollectionUri(collectionName);
         }
 
         private Uri GetCollectionUri(string collectionName)
         {
-            RunWithTimeOut(EnsureCollectionExists(collectionName));
-
-            return UriFactory.CreateDocumentCollectionUri(_config.CosmosDatabase, collectionName);
+            return _collections.GetOrAdd(collectionName, name => UriFactory.CreateDocumentCollectionUri(_config.CosmosDatabase, name));
         }
+
+        private readonly ConcurrentDictionary<string, object> _collectionsKnownToExists = new ConcurrentDictionary<string, object>();
 
         private Task EnsureCollectionExists(string collectionName)
         {
             var databaseUri = GetDatabaseUri();
-            return Client.CreateDocumentCollectionIfNotExistsAsync(databaseUri, new DocumentCollection { Id = collectionName });
+
+            var collection = _documentCollectionConfigurator.ConfigureCollection(collectionName);
+
+            return Client.CreateDocumentCollectionIfNotExistsAsync(databaseUri, collection);
         }
 
         private Uri GetDatabaseUri()
@@ -139,7 +153,8 @@ namespace SFA.DAS.Activities.ActivitySavers
                 {
                     Formatting = Formatting.None,
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
-                }
+                },
+                ConsistencyLevel = ConsistencyLevel.Strong
             };
 
             RunWithTimeOut(client.CreateDatabaseIfNotExistsAsync(new Database { Id = _config.CosmosDatabase }));

@@ -2,13 +2,13 @@
 {
     public class ActivityDiscrepancy
     {
-        public ActivityDiscrepancy(Activity id, ActivityDiscrepancyType issues)
+        public ActivityDiscrepancy(Activity activity, ActivityDiscrepancyType issues)
         {
-            Id = id;
+            Activity = activity;
             Issues = issues;
         }
 
-        public Activity Id { get; }
+        public Activity Activity { get; }
         public ActivityDiscrepancyType Issues { get; }
     }
 }

@@ -1,4 +1,5 @@
 using SFA.DAS.Activities.Configuration;
+using SFA.DAS.Activities.DependencyResolver;
 using SFA.DAS.Activities.Worker.ActivitySavers;
 using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Activities.Worker.Policies;

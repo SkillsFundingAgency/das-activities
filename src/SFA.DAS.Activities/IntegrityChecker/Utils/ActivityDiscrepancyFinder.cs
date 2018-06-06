@@ -51,8 +51,9 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
 
             _logger.Debug($"Fetch id:{thisFetchId} request-page-size:{pagingData.RequiredPageSize} repo:{pagingData.Repository.GetType().Name}");
 
-            var haveReachedLimit = pagingData.MaximumInspections.HasValue &&
-                                   pagingData.MaximumInspections <= pagingData.Inspections;
+            var haveReachedLimit = pagingData.DataExhausted || (
+                                   pagingData.MaximumInspections.HasValue &&
+                                   pagingData.MaximumInspections <= pagingData.Inspections);
 
             var page = haveReachedLimit ? new Activity[]{} : await pagingData.Repository.GetActivitiesAsync(pagingData);
             pagingData.Inspections = pagingData.Inspections + page.Length;

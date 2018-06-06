@@ -9,6 +9,6 @@ namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
     {
         void Push(ActivityDiscrepancy discrepancy);
         void AddComplete();
-        Task StartQueueProcessingAsync(Action<ActivityDiscrepancy> action, CancellationToken cancellationToken);
+        Task StartQueueProcessingAsync(Func<ActivityDiscrepancy, CancellationToken, Task> fixer, CancellationToken cancellationToken);
     }
 }

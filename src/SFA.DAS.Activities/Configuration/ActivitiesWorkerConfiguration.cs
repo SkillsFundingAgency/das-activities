@@ -1,8 +1,8 @@
 ﻿using SFA.DAS.Activities.Configuration;
 
-namespace SFA.DAS.Activities.Worker
+namespace SFA.DAS.Activities.DependencyResolver
 {
-    public class ActivitiesWorkerConfiguration : IMessageServiceBusConfiguration, ICosmosConfiguration, IElasticConfiguration
+    public class ActivitiesWorkerConfiguration : IMessageServiceBusConfiguration, ICosmosConfiguration, IElasticConfiguration, IAzureBlobStorageConfiguration
     {
         public string ElasticUrl { get; set; }
         public string ElasticUsername { get; set; }
@@ -12,5 +12,6 @@ namespace SFA.DAS.Activities.Worker
         public string CosmosPrimaryKey { get; set; }
         public string CosmosCollectionName { get; set; }
         public string MessageServiceBusConnectionString { get; set; }
+        public string LogStorageConnectionString { get; set; }
     }
 }

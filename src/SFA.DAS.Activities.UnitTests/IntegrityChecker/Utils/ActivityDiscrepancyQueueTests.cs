@@ -33,13 +33,14 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
     {
         private readonly ConcurrentStack<ActivityDiscrepancy> _handledMessages = new ConcurrentStack<ActivityDiscrepancy>();
         private Task _processingQueueTask;
-
+	    private readonly GuidMapper _guidMapper;
 
         public ActivityDiscrepancyQueueTestFixtures()
         {
             PushedMessages = new List<ActivityDiscrepancy>();    
             ActivityDiscrepancyQueue = new ActivityDiscrepancyQueue();
             CancellationTokenSource = new CancellationTokenSource();
+	        _guidMapper = new GuidMapper();
         }
 
         public ActivityDiscrepancyQueue ActivityDiscrepancyQueue { get; }
@@ -49,7 +50,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public ActivityDiscrepancyQueueTestFixtures PushMessages(ActivityDiscrepancyType issue, params string[] activityIds)
         {
-            foreach (var activityDiscrepancy in BuildDiscrepancies(issue, activityIds))
+            foreach (var activityDiscrepancy in BuildDiscrepancies(issue, _guidMapper.MapCharsToGuids(activityIds)))
             {
                 ActivityDiscrepancyQueue.Push(activityDiscrepancy);
                 PushedMessages.Add(activityDiscrepancy);
@@ -96,7 +97,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             return this;
         }
 
-        private IEnumerable<ActivityDiscrepancy> BuildDiscrepancies(ActivityDiscrepancyType issue, params string[] activityIds)
+        private IEnumerable<ActivityDiscrepancy> BuildDiscrepancies(ActivityDiscrepancyType issue, params Guid[] activityIds)
         {
             return activityIds.Select(id => new ActivityDiscrepancy(new Activity
             {
@@ -109,9 +110,10 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             }, issue));
         }
 
-        private void LogMessage(ActivityDiscrepancy activityDiscrepancy)
+        private Task LogMessage(ActivityDiscrepancy activityDiscrepancy, CancellationToken cancellationToken)
         {
             _handledMessages.Push(activityDiscrepancy);
+            return Task.CompletedTask;
         }
     }
 }

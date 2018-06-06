@@ -7,7 +7,7 @@ namespace SFA.DAS.Activities.Worker.ObjectMappers
 {
     public class ActivityMapper : IActivityMapper
     {
-        public Activity Map<T>(T from, ActivityType to, Func<T, long> accountId = null, Func<T, DateTime> createdAt = null, string messageId = null) where T : class
+        public Activity Map<T>(T from, ActivityType to, Func<T, long> accountId = null, Func<T, DateTime> createdAt = null, Guid? messageId = null) where T : class
         {
             var data = from.GetType()
                 .GetProperties()
@@ -62,7 +62,7 @@ namespace SFA.DAS.Activities.Worker.ObjectMappers
 
             return new Activity
             {
-                Id = messageId,
+                Id = messageId ?? Guid.Empty,
                 AccountId = accountId(from),
                 At =  createdAt(from),
                 Created = DateTime.UtcNow,

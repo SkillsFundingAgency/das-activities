@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Nest;
 using NUnit.Framework;
@@ -35,19 +36,31 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             fixtures.AssertServiceCanBeConstructed<IActivitiesFix>(false, true);
         }
 
-        [Test]
-        public async Task CreatedActivitiesShouldAppearInBothElasticAndCosmos()
+        [TestCase(1)]
+        [TestCase(5)]
+        [TestCase(10)]
+        [TestCase(20)]
+        public async Task CreatedActivitiesShouldAppearInBothElasticAndCosmos(int activitiesToCreate)
         {
             var fixtures = new IntegrityCheckTestFixtures();
 
-            await fixtures.CreateActivities(50);
+            await fixtures.CreateActivities(activitiesToCreate);
 
-            await fixtures.AssertAllCreatedActivitiesAppearInCosmos();
-            await fixtures.AssertAllCreatedActivitiesAppearInElastic();
+            var tasks = new []
+            {
+                fixtures.AssertAllCreatedActivitiesAppearInCosmos(),
+                fixtures.AssertAllCreatedActivitiesAppearInElastic()
+            };
+
+            await Task.WhenAll(tasks);
         }
 
-        [Test]
-        public async Task ActivitiesMissingInCosmosShouldBeRecreatedFromElastic()
+        [TestCase(1, 0)]
+        [TestCase(1, 1)]
+        [TestCase(5, 0)]
+        [TestCase(5, 2)]
+        [TestCase(5, 5)]
+        public async Task ActivitiesMissingInCosmosShouldBeRecreatedFromElastic(int totalActivitiesRequired, int activitiesToRemoveFromCosmos)
         {
             // arrange
             var fixtures = new IntegrityCheckTestFixtures();
@@ -59,15 +72,24 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             };
 
             await Task.WhenAll(deleteTasks);
-            await fixtures.CreateActivities(10);
-            var randomActivities = fixtures.GetRandomPostedActivities(5);
+            await fixtures.CreateActivities(totalActivitiesRequired);
+
+            var randomActivities = fixtures.GetRandomPostedActivities(activitiesToRemoveFromCosmos);
             await fixtures.DeleteActivitiesFromCosmos(randomActivities);
+            await Task.Delay(10000);
 
             // Act
-            await fixtures.RunIntegrityCheck();
+            await fixtures.RunIntegrityCheck($"_{totalActivitiesRequired}.{activitiesToRemoveFromCosmos}");
+            fixtures.CancellationTokenSource.Cancel();
 
             // Assert
             await fixtures.AssertAllCreatedActivitiesAppearInCosmos();
+            int expectedNumberOfFixes = activitiesToRemoveFromCosmos;
+            int actualNumberOfFixes = fixtures.FixActionLogger.GetFixes().Count();
+            if (actualNumberOfFixes != expectedNumberOfFixes)
+            {
+                Assert.AreEqual(expectedNumberOfFixes, actualNumberOfFixes, "Incorrect number of fixes applied");
+            }
         }
 
         [Test]
@@ -88,7 +110,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             await fixtures.DeleteActivitiesFromCosmos(randomActivities);
 
             // Act
-            await fixtures.RunIntegrityCheck();
+            await fixtures.RunIntegrityCheck(null);
 
             // Assert
             await fixtures.AssertAllCreatedActivitiesAppearInElastic();
@@ -112,7 +134,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             await fixtures.DeleteActivitiesFromCosmos(randomActivities);
 
             // Act
-            await fixtures.RunIntegrityCheck();
+            await fixtures.RunIntegrityCheck(null);
 
             // Assert
             await fixtures.AssertAllCreatedActivitiesAppearInElastic();
@@ -136,7 +158,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             await fixtures.DeleteActivitiesFromCosmos(randomActivities);
 
             // Act
-            await fixtures.RunIntegrityCheck();
+            await fixtures.RunIntegrityCheck(null);
 
             // Assert
             await fixtures.AssertAllCreatedActivitiesAppearInElastic();

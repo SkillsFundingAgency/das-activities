@@ -49,7 +49,12 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
         {
             var messageContext = _messageContextProvider.GetContextForMessageBody(message);
 
-            var activity = _activityMapper.Map(message, activityType, messageId: messageContext.MessageId);
+	        if (!Guid.TryParse(messageContext.MessageId, out Guid messageId))
+	        {
+		        messageId = Guid.Empty;
+	        }
+
+            var activity = _activityMapper.Map(message, activityType, messageId: messageId);
 
             await RunWithTry(() => _cosmosActivityRepository.UpsertActivityAsync(activity), "Saving activity to CosmosDB");
             await RunWithTry(() => _elasticActivityRepository.UpsertActivityAsync(activity), "Saving activity to Elastic");

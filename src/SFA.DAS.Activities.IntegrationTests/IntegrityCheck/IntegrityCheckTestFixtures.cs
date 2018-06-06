@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Host;
 using NUnit.Framework;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
+using SFA.DAS.Activities.IntegrityChecker.Fixers;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.Worker;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.IntegrityChecker.Worker;
 using SFA.DAS.IntegrityChecker.Worker.CreateActivities;
+using SFA.DAS.IntegrityChecker.Worker.Infrastructure;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
 
@@ -42,6 +44,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
         public IMessageContextProvider MessageContextProvider => GetActivityWorkerService<IMessageContextProvider>();
         public ICosmosActivityDocumentRepository CosmosActivityDocumentRepository => GetIntegrityCheckerWorkerService<ICosmosActivityDocumentRepository>();
         public IElasticActivityDocumentRepository ElasticActivityDocumentRepository => GetIntegrityCheckerWorkerService<IElasticActivityDocumentRepository>();
+        public IFixActionLogger FixActionLogger => GetIntegrityCheckerWorkerService<IFixActionLogger>();
         public CancellationTokenSource CancellationTokenSource { get; }
 
         public IntegrityCheckTestFixtures()
@@ -61,10 +64,10 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             return new IntegrityCheckerJob();
         }
 
-        public Task RunIntegrityCheck()
+        public Task RunIntegrityCheck(string lognameSuffix)
         {
             var job = ServiceLocator.Get<IntegrityChecker.IntegrityCheck>();
-            return job.DoAsync(CancellationTokenSource.Token);
+            return job.DoAsync(CancellationTokenSource.Token, lognameSuffix);
         }
 
         public Task CreateActivities(int number)
@@ -76,7 +79,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
                 AccountCreatedMessage message = new AccountCreatedMessage(i, $"User {i}", "UserRef {i}");
                 var messageContext = new FakeMessage<AccountCreatedMessage>(message, Guid.NewGuid().ToString());
 
-                MessageContextProvider.StoreMessageContext<AccountCreatedMessage>(messageContext);
+                MessageContextProvider.StoreMessageContext(messageContext);
 
                 tasks[i] = ActivitySaver
                         .SaveActivity(message, ActivityType.AccountCreated)
@@ -139,22 +142,6 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             }
         }
 
-        private void AssertService<T>(Func<T> serviceGetter, string containerName)
-        {
-            try
-            {
-                var t = serviceGetter();
-                if (t == null)
-                {
-                    throw new NullReferenceException("Service getter function returned null");
-                }
-            }
-            catch (Exception e)
-            {
-                throw new AssertionException($"Could not get an instance of {typeof(T)} from {containerName} container.{Environment.NewLine}{e.Message}", e);
-            }
-        }
-
         public Task AssertAllCreatedActivitiesAppearInCosmos()
         {
             return AssertAllCreatedActivitiesAppearInRepo(CosmosActivityDocumentRepository);
@@ -169,9 +156,14 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
 
         public Activity[] GetRandomPostedActivities(int numberRequired)
         {
-            if (numberRequired < 1 || numberRequired > CreatedActivities.Count)
+            if (numberRequired < 0 || numberRequired > CreatedActivities.Count)
             {
                 throw new ArgumentOutOfRangeException($"Can only pick a random selection of posted activities between 1 and the number of activities that have been posted (which is {CreatedActivities.Count}).");
+            }
+
+            if (numberRequired == 0)
+            {
+                return new Activity[0];
             }
 
             var availableActivities = CreatedActivities.ToArray();
@@ -196,28 +188,6 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             return selectedActivities;
         }
 
-        private Task DeleteActivitiesFromRepo(IActivityDocumentRepository repo, Activity[] activities)
-        {
-            var cosmosRepo = CosmosActivityDocumentRepository;
-            var tasks = new Task[activities.Length];
-
-            for (int i = 0; i < activities.Length; i++)
-            {
-                tasks[i] = cosmosRepo.DeleteActivityAsync(activities[i].Id);
-            }
-
-            return Task.WhenAll(tasks);
-        }
-
-        private async Task AssertAllCreatedActivitiesAppearInRepo(IActivityDocumentRepository repo)
-        {
-            foreach (var postedActivity in CreatedActivities)
-            {
-                var activity = await repo.GetActivityAsync(postedActivity.Id);
-                Assert.IsNotNull(activity, $"Did not find activity with id {postedActivity.Id} in {repo.GetType().FullName}");
-            }
-        }
-
         public T GetIntegrityCheckerWorkerService<T>()
         {
             return IntegrityCheckerContainer.GetInstance<T>();
@@ -240,6 +210,43 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             var container = WebJob.InitializeIoC();
             ServiceLocator.Initialise(container);
             return container;
+        }
+
+        private Task DeleteActivitiesFromRepo(IActivityDocumentRepository repo, Activity[] activities)
+        {
+            var tasks = new Task[activities.Length];
+
+            Parallel.For(0, activities.Length, i =>
+            {
+                tasks[i] = repo.DeleteActivityAsync(activities[i].Id);
+            });
+
+            return Task.CompletedTask;
+        }
+
+        private async Task AssertAllCreatedActivitiesAppearInRepo(IActivityDocumentRepository repo)
+        {
+            foreach (var postedActivity in CreatedActivities)
+            {
+                var activity = await repo.GetActivityAsync(postedActivity.Id);
+                Assert.IsNotNull(activity, $"Did not find activity with id {postedActivity.Id} in {repo.GetType().FullName}");
+            }
+        }
+
+        private void AssertService<T>(Func<T> serviceGetter, string containerName)
+        {
+            try
+            {
+                var t = serviceGetter();
+                if (t == null)
+                {
+                    throw new NullReferenceException("Service getter function returned null");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new AssertionException($"Could not get an instance of {typeof(T)} from {containerName} container.{Environment.NewLine}{e.Message}", e);
+            }
         }
     }
 }

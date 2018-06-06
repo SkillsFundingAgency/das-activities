@@ -15,13 +15,13 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
 		{
 			for (int i = 1; i < activities.Length; i++)
 			{
-				if (string.CompareOrdinal(activities[i - 1].Id, activities[i].Id) >= 0)
+				if (activities[i - 1].Id.CompareTo(activities[i].Id) >= 0)
 				{
 					throw new Exception("Messages are not in the correct sequence");
 				}
 			}
 		}
-	}
+    }
 
     public class ElasticActivityDocumentRepository : IElasticActivityDocumentRepository
     {
@@ -64,16 +64,16 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
             return activities;
         }
 
-        public async Task<Activity> GetActivityAsync(string messageId)
+        public async Task<Activity> GetActivityAsync(Guid messageId)
         {
             var result = await _client.SearchAsync<Activity>(s =>
-                s.Query(q => q.Bool(b => b.Filter(bf => bf.Ids(iqd => new IdsQuery {Values = new []{ new Id(messageId)}})))));
+                s.Query(q => q.Bool(b => b.Filter(bf => bf.Ids(iqd => new IdsQuery {Values = new []{ new Id(messageId.ToString())}})))));
 
             var activity = result.Documents.SingleOrDefault();
             return activity;
         }
 
-        public Task DeleteActivityAsync(string messageId)
+        public Task DeleteActivityAsync(Guid messageId)
         {
             return _client.DeleteAsync<Activity>(messageId);
         }
