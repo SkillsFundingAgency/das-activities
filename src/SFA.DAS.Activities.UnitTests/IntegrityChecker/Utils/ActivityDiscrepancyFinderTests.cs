@@ -74,8 +74,9 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
     {
 
         private readonly Lazy<ActivityDiscrepancy[]> _results;
+	    private readonly GuidMapper _guidMapper;
 
-        public ActivityDiscrepancyFinderTestFixtures()
+		public ActivityDiscrepancyFinderTestFixtures()
         {
             CosmosRepoMock = new Mock<ICosmosActivityDocumentRepository>();
             CosmosPagingDataMock = new Mock<IPagingData>();
@@ -97,6 +98,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             BatchSize = 5;
 
             _results = new Lazy<ActivityDiscrepancy[]>(RunScan);
+			_guidMapper = new GuidMapper();
         }
 
         public Mock<IPagingData> CosmosPagingDataMock { get; set; }
@@ -134,7 +136,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public ActivityDiscrepancyFinderTestFixtures AddCosmosPage(params string[] activityIds)
         {
-            AddPage(CosmosPages, activityIds);
+            AddPage(CosmosPages, _guidMapper.MapCharsToGuids(activityIds));
             return this;
         }
 
@@ -144,12 +146,12 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             {
                 var thisPageSize = p < numberOfPagesRequired - 1 ? pageSize : lastPageSize;
 
-                var page = new string[thisPageSize];
+                var page = new char[thisPageSize];
                 for(int r = 0; r < thisPageSize; r++)
                 {
-                    page[r] = $"msg:{p}.{r} of {thisPageSize}";
+                    page[r] = (char) r;
                 }
-                AddPage(CosmosPages, page);
+                AddPage(CosmosPages, _guidMapper.MapCharsToGuids(page));
             }
 
             return this;
@@ -157,7 +159,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public ActivityDiscrepancyFinderTestFixtures AddElasticPage(params string[] activityIds)
         {
-            AddPage(ElasticPages, activityIds);
+            AddPage(ElasticPages, _guidMapper.MapCharsToGuids(activityIds));
             return this;
         }
 
@@ -209,7 +211,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public int BatchSize { get; set; }
 
-        private void AddPage(List<Activity[]> repo, string[] activityIds)
+        private void AddPage(List<Activity[]> repo, Guid[] activityIds)
         {
             var activities = activityIds.Select(id => new Activity
             {
@@ -250,6 +252,40 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             return actualResults;
         }
     }
+
+	public class GuidMapper
+	{
+		private Guid[] _guids = new Guid[26];
+
+		public Guid[] MapCharsToGuids(char[] chars)
+		{
+			EnsureInitialised();
+
+			return chars.Select(c => _guids[c]).ToArray();
+		}
+
+		public Guid[] MapCharsToGuids(string[] chars)
+		{
+			EnsureInitialised();
+
+			return chars.Where(s => s.Length == 1 && char.IsLetter(s[0])).Select(s => _guids[s[0]]).ToArray();
+		}
+
+		private void EnsureInitialised()
+		{
+			if (_guids == null)
+			{
+				return;
+			}
+
+			_guids = new Guid[26];
+
+			for (int i = 0; i < _guids.Length; i++)
+			{
+				_guids[i] = Guid.NewGuid();
+			}
+		}
+	}
 
     public class PageCallDetails
     {

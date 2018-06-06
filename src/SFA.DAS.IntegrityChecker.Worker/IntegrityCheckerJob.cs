@@ -22,7 +22,7 @@ namespace SFA.DAS.IntegrityChecker.Worker
         {
             var integrityCheck = ServiceLocator.Get<IntegrityCheck>();
 
-            var task = integrityCheck.DoAsync(cancellationToken);
+            var task = integrityCheck.DoAsync(cancellationToken, "_scheduledJob");
 
             task.Wait(cancellationToken);
         }

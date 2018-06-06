@@ -1,15 +1,17 @@
-﻿using SFA.DAS.Activities.IntegrityChecker.Dto;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Fixers
 {
     public class NotFoundInElasticFixer : IActivityDiscrepancyFixer
     {
-        private readonly IFixActionLogger _actionLogger;
+        private readonly IElasticActivityDocumentRepository _elasticRepo;
 
-        public NotFoundInElasticFixer(IFixActionLogger actionLogger)
+        public NotFoundInElasticFixer(IElasticActivityDocumentRepository elasticRepo)
         {
-            _actionLogger = actionLogger;
+            _elasticRepo = elasticRepo;
         }
 
         public bool CanHandle(ActivityDiscrepancy discrepancy)
@@ -17,14 +19,9 @@ namespace SFA.DAS.Activities.IntegrityChecker.Fixers
             return discrepancy.Issues.HasFlag(ActivityDiscrepancyType.NotFoundInElastic);
         }
 
-        public void Fix(ActivityDiscrepancy discrepancy)
+        public Task FixAsync(ActivityDiscrepancy discrepancy, CancellationToken cancellationToken)
         {
-            _actionLogger.Add(new FixActionLoggerItem
-            {
-                FixerType = typeof(NotFoundInElasticFixer),
-                Discrepancy = discrepancy.Issues,
-                Id = discrepancy.Id.Id
-            });
+            return _elasticRepo.UpsertActivityAsync(discrepancy.Activity);
         }
     }
 }

@@ -1,9 +1,7 @@
-using System.Data;
 using SFA.DAS.Activities.DependencyResolver;
-using SFA.DAS.IntegrityChecker.Worker.Infrastructure;
 using StructureMap;
 
-namespace SFA.DAS.IntegrityChecker.Worker
+namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
 {
     public static class WebJob
     {
@@ -13,6 +11,7 @@ namespace SFA.DAS.IntegrityChecker.Worker
             {
                 c.AddRegistry<ElasticRegistry>();
                 c.AddRegistry<CosmosRegistry>();
+                c.AddRegistry<AzureRegistry>();
                 c.AddRegistry<IntegrityCheckerRegistry>();
             });
         }

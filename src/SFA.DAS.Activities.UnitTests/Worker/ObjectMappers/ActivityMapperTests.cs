@@ -26,7 +26,7 @@ namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
 
             protected override void When()
             {
-                _activity = _mapper.Map(_event, ActivityType.PayeSchemeAdded, e => e.AccountId, e => e.CreatedAt, messageId: Guid.NewGuid().ToString());
+                _activity = _mapper.Map(_event, ActivityType.PayeSchemeAdded, e => e.AccountId, e => e.CreatedAt, messageId: Guid.NewGuid());
             }
 
             [Test]

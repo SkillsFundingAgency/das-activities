@@ -5,7 +5,7 @@ namespace SFA.DAS.Activities
 {
     public class Activity : IComparable
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public long AccountId { get; set; }
         public DateTime At { get; set; }
         public DateTime Created { get; set; }
@@ -21,7 +21,7 @@ namespace SFA.DAS.Activities
 
             if (obj is Activity activity)
             {
-                return String.Compare(Id, activity.Id, StringComparison.Ordinal);
+                return Id.CompareTo(activity.Id);
             }
 
             throw new ArgumentException($"Cannot compare type {nameof(Activity)} to {obj.GetType().FullName}");

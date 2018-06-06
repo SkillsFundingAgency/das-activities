@@ -5,7 +5,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
 {
     /// <summary>
     ///     Observes the <see cref="IActivityDiscrepancyQueue"/> for issues and fixes them using 
-    ///     the available <see cref="IActivityDiscrepancyFixer"/> registered.
+    ///     the available <see cref="IActivityDiscrepancyFixer"/> registered with IoC.
     /// </summary>
     public interface IActivitiesFix
     {

@@ -30,7 +30,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:5.6.5
     environment:
-      - elasticsearch_url=HTTP://elasticsearch:9200
+      - ELASTICSEARCH_URL=HTTP://elasticsearch:9200
       - xpack.monitoring.enabled=false
       - xpack.monitoring.kibana.collection.enabled=false
       - xpack.monitoring.ui.enabled=false

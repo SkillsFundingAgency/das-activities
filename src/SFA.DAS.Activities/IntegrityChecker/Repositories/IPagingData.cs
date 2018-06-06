@@ -17,5 +17,6 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
         int Inspections { get; set; }
         IActivityDocumentRepository Repository { get; }
         int? MaximumInspections { get; }
+        bool DataExhausted { get; }
     }
 }

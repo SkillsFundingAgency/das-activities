@@ -30,6 +30,11 @@ namespace SFA.DAS.Activities.IntegrityChecker
 
                 foreach (var discrepancy in discrepancies)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
                     _discrepancyQueue.Push(discrepancy);
                 }
 
