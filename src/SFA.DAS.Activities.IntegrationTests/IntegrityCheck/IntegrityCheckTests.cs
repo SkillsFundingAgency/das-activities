@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nest;
 using NUnit.Framework;
+using SFA.DAS.Activities.ActivitySavers;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using StructureMap;
@@ -34,6 +35,8 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             fixtures.AssertServiceCanBeConstructed<IActivitySaver>(true, false);
             fixtures.AssertServiceCanBeConstructed<IActivitiesScan>(false, true);
             fixtures.AssertServiceCanBeConstructed<IActivitiesFix>(false, true);
+            fixtures.AssertServiceCanBeConstructed<IDocumentCollectionConfigurator>(true, true);
+            fixtures.AssertServiceCanBeConstructed<IActivityDiscrepancyFinder>(false, true);
         }
 
         [TestCase(1)]
@@ -65,17 +68,12 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             // arrange
             var fixtures = new IntegrityCheckTestFixtures();
 
-            var deleteTasks = new Task[]
-            {
-                fixtures.DeleteAllActivitiesFromCosmos(),
-                fixtures.DeleteAllActivitiesFromElastic()
-            };
+            await fixtures.DeleteAllExistingActivitiesFromElasticAndCosmos();
 
-            await Task.WhenAll(deleteTasks);
             await fixtures.CreateActivities(totalActivitiesRequired);
 
-            var randomActivities = fixtures.GetRandomPostedActivities(activitiesToRemoveFromCosmos);
-            await fixtures.DeleteActivitiesFromCosmos(randomActivities);
+            await fixtures.DeleteActivitiesFromCosmos(activitiesToRemoveFromCosmos);
+
             await Task.Delay(10000);
 
             // Act
