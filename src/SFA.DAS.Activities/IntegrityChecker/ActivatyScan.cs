@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
@@ -21,12 +22,12 @@ namespace SFA.DAS.Activities.IntegrityChecker
             _discrepancyQueue = discrepancyQueue;
         }
 
-        public Task ScanForDiscrepanciesAsync(ActivityScanParams scanParameters, CancellationToken cancellationToken)
+        public Task ScanForDiscrepanciesAsync(IIntegrityCheckConfiguration scanParameters, IFixActionReaderLogger logger, CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
 
-                var discrepancies = BuildQueue(scanParameters);
+                var discrepancies = BuildQueue(scanParameters, logger);
 
                 foreach (var discrepancy in discrepancies)
                 {
@@ -42,18 +43,16 @@ namespace SFA.DAS.Activities.IntegrityChecker
             }, cancellationToken);
         }
 
-        private IEnumerable<ActivityDiscrepancy> BuildQueue(ActivityScanParams scanParameters)
+        private IEnumerable<ActivityDiscrepancy> BuildQueue(IIntegrityCheckConfiguration scanParameters, IFixActionReaderLogger logger)
         {
-            IEnumerable<ActivityDiscrepancy> discrepancies;
+            var parameters = new ActivityDiscrepancyFinderParameters
+            {
+                BatchSize = scanParameters.CosmosPageSize,
+                MaxInspections = scanParameters.MaxInspections,
+                ReaderLogger = logger
+            };
 
-            if (scanParameters.MaxInspections.HasValue && scanParameters.MaxInspections > -1)
-            {
-                discrepancies = _finder.Scan(scanParameters.ScanBatchSize, scanParameters.MaxInspections.Value);
-            }
-            else
-            {
-                discrepancies = _finder.Scan(scanParameters.ScanBatchSize);
-            }
+            IEnumerable<ActivityDiscrepancy> discrepancies = _finder.Scan(parameters);
 
             if (scanParameters.MaxDiscrepancies.HasValue && scanParameters.MaxDiscrepancies > -1)
             {

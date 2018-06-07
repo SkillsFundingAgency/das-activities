@@ -12,6 +12,7 @@ namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
                 c.AddRegistry<ElasticRegistry>();
                 c.AddRegistry<CosmosRegistry>();
                 c.AddRegistry<AzureRegistry>();
+                c.AddRegistry<IntegrityCheckRegistry>();
                 c.AddRegistry<IntegrityCheckerRegistry>();
             });
         }

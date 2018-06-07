@@ -13,27 +13,24 @@ namespace SFA.DAS.Activities.IntegrityChecker
     {
         private readonly IActivityDiscrepancyQueue _discrepancyQueue;
         private readonly IActivityDiscrepancyFixer[] _fixers;
-        private readonly IFixActionLogger _actionLogger;
 
         public ActivitiesFix(
             IActivityDiscrepancyQueue discrepancyQueue, 
-            IActivityDiscrepancyFixer[] fixers,
-            IFixActionLogger actionLogger)
+            IActivityDiscrepancyFixer[] fixers)
         {
             _discrepancyQueue = discrepancyQueue;
             _fixers = fixers;
-            _actionLogger = actionLogger;
         }
 
-        public Task FixDiscrepanciesAsync(CancellationToken cancellationToken)
+        public Task FixDiscrepanciesAsync(IFixActionLogger logger, CancellationToken cancellationToken)
         {
-            return _discrepancyQueue.StartQueueProcessingAsync(FixDiscrepancy, cancellationToken);
+            return _discrepancyQueue.StartQueueProcessingAsync(FixDiscrepancy, logger, cancellationToken);
         }
 
-        private async Task FixDiscrepancy(ActivityDiscrepancy discrepancy, CancellationToken cancellationToken)
+        private async Task FixDiscrepancy(ActivityDiscrepancy discrepancy, IFixActionLogger logger, CancellationToken cancellationToken)
         {
             var logItem = CreateNewLogItemForDiscrepancy(discrepancy);
-            _actionLogger.Add(logItem);
+            logger.Add(logItem);
 
             foreach(var fixer in _fixers.Where(f => f.CanHandle(discrepancy)))
             {
@@ -62,7 +59,7 @@ namespace SFA.DAS.Activities.IntegrityChecker
             CancellationToken cancellationToken)
         {
             var handlerLogItem = new FixActionHandlerLoggerItem(fixer);
-            logItem.HandledBy.Add(handlerLogItem);
+            logItem.Add(handlerLogItem);
 
             var sw = new Stopwatch();
             sw.Start();

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace SFA.DAS.Activities.IntegrityChecker.Repositories
+namespace SFA.DAS.Activities.IntegrityChecker.Dto
 {
     /// <remarks>
     ///     When serialising objects DocumentDb will respect the json serialisation settings, which is what converts the property "Id" to the
@@ -29,6 +29,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
             Activity = new Activity();
         }
 
+        [JsonIgnore]
         public Activity Activity { get; }
 
         [JsonProperty("id")]

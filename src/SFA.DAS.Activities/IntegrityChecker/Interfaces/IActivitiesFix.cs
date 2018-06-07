@@ -9,6 +9,6 @@ namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
     /// </summary>
     public interface IActivitiesFix
     {
-        Task FixDiscrepanciesAsync(CancellationToken cancellationToken);
+        Task FixDiscrepanciesAsync(IFixActionLogger logger, CancellationToken cancellationToken);
     }
 }

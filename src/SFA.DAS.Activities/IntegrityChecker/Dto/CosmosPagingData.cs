@@ -1,13 +1,13 @@
 ﻿using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
-namespace SFA.DAS.Activities.IntegrityChecker.Repositories
+namespace SFA.DAS.Activities.IntegrityChecker.Dto
 {
-    public class ElasticPagingData : IPagingData
+    public class CosmosPagingData : IPagingData
     {
         private int _inspections;
         private bool _haveFetchedFirstPage;
 
-        public ElasticPagingData(IActivityDocumentRepository repository, int requiredPageSize, int? maximumInspections)
+        public CosmosPagingData(IActivityDocumentRepository repository, int requiredPageSize, int? maximumInspections)
         {
             Repository = repository;
             RequiredPageSize = requiredPageSize;
@@ -15,23 +15,22 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
             _haveFetchedFirstPage = false;
         }
 
-        public bool MoreDataAvailable { get; set; }
-
-        public int FromIndex { get; set; }
-
+        public bool MoreDataAvailable => !_haveFetchedFirstPage || !string.IsNullOrWhiteSpace(ContinuationToken);
+        public string ContinuationToken { get; set; }
         public int RequiredPageSize { get; set; }
-        public int CurrentPage { get; set; }
+        public int CurrentPageSize { get; set; }
+
         public int Inspections
         {
             get => _inspections;
-            set
+            set 
             {
                 _haveFetchedFirstPage = true;
                 _inspections = value;
             }
         }
+
         public IActivityDocumentRepository Repository { get; }
         public int? MaximumInspections { get; }
-        public bool DataExhausted => _haveFetchedFirstPage && !MoreDataAvailable;
     }
 }

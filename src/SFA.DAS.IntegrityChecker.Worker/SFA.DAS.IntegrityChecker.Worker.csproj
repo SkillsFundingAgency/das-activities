@@ -189,6 +189,7 @@
     <Compile Include="Infrastructure\IJobHostFactory.cs" />
     <Compile Include="Infrastructure\IntegrityCheckerWorkerConfiguration.cs" />
     <Compile Include="Infrastructure\IntegrityCheckerRegistry.cs" />
+    <Compile Include="Infrastructure\SingletonConvention.cs" />
     <Compile Include="IntegrityCheckerJob.cs" />
     <Compile Include="Infrastructure\IWebJobConfiguration.cs" />
     <Compile Include="Infrastructure\JobHostFactory.cs" />

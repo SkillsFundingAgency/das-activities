@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Exceptions;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
@@ -38,6 +37,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
             cosmosPagingData.ContinuationToken = cosmosResults.ContinuationToken;
 
 	        var activities = cosmosResults.Items.Select(ca => ca.Activity).ToArray();
+            cosmosPagingData.CurrentPageSize = activities.Length;
 
 	        activities.AssertInIdOrder();
 

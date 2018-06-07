@@ -1,9 +1,13 @@
-﻿using SFA.DAS.Activities.Configuration;
-
-namespace SFA.DAS.Activities.DependencyResolver
+﻿namespace SFA.DAS.Activities.Configuration
 {
-    public class ActivitiesWorkerConfiguration : IMessageServiceBusConfiguration, ICosmosConfiguration, IElasticConfiguration, IAzureBlobStorageConfiguration
+    public class ActivitiesWorkerConfiguration : IMessageServiceBusConfiguration, ICosmosConfiguration, IElasticConfiguration, IAzureBlobStorageConfiguration, IIntegrityCheckConfiguration
     {
+        public ActivitiesWorkerConfiguration()
+        {
+            CosmosPageSize = 500;
+            ElasticPageSize = 2500;
+        }
+
         public string ElasticUrl { get; set; }
         public string ElasticUsername { get; set; }
         public string ElasticPassword { get; set; }
@@ -13,5 +17,9 @@ namespace SFA.DAS.Activities.DependencyResolver
         public string CosmosCollectionName { get; set; }
         public string MessageServiceBusConnectionString { get; set; }
         public string LogStorageConnectionString { get; set; }
+        public int CosmosPageSize { get; set; }
+        public int ElasticPageSize { get; set; }
+        public int? MaxInspections { get; set; }
+        public int? MaxDiscrepancies { get; set; }
     }
 }

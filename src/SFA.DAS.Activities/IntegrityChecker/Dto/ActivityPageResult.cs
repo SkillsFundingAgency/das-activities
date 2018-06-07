@@ -1,4 +1,4 @@
-﻿using SFA.DAS.Activities.IntegrityChecker.Repositories;
+﻿using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Dto
 {

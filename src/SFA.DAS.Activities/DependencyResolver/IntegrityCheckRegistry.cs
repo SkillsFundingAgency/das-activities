@@ -7,19 +7,18 @@ using StructureMap;
 
 namespace SFA.DAS.Activities.DependencyResolver
 {
-    public class AzureRegistry : Registry
+    public class IntegrityCheckRegistry : Registry
     {
         private const string ServiceName = "SFA.DAS.Activities";
         private const string Version = "1.0";
 
         private static readonly ILog Log = new NLogLogger(typeof(AzureRegistry));
 
-        public AzureRegistry()
+        public IntegrityCheckRegistry()
         {
             var config = ConfigurationHelper.GetConfiguration<ActivitiesWorkerConfiguration>(ServiceName, Version);
 
-            For<IAzureBlobStorageConfiguration>().Use(config);
-            For<IAzureBlobRepository>().Use<AzureBlobRepository>().Singleton();
+            For<IIntegrityCheckConfiguration>().Use(config);
         }
     }
 }

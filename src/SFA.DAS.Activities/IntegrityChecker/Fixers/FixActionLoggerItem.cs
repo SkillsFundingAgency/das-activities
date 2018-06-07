@@ -6,9 +6,19 @@ namespace SFA.DAS.Activities.IntegrityChecker.Fixers
 {
     public class FixActionLoggerItem
     {
-        public Type FixerType { get; set; }
+        private readonly List<FixActionHandlerLoggerItem> _handlers = new List<FixActionHandlerLoggerItem>();
+
         public ActivityDiscrepancyType Discrepancy { get; set; }
         public Guid Id { get; set; }
-        public List<FixActionHandlerLoggerItem> HandledBy = new List<FixActionHandlerLoggerItem>();
+        public bool Handled => _handlers.Count > 0;
+        public bool Success { get; private set; } = true;
+    
+        public IReadOnlyList<FixActionHandlerLoggerItem> HandledBy => _handlers;
+
+        public void Add(FixActionHandlerLoggerItem item)
+        {
+            _handlers.Add(item);
+            Success = Success && item.Success;
+        }
     }
 }

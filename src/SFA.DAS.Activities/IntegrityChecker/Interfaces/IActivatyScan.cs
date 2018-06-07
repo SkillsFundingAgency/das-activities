@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using SFA.DAS.Activities.Configuration;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
 {
@@ -8,6 +9,6 @@ namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
     /// </summary>
     public interface IActivitiesScan
     {
-        Task ScanForDiscrepanciesAsync(ActivityScanParams scanParameters, CancellationToken cancellationToken);
+        Task ScanForDiscrepanciesAsync(IIntegrityCheckConfiguration scanParameters, IFixActionReaderLogger logger, CancellationToken cancellationToken);
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.Azure.WebJobs.Host;
 using Nest;
 using NUnit.Framework;
 using SFA.DAS.Activities.Configuration;
+using SFA.DAS.Activities.IntegrityChecker;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Fixers;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
@@ -46,7 +47,6 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
         public IMessageContextProvider MessageContextProvider => GetActivityWorkerService<IMessageContextProvider>();
         public ICosmosActivityDocumentRepository CosmosActivityDocumentRepository => GetIntegrityCheckerWorkerService<ICosmosActivityDocumentRepository>();
         public IElasticActivityDocumentRepository ElasticActivityDocumentRepository => GetIntegrityCheckerWorkerService<IElasticActivityDocumentRepository>();
-        public IFixActionLogger FixActionLogger => GetIntegrityCheckerWorkerService<IFixActionLogger>();
         public CancellationTokenSource CancellationTokenSource { get; }
 
         public IntegrityCheckTestFixtures()
@@ -66,10 +66,15 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             return new IntegrityCheckerJob();
         }
 
-        public Task RunIntegrityCheck(string lognameSuffix)
+        public async Task<FixActionLogger> RunIntegrityCheck(string lognameSuffix)
         {
+            await RefreshElasticIndex();
+
             var job = ServiceLocator.Get<IntegrityChecker.IntegrityCheck>();
-            return job.DoAsync(CancellationTokenSource.Token, lognameSuffix);
+            var logger = await job.DoAsync(CancellationTokenSource.Token, lognameSuffix);
+
+            await RefreshElasticIndex();
+            return logger;
         }
 
         public Task CreateActivities(int number)
@@ -90,7 +95,6 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             }
 
             return Task.WhenAll(tasks)
-                .ContinueWith(task => RefreshElasticIndex())
                 .ContinueWith(task =>
                 {
                     Assert.IsTrue(tasks.All(t => t.IsCompleted), "At least one creation task did not complete");
@@ -244,7 +248,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
                 tasks[i] = repo.DeleteActivityAsync(activities[i].Id);
             });
 
-            return Task.CompletedTask;
+            return Task.WhenAll(tasks);
         }
 
         private async Task AssertAllCreatedActivitiesAppearInRepo(IActivityDocumentRepository repo)

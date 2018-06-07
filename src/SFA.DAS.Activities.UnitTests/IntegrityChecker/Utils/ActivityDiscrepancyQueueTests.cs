@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using SFA.DAS.Activities.IntegrityChecker;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
+using SFA.DAS.Activities.IntegrityChecker.Fixers;
+using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.IntegrityChecker.Utils;
 
 namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
@@ -66,7 +68,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         public ActivityDiscrepancyQueueTestFixtures StartProcessingQueue()
         {
-            _processingQueueTask = ActivityDiscrepancyQueue.StartQueueProcessingAsync(LogMessage, CancellationTokenSource.Token);
+            _processingQueueTask = ActivityDiscrepancyQueue.StartQueueProcessingAsync(LogMessage, new FixActionLogger(), CancellationTokenSource.Token);
             return this;
         }
 
@@ -115,7 +117,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
             }, issue));
         }
 
-        private Task LogMessage(ActivityDiscrepancy activityDiscrepancy, CancellationToken cancellationToken)
+        private Task LogMessage(ActivityDiscrepancy activityDiscrepancy, IFixActionLogger logger, CancellationToken cancellationToken)
         {
             _handledMessages.Push(activityDiscrepancy);
             return Task.CompletedTask;

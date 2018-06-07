@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
-using Nest;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SFA.DAS.Activities.Configuration;
+using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
-namespace SFA.DAS.Activities.ActivitySavers
+namespace SFA.DAS.Activities.IntegrityChecker.Utils
 {
     class CosmosClient : ICosmosClient
     {
         private readonly ICosmosConfiguration _config;
         private readonly IDocumentCollectionConfigurator _documentCollectionConfigurator;
         private readonly Lazy<DocumentClient> _client;
-        private readonly ConcurrentDictionary<string, DocumentCollection> _knownCollections;
         private readonly ConcurrentDictionary<string, Uri> _collections = new ConcurrentDictionary<string, Uri>();
         private RequestOptions _requestOptions;
 
@@ -27,7 +26,6 @@ namespace SFA.DAS.Activities.ActivitySavers
             _client = new Lazy<DocumentClient>(InitialiseClient);
             _documentCollectionConfigurator = documentCollectionConfigurator;
             _config = messageServiceBusConfiguration;
-            _knownCollections = new ConcurrentDictionary<string, DocumentCollection>();
         }
 
         public DocumentClient Client => _client.Value;
@@ -116,19 +114,10 @@ namespace SFA.DAS.Activities.ActivitySavers
             await EnsureCollectionExists(collection);
         }
 
-        private Uri EnsureCollectionAndGetUri(string collectionName)
-        {
-            RunWithTimeOut(EnsureCollectionExists(collectionName));
-
-            return GetCollectionUri(collectionName);
-        }
-
         private Uri GetCollectionUri(string collectionName)
         {
             return _collections.GetOrAdd(collectionName, name => UriFactory.CreateDocumentCollectionUri(_config.CosmosDatabase, name));
         }
-
-        private readonly ConcurrentDictionary<string, object> _collectionsKnownToExists = new ConcurrentDictionary<string, object>();
 
         private Task EnsureCollectionExists(string collectionName)
         {
@@ -157,6 +146,7 @@ namespace SFA.DAS.Activities.ActivitySavers
                 ConsistencyLevel = ConsistencyLevel.Strong
             };
 
+            
             RunWithTimeOut(client.CreateDatabaseIfNotExistsAsync(new Database { Id = _config.CosmosDatabase }));
             return client;
         }

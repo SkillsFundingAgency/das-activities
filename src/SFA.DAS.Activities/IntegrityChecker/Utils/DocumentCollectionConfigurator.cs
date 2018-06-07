@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.Azure.Documents;
-using SFA.DAS.Activities.ActivitySavers;
 using SFA.DAS.Activities.Configuration;
+using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Utils
 {
