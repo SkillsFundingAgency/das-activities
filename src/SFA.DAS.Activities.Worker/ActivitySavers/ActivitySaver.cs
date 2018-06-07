@@ -32,6 +32,7 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             AssertConstructorArgument(nameof(activityMapper), activityMapper, ref errors);
             AssertConstructorArgument(nameof(cosmosActivityRepository), cosmosActivityRepository, ref errors);
             AssertConstructorArgument(nameof(elasticActivityRepository), elasticActivityRepository, ref errors);
+            AssertConstructorArgument(nameof(logger), logger, ref errors);
             AssertConstructorArgument(nameof(messageContextProvider), messageContextProvider, ref errors);
 
             if (errors != null)
@@ -42,6 +43,7 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             _activityMapper = activityMapper;
             _cosmosActivityRepository = cosmosActivityRepository;
             _elasticActivityRepository = elasticActivityRepository;
+            _logger = logger;
             _messageContextProvider = messageContextProvider;
         }
 

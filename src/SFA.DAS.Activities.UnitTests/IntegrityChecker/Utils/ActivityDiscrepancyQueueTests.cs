@@ -18,11 +18,11 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
         public void StartProcessing_WithSomeMessages_AllMessagesShouldBeProcessedAndTheQueueShouldCloseDown()
         {
             new ActivityDiscrepancyQueueTestFixtures()
-                .PushMessages(ActivityDiscrepancyType.NotFoundInElastic, "COS1", "COS2", "COS3")
-                .PushMessages(ActivityDiscrepancyType.NotFoundInCosmos, "ES1", "ES2", "ES3")
+                .PushMessages(ActivityDiscrepancyType.NotFoundInElastic, "A,B,C")
+                .PushMessages(ActivityDiscrepancyType.NotFoundInCosmos, "D,E,F")
                 .StartProcessingQueue()
-                .PushMessages(ActivityDiscrepancyType.NotFoundInElastic, "COS4", "COS5", "COS6")
-                .PushMessages(ActivityDiscrepancyType.NotFoundInCosmos, "ES2", "ES3", "ES4")
+                .PushMessages(ActivityDiscrepancyType.NotFoundInElastic, "G,H,I")
+                .PushMessages(ActivityDiscrepancyType.NotFoundInCosmos, "J,K,L")
                 .CompleteAndWaitForQueueToBeProcessed()
                 .AssertExpectedNumberOfMessagesProcessed(12)
                 .AssertAllPushedMessagesHandled();
@@ -47,6 +47,11 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
         public CancellationTokenSource CancellationTokenSource { get; }
         public List<ActivityDiscrepancy> PushedMessages { get; }
 
+
+        public ActivityDiscrepancyQueueTestFixtures PushMessages(ActivityDiscrepancyType issue, string activityIds)
+        {
+            return PushMessages(issue, activityIds.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries));
+        }
 
         public ActivityDiscrepancyQueueTestFixtures PushMessages(ActivityDiscrepancyType issue, params string[] activityIds)
         {

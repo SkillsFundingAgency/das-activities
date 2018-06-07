@@ -7,7 +7,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Host;
+using Nest;
 using NUnit.Framework;
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Fixers;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
@@ -88,6 +90,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             }
 
             return Task.WhenAll(tasks)
+                .ContinueWith(task => RefreshElasticIndex())
                 .ContinueWith(task =>
                 {
                     Assert.IsTrue(tasks.All(t => t.IsCompleted), "At least one creation task did not complete");
@@ -102,6 +105,18 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
                 });
         }
 
+        public Task RefreshElasticIndex()
+        {
+            var client = GetIntegrityCheckerWorkerService<IElasticClient>();
+            return client.RefreshAsync("local-activities");
+        }
+
+        public Task DeleteActivitiesFromCosmos(int activitiesToRemoveFromCosmos)
+        {
+            var randomActivities = GetRandomPostedActivities(activitiesToRemoveFromCosmos);
+            return DeleteActivitiesFromCosmos(randomActivities);
+        }
+
         public Task DeleteActivitiesFromCosmos(Activity[] activities)
         {
             return DeleteActivitiesFromRepo(CosmosActivityDocumentRepository, activities);
@@ -112,6 +127,14 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             return DeleteActivitiesFromRepo(ElasticActivityDocumentRepository, activities);
         }
 
+        public Task DeleteAllExistingActivitiesFromElasticAndCosmos()
+        {
+            return Task.WhenAll(new[]
+            {
+                DeleteAllActivitiesFromCosmos(),
+                DeleteAllActivitiesFromElastic()
+            });
+        }
         public Task DeleteAllActivitiesFromCosmos()
         {
             return CosmosActivityDocumentRepository.DeleteAllActivitiesFromRepoAsync();
