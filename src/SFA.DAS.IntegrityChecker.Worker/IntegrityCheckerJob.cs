@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using SFA.DAS.Activities;
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker;
 
 namespace SFA.DAS.IntegrityChecker.Worker

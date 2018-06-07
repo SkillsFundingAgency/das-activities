@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using SFA.DAS.Activities.IntegrityChecker.Dto;
-using SFA.DAS.Activities.IntegrityChecker.Repositories;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
 {

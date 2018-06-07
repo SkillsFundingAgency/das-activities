@@ -21,7 +21,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
             _fixQueue.CompleteAdding();
         }
 
-        public Task StartQueueProcessingAsync(Func<ActivityDiscrepancy, CancellationToken, Task> fixer, CancellationToken cancellationToken)
+        public Task StartQueueProcessingAsync(Func<ActivityDiscrepancy, IFixActionLogger, CancellationToken, Task> fixer, IFixActionLogger logger, CancellationToken cancellationToken)
         {
             return Task.Run(async () =>
             {
@@ -29,7 +29,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
                 {
                     if (_fixQueue.TryTake(out ActivityDiscrepancy discrepancy, int.MaxValue, cancellationToken))
                     {
-                        await fixer(discrepancy, cancellationToken);
+                        await fixer(discrepancy, logger, cancellationToken);
                     }
                 }
             }, cancellationToken);

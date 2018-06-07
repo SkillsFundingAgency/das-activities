@@ -206,7 +206,12 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
         {
             var finder = CreateActivityDiscrepancyFinder();
 
-            _results = finder.Scan(batchSize).ToArray();
+            var parameters = new ActivityDiscrepancyFinderParameters
+            {
+                BatchSize = batchSize
+            };
+
+            _results = finder.Scan(parameters).ToArray();
 
             return this;
         }
@@ -279,13 +284,17 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
 
         private void SetCosmosEndOfDataMarker(IPagingData pagingData)
         {
-            ((CosmosPagingData)pagingData).ContinuationToken =
-                CosmosPages.Count > 1 ? Guid.NewGuid().ToString() : null;
+            var cosmosPagingData = (CosmosPagingData)pagingData;
+
+            cosmosPagingData.ContinuationToken = CosmosPages.Count > 1 ? Guid.NewGuid().ToString() : null;
+            cosmosPagingData.CurrentPageSize = CosmosPages.Count > 0 ? CosmosPages[CosmosPages.Count - 1].Length : 0;
         }
 
         private void SetElasticEndOfDataMarker(IPagingData pagingData)
         {
-            ((ElasticPagingData)pagingData).MoreDataAvailable = ElasticPages.Count > 1 || (ElasticPages.Count == 1 && ElasticPages[0].Length == _normalElasticPageSize);
+            var elasticPagingData = (ElasticPagingData) pagingData;
+
+            elasticPagingData.CurrentPageSize = ElasticPages.Count > 0 ? ElasticPages[ElasticPages.Count-1].Length : 0;
         }
 
         private Activity[] GetPage(List<Activity[]> pages)

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Nest;
@@ -57,8 +56,7 @@ namespace SFA.DAS.Activities.IntegrityChecker.Repositories
             var activities = dbQuery.Documents.ToArray();
 
             elasticPagingData.FromIndex += activities.Length;
-            elasticPagingData.MoreDataAvailable = activities.Length == pagingData.RequiredPageSize;
-
+            elasticPagingData.CurrentPageSize = activities.Length;
 			activities.AssertInIdOrder();
 
             return activities;

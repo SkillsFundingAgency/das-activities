@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.ActivitySavers;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using StructureMap;
@@ -12,6 +11,7 @@ using StructureMap;
 namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
 {
     [TestFixture]
+    [Explicit("This requires config for both elastic and cosmos")]
     public class IntegrityCheckTests
     {
         public IntegrityCheckTests()
@@ -37,6 +37,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
             fixtures.AssertServiceCanBeConstructed<IActivitiesFix>(false, true);
             fixtures.AssertServiceCanBeConstructed<IDocumentCollectionConfigurator>(true, true);
             fixtures.AssertServiceCanBeConstructed<IActivityDiscrepancyFinder>(false, true);
+            fixtures.AssertServiceCanBeConstructed<IntegrityChecker.IntegrityCheck>(false, true);
         }
 
         [TestCase(1)]
@@ -74,20 +75,53 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
 
             await fixtures.DeleteActivitiesFromCosmos(activitiesToRemoveFromCosmos);
 
-            await Task.Delay(10000);
-
             // Act
-            await fixtures.RunIntegrityCheck($"_{totalActivitiesRequired}.{activitiesToRemoveFromCosmos}");
+            var logger = await fixtures.RunIntegrityCheck($"_{totalActivitiesRequired}.{activitiesToRemoveFromCosmos}");
             fixtures.CancellationTokenSource.Cancel();
 
             // Assert
             await fixtures.AssertAllCreatedActivitiesAppearInCosmos();
             int expectedNumberOfFixes = activitiesToRemoveFromCosmos;
-            int actualNumberOfFixes = fixtures.FixActionLogger.GetFixes().Count();
-            if (actualNumberOfFixes != expectedNumberOfFixes)
+            int actualNumberOfFixes = logger.FixesApplied;
+            Assert.AreEqual(expectedNumberOfFixes, actualNumberOfFixes, "Incorrect number of fixes applied");
+        }
+
+
+        [TestCase(10, 2, 2)]
+        [TestCase(1000, 100, 100)]
+        [TestCase(5000, 0, 0)]
+        public async Task ActivitiesMissingInBothSidesShouldEchoBothWays(int totalActivitiesRequired, int activitiesToRemoveFromCosmos, int activitiesToRemoveFromElastic)
+        {
+            // arrange
+            var fixtures = new IntegrityCheckTestFixtures();
+
+            await fixtures.DeleteAllExistingActivitiesFromElasticAndCosmos();
+
+            await fixtures.CreateActivities(totalActivitiesRequired);
+
+            var randomActivities =
+                fixtures.GetRandomPostedActivities(activitiesToRemoveFromCosmos + activitiesToRemoveFromElastic);
+            var cosmosDeleted = randomActivities.Take(activitiesToRemoveFromCosmos).ToArray();
+            var elasticDeleted = randomActivities.Skip(activitiesToRemoveFromCosmos).Take(activitiesToRemoveFromElastic).ToArray();
+
+            var deleteTasks = new Task[]
             {
-                Assert.AreEqual(expectedNumberOfFixes, actualNumberOfFixes, "Incorrect number of fixes applied");
-            }
+                fixtures.DeleteActivitiesFromCosmos(cosmosDeleted),
+                fixtures.DeleteActivitiesFromElastic(elasticDeleted)
+            };
+
+            Task.WaitAll(deleteTasks);
+
+            // Action
+            var logger = await fixtures.RunIntegrityCheck($"_{totalActivitiesRequired}.{activitiesToRemoveFromCosmos}");
+            fixtures.CancellationTokenSource.Cancel();
+
+            // Assert
+            await fixtures.AssertAllCreatedActivitiesAppearInCosmos();
+            await fixtures.AssertAllCreatedActivitiesAppearInElastic();
+            int expectedNumberOfFixes = activitiesToRemoveFromCosmos + activitiesToRemoveFromElastic;
+            int actualNumberOfFixes = logger.FixesApplied;
+            Assert.AreEqual(expectedNumberOfFixes, actualNumberOfFixes, "Incorrect number of fixes applied");
         }
 
         [Test]

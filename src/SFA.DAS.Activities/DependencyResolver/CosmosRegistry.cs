@@ -1,4 +1,3 @@
-using SFA.DAS.Activities.ActivitySavers;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.IntegrityChecker.Repositories;

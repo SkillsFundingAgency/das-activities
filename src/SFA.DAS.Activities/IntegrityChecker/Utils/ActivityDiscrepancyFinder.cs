@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
-using SFA.DAS.Activities.IntegrityChecker.Repositories;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Utils
@@ -26,22 +24,31 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
             _logger = logger;
         }
 
-        public IEnumerable<ActivityDiscrepancy> Scan(int batchSize)
+        public IEnumerable<ActivityDiscrepancy> Scan(ActivityDiscrepancyFinderParameters parameters)
         {
-            return Scan(batchSize, null);
-        }
-
-        public IEnumerable<ActivityDiscrepancy> Scan(int batchSize, int? maxInspections)
-        {
-            var cosmosPagingData = new CosmosPagingData(_cosmosRepository, batchSize, maxInspections);
-            var elasticPagingData = new ElasticPagingData(_elasticRepository, batchSize, maxInspections);
+            var cosmosPagingData = new CosmosPagingData(_cosmosRepository, parameters.BatchSize, parameters.MaxInspections);
+            var elasticPagingData = new ElasticPagingData(_elasticRepository, parameters.BatchSize, parameters.MaxInspections);
 
             return Zipper
                 .Zip(
-                    () => FetchNextPageOfActivities(cosmosPagingData).Result, 
-                    () => FetchNextPageOfActivities(elasticPagingData).Result)
+                    () => FetchNextPageFromCosmos(cosmosPagingData, parameters.ReaderLogger), 
+                    () => FetchNextPageFromElastic(elasticPagingData, parameters.ReaderLogger))
                 .Where(z => z.IsMissing)
                 .Select(z => new ActivityDiscrepancy(z.Item, z.IsMissingInA ? ActivityDiscrepancyType.NotFoundInCosmos : ActivityDiscrepancyType.NotFoundInElastic));
+        }
+
+        private IEnumerable<Activity> FetchNextPageFromCosmos(CosmosPagingData pagingData, IFixActionReaderLogger readerLogger)
+        {
+            var activities = FetchNextPageOfActivities(pagingData).Result;
+            readerLogger?.IncrementCosmosActivities(pagingData.CurrentPageSize);
+            return activities;
+        }
+
+        private IEnumerable<Activity> FetchNextPageFromElastic(ElasticPagingData pagingData, IFixActionReaderLogger readerLogger)
+        {
+            var activities = FetchNextPageOfActivities(pagingData).Result;
+            readerLogger?.IncrementElasticActivities(pagingData.CurrentPageSize);
+            return activities;
         }
 
         private static int _fetchId = 0;
@@ -51,11 +58,18 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
 
             _logger.Debug($"Fetch id:{thisFetchId} request-page-size:{pagingData.RequiredPageSize} repo:{pagingData.Repository.GetType().Name}");
 
-            var haveReachedLimit = pagingData.DataExhausted || (
+            var haveReachedLimit = !pagingData.MoreDataAvailable || (
                                    pagingData.MaximumInspections.HasValue &&
                                    pagingData.MaximumInspections <= pagingData.Inspections);
 
-            var page = haveReachedLimit ? new Activity[]{} : await pagingData.Repository.GetActivitiesAsync(pagingData);
+            if (haveReachedLimit)
+            {
+                _logger.Debug($"Fetch id:{thisFetchId} terminating MoreDataAvailable:{pagingData.MoreDataAvailable} TotalInspections:{pagingData.Inspections} MaximumInspections:{pagingData.MaximumInspections??-1}");
+                pagingData.CurrentPageSize = 0;
+                return new Activity[0];
+            }
+
+            var page = await pagingData.Repository.GetActivitiesAsync(pagingData);
             pagingData.Inspections = pagingData.Inspections + page.Length;
 
             _logger.Debug($"Fetch id:{thisFetchId} actual-page-size:{page.Length} inspections-so-far:{pagingData.Inspections} max-inspections:{pagingData.MaximumInspections} has-more-data:{pagingData.MoreDataAvailable}");

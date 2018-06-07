@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Auth;
+using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Fixers;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
@@ -14,39 +14,52 @@ namespace SFA.DAS.Activities.IntegrityChecker
     {
         private readonly IActivitiesScan _scanner;
         private readonly IActivitiesFix _fixer;
-        private readonly IFixActionLogger _fixLogger;
         private readonly IAzureBlobRepository _blobRepo;
+        private readonly IIntegrityCheckConfiguration _integrityCheckConfiguration;
 
         public IntegrityCheck(
             IActivitiesScan scanner,
             IActivitiesFix fixer,
-            IFixActionLogger fixLogger,
-            IAzureBlobRepository blobRepo)
+            IAzureBlobRepository blobRepo,
+            IIntegrityCheckConfiguration integrityCheckConfiguration)
         {
             _scanner = scanner;
             _fixer = fixer;
-            _fixLogger = fixLogger;
             _blobRepo = blobRepo;
+            _integrityCheckConfiguration = integrityCheckConfiguration;
         }
 
-        public async Task DoAsync(CancellationToken cancellationToken, string lognameSuffix)
+        public async Task<FixActionLogger> DoAsync(CancellationToken cancellationToken, string lognameSuffix)
         {
-            _fixLogger.Clear();
-
-            var tasks = new[]
+            var logger = new FixActionLogger();
+            logger.Start();
+            try
             {
-                _scanner.ScanForDiscrepanciesAsync(new ActivityScanParams(), cancellationToken),
-                _fixer.FixDiscrepanciesAsync(cancellationToken)
-            };
+                var tasks = new[]
+                {
+                    _scanner.ScanForDiscrepanciesAsync(_integrityCheckConfiguration, logger, cancellationToken),
+                    _fixer.FixDiscrepanciesAsync(logger, cancellationToken)
+                };
 
-            await Task.WhenAll(tasks);
-                
-            await SaveFixLoggerResults(lognameSuffix);
+                await Task.WhenAll(tasks);
+            }
+            catch (Exception ex)
+            {
+                logger.TerminalException = $"{ex.GetType().Name} - {ex.Message}";
+                throw;
+            }
+            finally
+            {
+                logger.Finish();
+                await SaveFixLoggerResults(logger, lognameSuffix);
+            }
+
+            return logger;
         }
 
-        private Task SaveFixLoggerResults(string lognameSuffix)
+        private Task SaveFixLoggerResults(FixActionLogger logger, string lognameSuffix)
         {
-            return _blobRepo.SerialiseObjectToLog($"IntegrityCheckResults_{lognameSuffix}", _fixLogger.GetFixes().ToArray());
+            return _blobRepo.SerialiseObjectToLog($"IntegrityCheckResults_{lognameSuffix}", logger);
         }
     }
 }

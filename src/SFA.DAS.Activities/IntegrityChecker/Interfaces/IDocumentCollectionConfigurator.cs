@@ -1,6 +1,6 @@
 ﻿using Microsoft.Azure.Documents;
 
-namespace SFA.DAS.Activities.ActivitySavers
+namespace SFA.DAS.Activities.IntegrityChecker.Interfaces
 {
     public interface IDocumentCollectionConfigurator
     {
