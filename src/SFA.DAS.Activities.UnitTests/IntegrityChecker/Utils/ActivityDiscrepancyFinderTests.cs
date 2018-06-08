@@ -294,7 +294,7 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.Utils
         {
             var elasticPagingData = (ElasticPagingData) pagingData;
 
-            elasticPagingData.CurrentPageSize = ElasticPages.Count > 0 ? ElasticPages[ElasticPages.Count-1].Length : 0;
+            elasticPagingData.CurrentPageSize = ElasticPages.Count > 0 ? ElasticPages[0].Length : 0;
         }
 
         private Activity[] GetPage(List<Activity[]> pages)
