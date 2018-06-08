@@ -1,7 +1,7 @@
 ﻿using System;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
-namespace SFA.DAS.Activities.IntegrityChecker.Fixers
+namespace SFA.DAS.Activities.IntegrityChecker.FixLogging
 {
     public class FixActionHandlerLoggerItem
     {

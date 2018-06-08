@@ -123,6 +123,7 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Configuration\IIntegrityCheckConfiguration.cs" />
     <Compile Include="DependencyResolver\IntegrityCheckRegistry.cs" />
+    <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerExceptionSummary.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IFixActionReaderLogger.cs" />
     <Compile Include="IntegrityChecker\Utils\CosmosClient.cs" />
     <Compile Include="IntegrityChecker\Utils\DocumentCollectionConfigurator.cs" />
@@ -154,9 +155,9 @@
     <Compile Include="IntegrityChecker\ActivatyScan.cs" />
     <Compile Include="IntegrityChecker\Repositories\AzureBlobRepository.cs" />
     <Compile Include="IntegrityChecker\Dto\ActivityDiscrepancy.cs" />
-    <Compile Include="IntegrityChecker\Fixers\FixActionHandlerLoggerItem.cs" />
-    <Compile Include="IntegrityChecker\Fixers\FixActionLogger.cs" />
-    <Compile Include="IntegrityChecker\Fixers\FixActionLoggerItem.cs" />
+    <Compile Include="IntegrityChecker\FixLogging\FixActionHandlerLoggerItem.cs" />
+    <Compile Include="IntegrityChecker\FixLogging\FixActionLogger.cs" />
+    <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerItem.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IFixActionLogger.cs" />
     <Compile Include="IntegrityChecker\Fixers\NotFoundInCosmos.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IAzureBlobRepository.cs" />
