@@ -1,6 +1,7 @@
 using Microsoft.Azure;
 using SFA.DAS.Activities.IntegrityChecker;
 using SFA.DAS.Activities.IntegrityChecker.Fixers;
+using SFA.DAS.Activities.IntegrityChecker.FixLogging;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.IntegrityChecker.Utils;
 using StructureMap.TypeRules;

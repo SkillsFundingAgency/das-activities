@@ -13,6 +13,7 @@ using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Fixers;
+using SFA.DAS.Activities.IntegrityChecker.FixLogging;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.Worker;
 using SFA.DAS.EmployerAccounts.Events.Messages;

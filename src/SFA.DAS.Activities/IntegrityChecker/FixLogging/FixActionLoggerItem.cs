@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 
-namespace SFA.DAS.Activities.IntegrityChecker.Fixers
+namespace SFA.DAS.Activities.IntegrityChecker.FixLogging
 {
     public class FixActionLoggerItem
     {

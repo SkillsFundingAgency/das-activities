@@ -5,10 +5,15 @@ using System.Linq;
 using System.Threading;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
-namespace SFA.DAS.Activities.IntegrityChecker.Fixers
+namespace SFA.DAS.Activities.IntegrityChecker.FixLogging
 {
     public class FixActionLogger : IFixActionLogger, IFixActionReaderLogger
     {
+        public FixActionLogger()
+        {
+            Start();    
+        }
+
         private readonly ConcurrentBag<FixActionLoggerItem> _fixes = new ConcurrentBag<FixActionLoggerItem>();
         private int _cosmosActivitiesFound;
         private int _elasticActivitiesFound;
@@ -62,11 +67,5 @@ namespace SFA.DAS.Activities.IntegrityChecker.Fixers
                 .Select(grp => new FixActionLoggerExceptionSummary {Exception = grp.Key, Occurrences = grp.Count()})
                 .ToArray();
         }
-    }
-
-    public class FixActionLoggerExceptionSummary
-    {
-        public string Exception { get; set; }
-        public int Occurrences { get; set; }
     }
 }
