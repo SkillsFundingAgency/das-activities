@@ -24,9 +24,6 @@ namespace SFA.DAS.Activities.Worker
             {
                 _container = ActivityWorker.InitializeIoC();
 
-                var cmd = _container.GetInstance<CreateActivitiesCommand>();
-                cmd.CreateActivities(100);
-
                 hostConfigurator.Service(GetService, c => c.AfterStoppingService(Cleanup)).OnException(ex => Log.Fatal(ex, "Processing failed."));
             }
             catch (Exception ex)
