@@ -25,28 +25,18 @@ namespace SFA.DAS.Activities.Host
         // AzureWebJobsDashboard and AzureWebJobsStorage
         static void Main()
         {
-            var config = new JobHostConfiguration();
-
-            if (config.IsDevelopment)
-            {
-                config.UseDevelopmentSettings();
-            }
-
-            var host = new JobHost(config);
-            // The following code ensures that the WebJob will be running continuously
-            host.RunAndBlock();
+            new Program().Run();
         }
 
         private IContainer _container;
+
         public void Run()
         {
             Trace.TraceInformation("SFA.DAS.IntegrityChecker.Worker is running");
 
             try
             {
-                // these are both required
-                _container = WebJob.InitializeIoC();
-                _container = ActivityWorker.InitializeIoC();
+                _container = ActivitiesHost.InitializeIoC();
 
                 ServiceLocator.Initialise(_container);
 

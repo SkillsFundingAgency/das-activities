@@ -16,8 +16,7 @@ namespace SFA.DAS.IntegrityChecker.Worker
     {
         public void IntegrityCheck(
             //            {second} {minute} {hour} {day} {month} {day-of-week}
-            //[TimerTrigger("0 30 0 * * *")] TimerInfo timer, 
-            //[TimerTrigger("5 * * * * *")] TimerInfo timer,
+            [TimerTrigger("0 30 3 * * 1")] TimerInfo timer,
             TraceWriter logger,
             CancellationToken cancellationToken)
         {
