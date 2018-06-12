@@ -20,6 +20,11 @@ namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
                 StorageConnectionString = _configuration.StorageConnectionString,
             };
 
+            if (config.IsDevelopment)
+            {
+                config.UseDevelopmentSettings();
+            }
+
             config.Tracing.ConsoleLevel = TraceLevel.Verbose;
             config.UseTimers();
 

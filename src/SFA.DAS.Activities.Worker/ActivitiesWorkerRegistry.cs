@@ -7,7 +7,6 @@ using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
-using Topshelf;
 
 namespace SFA.DAS.Activities.Worker
 {
@@ -24,7 +23,6 @@ namespace SFA.DAS.Activities.Worker
             var config = ConfigurationHelper.GetConfiguration<ActivitiesWorkerConfiguration>(ServiceName, Version);
 
             For<IActivityMapper>().Use<ActivityMapper>();
-            For<ServiceControl>().Use<Service>();
             For<IActivitySaver>().Use<ActivitySaver>().Singleton();
             For<IMessageContextProvider>().Use<MessageContextProvider>().Singleton();
             For<IMessageServiceBusConfiguration>().Use(config);
