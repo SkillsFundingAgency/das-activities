@@ -13,7 +13,7 @@ using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Utils
 {
-    class CosmosClient : ICosmosClient
+    sealed class CosmosClient : ICosmosClient, IDisposable
     {
         private readonly ICosmosConfiguration _config;
         private readonly IDocumentCollectionConfigurator _documentCollectionConfigurator;
@@ -112,6 +112,14 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
             await _client.Value.DeleteDocumentCollectionAsync(collectionUri);
 
             await EnsureCollectionExists(collection);
+        }
+
+        public void Dispose()
+        {
+            if (_client.IsValueCreated)
+            {
+                _client.Value.Dispose();
+            }
         }
 
         private Uri GetCollectionUri(string collectionName)

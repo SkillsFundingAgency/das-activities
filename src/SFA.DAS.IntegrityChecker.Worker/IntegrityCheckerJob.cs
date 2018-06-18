@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
-using SFA.DAS.Activities;
-using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker;
 
-namespace SFA.DAS.IntegrityChecker.Worker
+namespace SFA.DAS.Activities.Jobs
 {
     public class IntegrityCheckerJob
     {
+        [Singleton]
         public void IntegrityCheck(
             //            {second} {minute} {hour} {day} {month} {day-of-week}
-            [TimerTrigger("0 30 3 * * 1")] TimerInfo timer,
+            [TimerTrigger("0 30 3 20 4 1")] TimerInfo timer,
             TraceWriter logger,
             CancellationToken cancellationToken)
         {

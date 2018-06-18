@@ -1,4 +1,4 @@
-namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Infrastructure
 {
     public class WebJobConfig : IWebJobConfiguration
     {

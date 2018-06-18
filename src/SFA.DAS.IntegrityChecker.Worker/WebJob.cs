@@ -1,9 +1,8 @@
 using SFA.DAS.Activities.DependencyResolver;
-using SFA.DAS.Activities.Worker;
-using SFA.DAS.IntegrityChecker.Worker.Infrastructure;
+using SFA.DAS.Activities.Jobs.Infrastructure;
 using StructureMap;
 
-namespace SFA.DAS.Activities.Host
+namespace SFA.DAS.Activities.Jobs
 {
     public static class ActivitiesHost
     {
@@ -16,7 +15,6 @@ namespace SFA.DAS.Activities.Host
                 c.AddRegistry<AzureRegistry>();
                 c.AddRegistry<IntegrityCheckRegistry>();
                 c.AddRegistry<IntegrityCheckerRegistry>();
-                c.AddRegistry<ActivitiesWorkerRegistry>();
             });
         }
     }

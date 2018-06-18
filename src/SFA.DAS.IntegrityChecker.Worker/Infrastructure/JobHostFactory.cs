@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.Azure.WebJobs;
 
-namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Infrastructure
 {
     public class JobHostFactory : IJobHostFactory
     {

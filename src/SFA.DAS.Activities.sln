@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Acceptan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.IntegrationTests", "SFA.DAS.Activities.IntegrationTests\SFA.DAS.Activities.IntegrationTests.csproj", "{D1B06E53-A92E-4BA7-9472-A5F013B80987}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.IntegrityChecker.Worker", "SFA.DAS.IntegrityChecker.Worker\SFA.DAS.IntegrityChecker.Worker.csproj", "{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Jobs", "SFA.DAS.IntegrityChecker.Worker\SFA.DAS.Activities.Jobs.csproj", "{59DB7E32-5FA4-47B0-AC7B-D74FF3D67EDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Host", "SFA.DAS.Activities.Host\SFA.DAS.Activities.Host.csproj", "{EE04C87B-B2E5-4407-8770-E1EB2CB297EA}"
 EndProject

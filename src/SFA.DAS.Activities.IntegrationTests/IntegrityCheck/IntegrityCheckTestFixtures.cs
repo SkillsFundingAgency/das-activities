@@ -15,11 +15,12 @@ using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Fixers;
 using SFA.DAS.Activities.IntegrityChecker.FixLogging;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
+using SFA.DAS.Activities.Jobs;
+using SFA.DAS.Activities.Jobs.Infrastructure;
 using SFA.DAS.Activities.Worker;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.IntegrityChecker.Worker;
 using SFA.DAS.IntegrityChecker.Worker.CreateActivities;
-using SFA.DAS.IntegrityChecker.Worker.Infrastructure;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
 
