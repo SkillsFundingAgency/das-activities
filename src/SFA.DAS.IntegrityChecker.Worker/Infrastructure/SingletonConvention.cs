@@ -3,7 +3,7 @@ using StructureMap.Graph;
 using StructureMap.Graph.Scanning;
 using StructureMap.TypeRules;
 
-namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Infrastructure
 {
     internal class SingletonConvention<TPluginFamily> : IRegistrationConvention
     {

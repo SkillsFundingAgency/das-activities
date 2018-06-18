@@ -1,6 +1,6 @@
 using SFA.DAS.Activities.Configuration;
 
-namespace SFA.DAS.IntegrityChecker.Worker.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Infrastructure
 {
     public class IntegrityCheckerWorkerConfiguration : ICosmosConfiguration, IElasticConfiguration, IAzureBlobStorageConfiguration, IIntegrityCheckConfiguration
     {

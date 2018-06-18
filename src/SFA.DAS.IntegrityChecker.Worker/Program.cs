@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using SFA.DAS.Activities.Worker;
-using SFA.DAS.IntegrityChecker.Worker;
-using SFA.DAS.IntegrityChecker.Worker.Infrastructure;
+using SFA.DAS.Activities.Jobs.Infrastructure;
 using StructureMap;
 
-namespace SFA.DAS.Activities.Host
+namespace SFA.DAS.Activities.Jobs
 {
     /*
      * For info on how to set up the webjob see:
@@ -32,7 +24,7 @@ namespace SFA.DAS.Activities.Host
 
         public void Run()
         {
-            Trace.TraceInformation("SFA.DAS.IntegrityChecker.Worker is running");
+            Trace.TraceInformation("SFA.DAS.Activities is running");
 
             try
             {
@@ -46,7 +38,7 @@ namespace SFA.DAS.Activities.Host
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"Failed to run job host {ex.GetType().Name} - {ex.Message}");
+                Trace.TraceError($"Failed to run job host SFA.DAS.Activities {ex.GetType().Name} - {ex.Message}");
             }
         }
     }
