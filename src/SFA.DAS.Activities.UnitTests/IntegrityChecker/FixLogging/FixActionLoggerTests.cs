@@ -52,6 +52,29 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.FixLogging
                 });
         }
 
+        [TestCase(1, 0, 0, 0)]
+        [TestCase(0, 1, 0, 0)]
+        [TestCase(0, 0, 1, 0)]
+        [TestCase(0, 0, 0, 1)]
+        [TestCase(5, 5, 0, 0)]
+        [TestCase(0, 0, 5, 5)]
+        [TestCase(5, 5, 5, 5)]
+        public void Finish_AfterAddHandlers_FixHandlerSummaryShouldBeSetCorrectly(int numberOfFailuresFixer1, int numberOfSuccessesFixer1, int numberOfFailuresFixer2, int numberOfSuccessesFixer2)
+        {
+            var datetime = DateTime.UtcNow;
+            CheckPropertyPostFinish(
+                setup: logger => logger
+                    .AddFailedFixer(ActivityDiscrepancyType.NotFoundInCosmos, numberOfFailuresFixer1)
+                    .AddSuccessFixer(ActivityDiscrepancyType.NotFoundInCosmos, numberOfSuccessesFixer1)
+                    .AddFailedFixer2(ActivityDiscrepancyType.NotFoundInCosmos, numberOfFailuresFixer2)
+                    .AddSuccessFixer2(ActivityDiscrepancyType.NotFoundInCosmos, numberOfSuccessesFixer2),
+                assert: logger =>
+                {
+                    AssertFixerSummaryIsCorrect<TestFixer>(logger, numberOfFailuresFixer1, numberOfSuccessesFixer1);
+                    AssertFixerSummaryIsCorrect<TestFixer2>(logger, numberOfFailuresFixer2, numberOfSuccessesFixer2);
+                });
+        }
+
         [Test]
         public void Finish_AfterFailures_ExceptionsShouldBeSetCorrectly()
         {
@@ -84,27 +107,56 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.FixLogging
 
             assert(logger);
         }
+
+        private void AssertFixerSummaryIsCorrect<TFixerType>(FixActionLogger logger, int expectedNumberOfFailures, int expectedNumberOfSuccesses) where TFixerType : IActivityDiscrepancyFixer
+        {
+            var handlerSummary = logger.HandlerSummary.SingleOrDefault(hs => hs.Handler == typeof(TFixerType).FullName);
+
+            if (handlerSummary == null)
+            {
+                if (expectedNumberOfFailures == 0 && expectedNumberOfSuccesses == 0)
+                {
+                    return;
+                }
+                Assert.Fail($"A handler summary for {typeof(TFixerType).Name} has not been created when {expectedNumberOfFailures} failures and {expectedNumberOfSuccesses} successes were expected");
+            }
+
+            Assert.AreEqual(expectedNumberOfFailures, handlerSummary.Fail);
+            Assert.AreEqual(expectedNumberOfSuccesses, handlerSummary.Success);
+            Assert.AreEqual(expectedNumberOfFailures + expectedNumberOfSuccesses, handlerSummary.Occurrences);
+            Assert.AreEqual(expectedNumberOfFailures + expectedNumberOfSuccesses, handlerSummary.ExecutionTime);
+        }
     }
 
     static class FixActionLoggerExtensions
     {
         public static FixActionLogger AddFailedFixer(this FixActionLogger logger, ActivityDiscrepancyType discrepancyType, int instances = 1, string error = "Test Error")
         {
-            return logger.AddFixer(discrepancyType, instances, error);
+            return logger.AddFixer<TestFixer>(discrepancyType, instances, error);
         }
 
         public static FixActionLogger AddSuccessFixer(this FixActionLogger logger, ActivityDiscrepancyType discrepancyType, int instances = 1)
         {
-            return logger.AddFixer(discrepancyType, instances, null);
+            return logger.AddFixer<TestFixer>(discrepancyType, instances, null);
         }
 
-        private static FixActionLogger AddFixer(this FixActionLogger logger, ActivityDiscrepancyType discrepancyType, int instances, string error)
+        public static FixActionLogger AddFailedFixer2(this FixActionLogger logger, ActivityDiscrepancyType discrepancyType, int instances = 1, string error = "Test Error")
+        {
+            return logger.AddFixer<TestFixer2>(discrepancyType, instances, error);
+        }
+
+        public static FixActionLogger AddSuccessFixer2(this FixActionLogger logger, ActivityDiscrepancyType discrepancyType, int instances = 1)
+        {
+            return logger.AddFixer<TestFixer2>(discrepancyType, instances, null);
+        }
+
+        private static FixActionLogger AddFixer<TFixerType>(this FixActionLogger logger, ActivityDiscrepancyType discrepancyType, int instances, string error) where TFixerType : IActivityDiscrepancyFixer, new()
         {
             for (int i = 0; i < instances; i++)
             {
                 var item = CreateLogItem(logger, discrepancyType);
 
-                item.Add(new FixActionHandlerLoggerItem(new TestFixer())
+                item.Add(new FixActionHandlerLoggerItem(new TFixerType())
                 {
                     Error = error,
                     FixMSecs = 1
@@ -128,6 +180,19 @@ namespace SFA.DAS.Activities.UnitTests.IntegrityChecker.FixLogging
     }
 
     public class TestFixer : IActivityDiscrepancyFixer
+    {
+        public bool CanHandle(ActivityDiscrepancy discrepancy)
+        {
+            return true;
+        }
+
+        public Task FixAsync(ActivityDiscrepancy discrepancy, CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
+        }
+    }
+
+    public class TestFixer2 : IActivityDiscrepancyFixer
     {
         public bool CanHandle(ActivityDiscrepancy discrepancy)
         {
