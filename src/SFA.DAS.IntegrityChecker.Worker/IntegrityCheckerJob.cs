@@ -10,7 +10,7 @@ namespace SFA.DAS.Activities.Jobs
         [Singleton]
         public void IntegrityCheck(
             //            {second} {minute} {hour} {day} {month} {day-of-week}
-            [TimerTrigger("0 30 3 20 4 1")] TimerInfo timer,
+            [TimerTrigger("0 30 3 * * 1")] TimerInfo timer,
             TraceWriter logger,
             CancellationToken cancellationToken)
         {
