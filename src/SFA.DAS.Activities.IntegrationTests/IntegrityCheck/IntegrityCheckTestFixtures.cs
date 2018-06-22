@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs.Host;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.Configuration;
-using SFA.DAS.Activities.IntegrityChecker;
-using SFA.DAS.Activities.IntegrityChecker.Dto;
-using SFA.DAS.Activities.IntegrityChecker.Fixers;
 using SFA.DAS.Activities.IntegrityChecker.FixLogging;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.Jobs;
+using SFA.DAS.Activities.Jobs.DependencyResolution;
 using SFA.DAS.Activities.Jobs.Infrastructure;
 using SFA.DAS.Activities.Worker;
 using SFA.DAS.EmployerAccounts.Events.Messages;
-using SFA.DAS.IntegrityChecker.Worker;
-using SFA.DAS.IntegrityChecker.Worker.CreateActivities;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
 
@@ -236,7 +227,7 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
         private IContainer InitialiseIntegrityCheckerIoC()
         {
 
-            var container = WebJob.InitializeIoC();
+            var container = IoC.InitializeIoC();
             ServiceLocator.Initialise(container);
             return container;
         }

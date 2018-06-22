@@ -163,7 +163,6 @@
     <Compile Include="Extensions\ActivityTypeExtensionsTests.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Worker\ActivitySavers\ActivitySaverTests.cs" />
     <Compile Include="Worker\MessageProcessors\PaymentCreatedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\AccountNameChangedMessageProcessorTests.cs" />
     <Compile Include="Worker\MessageProcessors\AgreementSignedMessageProcessorTests.cs" />

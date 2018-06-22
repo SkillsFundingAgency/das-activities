@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using SFA.DAS.Activities.Jobs.DependencyResolution;
 using SFA.DAS.Activities.Jobs.Infrastructure;
 using StructureMap;
 
@@ -28,7 +29,7 @@ namespace SFA.DAS.Activities.Jobs
 
             try
             {
-                _container = ActivitiesHost.InitializeIoC();
+                _container = IoC.InitializeIoC();
 
                 ServiceLocator.Initialise(_container);
 

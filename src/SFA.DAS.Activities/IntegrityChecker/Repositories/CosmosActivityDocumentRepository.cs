@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.Exceptions;
+using SFA.DAS.Activities.Extensions;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 

@@ -139,7 +139,6 @@
     <Compile Include="ActivitiesWorkerRegistry.cs" />
     <Compile Include="ActivitySavers\ActivitySaver.cs" />
     <Compile Include="ActivityWorker.cs" />
-    <Compile Include="CreateActivitiesCommand.cs" />
     <Compile Include="MessageProcessors\PaymentCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\AccountCreatedMessageProcessor.cs" />
     <Compile Include="MessageProcessors\LegalEntityAddedMessageProcessor.cs" />

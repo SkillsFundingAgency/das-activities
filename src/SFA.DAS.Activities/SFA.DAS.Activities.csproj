@@ -130,6 +130,7 @@
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerExceptionSummary.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerHandlerSummary.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IFixActionReaderLogger.cs" />
+    <Compile Include="Extensions\ActivityCollectionExtensions.cs" />
     <Compile Include="IntegrityChecker\Utils\CosmosClient.cs" />
     <Compile Include="IntegrityChecker\Utils\DocumentCollectionConfigurator.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IDocumentCollectionConfigurator.cs" />
@@ -157,14 +158,14 @@
     <Compile Include="IActivitySaver.cs" />
     <Compile Include="ICosmosClient.cs" />
     <Compile Include="IndexMappers\ActivitiesIndexMapper.cs" />
-    <Compile Include="IntegrityChecker\ActivatyScan.cs" />
+    <Compile Include="IntegrityChecker\ActivatiesScan.cs" />
     <Compile Include="IntegrityChecker\Repositories\AzureBlobRepository.cs" />
     <Compile Include="IntegrityChecker\Dto\ActivityDiscrepancy.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionHandlerLoggerItem.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLogger.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerItem.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IFixActionLogger.cs" />
-    <Compile Include="IntegrityChecker\Fixers\NotFoundInCosmos.cs" />
+    <Compile Include="IntegrityChecker\Fixers\NotFoundInCosmosFixer.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IAzureBlobRepository.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IActivitiesFix.cs" />
     <Compile Include="IntegrityChecker\IntegrityCheck.cs" />
@@ -190,7 +191,7 @@
     <Compile Include="IntegrityChecker\Interfaces\IActivityDiscrepancyFinder.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IActivityDiscrepancyFixer.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IActivityDocumentRepository.cs" />
-    <Compile Include="IntegrityChecker\Fixers\NotFoundInElastic.cs" />
+    <Compile Include="IntegrityChecker\Fixers\NotFoundInElasticFixer.cs" />
     <Compile Include="Localizers\PaymentCreatedActivityLocalizer.cs" />
     <Compile Include="Localizers\AccountCreatedActivityLocalizer.cs" />
     <Compile Include="Localizers\AccountNameChangedActivityLocalizer.cs" />
