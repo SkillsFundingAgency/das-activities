@@ -28,18 +28,6 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             IMessageContextProvider messageContextProvider
         )
         {
-            StringBuilder errors = null;
-            AssertConstructorArgument(nameof(activityMapper), activityMapper, ref errors);
-            AssertConstructorArgument(nameof(cosmosActivityRepository), cosmosActivityRepository, ref errors);
-            AssertConstructorArgument(nameof(elasticActivityRepository), elasticActivityRepository, ref errors);
-            AssertConstructorArgument(nameof(logger), logger, ref errors);
-            AssertConstructorArgument(nameof(messageContextProvider), messageContextProvider, ref errors);
-
-            if (errors != null)
-            {
-                throw new ArgumentException(errors.ToString());
-            }
-
             _activityMapper = activityMapper;
             _cosmosActivityRepository = cosmosActivityRepository;
             _elasticActivityRepository = elasticActivityRepository;
@@ -53,7 +41,7 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
 
 	        if (!Guid.TryParse(messageContext.MessageId, out Guid messageId))
 	        {
-		        messageId = Guid.Empty;
+		        throw new Exception($"The attempt to save activity from message type {typeof(TMessage).FullName} failed because the message id supplied by {nameof(IMessageContextProvider)}.{nameof(IMessageContextProvider.GetContextForMessageBody)} is not a GUID (the value provided was {messageContext.MessageId}");
 	        }
 
             var activity = _activityMapper.Map(message, activityType, messageId: messageId);
@@ -74,24 +62,6 @@ namespace SFA.DAS.Activities.Worker.ActivitySavers
             {
                 _logger.Error(e, $"operation failed: {description}");
                 throw;
-            }
-        }
-
-        private void AssertConstructorArgument(string fieldName, string fieldValue, ref StringBuilder errors)
-        {
-            if (string.IsNullOrWhiteSpace(fieldValue))
-            {
-                errors = errors ?? new StringBuilder();
-                errors.AppendLine($"\"{fieldName}\" has no value (it is either null or white space)");
-            }
-        }
-
-        private void AssertConstructorArgument(string argumentName, object argumentValue, ref StringBuilder errors)
-        {
-            if (argumentValue == null)
-            {
-                errors = errors ?? new StringBuilder();
-                errors.AppendLine($"\"{argumentName}\" is null");
             }
         }
     }

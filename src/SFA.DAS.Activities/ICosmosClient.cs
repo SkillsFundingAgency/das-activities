@@ -7,7 +7,6 @@ namespace SFA.DAS.Activities
 {
     public interface ICosmosClient
     {
-        DocumentClient Client { get; }
         Task UpsertDocumentAsync(string collection, object entity);
 
 

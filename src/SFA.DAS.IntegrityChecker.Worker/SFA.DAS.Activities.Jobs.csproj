@@ -188,7 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\IJobHostFactory.cs" />
-    <Compile Include="Infrastructure\IntegrityCheckerWorkerConfiguration.cs" />
     <Compile Include="Infrastructure\IntegrityCheckerRegistry.cs" />
     <Compile Include="Infrastructure\SingletonConvention.cs" />
     <Compile Include="IntegrityCheckerJob.cs" />
@@ -197,8 +196,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\WebJobConfig.cs" />
-    <Compile Include="Infrastructure\WebJob.cs" />
-    <Compile Include="WebJob.cs" />
+    <Compile Include="DependencyResolution\IoC.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

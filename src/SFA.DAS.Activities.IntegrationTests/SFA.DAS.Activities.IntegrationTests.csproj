@@ -258,6 +258,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrityCheck\CreateActivitiesCommand.cs" />
     <Compile Include="IntegrityCheck\IntegrityCheckTestFixtures.cs" />
     <Compile Include="IntegrityCheck\IntegrityCheckTests.cs" />
     <Compile Include="ElasticBackupTests\ActivitiesIntegrationTestsRegistry.cs" />

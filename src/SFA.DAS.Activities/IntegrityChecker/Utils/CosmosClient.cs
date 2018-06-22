@@ -20,6 +20,8 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
         private readonly Lazy<DocumentClient> _client;
         private readonly ConcurrentDictionary<string, Uri> _collections = new ConcurrentDictionary<string, Uri>();
         private RequestOptions _requestOptions;
+        private DocumentClient Client => _client.Value;
+
 
         public CosmosClient(ICosmosConfiguration messageServiceBusConfiguration, IDocumentCollectionConfigurator documentCollectionConfigurator)
         {
@@ -27,8 +29,6 @@ namespace SFA.DAS.Activities.IntegrityChecker.Utils
             _documentCollectionConfigurator = documentCollectionConfigurator;
             _config = messageServiceBusConfiguration;
         }
-
-        public DocumentClient Client => _client.Value;
 
         public Task UpsertDocumentAsync(string collection, object entity)
         {

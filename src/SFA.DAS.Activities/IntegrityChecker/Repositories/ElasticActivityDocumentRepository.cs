@@ -3,25 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nest;
 using SFA.DAS.Activities.Exceptions;
+using SFA.DAS.Activities.Extensions;
 using SFA.DAS.Activities.IntegrityChecker.Dto;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 
 namespace SFA.DAS.Activities.IntegrityChecker.Repositories
 {
-	internal static class ActivityCollectionExtensions
-	{
-		public static void AssertInIdOrder(this Activity[] activities)
-		{
-			for (int i = 1; i < activities.Length; i++)
-			{
-				if (activities[i - 1].Id.CompareTo(activities[i].Id) >= 0)
-				{
-					throw new Exception("Messages are not in the correct sequence");
-				}
-			}
-		}
-    }
-
     public class ElasticActivityDocumentRepository : IElasticActivityDocumentRepository
     {
         private readonly IElasticClient _client;
