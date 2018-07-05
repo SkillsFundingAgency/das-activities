@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using SFA.DAS.Activities.Worker.ObjectMappers;
+using SFA.DAS.Activities.MessageHandlers.ObjectMappers;
 
 namespace SFA.DAS.Activities.UnitTests.Worker.ObjectMappers
 {

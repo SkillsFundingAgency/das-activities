@@ -1,14 +1,13 @@
 using SFA.DAS.Activities.Configuration;
-using SFA.DAS.Activities.DependencyResolver;
-using SFA.DAS.Activities.Worker.ActivitySavers;
-using SFA.DAS.Activities.Worker.ObjectMappers;
-using SFA.DAS.Activities.Worker.Policies;
+using SFA.DAS.Activities.MessageHandlers.ActivitySavers;
+using SFA.DAS.Activities.MessageHandlers.ObjectMappers;
+using SFA.DAS.Activities.MessageHandlers.Policies;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 
-namespace SFA.DAS.Activities.Worker
+namespace SFA.DAS.Activities.MessageHandlers
 {
     public class ActivitiesWorkerRegistry : Registry
     {

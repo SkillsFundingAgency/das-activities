@@ -2,8 +2,8 @@
 using Nest;
 using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IndexMappers;
+using SFA.DAS.Activities.MessageHandlers.ObjectMappers;
 using SFA.DAS.ApiSubstitute.Utilities;
-using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Elastic;
 using SFA.DAS.NLog.Logger;
 using StructureMap;

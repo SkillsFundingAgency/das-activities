@@ -4,8 +4,6 @@ using System.Threading;
 using Moq;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.Worker.ActivitySavers;
-using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Messaging.Attributes;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;

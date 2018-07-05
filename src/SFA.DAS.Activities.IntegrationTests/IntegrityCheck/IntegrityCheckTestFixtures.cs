@@ -10,7 +10,7 @@ using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.Jobs;
 using SFA.DAS.Activities.Jobs.DependencyResolution;
 using SFA.DAS.Activities.Jobs.Infrastructure;
-using SFA.DAS.Activities.Worker;
+using SFA.DAS.Activities.MessageHandlers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;

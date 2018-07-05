@@ -1,7 +1,7 @@
 using SFA.DAS.Activities.DependencyResolver;
 using StructureMap;
 
-namespace SFA.DAS.Activities.Worker
+namespace SFA.DAS.Activities.MessageHandlers
 {
     public static class ActivityWorker
     {

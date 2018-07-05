@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SFA.DAS.Activities.Worker.ObjectMappers
+namespace SFA.DAS.Activities.MessageHandlers.ObjectMappers
 {
     public interface IActivityMapper
     {

@@ -1,21 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Nest;
-using SFA.DAS.Activities.Worker.ActivitySavers;
-using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Activities.Worker.MessageProcessors
+namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
-    [TopicSubscription("Activity_LegalEntityRemovedMessageProcessor")]
-    public class LegalEntityRemovedMessageProcessor : MessageProcessor<LegalEntityRemovedMessage>
+    [TopicSubscription("Activity_PaymentCreatedMessageProcessor")]
+    public class PaymentCreatedMessageProcessor : MessageProcessor<PaymentCreatedMessage>
     {
         private readonly IActivitySaver _activitySaver;
 
-        public LegalEntityRemovedMessageProcessor(
+        public PaymentCreatedMessageProcessor(
             IMessageSubscriberFactory subscriberFactory,
             ILog log,
             IActivitySaver activitySaver,
@@ -25,9 +22,9 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
             _activitySaver = activitySaver;
         }
 
-        protected override Task ProcessMessage(LegalEntityRemovedMessage message)
+        protected override Task ProcessMessage(PaymentCreatedMessage message)
         {
-            return _activitySaver.SaveActivity(message, ActivityType.LegalEntityRemoved);
+            return _activitySaver.SaveActivity(message, ActivityType.PaymentCreated);
         }
     }
 }

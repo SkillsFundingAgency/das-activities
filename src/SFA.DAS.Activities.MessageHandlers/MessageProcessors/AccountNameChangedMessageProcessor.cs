@@ -1,15 +1,11 @@
-﻿using System.ServiceModel.Channels;
-using System.Threading.Tasks;
-using Nest;
-using SFA.DAS.Activities.Worker.ActivitySavers;
-using SFA.DAS.Activities.Worker.ObjectMappers;
+﻿using System.Threading.Tasks;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Activities.Worker.MessageProcessors
+namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
     [TopicSubscription("Activity_AccountNameChangedMessageProcessor")]
     public class AccountNameChangedMessageProcessor : MessageProcessor<AccountNameChangedMessage>

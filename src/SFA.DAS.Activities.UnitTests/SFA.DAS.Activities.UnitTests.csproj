@@ -172,9 +172,9 @@
       <Project>{45344A34-429E-441C-A69C-8D7539353C51}</Project>
       <Name>SFA.DAS.Activities.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SFA.DAS.Activities.Worker\SFA.DAS.Activities.Worker.csproj">
-      <Project>{ED9598CD-DDE8-453C-B36B-68033A453FE6}</Project>
-      <Name>SFA.DAS.Activities.Worker</Name>
+    <ProjectReference Include="..\SFA.DAS.Activities.MessageHandlers\SFA.DAS.Activities.MessageHandlers.csproj">
+      <Project>{ed9598cd-dde8-453c-b36b-68033a453fe6}</Project>
+      <Name>SFA.DAS.Activities.MessageHandlers</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities\SFA.DAS.Activities.csproj">
       <Project>{744fdb51-c5ff-4b5b-a380-9cde153277cf}</Project>
