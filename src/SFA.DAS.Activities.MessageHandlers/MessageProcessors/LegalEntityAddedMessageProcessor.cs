@@ -1,21 +1,18 @@
 ﻿using System.Threading.Tasks;
-using Nest;
-using SFA.DAS.Activities.Worker.ActivitySavers;
-using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 
-namespace SFA.DAS.Activities.Worker.MessageProcessors
+namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
-    [TopicSubscription("Activity_AgreementSignedMessageProcessor")]
-    public class AgreementSignedMessageProcessor : MessageProcessor<AgreementSignedMessage>
+    [TopicSubscription("Activity_LegalEntityAddedMessageProcessor")]
+    public class LegalEntityAddedMessageProcessor : MessageProcessor<LegalEntityAddedMessage>
     {
         private readonly IActivitySaver _activitySaver;
 
-        public AgreementSignedMessageProcessor(
+        public LegalEntityAddedMessageProcessor(
             IMessageSubscriberFactory subscriberFactory,
             ILog log,
             IActivitySaver activitySaver,
@@ -25,9 +22,9 @@ namespace SFA.DAS.Activities.Worker.MessageProcessors
             _activitySaver = activitySaver;
         }
 
-        protected override Task ProcessMessage(AgreementSignedMessage message)
+        protected override Task ProcessMessage(LegalEntityAddedMessage message)
         {
-            return _activitySaver.SaveActivity(message, ActivityType.AgreementSigned);
+            return _activitySaver.SaveActivity(message, ActivityType.LegalEntityAdded);
         }
     }
 }

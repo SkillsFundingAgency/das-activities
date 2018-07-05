@@ -1,6 +1,6 @@
 ﻿{
   "$schema": "http://schemastore.org/schemas/json/webjob-publish-settings.json",
   "WebJobs": [
-    { "filePath": "../SFA.DAS.IntegrityChecker.Worker/SFA.DAS.IntegrityChecker.Worker.csproj" }
+    { "filePath": "../SFA.DAS.Activities.Jobs/SFA.DAS.Activities.Jobs.csproj" }
   ] 
 }

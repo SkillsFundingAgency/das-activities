@@ -8,8 +8,8 @@
     <ProjectGuid>{ED9598CD-DDE8-453C-B36B-68033A453FE6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SFA.DAS.Activities.Worker</RootNamespace>
-    <AssemblyName>SFA.DAS.Activities.Worker</AssemblyName>
+    <RootNamespace>SFA.DAS.Activities.MessageHandlers</RootNamespace>
+    <AssemblyName>SFA.DAS.Activities.MessageHandlers</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

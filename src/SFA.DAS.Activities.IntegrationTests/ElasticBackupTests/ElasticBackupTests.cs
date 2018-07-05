@@ -7,8 +7,8 @@ using Elasticsearch.Net;
 using Nest;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using SFA.DAS.Activities.MessageHandlers.ObjectMappers;
 using SFA.DAS.ApiSubstitute.Utilities;
-using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using StructureMap;
 

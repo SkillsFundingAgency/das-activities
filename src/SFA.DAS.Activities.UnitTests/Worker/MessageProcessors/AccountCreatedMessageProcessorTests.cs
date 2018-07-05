@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using SFA.DAS.Activities.Worker.MessageProcessors;
+using SFA.DAS.Activities.MessageHandlers.MessageProcessors;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 
 namespace SFA.DAS.Activities.UnitTests.Worker.MessageProcessors

@@ -3,7 +3,7 @@ using System.Linq;
 using SFA.DAS.Activities.Extensions;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 
-namespace SFA.DAS.Activities.Worker.ObjectMappers
+namespace SFA.DAS.Activities.MessageHandlers.ObjectMappers
 {
     public class ActivityMapper : IActivityMapper
     {

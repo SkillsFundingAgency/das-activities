@@ -10,7 +10,7 @@ using SFA.DAS.NLog.Logger;
 using StructureMap;
 using StructureMap.Pipeline;
 
-namespace SFA.DAS.Activities.Worker.Policies
+namespace SFA.DAS.Activities.MessageHandlers.Policies
 {
     public class MessageSubscriberPolicy : ConfiguredInstancePolicy
     {

@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Text;
 using System.Threading.Tasks;
-using Nest;
-using SFA.DAS.Activities.Configuration;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
-using SFA.DAS.Activities.Worker.MessageProcessors;
-using SFA.DAS.Activities.Worker.ObjectMappers;
+using SFA.DAS.Activities.MessageHandlers.ObjectMappers;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
-using StructureMap.TypeRules;
 
-namespace SFA.DAS.Activities.Worker.ActivitySavers
+namespace SFA.DAS.Activities.MessageHandlers.ActivitySavers
 {
     public class ActivitySaver : IActivitySaver
     {
