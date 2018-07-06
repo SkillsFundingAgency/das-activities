@@ -1,8 +1,8 @@
-using Microsoft.Azure;
 using SFA.DAS.Activities.IntegrityChecker;
 using SFA.DAS.Activities.IntegrityChecker.FixLogging;
 using SFA.DAS.Activities.IntegrityChecker.Interfaces;
 using SFA.DAS.Activities.IntegrityChecker.Utils;
+using SFA.DAS.Activities.Jobs.Common.Infrastructure;
 using StructureMap;
 using StructureMap.TypeRules;
 
@@ -12,13 +12,6 @@ namespace SFA.DAS.Activities.Jobs.Infrastructure
     {
         public IntegrityCheckerRegistry()
         {
-            For<IWebJobConfiguration>().Use(new WebJobConfig
-            {
-                DashboardConnectionString = CloudConfigurationManager.GetSetting("DashboardConnectionString"),
-                StorageConnectionString = CloudConfigurationManager.GetSetting("StorageConnectionString")
-            });
-
-            For<IJobHostFactory>().Use<JobHostFactory>().Singleton();
             For<IActivitiesScan>().Use<ActivitiesScan>().Singleton();
             For<IActivitiesFix>().Use<ActivitiesFix>().Singleton();
             For<IActivityDiscrepancyQueue>().Use<ActivityDiscrepancyQueue>().Singleton();

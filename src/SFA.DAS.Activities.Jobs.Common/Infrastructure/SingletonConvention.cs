@@ -3,9 +3,9 @@ using StructureMap.Graph;
 using StructureMap.Graph.Scanning;
 using StructureMap.TypeRules;
 
-namespace SFA.DAS.Activities.Jobs.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 {
-    internal class SingletonConvention<TPluginFamily> : IRegistrationConvention
+    public class SingletonConvention<TPluginFamily> : IRegistrationConvention
     {
         public void ScanTypes(TypeSet types, Registry registry)
         {
