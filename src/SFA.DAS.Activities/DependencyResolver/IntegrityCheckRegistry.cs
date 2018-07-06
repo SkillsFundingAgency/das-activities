@@ -1,7 +1,4 @@
 using SFA.DAS.Activities.Configuration;
-using SFA.DAS.Activities.IntegrityChecker;
-using SFA.DAS.Activities.IntegrityChecker.Interfaces;
-using SFA.DAS.Activities.IntegrityChecker.Repositories;
 using SFA.DAS.NLog.Logger;
 using StructureMap;
 

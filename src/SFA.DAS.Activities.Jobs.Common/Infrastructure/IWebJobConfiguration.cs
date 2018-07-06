@@ -1,4 +1,4 @@
-namespace SFA.DAS.Activities.Jobs.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 {
     public interface IWebJobConfiguration
     {

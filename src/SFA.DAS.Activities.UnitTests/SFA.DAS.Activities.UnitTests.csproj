@@ -144,6 +144,7 @@
     <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyQueueTests.cs" />
     <Compile Include="IntegrityChecker\Utils\ZipperTests.cs" />
     <Compile Include="Localizers\PaymentCreatedActivityLocalizerTest.cs" />
+    <Compile Include="SFA.DAS.Activities.MessageHandlers\ProgramTests.cs" />
     <Compile Include="WebTest.cs" />
     <Compile Include="Client\HtmlHelperExtensionsTests.cs" />
     <Compile Include="Extensions\ActivityTypeCategoryExtensionsTests.cs" />
@@ -171,6 +172,10 @@
     <ProjectReference Include="..\SFA.DAS.Activities.Client\SFA.DAS.Activities.Client.csproj">
       <Project>{45344A34-429E-441C-A69C-8D7539353C51}</Project>
       <Name>SFA.DAS.Activities.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities.Jobs.Common\SFA.DAS.Activities.Jobs.Common.csproj">
+      <Project>{3399f35b-85fc-400d-b056-84c7e73d827e}</Project>
+      <Name>SFA.DAS.Activities.Jobs.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.MessageHandlers\SFA.DAS.Activities.MessageHandlers.csproj">
       <Project>{ed9598cd-dde8-453c-b36b-68033a453fe6}</Project>

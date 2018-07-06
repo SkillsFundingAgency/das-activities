@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.Azure.WebJobs;
 
-namespace SFA.DAS.Activities.Jobs.Infrastructure
+namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 {
     public class JobHostFactory : IJobHostFactory
     {

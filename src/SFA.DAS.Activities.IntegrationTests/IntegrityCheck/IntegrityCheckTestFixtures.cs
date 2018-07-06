@@ -14,6 +14,7 @@ using SFA.DAS.Activities.MessageHandlers;
 using SFA.DAS.EmployerAccounts.Events.Messages;
 using SFA.DAS.Messaging.Interfaces;
 using StructureMap;
+using IoC = SFA.DAS.Activities.MessageHandlers.DependencyResolution.IoC;
 
 namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
 {
@@ -220,14 +221,14 @@ namespace SFA.DAS.Activities.IntegrationTests.IntegrityCheck
 
         private IContainer InitialiseActivityWorkerIoC()
         {
-            var container = ActivityWorker.InitializeIoC();
+            var container = IoC.InitializeIoC();
             return container;
         }
 
         private IContainer InitialiseIntegrityCheckerIoC()
         {
 
-            var container = IoC.InitializeIoC();
+            var container = Jobs.DependencyResolution.IoC.InitializeIoC();
             ServiceLocator.Initialise(container);
             return container;
         }

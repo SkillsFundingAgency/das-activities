@@ -283,6 +283,10 @@
       <Project>{45344a34-429e-441c-a69c-8d7539353c51}</Project>
       <Name>SFA.DAS.Activities.Client</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities.Jobs.Common\SFA.DAS.Activities.Jobs.Common.csproj">
+      <Project>{3399f35b-85fc-400d-b056-84c7e73d827e}</Project>
+      <Name>SFA.DAS.Activities.Jobs.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SFA.DAS.Activities.Jobs\SFA.DAS.Activities.Jobs.csproj">
       <Project>{59db7e32-5fa4-47b0-ac7b-d74ff3d67edc}</Project>
       <Name>SFA.DAS.Activities.Jobs</Name>
