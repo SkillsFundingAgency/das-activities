@@ -27,6 +27,7 @@ open Fake
    ==>"Build WebJob Project" 
    ==>"Publish Solution"  
    ==>"Compile Views"
+   ==>"Zip Compiled Source"
    ==>"Create Nuget Package"
 
 "Set Solution Name"
