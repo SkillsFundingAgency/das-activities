@@ -19,6 +19,18 @@
         },
         "cosmosDbName": {
             "type": "string"
+        },
+        "configurationStorageConnectionString": {
+            "type": "string"
+        },
+        "environmentName": {
+            "type": "string"
+        },
+        "loggingRedisConnectionString": {
+            "type": "string"
+        },
+        "loggingRedisKey": {
+            "type": "string"
         }
     },
     "variables": {
@@ -66,6 +78,18 @@
                     },
                     "appServicePlanId": {
                         "value": "[reference('app-service-plan-resources-deployment').outputs.ASPResourceId.value]"
+                    },
+                    "configurationStorageConnectionString": {
+                        "value": "[parameters('configurationStorageConnectionString')]"
+                    },
+                    "environmentName": {
+                        "value": "[parameters('environmentName')]"
+                    },
+                    "loggingRedisConnectionString": {
+                        "value": "[parameters('loggingRedisConnectionString')]"
+                    },
+                    "loggingRedisKey": {
+                        "value": "[parameters('loggingRedisKey')]"
                     }
                 }
             },
