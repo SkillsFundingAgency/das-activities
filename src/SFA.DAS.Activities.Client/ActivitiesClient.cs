@@ -153,15 +153,16 @@ namespace SFA.DAS.Activities.Client
                 )
             );
 
-            var aggregates = (
-                from type in response.Aggs.Terms("activitiesByType").Buckets
-                let date = type.DateHistogram("activitiesByDay").Buckets.FirstOrDefault()
-                let topHit = date?.TopHits("activityTopHit").Hits<Activity>().Select(h => h.Source).First()
-                where topHit != null
-                select new AggregatedActivityResult
+            var aggregates = response.Aggs.Terms("activitiesByType").Buckets
+                                            .SelectMany(at => at.DateHistogram("activitiesByDay").Buckets)
+                                            .Select(
+                activityTypeOnDay =>
                 {
-                    TopHit = topHit,
-                    Count = date.DocCount.Value
+                    return new AggregatedActivityResult
+                    {
+                        TopHit = activityTypeOnDay.TopHits("activityTopHit").Hits<Activity>().Select(h => h.Source).First(),
+                        Count = activityTypeOnDay.DocCount.Value
+                    };
                 })
                 .ToList();
 
