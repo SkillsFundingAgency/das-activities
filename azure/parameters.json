@@ -5,6 +5,9 @@
         "templateBaseUrl": {
             "value": ""
         },
+        "storageAccountName": {
+            "value": ""
+        },
         "appServicePlanName": {
             "value": ""
         },

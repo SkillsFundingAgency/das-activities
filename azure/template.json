@@ -5,6 +5,9 @@
         "templateBaseUrl": {
             "type": "string"
         },
+        "storageAccountName": {
+            "type": "string"
+        },
         "appServicePlanName": {
             "type": "string"
         },
@@ -34,13 +37,34 @@
         }
     },
     "variables": {
+        "storageAccountResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/storage-account-resources.json')]",
         "appServiceResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/app-service-resources.json')]",
         "cosmosDbResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/cosmos-db-resources.json')]",
         "aspResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/app-service-plan-resources.json')]"
     },
     "resources": [
         {
-            "apiVersion": "2017-08-01",
+            "apiVersion": "2017-05-10",
+            "name": "storage-account-resources-deployment",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('storageAccountResourcesTemplateUri')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "storageAccountName": {
+                        "value": "[parameters('storageAccountName')]"
+                    },
+                    "storageAccountType": {
+                        "value": "Standard_GRS"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
             "name": "app-service-plan-resources-deployment",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -63,7 +87,7 @@
             }
         },
         {
-            "apiVersion": "2017-08-01",
+            "apiVersion": "2017-05-10",
             "name": "app-service-resources-deployment",
             "type": "Microsoft.Resources/deployments",
             "properties": {
@@ -98,7 +122,7 @@
             ]
         },
         {
-            "apiVersion": "2017-08-01",
+            "apiVersion": "2017-05-10",
             "name": "cosmos-db-resources-deployment",
             "dependsOn": [],
             "type": "Microsoft.Resources/deployments",
