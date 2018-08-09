@@ -7,6 +7,18 @@
         },
         "appServicePlanId": {
             "type": "string"
+        },
+        "configurationStorageConnectionString": {
+            "type": "string"
+        },
+        "environmentName": {
+            "type": "string"
+        },
+        "loggingRedisConnectionString": {
+            "type": "string"
+        },
+        "loggingRedisKey": {
+            "type": "string"
         }
     },
     "variables": {},
@@ -33,7 +45,24 @@
                 "serverFarmId": "[parameters('appServicePlanId')]",
                 "siteConfig": {
                     "alwaysOn": true,
-                    "appSettings": [],
+                    "appSettings": [
+                        {
+                            "name": "ConfigurationStorageConnectionString",
+                            "value": "[parameters('configurationStorageConnectionString')]"
+                        },
+                        {
+                            "name": "EnvironmentName",
+                            "value": "[parameters('environmentName')]"
+                        },
+                        {
+                            "name": "LoggingRedisConnectionString",
+                            "value": "[parameters('loggingRedisConnectionString')]"
+                        },
+                        {
+                            "name": "LoggingRedisKey",
+                            "value": "[parameters('loggingRedisKey')]"
+                        }
+                    ],
                     "connectionStrings": []
                 }
             },
