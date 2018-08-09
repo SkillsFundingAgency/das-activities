@@ -198,6 +198,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\webjob-publish-settings.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SFA.DAS.Activities.Jobs.Common\SFA.DAS.Activities.Jobs.Common.csproj">
