@@ -1,7 +1,6 @@
 ﻿{
   "$schema": "http://schemastore.org/schemas/json/webjob-publish-settings.json",
   "WebJobs": [
-    { "filePath": "../SFA.DAS.Activities.Jobs/SFA.DAS.Activities.Jobs.csproj" },
-    { "filePath": "../SFA.DAS.Activities.MessageHandlers/SFA.DAS.Activities.MessageHandlers.csproj" }
+    { "filePath": "../SFA.DAS.Activities.Jobs/SFA.DAS.Activities.Jobs.csproj" }
   ] 
 }
