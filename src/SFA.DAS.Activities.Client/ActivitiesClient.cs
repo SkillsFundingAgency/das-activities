@@ -126,7 +126,7 @@ namespace SFA.DAS.Activities.Client
                 .Aggregations(aggs => aggs
                     .Terms("activitiesByType", t => t
                         .Field(a => a.Type)
-                        .OrderDescending("maxAt")
+                        .Order(new TermsOrder{Key = "maxAt", Order = SortOrder.Descending})
                         .Size(4)
                         .Aggregations(aggs2 => aggs2
                             .Max("maxAt", m => m
