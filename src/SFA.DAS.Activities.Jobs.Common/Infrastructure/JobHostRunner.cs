@@ -5,12 +5,15 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
+using SFA.DAS.NLog.Logger;
 using StructureMap;
 
 namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 {
     public class JobHostRunner
     {
+        private static readonly ILog Log = new NLogLogger(typeof(JobHostRunner));
+
         public List<MethodInfo> PreLaunch { get; } = new List<MethodInfo>();
         public Func<IContainer> ContainerProvider { get; private set; }
 
@@ -35,11 +38,11 @@ namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 
         public void RunAndBlock()
         {
-            Trace.TraceInformation($"{Assembly.GetEntryAssembly().FullName} is starting");
+            Log.Info($"{Assembly.GetEntryAssembly().FullName} is starting");
 
             try
             {
-                Trace.TraceInformation($"{Assembly.GetEntryAssembly().FullName} initialising IoC");
+                Log.Debug($"{Assembly.GetEntryAssembly().FullName} initialising IoC");
                 Container = ContainerProvider();
 
                 ServiceLocator.Initialise(Container);
@@ -49,22 +52,26 @@ namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 
                 DoPreLaunch(host);
 
-                Trace.TraceInformation($"{Assembly.GetEntryAssembly().FullName} job host starting");
+                Log.Info($"{Assembly.GetEntryAssembly().FullName} job host starting");
                 host.RunAndBlock();
             }
             catch (Exception ex)
             {
-                Trace.TraceError($"Failed to run job host {Assembly.GetEntryAssembly().FullName} - {ex.GetType().Name} - {ex.Message}");
+                Log.Fatal(ex, $"Failed to run job host {Assembly.GetEntryAssembly().FullName} - {ex.GetType().Name} - {ex.Message}");
             }
         }
 
         private void DoPreLaunch(JobHost jobhost)
         {
+            Log.Info("Performing pre-launch actions");
+
             foreach (var method in PreLaunch)
             {
-                Trace.TraceInformation($"Performing pre-launch {method.DeclaringType.FullName}.{method.Name}");
+                Log.Debug($"Performing pre-launch {method.DeclaringType.FullName}.{method.Name}");
                 jobhost.Call(method);
             }
+
+            Log.Info("Pre-launch actions complete");
         }
     }
 }
