@@ -109,7 +109,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
         public IContainer Container => ContainerMock.Object;
         public TestMessageProcessor CurrentMessageProcessor { get; private set; }
 
-        public const int MaxTimeBeforeAbandonTest = 2000;
+        public const int MaxTimeBeforeAbandonTest = 5000;
 
 
 
