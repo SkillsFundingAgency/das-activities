@@ -1,21 +1,36 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using Microsoft.Azure.WebJobs;
 using SFA.DAS.Activities.Jobs.Common.Infrastructure;
 using SFA.DAS.Activities.MessageHandlers.DependencyResolution;
 using SFA.DAS.Messaging.Interfaces;
+using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.MessageHandlers
 {
     public class Program
     {
+        private static readonly ILog Log = new NLogLogger(typeof(Program));
+
         public static void Main()
         {
-            JobHostRunner
-                .Create(IoC.InitializeIoC)
-                .WithPreLaunch(typeof(Program).GetMethod(nameof(StartMessageProcessors)))
-                .RunAndBlock();
+            try
+            {
+                Log.Info($"Starting {nameof(JobHostRunner)}");
+
+                JobHostRunner
+                    .Create(IoC.InitializeIoC)
+                    .WithPreLaunch(typeof(Program).GetMethod(nameof(StartMessageProcessors)))
+                    .RunAndBlock();
+
+                Log.Info($"Stopping {nameof(JobHostRunner)}");
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{nameof(JobHostRunner)} has faulted");
+            }
         }
 
         // Set when message processing is running, unset when it is in a stopped state
