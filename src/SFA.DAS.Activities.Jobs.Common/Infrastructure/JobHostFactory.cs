@@ -17,9 +17,6 @@ namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
 
         public JobHost CreateJobHost()
         {
-            _logger.Debug($"DashboardConnectionString: {_configuration.DashboardConnectionString}");
-            _logger.Debug($"StorageConnectionString: {_configuration.StorageConnectionString}");
-
             JobHostConfiguration config = new JobHostConfiguration
             {
                 DashboardConnectionString = _configuration.DashboardConnectionString,
@@ -30,8 +27,6 @@ namespace SFA.DAS.Activities.Jobs.Common.Infrastructure
             {
                 config.UseDevelopmentSettings();
             }
-
-            _logger.Debug($"IsDevelopment: {config.IsDevelopment}");
 
             config.Tracing.ConsoleLevel = TraceLevel.Verbose;
             config.UseTimers();

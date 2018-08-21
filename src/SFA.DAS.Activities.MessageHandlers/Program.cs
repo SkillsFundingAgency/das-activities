@@ -18,8 +18,6 @@ namespace SFA.DAS.Activities.MessageHandlers
         {
             try
             {
-                Console.WriteLine("Starting...");
-
                 Log.Info($"Starting {nameof(JobHostRunner)}");
 
                 JobHostRunner
@@ -31,7 +29,6 @@ namespace SFA.DAS.Activities.MessageHandlers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Faulted...{ex.GetType().Name} - {ex.Message}");
                 Log.Fatal(ex, $"{nameof(JobHostRunner)} has faulted");
             }
         }
