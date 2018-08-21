@@ -31,8 +31,8 @@ namespace SFA.DAS.Activities.MessageHandlers
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, $"{nameof(JobHostRunner)} has faulted");
                 Console.WriteLine($"Faulted...{ex.GetType().Name} - {ex.Message}");
+                Log.Fatal(ex, $"{nameof(JobHostRunner)} has faulted");
             }
         }
 
