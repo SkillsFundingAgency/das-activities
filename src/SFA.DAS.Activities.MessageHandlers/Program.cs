@@ -18,6 +18,8 @@ namespace SFA.DAS.Activities.MessageHandlers
         {
             try
             {
+                Console.WriteLine("Starting...");
+
                 Log.Info($"Starting {nameof(JobHostRunner)}");
 
                 JobHostRunner
@@ -30,6 +32,7 @@ namespace SFA.DAS.Activities.MessageHandlers
             catch (Exception ex)
             {
                 Log.Fatal(ex, $"{nameof(JobHostRunner)} has faulted");
+                Console.WriteLine($"Faulted...{ex.GetType().Name} - {ex.Message}");
             }
         }
 
@@ -47,7 +50,7 @@ namespace SFA.DAS.Activities.MessageHandlers
             {
                 var processors = ServiceLocator.GetAll<IMessageProcessor>().ToArray();
 
-                log.WriteLine($"Found {processors.Length} message processors");
+                Log.Info($"Found {processors.Length} message processors");
 
                 if (processors.Length == 0)
                 {
@@ -61,15 +64,15 @@ namespace SFA.DAS.Activities.MessageHandlers
 
                 foreach (var messageProcessor in processors)
                 {
-                    log.WriteLine($"Starting up message processor {messageProcessor.GetType().FullName}");
+                    Log.Info($"Starting up message processor {messageProcessor.GetType().FullName}");
                     messageProcessor
                         .RunAsync(cancellationTokenSource)
                         .ContinueWith(t =>
                         {
                             if (t.IsFaulted)
                             {
-                                log.WriteLine(
-                                    $"{messageProcessor.GetType().FullName} has faulted - canceling all other message handlers.");
+                                Log.Warn(
+                                    $"{messageProcessor.GetType().FullName} has faulted - cancelling all other message handlers.");
                                 hasFaulted = true;
                                 cancellationTokenSource.Cancel();
                             }
