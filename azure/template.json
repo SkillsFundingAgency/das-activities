@@ -2,9 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "templateBaseUrl": {
-            "type": "string"
-        },
         "storageAccountName": {
             "type": "string"
         },
@@ -36,12 +33,7 @@
             "type": "string"
         }
     },
-    "variables": {
-        "storageAccountResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/storage-account-resources.json')]",
-        "appServiceResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/app-service-resources.json')]",
-        "cosmosDbResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/cosmos-db-resources.json')]",
-        "aspResourcesTemplateUri": "[concat(parameters('templateBaseUrl'), '/deployments/app-service-plan-resources.json')]"
-    },
+    "variables": {},
     "resources": [
         {
             "apiVersion": "2017-05-10",
@@ -50,15 +42,12 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('storageAccountResourcesTemplateUri')]",
+                    "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/storage-account-arm.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "storageAccountName": {
                         "value": "[parameters('storageAccountName')]"
-                    },
-                    "storageAccountType": {
-                        "value": "Standard_GRS"
                     }
                 }
             }
@@ -70,18 +59,24 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('aspResourcesTemplateUri')]",
+                    "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/app-service-plan.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "appServicePlanName": {
                         "value": "[parameters('appServicePlanName')]"
                     },
-                    "aseName": {
+                    "aseHostingEnvironmentName": {
                         "value": "[parameters('aseName')]"
                     },
                     "aseResourceGroup": {
                         "value": "[parameters('aseResourceGroup')]"
+                    },
+                    "aspSize": {
+                        "value": "1"
+                    },
+                    "aspInstances": {
+                        "value": 1
                     }
                 }
             }
@@ -93,27 +88,49 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('appServiceResourcesTemplateUri')]",
+                    "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/app-service.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "appServiceName": {
                         "value": "[parameters('appServiceName')]"
                     },
-                    "appServicePlanId": {
-                        "value": "[reference('app-service-plan-resources-deployment').outputs.ASPResourceId.value]"
+                    "appServicePlanName": {
+                        "value": "[parameters('appServicePlanName')]"
                     },
-                    "configurationStorageConnectionString": {
-                        "value": "[parameters('configurationStorageConnectionString')]"
+                    "appServicePlanResourceGroup": {
+                        "value": "[resourceGroup().name]"
                     },
-                    "environmentName": {
-                        "value": "[parameters('environmentName')]"
+                    "deployStagingSlot": {
+                        "value": false
                     },
-                    "loggingRedisConnectionString": {
-                        "value": "[parameters('loggingRedisConnectionString')]"
-                    },
-                    "loggingRedisKey": {
-                        "value": "[parameters('loggingRedisKey')]"
+                    "appServiceAppSettings": {
+                        "value": [
+                            {
+                                "name": "ConfigurationStorageConnectionString",
+                                "value": "[parameters('configurationStorageConnectionString')]"
+                            },
+                            {
+                                "name": "EnvironmentName",
+                                "value": "[parameters('environmentName')]"
+                            },
+                            {
+                                "name": "LoggingRedisConnectionString",
+                                "value": "[parameters('loggingRedisConnectionString')]"
+                            },
+                            {
+                                "name": "LoggingRedisKey",
+                                "value": "[parameters('loggingRedisKey')]"
+                            },
+                            {
+                                "name": "DashboardConnectionString",
+                                "value": "[reference('storage-account-resources-deployment').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "StorageConnectionString",
+                                "value": "[reference('storage-account-resources-deployment').outputs.storageConnectionString.value]"
+                            }
+                        ]
                     }
                 }
             },
@@ -129,12 +146,18 @@
             "properties": {
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('cosmosDbResourcesTemplateUri')]",
+                    "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/cosmos-db.json",
                     "contentVersion": "1.0.0.0"
                 },
                 "parameters": {
                     "cosmosDbName": {
                         "value": "[parameters('cosmosDbName')]"
+                    },
+                    "cosmosDbType": {
+                        "value": "GlobalDocumentDB"
+                    },
+                    "defaultConsistencyLevel": {
+                        "value": "Strong"
                     }
                 }
             }
