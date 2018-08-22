@@ -1,16 +1,17 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using SFA.DAS.Activities.IntegrityChecker;
 
 namespace SFA.DAS.Activities.Jobs
 {
-    public class IntegrityCheckerJob
+    public class IntegrityCheckerJob 
     {
         [Singleton]
         public void IntegrityCheck(
             //            {second} {minute} {hour} {day} {month} {day-of-week}
-            [TimerTrigger("0 30 3 * * 1")] TimerInfo timer,
+            [TimerTrigger("0 30 3 * 10 1")] TimerInfo timer,
             TraceWriter logger,
             CancellationToken cancellationToken)
         {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure;
 using SFA.DAS.Activities.Jobs.Common.Infrastructure;
+using SFA.DAS.Activities.Jobs.Common.Infrastructure.AdHoc;
 using StructureMap;
 
 namespace SFA.DAS.Activities.Jobs.Common.DependencyResolution
@@ -15,6 +16,9 @@ namespace SFA.DAS.Activities.Jobs.Common.DependencyResolution
             });
 
             For<IJobHostFactory>().Use<JobHostFactory>().Singleton();
+            For<IAzureWebJobHelper>().Use<AzureWebJobHelper>().Singleton();
+            For<ITriggeredJobRepository>().Use<TriggeredJobRepository>().Singleton();
+            For<IAzureQueueClient>().Use<AzureQueueClient>().Singleton();
         }
     }
 }

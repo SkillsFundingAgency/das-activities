@@ -1,11 +1,15 @@
 ﻿using System;
+using System.IO;
+using System.Threading;
+using Microsoft.Azure.WebJobs;
 using SFA.DAS.Activities.Jobs.Common.Infrastructure;
+using SFA.DAS.Activities.Jobs.Common.Infrastructure.AdHoc;
 using SFA.DAS.Activities.Jobs.DependencyResolution;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Jobs
 {
-    class Program
+    public class Program
     {
         private static readonly ILog Log = new NLogLogger(typeof(Program));
 
@@ -17,6 +21,7 @@ namespace SFA.DAS.Activities.Jobs
 
                 JobHostRunner
                     .Create(IoC.InitializeIoC)
+                    .WithPreLaunch(typeof(Program).GetMethod(nameof(EnsureAllQueuesCreated)))
                     .RunAndBlock();
 
                 Log.Info($"Stopping {nameof(JobHostRunner)}");
@@ -25,6 +30,13 @@ namespace SFA.DAS.Activities.Jobs
             {
                 Log.Fatal(ex, $"{nameof(JobHostRunner)} has faulted");
             }
+        }
+
+        [NoAutomaticTrigger]
+        public static void EnsureAllQueuesCreated(TextWriter log, CancellationToken cancellationToken)
+        {
+            var webjobhelper = ServiceLocator.Get<IAzureWebJobHelper>();
+            webjobhelper.EnsureAllQueuesForTriggeredJobs();
         }
     }
 }

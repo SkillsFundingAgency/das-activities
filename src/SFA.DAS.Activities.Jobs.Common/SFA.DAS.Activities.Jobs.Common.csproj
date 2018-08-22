@@ -173,12 +173,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyResolution\JobsCommonRegistry.cs" />
+    <Compile Include="Infrastructure\AdHoc\AdHocJobParams.cs" />
+    <Compile Include="Infrastructure\AdHoc\AdHocJobs.cs" />
+    <Compile Include="Infrastructure\AdHoc\AttributeIsNotAWebJobTrigger.cs" />
+    <Compile Include="Infrastructure\AdHoc\AzureQueueClient.cs" />
+    <Compile Include="Infrastructure\AdHoc\AzureWebJobHelper.cs" />
+    <Compile Include="Infrastructure\AdHoc\Constants.cs" />
+    <Compile Include="Infrastructure\AdHoc\IAzureQueueClient.cs" />
+    <Compile Include="Infrastructure\AdHoc\IAzureWebJobHelper.cs" />
+    <Compile Include="Infrastructure\AdHoc\JobName.cs" />
     <Compile Include="Infrastructure\IJobHostFactory.cs" />
+    <Compile Include="Infrastructure\AdHoc\ITriggeredJobRepository.cs" />
     <Compile Include="Infrastructure\IWebJobConfiguration.cs" />
     <Compile Include="Infrastructure\JobHostRunner.cs" />
     <Compile Include="Infrastructure\JobHostFactory.cs" />
     <Compile Include="Infrastructure\ServiceLocator.cs" />
     <Compile Include="Infrastructure\SingletonConvention.cs" />
+    <Compile Include="Infrastructure\AdHoc\TriggeredJob.cs" />
+    <Compile Include="Infrastructure\AdHoc\TriggeredJobRepository.cs" />
     <Compile Include="Infrastructure\WebJobConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
