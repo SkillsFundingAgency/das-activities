@@ -5,7 +5,7 @@
       "Collections": [
         {
           "CollectionName": "__CosmosCollectionName__",
-          "OfferThroughput": "__ThroughPut__",
+          "OfferThroughput": __ThroughPut__,
           "StoredProcedures": []
         }
       ]
