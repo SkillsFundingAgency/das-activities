@@ -1,7 +1,7 @@
 {
   "Databases": [
     {
-      "DatabaseName": "__CosmosDbName__",
+      "DatabaseName": "__CosmosDatabase__",
       "Collections": [
         {
           "CollectionName": "__CosmosCollectionName__",
