@@ -4,7 +4,6 @@ using System.Threading;
 using Moq;
 using Nest;
 using NUnit.Framework;
-using SFA.DAS.Activities.Worker.ObjectMappers;
 using SFA.DAS.Messaging.Attributes;
 using SFA.DAS.Messaging.AzureServiceBus.Attributes;
 using SFA.DAS.Messaging.Interfaces;
@@ -59,61 +58,53 @@ namespace SFA.DAS.Activities.UnitTests
                 return this;
             }
 
-            public void Verify()
+            public void Verify(Func<MessageProcessorTestFixtures<TMessage>, IMessageProcessor> createProcessor)
             {
                 var cancellationTokenSource = new CancellationTokenSource();
-                var subscriberFactory = new Mock<IMessageSubscriberFactory>();
-                var subscriber = new Mock<IMessageSubscriber<TMessage>>();
-                var logicalMessage = new Mock<IMessage<TMessage>>();
-                var activityMapper = new Mock<IActivityMapper>();
-                var client = new Mock<IElasticClient>();
                 var mappedActivity = new Activity();
+                var fixtures = new MessageProcessorTestFixtures<TMessage>();
 
-                Activity indexedActivity = null;
+                fixtures.LogicalMessageMock.Setup(m => m.Content).Returns(_from);
+                fixtures.SubscriberMock.Setup(s => s.ReceiveAsAsync()).ReturnsAsync(fixtures.LogicalMessageMock.Object)
+                    .Callback(cancellationTokenSource.Cancel);
+                fixtures.SubscriberFactoryMock.Setup(s => s.GetSubscriber<TMessage>()).Returns(fixtures.SubscriberMock.Object);
 
-                logicalMessage.Setup(m => m.Content).Returns(_from);
-                subscriber.Setup(s => s.ReceiveAsAsync()).ReturnsAsync(logicalMessage.Object).Callback(cancellationTokenSource.Cancel);
-                subscriberFactory.Setup(s => s.GetSubscriber<TMessage>()).Returns(subscriber.Object);
+                var messageProcessor = createProcessor(fixtures);
 
-                activityMapper.Setup(m => m.Map(_from, _to, It.IsAny<Func<TMessage, long>>(), It.IsAny<Func<TMessage, DateTime>>()))
-                    .Callback<TMessage, ActivityType, Func<TMessage, long>, Func<TMessage, DateTime>>((m, t, a, c) =>
-                    {
-                        if (a != null)
-                        {
-                            mappedActivity.AccountId = a(_from);
-                        }
-
-                        if (c != null)
-                        {
-                            mappedActivity.At = c(_from);
-                        }
-                    })
-                    .Returns(mappedActivity);
-
-                client.Setup(c => c.IndexAsync(mappedActivity, It.IsAny<Func<IndexDescriptor<Activity>, IIndexRequest>>(), It.IsAny<CancellationToken>()))
-                    .Callback<Activity, Func<IndexDescriptor<Activity>, IIndexRequest>, CancellationToken>((a, s, c) => indexedActivity = a);
-
-                var messageProcessor = (TMessageProcessor)Activator.CreateInstance(typeof(TMessageProcessor), subscriberFactory.Object, Mock.Of<ILog>(), activityMapper.Object, client.Object);
-                var topicSubscriptionAttribute = typeof(TMessageProcessor).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(TopicSubscriptionAttribute));
-                var messageGroupAttribute = typeof(TMessage).CustomAttributes.SingleOrDefault(a => a.AttributeType == typeof(MessageGroupAttribute));
+                var topicSubscriptionAttribute =
+                    typeof(TMessageProcessor).CustomAttributes.SingleOrDefault(a =>
+                        a.AttributeType == typeof(TopicSubscriptionAttribute));
+                var messageGroupAttribute =
+                    typeof(TMessage).CustomAttributes.SingleOrDefault(a =>
+                        a.AttributeType == typeof(MessageGroupAttribute));
 
                 messageProcessor.RunAsync(cancellationTokenSource).Wait();
 
                 Assert.That(topicSubscriptionAttribute, Is.Not.Null);
                 Assert.That(messageGroupAttribute, Is.Not.Null);
-                Assert.That(indexedActivity, Is.Not.Null);
-                Assert.That(indexedActivity, Is.SameAs(mappedActivity));
-
-                if (_accountId != null)
-                {
-                    Assert.That(indexedActivity.AccountId, Is.EqualTo(_accountId(_from)));
-                }
-
-                if (_createdAt != null)
-                {
-                    Assert.That(indexedActivity.At, Is.EqualTo(_createdAt(_from)));
-                }
             }
         }
+    }
+
+    public class MessageProcessorTestFixtures<TMessage> where TMessage : class, new()
+    {
+        public Mock<ILog> LogMock = new Mock<ILog>();
+        public ILog Log => LogMock.Object;
+
+        public Mock<IMessageSubscriberFactory>  SubscriberFactoryMock = new Mock<IMessageSubscriberFactory>();
+        public IMessageSubscriberFactory SubscriberFactory => SubscriberFactoryMock.Object;
+
+        public Mock<IMessageSubscriber<TMessage>> SubscriberMock = new Mock<IMessageSubscriber<TMessage>>();
+        public IMessageSubscriber<TMessage> Subscriber => SubscriberMock.Object;
+
+        public Mock<IMessage<TMessage>> LogicalMessageMock = new Mock<IMessage<TMessage>>();
+        public IMessage<TMessage> LogicalMessage { get; set; }
+
+        public Mock<IActivitySaver> ActivitySaverMock = new Mock<IActivitySaver>();
+        public IActivitySaver ActivitySaver => ActivitySaverMock.Object;
+
+        public Mock<IMessageContextProvider> MessageContextProviderMock = new Mock<IMessageContextProvider>();
+        public IMessageContextProvider MessageContextProvider => MessageContextProviderMock.Object;
+
     }
 }

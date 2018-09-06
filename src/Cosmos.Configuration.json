@@ -1,0 +1,14 @@
+{
+  "Databases": [
+    {
+      "DatabaseName": "__CosmosDatabase__",
+      "Collections": [
+        {
+          "CollectionName": "__CosmosCollectionName__",
+          "OfferThroughput": __ThroughPut__,
+          "StoredProcedures": []
+        }
+      ]
+    }
+  ]
+}
