@@ -74,11 +74,11 @@
     <Reference Include="SFA.DAS.Elastic, Version=1.0.0.52762, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Elastic.1.0.0.52762\lib\net45\SFA.DAS.Elastic.dll</HintPath>
     </Reference>
-    <Reference Include="SFA.DAS.NLog.Logger, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SFA.DAS.NLog.Logger.1.1.5\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
-    </Reference>
     <Reference Include="SFA.DAS.Messaging, Version=3.1.16.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SFA.DAS.Messaging.3.1.16\lib\net45\SFA.DAS.Messaging.dll</HintPath>
+    </Reference>
+    <Reference Include="SFA.DAS.NLog.Logger, Version=1.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SFA.DAS.NLog.Logger.1.1.5\lib\net45\SFA.DAS.NLog.Logger.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.6.0\lib\net45\StructureMap.dll</HintPath>
@@ -86,7 +86,14 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+<<<<<<< HEAD
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+=======
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.3.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -96,8 +103,6 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
@@ -110,6 +115,7 @@
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
     </Reference>
+>>>>>>> Add elastic repo
     <Reference Include="System.Spatial, Version=5.8.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.8.3\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
@@ -125,15 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity.cs" />
-    <Compile Include="Configuration\IIntegrityCheckConfiguration.cs" />
-    <Compile Include="DependencyResolver\IntegrityCheckRegistry.cs" />
-    <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerExceptionSummary.cs" />
-    <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerHandlerSummary.cs" />
-    <Compile Include="IntegrityChecker\Interfaces\IFixActionReaderLogger.cs" />
-    <Compile Include="Extensions\ActivityCollectionExtensions.cs" />
-    <Compile Include="IntegrityChecker\Utils\CosmosClient.cs" />
-    <Compile Include="IntegrityChecker\Utils\DocumentCollectionConfigurator.cs" />
-    <Compile Include="IntegrityChecker\Interfaces\IDocumentCollectionConfigurator.cs" />
+    <Compile Include="ActivitySavers\CosmosClient.cs" />
     <Compile Include="ActivityType.cs" />
     <Compile Include="ActivityTypeCategory.cs" />
     <Compile Include="Attributes\Action.cs" />
@@ -142,15 +140,10 @@
     <Compile Include="Configuration\ConfigurationHelper.cs" />
     <Compile Include="Configuration\DeployedEnvironment.cs" />
     <Compile Include="Configuration\EnvironmentHelper.cs" />
-    <Compile Include="Configuration\IAzureBlobStorageConfiguration.cs" />
     <Compile Include="Configuration\ICosmosConfiguration.cs" />
-    <Compile Include="Configuration\IElasticConfiguration.cs" />
     <Compile Include="Configuration\IMessageServiceBusConfiguration.cs" />
-    <Compile Include="CosmosClientQueryResult.cs" />
-    <Compile Include="Configuration\ActivitiesWorkerConfiguration.cs" />
-    <Compile Include="DependencyResolver\AzureRegistry.cs" />
-    <Compile Include="DependencyResolver\CosmosRegistry.cs" />
-    <Compile Include="DependencyResolver\ElasticRegistry.cs" />
+    <Compile Include="DependencyResolver\ActivitiesWorkerConfiguration.cs" />
+    <Compile Include="DependencyResolver\ActivitiesWorkerRegistry.cs" />
     <Compile Include="Exceptions\InvalidQueryPagingData.cs" />
     <Compile Include="Extensions\ActivityTypeCategoryExtensions.cs" />
     <Compile Include="Extensions\ActivityTypeExtensions.cs" />
@@ -158,26 +151,23 @@
     <Compile Include="IActivitySaver.cs" />
     <Compile Include="ICosmosClient.cs" />
     <Compile Include="IndexMappers\ActivitiesIndexMapper.cs" />
-    <Compile Include="IntegrityChecker\ActivatiesScan.cs" />
-    <Compile Include="IntegrityChecker\Repositories\AzureBlobRepository.cs" />
+    <Compile Include="IntegrityChecker\ActivatyScan.cs" />
     <Compile Include="IntegrityChecker\Dto\ActivityDiscrepancy.cs" />
-    <Compile Include="IntegrityChecker\FixLogging\FixActionHandlerLoggerItem.cs" />
-    <Compile Include="IntegrityChecker\FixLogging\FixActionLogger.cs" />
-    <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerItem.cs" />
-    <Compile Include="IntegrityChecker\Interfaces\IFixActionLogger.cs" />
-    <Compile Include="IntegrityChecker\Fixers\NotFoundInCosmosFixer.cs" />
-    <Compile Include="IntegrityChecker\Interfaces\IAzureBlobRepository.cs" />
+    <Compile Include="IntegrityChecker\Fixers\FixActionLogger.cs" />
+    <Compile Include="IntegrityChecker\Fixers\FixActionLoggerItem.cs" />
+    <Compile Include="IntegrityChecker\Fixers\IFixActionLogger.cs" />
+    <Compile Include="IntegrityChecker\Fixers\NotFoundInCosmos.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IActivitiesFix.cs" />
     <Compile Include="IntegrityChecker\IntegrityCheck.cs" />
     <Compile Include="IntegrityChecker\Interfaces\ICosmosActivityDocumentRepository.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IElasticActivityDocumentRepository.cs" />
-    <Compile Include="IntegrityChecker\Dto\CosmosActivity.cs" />
-    <Compile Include="IntegrityChecker\Dto\CosmosPagingData.cs" />
-    <Compile Include="IntegrityChecker\Dto\ElasticPagingData.cs" />
-    <Compile Include="IntegrityChecker\Interfaces\IPagingData.cs" />
+    <Compile Include="IntegrityChecker\Repositories\CosmosPagingData.cs" />
+    <Compile Include="IntegrityChecker\Repositories\ElasticPagingData.cs" />
+    <Compile Include="IntegrityChecker\Repositories\IPagingData.cs" />
     <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyQueue.cs" />
     <Compile Include="IntegrityChecker\Dto\ActivityDiscrepancyType.cs" />
-    <Compile Include="IntegrityChecker\ActivitiesFix.cs" />
+    <Compile Include="IntegrityChecker\ActivityFix.cs" />
+    <Compile Include="IntegrityChecker\ActivityScanParams.cs" />
     <Compile Include="IntegrityChecker\ActivityScanResults.cs" />
     <Compile Include="IntegrityChecker\Dto\ActivityPageResult.cs" />
     <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyFinder.cs" />
@@ -191,7 +181,7 @@
     <Compile Include="IntegrityChecker\Interfaces\IActivityDiscrepancyFinder.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IActivityDiscrepancyFixer.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IActivityDocumentRepository.cs" />
-    <Compile Include="IntegrityChecker\Fixers\NotFoundInElasticFixer.cs" />
+    <Compile Include="IntegrityChecker\Fixers\NotFoundInElastic.cs" />
     <Compile Include="Localizers\PaymentCreatedActivityLocalizer.cs" />
     <Compile Include="Localizers\AccountCreatedActivityLocalizer.cs" />
     <Compile Include="Localizers\AccountNameChangedActivityLocalizer.cs" />
@@ -205,6 +195,7 @@
     <Compile Include="Localizers\UserInvitedActivityLocalizer.cs" />
     <Compile Include="Localizers\UserJoinedActivityLocalizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

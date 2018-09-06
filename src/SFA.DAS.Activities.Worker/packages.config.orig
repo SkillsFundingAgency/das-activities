@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="Elasticsearch.Net" version="5.6.1" targetFramework="net462" />
+  <package id="FAKEBuildScript" version="1.2.7" targetFramework="net462" />
+  <package id="MediatR" version="4.0.1" targetFramework="net462" />
+  <package id="Microsoft.AspNet.WebApi.Client" version="5.2.3" targetFramework="net462" />
+  <package id="Microsoft.AspNet.WebApi.Core" version="5.2.3" targetFramework="net462" />
+  <package id="Microsoft.Azure.DocumentDB" version="1.22.0" targetFramework="net462" />
+  <package id="Microsoft.Azure.KeyVault.Core" version="2.0.4" targetFramework="net462" />
+  <package id="Microsoft.VisualStudio.SlowCheetah" version="3.0.61" targetFramework="net462" />
+  <package id="Microsoft.WindowsAzure.ConfigurationManager" version="3.2.3" targetFramework="net462" />
+<<<<<<< HEAD
+  <package id="NEST" version="5.6.1" targetFramework="net462" />
+  <package id="Newtonsoft.Json" version="11.0.2" targetFramework="net462" />
+  <package id="NLog" version="4.5.0" targetFramework="net462" />
+=======
+  <package id="NEST" version="5.6.0" targetFramework="net462" />
+  <package id="Newtonsoft.Json" version="10.0.3" targetFramework="net462" />
+  <package id="NLog" version="4.4.12" targetFramework="net462" />
+  <package id="NLog.Config" version="4.4.12" targetFramework="net462" />
+  <package id="NLog.Schema" version="4.4.12" targetFramework="net462" />
+>>>>>>> Updated nuget packages to fix issue with MA activities
+  <package id="NuGet.CommandLine" version="4.4.1" targetFramework="net462" developmentDependency="true" />
+  <package id="Polly" version="5.7.0" targetFramework="net462" />
+  <package id="SFA.DAS.Elastic" version="1.0.0.52762" targetFramework="net462" />
+  <package id="SFA.DAS.EmployerAccounts.Events" version="1.2.0.62826" targetFramework="net462" />
+  <package id="SFA.DAS.Messaging" version="3.1.16" targetFramework="net462" />
+  <package id="SFA.DAS.Messaging.AzureServiceBus" version="3.1.16" targetFramework="net462" />
+  <package id="SFA.DAS.NLog.Logger" version="1.1.5" targetFramework="net462" />
+<<<<<<< HEAD
+  <package id="SFA.DAS.NLog.Targets.Redis" version="1.0.0.47445" targetFramework="net462" />
+=======
+  <package id="SFA.DAS.NLog.Targets.Redis" version="1.1.5" targetFramework="net462" />
+>>>>>>> Updated nuget packages to fix issue with MA activities
+  <package id="StackExchange.Redis" version="1.2.6" targetFramework="net462" />
+  <package id="StructureMap" version="4.6.0" targetFramework="net462" />
+  <package id="System.Reflection.Emit.Lightweight" version="4.3.0" targetFramework="net462" />
+  <package id="Topshelf" version="4.0.3" targetFramework="net462" />
+  <package id="Topshelf.Azure" version="1.4.1" targetFramework="net462" />
+  <package id="Unofficial.Microsoft.WindowsAzure.ServiceRuntime" version="2.9.0.0" targetFramework="net462" />
+  <package id="WindowsAzure.ServiceBus" version="4.1.6" targetFramework="net462" />
+</packages>
