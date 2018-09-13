@@ -33,9 +33,9 @@
 > docker pull docker.elastic.co/elasticsearch/elasticsearch:5.6.5
 ```
 
-5. Increase Docker Memory Allocation to 3500:  
+5. Increase Docker Memory Allocation to 3500 in System Notification Area:  
 
-```System Notification Area
+```
 Docker (Right Click) -> Settings -> Advanced -> Memory - slide to 3584 or more
 ```
 
