@@ -1,0 +1,143 @@
+﻿using CommandLine;
+using PerformanceTester.Types.Commands;
+using PerformanceTester.Types.Interfaces;
+using PerformanceTester.Types.Types;
+using StructureMap;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+using PerformanceTester.CommandLIne;
+using PerformanceTester.Types;
+using PerformanceTester.Types.Parameters;
+
+namespace PerformanceTester
+{
+    internal class Program
+    {
+        private readonly IContainer _container;
+
+        private static void Main(string[] args)
+        {
+            Parser.Default.ParseArguments<PopulateCommandLineArguments, FetchCommandLineArguments>((IEnumerable<string>)args)
+                .WithParsed<PopulateCommandLineArguments>(commandLineArguments => new Program().Populate(commandLineArguments))
+                .WithParsed<FetchCommandLineArguments>(commandLineArguments => new Program().Fetch(commandLineArguments))
+                .WithNotParsed<object>(parserResult =>
+                {
+                    Console.WriteLine("The command line is incorrect:");
+                    foreach (Error error in parserResult)
+                    {
+                        Console.WriteLine((object) error.Tag);
+                    }
+                });
+        }
+
+        public Program()
+        {
+            _container = IoC.InitializeIoC();
+        }
+
+        private void Populate(PopulateCommandLineArguments args)
+        {
+            EnableStores((StoreFilteringCommandLine)args);
+            RunCommand<PopulateStores>();
+        }
+
+        private void Fetch(FetchCommandLineArguments args)
+        {
+            EnableStores((StoreFilteringCommandLine)args);
+            SetConfigOverrides<FetchActivitiesParameters>(p => p.AccountIds = args.AccountIds, !string.IsNullOrWhiteSpace(args.AccountIds));
+            RunCommand<FetchActivities>();
+        }
+
+        private void SetConfigOverrides<TConfigType>(Action<TConfigType> setter, bool setCondition) where TConfigType : class, new()
+        {
+            if (setCondition)
+            {
+                var configProvider = _container.GetInstance<IConfigProvider>();
+                var config = configProvider.Get<TConfigType>();
+                setter(config);
+            }
+        }
+
+        private void RunCommand<TCommand>() where TCommand : ICommand
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            var task = StartCommand<TCommand>(cancellationTokenSource.Token);
+
+            WaitForCommandToCompleteOrCancel(task, cancellationTokenSource);
+
+            LogResults(task);
+        }
+
+        private Task<RunDetails> StartCommand<TCommand>(CancellationToken cancellationToken) where TCommand : ICommand
+        {
+            var command = _container.GetInstance<TCommand>();
+            var task = command.DoAsync(cancellationToken);
+            Console.WriteLine("Task executing - waiting for it to finish");
+            return task;
+        }
+
+        private void WaitForCommandToCompleteOrCancel(Task commandTask, CancellationTokenSource cancellationTokenSource)
+        {
+            StartWaitingForManualCancelAsync(cancellationTokenSource);
+
+            commandTask.Wait(cancellationTokenSource.Token);
+
+            cancellationTokenSource.Cancel(false);
+        }
+
+        private void LogResults(Task<RunDetails> task)
+        {
+            LogSummary(task);
+            LogDetail(task);
+        }
+
+        private void LogSummary(Task<RunDetails> task)
+        {
+            if (task.IsCompleted)
+                Console.WriteLine("The task ran to completion");
+
+            if (task.IsCanceled)
+                Console.WriteLine("The task was cancelled");
+
+            if (task.IsFaulted)
+            {
+                Console.WriteLine($"The task faulted - {task.Exception.GetType().Name} - {task.Exception.Message}");
+            }
+        }
+
+        private void LogDetail(Task<RunDetails> task)
+        {
+            if (task.IsFaulted)
+                return;
+            _container.GetInstance<IResultLogger>().Log(task.Result);
+        }
+
+        private Task StartWaitingForManualCancelAsync(CancellationTokenSource cancellationTokenSource)
+        {
+            return Task.Run((Action)(() =>
+            {
+                Console.WriteLine("press escape to cancel command");
+                while (Console.ReadKey(true).Key != ConsoleKey.Escape && !cancellationTokenSource.IsCancellationRequested)
+                    Console.WriteLine("Key ignored - press escape to quit");
+                cancellationTokenSource.Cancel(false);
+            }), cancellationTokenSource.Token);
+        }
+
+        private void EnableStores(StoreFilteringCommandLine commandLine)
+        {
+            IStoreRepository instance = _container.GetInstance<IStoreRepository>();
+            if (commandLine.EnableStore.Any<string>())
+            {
+                foreach (string name in commandLine.EnableStore)
+                    instance.EnableStore(name);
+            }
+            else
+                instance.EnableAllStores();
+        }
+    }
+}
