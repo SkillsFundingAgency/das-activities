@@ -1,62 +1,66 @@
-﻿using System.Diagnostics;
+﻿using System.Data.Entity;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PerformanceTester.Types;
+using PerformanceTester.Types.Interfaces;
+using PerformanceTester.Types.Types;
 
 namespace PerformanceTester.MSSqlDb
 {
-    public class MSSqlDbStore : IStore
+    public class MsSqlDbStore : IStore
     {
-        private readonly IElasticClientFactory _elasticClientFactory;
-        private IElasticClient _client;
+        private readonly IDbContextFactory _dbContextFactory;
 
-        public string Name => "ElasticDb";
+        public string Name => "MsSql";
 
-        public ElasticDbStore(IElasticClientFactory elasticClientFactory)
+        public MsSqlDbStore(IDbContextFactory elasticClientFactory)
         {
-            _elasticClientFactory = elasticClientFactory;
+            _dbContextFactory = elasticClientFactory;
         }
 
         public async Task<IOperationCost> GetActivitiesForAccountAsync(long accountId)
         {
 
-            var sw = new Stopwatch();
-            sw.Start();
+            using (var db = _dbContextFactory.Create())
+            {
+                var sw = new Stopwatch();
+                sw.Start();
 
-            var response = await _client.SearchAsync<Activity>(s => s
-                .Query(q =>
-                {
-                    var where = q
-                        .Term(t => t
-                            .Field(a => a.AccountId)
-                            .Value(accountId)
-                        );
+                var response = await db.Activities
+                    .Where(activity => activity.AccountId == accountId)
+                    .OrderByDescending(activity => activity.At)
+                    .ToListAsync();
 
-                    return where;
-                })
-                .Sort(srt => srt
-                    .Descending(a => a.At)
-                )
-            );
+                sw.Stop();
 
-            sw.Stop();
-
-            return new OperationCost($"Fetch activities for account {accountId}", 0, sw.ElapsedMilliseconds);
+                return new OperationCost($"Fetch activities for account {accountId}", 0, sw.ElapsedTicks);
+            }
         }
 
         public Task Initialise()
         {
-            _client = _elasticClientFactory.CreateClient();
-            return Task.FromResult(_client);
+            return Task.Run(() =>
+            {
+                using (_dbContextFactory.Create())
+                {
+                }
+            });
         }
 
         public async Task<IOperationCost> PersistActivityAsync(Activity activity, CancellationToken cancellationToken)
         {
             var sw = new Stopwatch();
             sw.Start();
-            var indexResponse = await _client.IndexAsync(activity, cancellationToken: cancellationToken);
+            using (var db = _dbContextFactory.Create())
+            {
+                db.Activities.Add(activity);
+                await db.SaveChangesAsync(cancellationToken);
+            }
             sw.Stop();
 
-            return new OperationCost("Upsert activity", -1, sw.ElapsedMilliseconds);
+            return new OperationCost("Upsert activity", -1, sw.ElapsedTicks);
         }
     }
 }

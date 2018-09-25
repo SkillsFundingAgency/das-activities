@@ -8,27 +8,17 @@ namespace PerformanceTester.Types.Types
     {
         public GroupOperationCost(string operation)
         {
-            this.Operation = operation;
-            this.StepCosts = new ConcurrentBag<IOperationCost>();
+            Operation = operation;
+            StepCosts = new ConcurrentBag<IOperationCost>();
         }
 
         public string Operation { get; }
 
-        public double Cost
-        {
-            get
-            {
-                return this.StepCosts.Sum<IOperationCost>((Func<IOperationCost, double>)(opc => opc.Cost));
-            }
-        }
+        public double Cost => ElapsedTicks / TimeSpan.TicksPerMillisecond;
 
-        public double ElapsedMSecs
-        {
-            get
-            {
-                return this.StepCosts.Sum<IOperationCost>((Func<IOperationCost, double>)(opc => opc.ElapsedMSecs));
-            }
-        }
+        public double ElapsedMSecs => StepCosts.Sum(opc => opc.Cost);
+
+        public double ElapsedTicks { get; set; }
 
         public ConcurrentBag<IOperationCost> StepCosts { get; }
     }

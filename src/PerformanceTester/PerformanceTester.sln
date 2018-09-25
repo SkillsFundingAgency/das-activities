@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.ElasticDb", "PerformanceTester.ElasticDb\PerformanceTester.ElasticDb.csproj", "{72FA7BF3-C700-47C3-A7F6-5F514C3A0FFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.MSSqlDb", "PerformanceTester.MSSqlDb\PerformanceTester.MSSqlDb.csproj", "{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{72FA7BF3-C700-47C3-A7F6-5F514C3A0FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FA7BF3-C700-47C3-A7F6-5F514C3A0FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72FA7BF3-C700-47C3-A7F6-5F514C3A0FFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

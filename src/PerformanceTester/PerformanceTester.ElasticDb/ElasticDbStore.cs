@@ -18,7 +18,7 @@ namespace PerformanceTester.ElasticDb
         private readonly IElasticClientFactory _elasticClientFactory;
         private IElasticClient _client;
 
-        public string Name => "ElasticDb";
+        public string Name => "Elastic";
 
         public ElasticDbStore(IElasticClientFactory elasticClientFactory)
         {
@@ -49,7 +49,7 @@ namespace PerformanceTester.ElasticDb
 
             sw.Stop();
 
-            return new OperationCost($"Fetch activities for account {accountId}", 0, sw.ElapsedMilliseconds);
+            return new OperationCost($"Fetch activities for account {accountId}", 0, sw.ElapsedTicks);
         }
 
         public Task Initialise()
@@ -65,7 +65,7 @@ namespace PerformanceTester.ElasticDb
             var indexResponse = await _client.IndexAsync(activity, cancellationToken: cancellationToken);
             sw.Stop();
 
-            return new OperationCost("Upsert activity", -1, sw.ElapsedMilliseconds);
+            return new OperationCost("Upsert activity", -1, sw.ElapsedTicks);
         }
     }
 }

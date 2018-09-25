@@ -37,6 +37,12 @@
     <Reference Include="CommandLine, Version=2.3.0.0, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.2.3.0\lib\net45\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Documents.Client, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.DocumentDB.2.0.0\lib\net45\Microsoft.Azure.Documents.Client.dll</HintPath>
     </Reference>
@@ -48,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Console, Version=4.0.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Console.4.3.1\lib\net46\System.Console.dll</HintPath>
     </Reference>
@@ -83,6 +90,7 @@
     <Compile Include="CommandLIne\StoreFilteringCommandLine.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="PerformanceTester.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -96,6 +104,10 @@
     <ProjectReference Include="..\PerformanceTester.ElasticDb\PerformanceTester.ElasticDb.csproj">
       <Project>{72fa7bf3-c700-47c3-a7f6-5f514c3a0ffe}</Project>
       <Name>PerformanceTester.ElasticDb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PerformanceTester.MSSqlDb\PerformanceTester.MSSqlDb.csproj">
+      <Project>{eb96fae7-e7dd-4aea-ac51-9a8a1e2ab829}</Project>
+      <Name>PerformanceTester.MSSqlDb</Name>
     </ProjectReference>
     <ProjectReference Include="..\PerformanceTester.Types\PerformanceTester.Types.csproj">
       <Project>{210ffb5d-cedb-4f3d-93ff-aad42ec1e67f}</Project>

@@ -29,7 +29,7 @@ namespace PerformanceTester.Types.ResultLogger
 
         private void LogCosts(IOperationCost operationCost, int level)
         {
-            Console.WriteLine("{0}{1,-20}  {2:####.##} {3:####.##} msecs", new object[4]
+            Console.WriteLine("{0}{1,-20}  {2:F1} {3:F2} msecs", new object[4]
             {
                 (object) "-> ".PadLeft(level * 2),
                 (object) operationCost.Operation,

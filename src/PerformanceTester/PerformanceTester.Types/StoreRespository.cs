@@ -97,7 +97,10 @@ namespace PerformanceTester.Types
             {
                 sw.Stop();
                 taskDetails.Elapsed = sw.Elapsed;
-                taskDetails.Cost = task.Result;
+                if (task.IsCompleted)
+                {
+                    taskDetails.Cost = task.Result;
+                }
             }, cancellationToken);
 
             return taskDetails;

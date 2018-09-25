@@ -13,5 +13,6 @@ namespace PerformanceTester.Types.Interfaces
         Task<IOperationCost> PersistActivityAsync(Activity activity, CancellationToken cancellationToken);
 
         Task<IOperationCost> GetActivitiesForAccountAsync(long accoundId);
+
     }
 }

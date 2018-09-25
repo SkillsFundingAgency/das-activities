@@ -1,6 +1,7 @@
 ﻿using System;
 using PerformanceTester.CosmosDb.IoC;
 using PerformanceTester.ElasticDb.IoC;
+using PerformanceTester.MSSqlDb.IoC;
 using PerformanceTester.Types.IoC;
 using StructureMap;
 
@@ -15,6 +16,7 @@ namespace PerformanceTester
                 c.AddRegistry<CommonRegistry>();
                 c.AddRegistry<CosmosDbRegistry>();
                 c.AddRegistry<ElasticRegistry>();
+                c.AddRegistry<MsSqlRegistry>();
             });
         }
     }

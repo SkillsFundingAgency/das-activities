@@ -27,21 +27,9 @@ namespace PerformanceTester.CosmosDb
         private readonly Lazy<CosmosConfig> _cosmosConfig;
         private const string CollectionName = "activities";
 
-        private CosmosConfig CosmosConfig
-        {
-            get
-            {
-                return this._cosmosConfig.Value;
-            }
-        }
+        private CosmosConfig CosmosConfig =>_cosmosConfig.Value;
 
-        private DocumentClient Client
-        {
-            get
-            {
-                return this._client.Value;
-            }
-        }
+        private DocumentClient Client => _client.Value;
 
         public CosmosDbStore(IConfigProvider configProvider)
         {
@@ -50,7 +38,7 @@ namespace PerformanceTester.CosmosDb
             this._cosmosConfig = new Lazy<CosmosConfig>((Func<CosmosConfig>)(() => (CosmosConfig)configProvider.Get<CosmosConfig>()));
         }
 
-        public string Name => "CosmosDB";
+        public string Name => "Cosmos";
 
         public Task Initialise()
         {
@@ -75,7 +63,7 @@ namespace PerformanceTester.CosmosDb
             sw.Start();
             var cosmosResponse = await this.Client.UpsertDocumentAsync(collectionUri, entity, this._requestOptions, false, cancellationToken);
             sw.Stop();
-            return new OperationCost("Upsert activity", cosmosResponse.RequestCharge, sw.ElapsedMilliseconds);
+            return new OperationCost("Upsert activity", cosmosResponse.RequestCharge, sw.ElapsedTicks);
         }
 
         private async Task FetchAllMatchingActivities(Expression<Func<Activity, bool>> selection, GroupOperationCost groupOperationCost)
@@ -112,7 +100,7 @@ namespace PerformanceTester.CosmosDb
                 query.HasMoreResults ? page.ResponseContinuation : null, 
                 page.ToArray())
                 {
-                    Cost = new OperationCost(query.ToString(), page.RequestCharge, sw.ElapsedMilliseconds)
+                    Cost = new OperationCost(query.ToString(), page.RequestCharge, sw.ElapsedTicks)
                 };
 
             return pageResult;
