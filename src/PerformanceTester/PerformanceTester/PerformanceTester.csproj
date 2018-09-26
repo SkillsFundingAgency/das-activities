@@ -82,6 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLIne\AggregateCommandLineArguments.cs" />
     <Compile Include="CommandLIne\FetchCommandLineArguments.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="CommandLIne\PopulateCommandLineArguments.cs" />

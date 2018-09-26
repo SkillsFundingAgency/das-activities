@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityFactory.cs" />
+    <Compile Include="Commands\AggregateActivities.cs" />
     <Compile Include="Commands\FetchActivities.cs" />
     <Compile Include="Commands\PopulateStores.cs" />
     <Compile Include="ConfigProvider.cs" />
@@ -59,12 +60,16 @@
     <Compile Include="Interfaces\IStore.cs" />
     <Compile Include="Interfaces\IStoreCommand.cs" />
     <Compile Include="Interfaces\IStoreRepository.cs" />
-    <Compile Include="Interfaces\PopulateActivitiesParameters.cs" />
+    <Compile Include="Parameters\AggregateActivitiesParameters.cs" />
+    <Compile Include="Parameters\LogFileParameters.cs" />
+    <Compile Include="Parameters\PopulateActivitiesParameters.cs" />
     <Compile Include="IoC\CommonRegistry.cs" />
     <Compile Include="IoC\SingletonConvention.cs" />
     <Compile Include="NumberRange.cs" />
     <Compile Include="Parameters\FetchActivitiesParameters.cs" />
+    <Compile Include="ResultLogger\FileResultLogger.cs" />
     <Compile Include="ResultLogger\ConsoleResultLogger.cs" />
+    <Compile Include="ResultLogger\RunDetailsVisitor.cs" />
     <Compile Include="StoreRespository.cs" />
     <Compile Include="Types\AccountActivities.cs" />
     <Compile Include="Types\Activity.cs" />

@@ -14,5 +14,6 @@ namespace PerformanceTester.Types.Interfaces
 
         Task<IOperationCost> GetActivitiesForAccountAsync(long accoundId);
 
+        Task<IOperationCost> GetLatestActivitiesAsync(long accountId);
     }
 }

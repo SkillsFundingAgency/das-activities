@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using PerformanceTester.CommandLIne;
 using PerformanceTester.Types;
 using PerformanceTester.Types.Parameters;
+using PerformanceTester.Types.ResultLogger;
 
 namespace PerformanceTester
 {
@@ -21,9 +22,10 @@ namespace PerformanceTester
 
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<PopulateCommandLineArguments, FetchCommandLineArguments>((IEnumerable<string>)args)
+            Parser.Default.ParseArguments<PopulateCommandLineArguments, FetchCommandLineArguments, AggregateCommandLineArguments>((IEnumerable<string>)args)
                 .WithParsed<PopulateCommandLineArguments>(commandLineArguments => new Program().Populate(commandLineArguments))
                 .WithParsed<FetchCommandLineArguments>(commandLineArguments => new Program().Fetch(commandLineArguments))
+                .WithParsed<AggregateCommandLineArguments>(commandLineArguments => new Program().Aggregate(commandLineArguments))
                 .WithNotParsed<object>(parserResult =>
                 {
                     Console.WriteLine("The command line is incorrect:");
@@ -41,15 +43,25 @@ namespace PerformanceTester
 
         private void Populate(PopulateCommandLineArguments args)
         {
-            EnableStores((StoreFilteringCommandLine)args);
+            EnableStores(args);
+            SetConfigOverrides<PopulateActivitiesParameters>(p => p.NumberOfAccountsRequired = args.NumberOfAccounts, args.NumberOfAccounts > 0);
+            SetConfigOverrides<PopulateActivitiesParameters>(p => p.NumberOfActivitiesPerAccount = args.NumberOfActivitiesPerAccount, args.NumberOfActivitiesPerAccount> 0);
+            SetConfigOverrides<PopulateActivitiesParameters>(p => p.NumberOfActivitiesPerDay = args.NumberOfActivitiesPerDay, args.NumberOfActivitiesPerDay > 0);
             RunCommand<PopulateStores>();
         }
 
         private void Fetch(FetchCommandLineArguments args)
         {
-            EnableStores((StoreFilteringCommandLine)args);
+            EnableStores(args);
             SetConfigOverrides<FetchActivitiesParameters>(p => p.AccountIds = args.AccountIds, !string.IsNullOrWhiteSpace(args.AccountIds));
             RunCommand<FetchActivities>();
+        }
+
+        private void Aggregate(AggregateCommandLineArguments args)
+        {
+            EnableStores(args);
+            SetConfigOverrides<AggregateActivitiesParameters>(p => p.AccountIds = args.AccountIds, !string.IsNullOrWhiteSpace(args.AccountIds));
+            RunCommand<AggregateActivities>();
         }
 
         private void SetConfigOverrides<TConfigType>(Action<TConfigType> setter, bool setCondition) where TConfigType : class, new()
@@ -114,7 +126,10 @@ namespace PerformanceTester
         {
             if (task.IsFaulted)
                 return;
-            _container.GetInstance<IResultLogger>().Log(task.Result);
+
+            var loggers = _container.GetInstance<IResultLogger[]>();
+            var rd = new RunDetailsVisitor();
+            rd.Visit(task.Result, loggers);
         }
 
         private Task StartWaitingForManualCancelAsync(CancellationTokenSource cancellationTokenSource)

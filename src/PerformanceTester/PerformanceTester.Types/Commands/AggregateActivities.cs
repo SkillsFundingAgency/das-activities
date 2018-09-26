@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PerformanceTester.Types.Commands
 {
-    public class FetchActivities : ICommand, IStoreCommand
+    public class AggregateActivities : ICommand, IStoreCommand
     {
         private readonly IStoreRepository _storeRepository;
         private readonly IConfigProvider _configProvider;
-        private FetchActivitiesParameters _config;
+        private AggregateActivitiesParameters _config;
 
-        public FetchActivities(IStoreRepository storeRepository, IConfigProvider configProvider)
+        public AggregateActivities(IStoreRepository storeRepository, IConfigProvider configProvider)
         {
             _storeRepository = storeRepository;
             _configProvider = configProvider;
@@ -21,7 +21,7 @@ namespace PerformanceTester.Types.Commands
 
         public Task<RunDetails> DoAsync(CancellationToken cancellationToken)
         {
-            _config = _configProvider.Get<FetchActivitiesParameters>();
+            _config = _configProvider.Get<AggregateActivitiesParameters>();
             return _storeRepository.RunForEachEnabledStore(this, cancellationToken);
         }
 
@@ -29,7 +29,7 @@ namespace PerformanceTester.Types.Commands
         {
             return Task.Run(async () =>
             {
-                var cost = new GroupOperationCost("Fetch Activities");
+                var cost = new GroupOperationCost("Aggregate Activities");
 
                 foreach(var accountId in NumberRange.ToInts(_config.AccountIds))
                 {
@@ -37,7 +37,7 @@ namespace PerformanceTester.Types.Commands
                     {
                         break;
                     }
-                    var operationCost = await store.GetActivitiesForAccountAsync(accountId);
+                    var operationCost = await store.GetLatestActivitiesAsync(accountId);
                     cost.StepCosts.Add(operationCost);
                 }
 

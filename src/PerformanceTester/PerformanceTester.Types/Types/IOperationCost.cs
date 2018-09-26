@@ -5,7 +5,7 @@
         string Operation { get; }
         double Cost { get; }
         double ElapsedMSecs { get; }
-        double ElapsedTicks { get; set; }
+        double ElapsedTicks { get; }
     }
 }
 

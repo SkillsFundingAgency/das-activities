@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PerformanceTester.Types.Interfaces;
+using PerformanceTester.Types.Parameters;
 
 namespace PerformanceTester.Types
 {
@@ -46,7 +47,7 @@ namespace PerformanceTester.Types
 
                 var activitiesForThisAccount = CreateActivitiesForAccount(
                     accountId, 
-                    populateActivitiesParameters.NumberOfActivitgiesPerAccount, 
+                    populateActivitiesParameters.NumberOfActivitiesPerAccount, 
                     populateActivitiesParameters.NumberOfActivitiesPerDay).ToList();
 
                 var result = new AccountActivities

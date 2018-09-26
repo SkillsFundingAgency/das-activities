@@ -27,7 +27,6 @@ namespace PerformanceTester.ElasticDb
 
         public async Task<IOperationCost> GetActivitiesForAccountAsync(long accountId)
         {
-
             var sw = new Stopwatch();
             sw.Start();
 
@@ -50,6 +49,63 @@ namespace PerformanceTester.ElasticDb
             sw.Stop();
 
             return new OperationCost($"Fetch activities for account {accountId}", 0, sw.ElapsedTicks);
+        }
+
+        public async Task<IOperationCost> GetLatestActivitiesAsync(long accountId)
+        {
+            var now = DateTime.UtcNow;
+            var today = now.Date;
+            var oneYearAgo = today.AddYears(-1);
+
+            var sw = new Stopwatch();
+            sw.Start();
+
+            var response = await _client.SearchAsync<Activity>(s => s
+                .Query(q => q
+                    .Term(t => t
+                        .Field(a => a.AccountId)
+                        .Value(accountId)
+                    ) && q
+                    .DateRange(r => r
+                        .Field(a => a.At)
+                        .GreaterThanOrEquals(DateMath.Anchored(oneYearAgo).RoundTo(TimeUnit.Day))
+                        .LessThanOrEquals(DateMath.Anchored(now).RoundTo(TimeUnit.Day))
+                    )
+                )
+                .Size(0)
+                .Aggregations(aggs => aggs
+                    .Terms("activitiesByType", t => t
+                        .Field(a => a.Type)
+                        .Order(new TermsOrder { Key = "maxAt", Order = SortOrder.Descending })
+                        .Size(4)
+                        .Aggregations(aggs2 => aggs2
+                            .Max("maxAt", m => m
+                                .Field(a => a.At)
+                            )
+                            .DateHistogram("activitiesByDay", d => d
+                                .Field(a => a.At)
+                                .Interval(DateInterval.Day)
+                                .MinimumDocumentCount(1)
+                                .ExtendedBoundsDateMath(oneYearAgo, now)
+                                .Order(HistogramOrder.KeyDescending)
+                                .Aggregations(aggs3 => aggs3
+                                    .TopHits("activityTopHit", th => th
+                                        .Sort(srt => srt
+                                            .Descending(a => a.At)
+                                            .Descending("_uid")
+                                        )
+                                        .Size(1)
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+
+            sw.Stop();
+
+            return new OperationCost($"Aggregate query for account {accountId}", 0, sw.ElapsedTicks);
         }
 
         public Task Initialise()

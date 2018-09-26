@@ -12,7 +12,14 @@ namespace PerformanceTester.Types.IoC
             For<IActivityFactory>().Use<ActivityFactory>().Singleton();
             For<IConfigProvider>().Use<ConfigProvider>().Singleton();
             For<IStoreRepository>().Use<StoreRespository>().Singleton();
-            For<IResultLogger>().Use<ConsoleResultLogger>().Singleton();
+
+            Scan(scan =>
+            {
+                scan.AssembliesFromApplicationBaseDirectory(assembly => assembly.FullName.Contains("PerformanceTester"));
+                scan.Include(type => type.IsConcreteAndAssignableTo(typeof(IResultLogger)));
+                scan.With(new SingletonConvention<IResultLogger>());
+            });
+
             Scan(scan =>
             {
                 scan.AssembliesFromApplicationBaseDirectory(assembly => assembly.FullName.Contains("PerformanceTester"));

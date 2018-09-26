@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PerformanceTester.Types.Parameters;
 
 namespace PerformanceTester.Tests
 {
@@ -44,6 +45,11 @@ namespace PerformanceTester.Tests
             {
                 throw new NotImplementedException();
             }
+
+            public Task<IOperationCost> GetLatestActivitiesAsync(long accountId)
+            {
+                throw new NotImplementedException();
+            }
         }
 
     [TestFixture]
@@ -77,7 +83,7 @@ namespace PerformanceTester.Tests
             return new PopulateActivitiesParameters()
             {
                 NumberOfAccountsRequired = numberOfAccounts,
-                NumberOfActivitgiesPerAccount = numberOfActivitiesPerAccount,
+                NumberOfActivitiesPerAccount = numberOfActivitiesPerAccount,
                 NumberOfActivitiesPerDay = numberOfActivitiesPerDay
             };
         }

@@ -89,6 +89,7 @@ namespace PerformanceTester.CosmosDb
 
             var query = _client.Value
                 .CreateDocumentQuery<Activity>(collectionUri, options) 
+                .Where(selection)
                 .OrderBy(activity => activity.At)
                 .AsDocumentQuery();
 
@@ -106,21 +107,62 @@ namespace PerformanceTester.CosmosDb
             return pageResult;
         }
 
+        public async Task<IOperationCost> GetLatestActivitiesAsync(long accountId)
+        {
+            var collectionUri = GetCollectionUri(CollectionName);
+
+            var options = new FeedOptions
+            {
+                MaxItemCount = 1000
+            };
+
+            var query = _client.Value
+                .CreateDocumentQuery<Activity>(collectionUri, options)
+                .Where(activity => activity.AccountId == accountId)
+                .AsDocumentQuery();
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            var page = await query.ExecuteNextAsync<Activity>();
+            var result =
+                page
+                    .GroupBy(activity => activity.Type)
+                    .SelectMany(activityGroup => activityGroup.OrderByDescending(activity => activity.At).Take(5))
+                    .ToList();
+
+            sw.Stop();
+            return new OperationCost(query.ToString(), page.RequestCharge, sw.ElapsedTicks);
+
+        }
+
         private DocumentClient InitialiseClient(IConfigProvider configProvider)
         {
-            DocumentClient documentClient1 = new DocumentClient(new Uri(this.CosmosConfig.CosmosEndpointUrl), this.CosmosConfig.CosmosPrimaryKey, (ConnectionPolicy)null, new ConsistencyLevel?());
-            RequestOptions requestOptions = new RequestOptions();
-            JsonSerializerSettings serializerSettings = new JsonSerializerSettings();
-            serializerSettings.Formatting = Formatting.Indented;
-            serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            requestOptions.JsonSerializerSettings = serializerSettings;
-            requestOptions.ConsistencyLevel = ConsistencyLevel.Strong;
-            this._requestOptions = requestOptions;
-            DocumentClient documentClient2 = documentClient1;
-            Database database = new Database();
-            database.Id = CosmosConfig.CosmosDatabase;
-            this.RunWithTimeOut(documentClient2.CreateDatabaseIfNotExistsAsync(database, requestOptions));
-            return documentClient1;
+            JsonSerializerSettings serializerSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
+            _requestOptions = new RequestOptions
+            {
+                JsonSerializerSettings = serializerSettings,
+                ConsistencyLevel = ConsistencyLevel.Strong
+            };
+
+            Database database = new Database
+            {
+                Id = CosmosConfig.CosmosDatabase
+            };
+
+            var documentClient = new DocumentClient(
+                new Uri(this.CosmosConfig.CosmosEndpointUrl),
+                CosmosConfig.CosmosPrimaryKey,
+                null,
+                new ConsistencyLevel());
+
+            RunWithTimeOut(documentClient.CreateDatabaseIfNotExistsAsync(database, _requestOptions));
+
+            return documentClient;
         }
 
         private Uri GetCollectionUri(string collectionName)

@@ -11,12 +11,12 @@ namespace PerformanceTester.Types.Types
             this.ElapsedTicks = elapsedTicks;
         }
 
-        public string Operation { get; set; }
+        public string Operation { get; }
 
-        public double Cost { get; set; }
+        public double Cost { get; }
 
         public double ElapsedMSecs => ElapsedTicks / TimeSpan.TicksPerMillisecond;
 
-        public double ElapsedTicks { get; set; }
+        public double ElapsedTicks { get; }
     }
 }

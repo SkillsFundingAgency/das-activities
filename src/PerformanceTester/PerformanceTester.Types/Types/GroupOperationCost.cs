@@ -14,11 +14,11 @@ namespace PerformanceTester.Types.Types
 
         public string Operation { get; }
 
-        public double Cost => ElapsedTicks / TimeSpan.TicksPerMillisecond;
+        public double Cost => StepCosts.Sum(opc => opc.Cost); 
 
-        public double ElapsedMSecs => StepCosts.Sum(opc => opc.Cost);
+        public double ElapsedMSecs => ElapsedTicks / TimeSpan.TicksPerMillisecond; 
 
-        public double ElapsedTicks { get; set; }
+        public double ElapsedTicks => StepCosts.Sum(opc => opc.ElapsedTicks);
 
         public ConcurrentBag<IOperationCost> StepCosts { get; }
     }

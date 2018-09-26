@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using PerformanceTester.Types.Interfaces;
+using PerformanceTester.Types.Parameters;
 
 namespace PerformanceTester.Types
 {

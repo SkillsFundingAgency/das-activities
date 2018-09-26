@@ -4,6 +4,7 @@ namespace PerformanceTester.Types.Interfaces
 {
     public interface IResultLogger
     {
-        void Log(RunDetails details);
+        void LogStore(StoreTaskDetails storeDetail);
+        void LogCost(StoreTaskDetails storeDetail, IOperationCost operationCost, int groupLevel);
     }
 }
