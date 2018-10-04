@@ -17,6 +17,8 @@ namespace PerformanceTester.Types.Interfaces
 
         void EnableAllStores();
 
+        IEnumerable<IStore> AllStores { get; }
+
         Task<RunDetails> RunForEachEnabledStore(IStoreCommand command, CancellationToken cancellationToken);
     }
 }

@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="CommandLIne\AggregateCommandLineArguments.cs" />
     <Compile Include="CommandLIne\FetchCommandLineArguments.cs" />
+    <Compile Include="CommandLIne\StoresCommandLine.cs" />
     <Compile Include="IoC.cs" />
     <Compile Include="CommandLIne\PopulateCommandLineArguments.cs" />
     <Compile Include="Program.cs" />

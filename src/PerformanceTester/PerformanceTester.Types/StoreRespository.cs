@@ -27,6 +27,8 @@ namespace PerformanceTester.Types
 
         public IReadOnlyList<IStore> EnabledStores => _enabledStores;
 
+        public IEnumerable<IStore> AllStores => _availableStores.Values; 
+
         public void EnableStore(string name)
         {
             var store = GetAvailableStoreByName(name);

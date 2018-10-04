@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivityFactory.cs" />
+    <Compile Include="Commands\ListStores.cs" />
     <Compile Include="Commands\AggregateActivities.cs" />
     <Compile Include="Commands\FetchActivities.cs" />
     <Compile Include="Commands\PopulateStores.cs" />

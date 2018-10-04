@@ -22,10 +22,11 @@ namespace PerformanceTester
 
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<PopulateCommandLineArguments, FetchCommandLineArguments, AggregateCommandLineArguments>((IEnumerable<string>)args)
+            Parser.Default.ParseArguments<PopulateCommandLineArguments, FetchCommandLineArguments, AggregateCommandLineArguments, StoresCommandLineArguments>((IEnumerable<string>)args)
                 .WithParsed<PopulateCommandLineArguments>(commandLineArguments => new Program().Populate(commandLineArguments))
                 .WithParsed<FetchCommandLineArguments>(commandLineArguments => new Program().Fetch(commandLineArguments))
                 .WithParsed<AggregateCommandLineArguments>(commandLineArguments => new Program().Aggregate(commandLineArguments))
+                .WithParsed<StoresCommandLineArguments>(commandLineArguments => new Program().ListStores(commandLineArguments))
                 .WithNotParsed<object>(parserResult =>
                 {
                     Console.WriteLine("The command line is incorrect:");
@@ -62,6 +63,11 @@ namespace PerformanceTester
             EnableStores(args);
             SetConfigOverrides<AggregateActivitiesParameters>(p => p.AccountIds = args.AccountIds, !string.IsNullOrWhiteSpace(args.AccountIds));
             RunCommand<AggregateActivities>();
+        }
+
+        private void ListStores(StoresCommandLineArguments args)
+        {
+            RunCommand<ListStores>();
         }
 
         private void SetConfigOverrides<TConfigType>(Action<TConfigType> setter, bool setCondition) where TConfigType : class, new()
