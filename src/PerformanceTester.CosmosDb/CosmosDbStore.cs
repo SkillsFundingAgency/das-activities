@@ -61,7 +61,7 @@ namespace PerformanceTester.CosmosDb
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            var cosmosResponse = await this.Client.UpsertDocumentAsync(collectionUri, entity, this._requestOptions, false, cancellationToken);
+            var cosmosResponse = await this.Client.UpsertDocumentAsync(collectionUri, entity, this._requestOptions, false);
             sw.Stop();
             return new OperationCost("Upsert activity", cosmosResponse.RequestCharge, sw.ElapsedTicks);
         }
