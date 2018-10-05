@@ -40,17 +40,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SFA.DAS.Activities.Client.T
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PerformanceTester", "PerformanceTester", "{62A648A4-068D-42E4-A545-720C821A21F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester", "PerformanceTester\PerformanceTester\PerformanceTester.csproj", "{7C3D5B06-8A4F-4FB2-ADA1-7D4B3969C45F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester", "PerformanceTester\PerformanceTester.csproj", "{7C3D5B06-8A4F-4FB2-ADA1-7D4B3969C45F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.CosmosDb", "PerformanceTester\PerformanceTester.CosmosDb\PerformanceTester.CosmosDb.csproj", "{116614F6-42A2-4F95-85A8-C9EF94745FE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.CosmosDb", "PerformanceTester.CosmosDb\PerformanceTester.CosmosDb.csproj", "{116614F6-42A2-4F95-85A8-C9EF94745FE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.ElasticDb", "PerformanceTester\PerformanceTester.ElasticDb\PerformanceTester.ElasticDb.csproj", "{72FA7BF3-C700-47C3-A7F6-5F514C3A0FFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.ElasticDb", "PerformanceTester.ElasticDb\PerformanceTester.ElasticDb.csproj", "{72FA7BF3-C700-47C3-A7F6-5F514C3A0FFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.MSSqlDb", "PerformanceTester\PerformanceTester.MSSqlDb\PerformanceTester.MSSqlDb.csproj", "{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.MSSqlDb", "PerformanceTester.MSSqlDb\PerformanceTester.MSSqlDb.csproj", "{EB96FAE7-E7DD-4AEA-AC51-9A8A1E2AB829}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.Tests", "PerformanceTester\PerformanceTester.Tests\PerformanceTester.Tests.csproj", "{F83FBB17-5CBB-4AAE-AB2E-D280BF4682DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.Tests", "PerformanceTester.Tests\PerformanceTester.Tests.csproj", "{F83FBB17-5CBB-4AAE-AB2E-D280BF4682DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.Types", "PerformanceTester\PerformanceTester.Types\PerformanceTester.Types.csproj", "{210FFB5D-CEDB-4F3D-93FF-AAD42EC1E67F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerformanceTester.Types", "PerformanceTester.Types\PerformanceTester.Types.csproj", "{210FFB5D-CEDB-4F3D-93FF-AAD42EC1E67F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

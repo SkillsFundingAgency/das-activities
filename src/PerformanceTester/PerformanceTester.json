@@ -1,0 +1,32 @@
+﻿{
+  "CosmosConfig": {
+    "CosmosEndpointUrl": "https://das-at-acti-cdb.documents.azure.com:443/",
+    "CosmosPrimaryKey": "XtNs4Ghx574IPtpPlSye5iwRqRQEyVwrOR7n6t2GuboQSyfgFbMjHvitBBXPNr3M3Qj5JOK1tdsuJjIqv1P77g==",
+    "CosmosDatabase": "performancetest"
+  },
+  "ElasticConfig": {
+    "Environment": "at",
+    "Url": "https://dev-elastic.apprenticeships.sfa.bis.gov.uk:9200/",
+    "UserName": "IanGledhill",
+    "Password": "E>3/8M{wdO_4R>("
+  },
+  "MsSqlConfig": {
+    "ConnectionString": "Server=tcp:sfa.database.windows.net,1433;Initial Catalog=Activities;Persist Security Info=False;User ID=Iang;Password=Saffy15183!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  },
+  "PopulateActivitiesParameters": {
+    "NumberOfAccountsRequired": 10,
+    "NumberOfActivitiesPerAccount": 5,
+    "NumberOfActivitiesPerDay": 2
+  },
+  "FetchActivitiesParameters": {
+    "ParallelFetch": false,
+    "AccountIds": "1-20"
+  },
+  "AggregateActivitiesParameters": {
+    "ParallelFetch": false,
+    "AccountIds": "1-20"
+  },
+  "LogFileParameters": {
+    "LogFolder": "C:\\Temp" 
+  } 
+}
