@@ -127,7 +127,6 @@ namespace SFA.DAS.Activities.Client
                     .Terms("activitiesByType", t => t
                         .Field(a => a.Type)
                         .Order(new TermsOrder{Key = "maxAt", Order = SortOrder.Descending})
-                        .Size(4)
                         .Aggregations(aggs2 => aggs2
                             .Max("maxAt", m => m
                                 .Field(a => a.At)
@@ -165,6 +164,7 @@ namespace SFA.DAS.Activities.Client
                         };
                     })
                 .OrderByDescending(atod => atod.TopHit.Created)
+                .Take(4)
                 .ToList();
 
             return new AggregatedActivitiesResult

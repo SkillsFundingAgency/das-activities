@@ -1,5 +1,9 @@
 ﻿{
   "AggregateQueryConfig": {
 
+  },
+
+  "ResultFileSaverConfig": {
+    "FolderName": "C:\\sfa\\Scripts\\AML-2918"
   }
 }
