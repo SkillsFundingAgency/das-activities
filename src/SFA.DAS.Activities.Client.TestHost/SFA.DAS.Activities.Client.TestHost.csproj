@@ -80,8 +80,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\PerformanceTester.Types\NumberRange.cs">
+      <Link>NumberRange.cs</Link>
+    </Compile>
     <Compile Include="Commands\AggregateQueryCommand.cs" />
     <Compile Include="Commands\AggregateQueryConfig.cs" />
+    <Compile Include="ResultSavers\FileResultSaver.cs" />
+    <Compile Include="Interfaces\IResultSaver.cs" />
+    <Compile Include="Config\ResultFileSaverConfig.cs" />
     <Compile Include="Config\ConfigProvider.cs" />
     <Compile Include="Interfaces\IConfigProvider.cs" />
     <Compile Include="IoC\CommonRegistry.cs" />
@@ -100,7 +106,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="SFA.DAS.Activities.Client.TestHost.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

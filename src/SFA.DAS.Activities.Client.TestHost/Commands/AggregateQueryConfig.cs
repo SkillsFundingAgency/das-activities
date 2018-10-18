@@ -2,6 +2,10 @@
 {
     internal class AggregateQueryConfig
     {
-        public long AccountId { get; set; }
+        public string AccountIds { get; set; }
+
+        public string SaveQueryResultsFolder { get; set; }
+
+        public bool IgnoreNotFound { get; set; } = true;
     }
 }

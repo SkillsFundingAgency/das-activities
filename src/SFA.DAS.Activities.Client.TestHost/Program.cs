@@ -28,7 +28,8 @@ namespace SFA.DAS.Activities.Client.TestHost
 
         private void RunQuery(QueryCommandLineArgs args)
         {
-            SetConfigOverrides<AggregateQueryConfig>(config => config.AccountId = args.AccountId);
+            SetConfigOverrides<AggregateQueryConfig>(config => config.AccountIds = args.AccountIds);
+            SetConfigOverrides<AggregateQueryConfig>(config => config.IgnoreNotFound = args.IgnoreNotFound);
             RunCommand<AggregateQueryCommand>();
         }
 
