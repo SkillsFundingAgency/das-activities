@@ -254,3 +254,6 @@ paket-files/
 
 # Fake Build Script
 src/Tools/**/*.*
+
+# Performance tester config file
+src/PerformanceTester/PerformanceTester/PerformanceTester.json
