@@ -129,13 +129,22 @@
                             {
                                 "name": "StorageConnectionString",
                                 "value": "[reference('storage-account-resources-deployment').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "AzureWebJobsDashboard",
+                                "value": "[reference('storage-account-resources-deployment').outputs.storageConnectionString.value]"
+                            },
+                            {
+                                "name": "AzureWebJobsStorage",
+                                "value": "[reference('storage-account-resources-deployment').outputs.storageConnectionString.value]"
                             }
                         ]
                     }
                 }
             },
             "dependsOn": [
-                "app-service-plan-resources-deployment"
+                "app-service-plan-resources-deployment",
+                "storage-account-resources-deployment"
             ]
         },
         {
