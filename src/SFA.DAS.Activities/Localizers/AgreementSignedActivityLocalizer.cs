@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Activities.Localizers
+﻿using SFA.DAS.Activities.Extensions;
+
+namespace SFA.DAS.Activities.Localizers
 {
     public class AgreementSignedActivityLocalizer : IActivityLocalizer
     {
@@ -9,7 +11,7 @@
 
         public string GetSingularText(Activity activity)
         {
-            return $"Agreement signed for {activity.Data["OrganisationName"]} by {activity.Data["CreatorName"]}";
+            return activity.GetMessageForActivity("Agreement signed for {0} by {1}", "OrganisationName", "CreatorName");
         }
     }
 }

@@ -156,6 +156,7 @@
     <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyFinderTests.cs" />
     <Compile Include="IntegrityChecker\Utils\ActivityDiscrepancyQueueTests.cs" />
     <Compile Include="IntegrityChecker\Utils\ZipperTests.cs" />
+    <Compile Include="Localizers\LegalEntityRemovedActivityLocalizerTests.cs" />
     <Compile Include="Localizers\PaymentCreatedActivityLocalizerTest.cs" />
     <Compile Include="SFA.DAS.Activities.MessageHandlers\ProgramTests.cs" />
     <Compile Include="WebTest.cs" />

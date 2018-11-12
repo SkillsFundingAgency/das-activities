@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Activities.Localizers
+﻿using SFA.DAS.Activities.Extensions;
+
+namespace SFA.DAS.Activities.Localizers
 {
     public class AccountCreatedActivityLocalizer : IActivityLocalizer
     {
@@ -9,7 +11,7 @@
 
         public string GetSingularText(Activity activity)
         {
-            return $"Account created by {activity.Data["CreatorName"]}";
+            return activity.GetMessageForActivity("Account created by {0}", "CreatorName");
         }
     }
 }
