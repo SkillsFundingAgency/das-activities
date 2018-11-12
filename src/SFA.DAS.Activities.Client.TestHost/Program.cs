@@ -16,10 +16,10 @@ namespace SFA.DAS.Activities.Client.TestHost
 
         private static void Main(string[] args)
         {
-            Parser.Default.ParseArguments<QueryCommandLineArgs>(args)
-                .WithParsed(qcla => new Program().RunQuery(qcla));
+            Parser.Default.ParseArguments<QueryCommandLineArgs, LocalizerCommandLineArgs>(args)
+                .WithParsed<QueryCommandLineArgs>(qcla => new Program().RunQuery(qcla))
+                .WithParsed<LocalizerCommandLineArgs>(localizerArgs => new Program().TestLocalizers(localizerArgs));
         }
-
 
         public Program()
         {
@@ -31,6 +31,12 @@ namespace SFA.DAS.Activities.Client.TestHost
             SetConfigOverrides<AggregateQueryConfig>(config => config.AccountIds = args.AccountIds);
             SetConfigOverrides<AggregateQueryConfig>(config => config.IgnoreNotFound = args.IgnoreNotFound);
             RunCommand<AggregateQueryCommand>();
+        }
+
+        private void TestLocalizers(LocalizerCommandLineArgs args)
+        {
+            SetConfigOverrides<TestLocalizerConfig>(config => config.AccountIds = args.AccountIds);
+            RunCommand<TestLocalizerCommand>();
         }
 
         private void RunCommand<TCommand>() where TCommand : ICommand
