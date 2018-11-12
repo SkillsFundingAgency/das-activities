@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Activities.Localizers
+﻿using SFA.DAS.Activities.Extensions;
+
+namespace SFA.DAS.Activities.Localizers
 {
     public class PayeSchemeRemovedActivityLocalizer : IActivityLocalizer
     {
@@ -9,7 +11,7 @@
 
         public string GetSingularText(Activity activity)
         {
-            return $"PAYE scheme {activity.Data["PayeScheme"]} removed by {activity.Data["CreatorName"]}";
+            return activity.GetMessageForActivity("PAYE scheme {0} removed by {1}", "PayeScheme", "CreatorName");
         }
     }
 }

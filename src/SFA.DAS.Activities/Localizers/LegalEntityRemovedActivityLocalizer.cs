@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Activities.Localizers
+﻿using SFA.DAS.Activities.Extensions;
+
+namespace SFA.DAS.Activities.Localizers
 {
     public class LegalEntityRemovedActivityLocalizer : IActivityLocalizer
     {
@@ -9,7 +11,7 @@
 
         public string GetSingularText(Activity activity)
         {
-            return $"{activity.Data["OrganisationName"]} removed by {activity.Data["CreatorName"]}";
+            return activity.GetMessageForActivity("{0} removed by {1}", "OrganisationName", "CreatorName");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SFA.DAS.Activities.Localizers
+﻿using SFA.DAS.Activities.Extensions;
+
+namespace SFA.DAS.Activities.Localizers
 {
     public class AccountNameChangedActivityLocalizer : IActivityLocalizer
     {
@@ -9,7 +11,7 @@
 
         public string GetSingularText(Activity activity)
         {
-            return $"Account name changed from {activity.Data["PreviousName"]} to {activity.Data["CurrentName"]} by {activity.Data["CreatorName"]}";
+            return activity.GetMessageForActivity("Account name changed from {0} to {1} by {2}", "PreviousName", "CurrentName", "CreatorName");
         }
     }
 }
