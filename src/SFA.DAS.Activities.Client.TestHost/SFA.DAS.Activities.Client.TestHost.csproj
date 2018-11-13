@@ -83,7 +83,10 @@
     <Compile Include="..\PerformanceTester.Types\NumberRange.cs">
       <Link>NumberRange.cs</Link>
     </Compile>
+    <Compile Include="CommandLines\LocalizerCommandLineArgs.cs" />
+    <Compile Include="Commands\TestLocalizerCommand.cs" />
     <Compile Include="Commands\AggregateQueryCommand.cs" />
+    <Compile Include="Commands\TestLocalizerConfig.cs" />
     <Compile Include="Commands\AggregateQueryConfig.cs" />
     <Compile Include="ResultSavers\FileResultSaver.cs" />
     <Compile Include="Interfaces\IResultSaver.cs" />
@@ -103,6 +106,10 @@
     <ProjectReference Include="..\SFA.DAS.Activities.Client\SFA.DAS.Activities.Client.csproj">
       <Project>{45344a34-429e-441c-a69c-8d7539353c51}</Project>
       <Name>SFA.DAS.Activities.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SFA.DAS.Activities\SFA.DAS.Activities.csproj">
+      <Project>{744fdb51-c5ff-4b5b-a380-9cde153277cf}</Project>
+      <Name>SFA.DAS.Activities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
