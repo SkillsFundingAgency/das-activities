@@ -11,7 +11,7 @@ using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.UnitTests
 {
-    public abstract class MessageProcessorTest<TMessageProcessor> where TMessageProcessor : IMessageProcessor
+    public abstract class MessageProcessorTest<TMessageProcessor> where TMessageProcessor : IMessageProcessor2
     {
         protected FromMessage<TMessage> From<TMessage>(TMessage from) where TMessage : class, new()
         {
@@ -58,7 +58,7 @@ namespace SFA.DAS.Activities.UnitTests
                 return this;
             }
 
-            public void Verify(Func<MessageProcessorTestFixtures<TMessage>, IMessageProcessor> createProcessor)
+            public void Verify(Func<MessageProcessorTestFixtures<TMessage>, IMessageProcessor2> createProcessor)
             {
                 var cancellationTokenSource = new CancellationTokenSource();
                 var mappedActivity = new Activity();
@@ -78,7 +78,7 @@ namespace SFA.DAS.Activities.UnitTests
                     typeof(TMessage).CustomAttributes.SingleOrDefault(a =>
                         a.AttributeType == typeof(MessageGroupAttribute));
 
-                messageProcessor.RunAsync(cancellationTokenSource).Wait();
+                messageProcessor.RunAsync(cancellationTokenSource.Token).Wait();
 
                 Assert.That(topicSubscriptionAttribute, Is.Not.Null);
                 Assert.That(messageGroupAttribute, Is.Not.Null);

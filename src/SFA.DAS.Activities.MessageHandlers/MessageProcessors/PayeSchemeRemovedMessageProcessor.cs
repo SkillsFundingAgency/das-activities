@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
     [TopicSubscription("Activity_PayeSchemeDeletedMessageProcessor")]
-    public class PayeSchemeRemovedMessageProcessor : MessageProcessor<PayeSchemeDeletedMessage>
+    public class PayeSchemeRemovedMessageProcessor : MessageProcessor2<PayeSchemeDeletedMessage>
     {
         private readonly IActivitySaver _activitySaver;
 
