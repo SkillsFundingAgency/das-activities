@@ -5,6 +5,7 @@ using System.Threading;
 using Microsoft.Azure.WebJobs;
 using SFA.DAS.Activities.Jobs.Common.Infrastructure;
 using SFA.DAS.Activities.MessageHandlers.DependencyResolution;
+using SFA.DAS.Activities.MessageHandlers.MessageProcessors;
 using SFA.DAS.Messaging.Interfaces;
 using SFA.DAS.NLog.Logger;
 
@@ -45,7 +46,7 @@ namespace SFA.DAS.Activities.MessageHandlers
             MessageProcessorRunning.Set();
             try
             {
-                var processors = ServiceLocator.GetAll<IMessageProcessor>().ToArray();
+                var processors = ServiceLocator.GetAll<IMessageProcessor2>().ToArray();
 
                 Log.Info($"Found {processors.Length} message processors");
 
@@ -54,40 +55,14 @@ namespace SFA.DAS.Activities.MessageHandlers
                     return;
                 }
 
-                // the message processors require a cancellation token _source_, not just a cancellation token.
-                var cancellationTokenSource = new CancellationTokenSource();
-
-                var hasFaulted = false;
-
                 foreach (var messageProcessor in processors)
                 {
                     Log.Info($"Starting up message processor {messageProcessor.GetType().FullName}");
                     messageProcessor
-                        .RunAsync(cancellationTokenSource)
-                        .ContinueWith(t =>
-                        {
-                            if (t.IsFaulted)
-                            {
-                                Log.Warn(
-                                    $"{messageProcessor.GetType().FullName} has faulted - cancelling all other message handlers.");
-                                hasFaulted = true;
-                                cancellationTokenSource.Cancel();
-                            }
-                        }, cancellationToken);
+                        .RunAsync(cancellationToken);
                 }
 
-                // block until either webjob is cancelling or one of our message processors has faulted
-                WaitHandle.WaitAny(new []
-                {
-                    cancellationToken.WaitHandle,
-                    cancellationTokenSource.Token.WaitHandle
-                });
-
-                // if web job is cancelling then instruct our message processors to cancel also
-                if(cancellationToken.IsCancellationRequested)
-                {
-                    cancellationTokenSource.Cancel();
-                }
+                cancellationToken.WaitHandle.WaitOne();
             }
             finally
             {

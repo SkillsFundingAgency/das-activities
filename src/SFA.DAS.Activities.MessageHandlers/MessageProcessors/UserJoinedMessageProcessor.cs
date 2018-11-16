@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
     [TopicSubscription("Activity_UserJoinedMessageProcessor")]
-    public class UserJoinedMessageProcessor : MessageProcessor<UserJoinedMessage>
+    public class UserJoinedMessageProcessor : MessageProcessor2<UserJoinedMessage>
     {
         private readonly IActivitySaver _activitySaver;
 

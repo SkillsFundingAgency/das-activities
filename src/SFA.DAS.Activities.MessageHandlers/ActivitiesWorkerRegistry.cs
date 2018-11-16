@@ -30,7 +30,7 @@ namespace SFA.DAS.Activities.MessageHandlers
             Scan(s =>
             {
                 s.AssemblyContainingType<ActivitiesWorkerRegistry>();
-                s.AddAllTypesOf<IMessageProcessor>();
+                s.AddAllTypesOf<IMessageProcessor2>();
             });
         }
     }

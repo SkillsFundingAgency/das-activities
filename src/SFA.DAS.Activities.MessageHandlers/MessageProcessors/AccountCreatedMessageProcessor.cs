@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
     [TopicSubscription("Activity_AccountCreatedMessageProcessor")]
-    public class AccountCreatedMessageProcessor : MessageProcessor<AccountCreatedMessage>
+    public class AccountCreatedMessageProcessor : MessageProcessor2<AccountCreatedMessage>
     {
         private readonly IActivitySaver _activitySaver;
 

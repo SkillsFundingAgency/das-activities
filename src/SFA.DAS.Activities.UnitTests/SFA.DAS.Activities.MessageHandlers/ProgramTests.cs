@@ -47,7 +47,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
                 .WaitForMessageProcessorsToStop(ProgramTestFixtures.MaxTimeBeforeAbandonTest, isStopped => Assert.IsTrue(isStopped));
         }
 
-        [Test, Description("When a single processor runs and throws an exception then job should stop without waiting for a cancellation")]
+        [Test, Description("When a single processor runs and throws an exception then job should continue")]
         public void StartMessageProcessors_SingleHandlerWithException_ShouldStopWithoutCancellation()
         {
             var fixtures = new ProgramTestFixtures();
@@ -56,11 +56,11 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
                 .AddProcessor()
                 .WithExcetionDuringProcessing()
                 .StartMessageProcessors()
-                .WaitForMessageProcessorsToStop(ProgramTestFixtures.MaxTimeBeforeAbandonTest, isStopped => Assert.IsTrue(isStopped));
+                .WaitForMessageProcessorsToStop(ProgramTestFixtures.MaxTimeBeforeAbandonTest, isStopped => Assert.IsFalse(isStopped));
         }
 
         [Test]
-        public void StartMessageProcessors_MultipleHandlersOneWithException_ShouldStopWithoutCancellation()
+        public void StartMessageProcessors_MultipleHandlersOneWithException_ShouldRunForever()
         {
             var fixtures = new ProgramTestFixtures();
 
@@ -70,22 +70,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
                 .AddProcessor()
                 .WithExcetionDuringProcessing()
                 .StartMessageProcessors()
-                .WaitForMessageProcessorsToStop(ProgramTestFixtures.MaxTimeBeforeAbandonTest, isStopped => Assert.IsTrue(isStopped));
-        }
-
-
-        [Test, Description("When a single processor throws an exception then all message processors should stop")]
-        public void StartMessageProcessors_MultipleHandlersOneWithException_ShouldStopAllMessageProcessors()
-        {
-            var fixtures = new ProgramTestFixtures();
-
-            fixtures
-                .AddProcessor()
-                .AddProcessor()
-                .AddProcessor()
-                .WithExcetionDuringProcessing()
-                .StartMessageProcessors()
-                .WaitForMessageProcessorsToStop(ProgramTestFixtures.MaxTimeBeforeAbandonTest, isStopped => Assert.IsTrue(fixtures.AllMessageProcessorsHaveStopped));
+                .WaitForMessageProcessorsToStop(ProgramTestFixtures.MaxTimeBeforeAbandonTest, isStopped => Assert.IsFalse(isStopped));
         }
     }
 
@@ -101,7 +86,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
             ContainerMock = new Mock<IContainer>();
 
             ContainerMock
-                .Setup(cm => cm.GetAllInstances<IMessageProcessor>())
+                .Setup(cm => cm.GetAllInstances<IMessageProcessor2>())
                 .Returns(() => _messageProcessors);
         }
 
@@ -184,7 +169,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
 
     }
 
-    public class TestMessageProcessor : IMessageProcessor
+    public class TestMessageProcessor : IMessageProcessor2
     {
         private readonly int _maxwaitForCancelationMSecs;
 
@@ -197,7 +182,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
 
         public ManualResetEventSlim HasStopped { get; } = new ManualResetEventSlim(false);
 
-        public Task RunAsync(CancellationTokenSource cancellationTokenSource)
+        public Task RunAsync(CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
@@ -206,7 +191,7 @@ namespace SFA.DAS.Activities.UnitTests.SFA.DAS.Activities.MessageHandlers
                     throw new TestMessageProcessingException();
                 }
 
-                cancellationTokenSource.Token.WaitHandle.WaitOne(_maxwaitForCancelationMSecs);
+                cancellationToken.WaitHandle.WaitOne(_maxwaitForCancelationMSecs);
             }).ContinueWith(t =>
             {
                 HasStopped.Set();

@@ -8,7 +8,7 @@ using SFA.DAS.NLog.Logger;
 namespace SFA.DAS.Activities.MessageHandlers.MessageProcessors
 {
     [TopicSubscription("Activity_LegalEntityAddedMessageProcessor")]
-    public class LegalEntityAddedMessageProcessor : MessageProcessor<LegalEntityAddedMessage>
+    public class LegalEntityAddedMessageProcessor : MessageProcessor2<LegalEntityAddedMessage>
     {
         private readonly IActivitySaver _activitySaver;
 
