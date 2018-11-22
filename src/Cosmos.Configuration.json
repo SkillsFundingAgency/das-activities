@@ -1,14 +1,39 @@
 {
-  "Databases": [
-    {
-      "DatabaseName": "__CosmosDatabase__",
-      "Collections": [
-        {
-          "CollectionName": "__CosmosCollectionName__",
-          "OfferThroughput": __ThroughPut__,
-          "StoredProcedures": []
-        }
-      ]
-    }
-  ]
+	"Databases": [{
+		"DatabaseName": "__CosmosDatabase__",
+		"Collections": [{
+			"CollectionName": "__CosmosCollectionName__",
+			"OfferThroughput": __ThroughPut__,
+			"StoredProcedures": [],
+			"IndexingPolicy": {
+				"indexingMode": "consistent",
+				"includedPaths": [{
+					"path": "/*",
+					"indexes": [{
+						"kind": "Range",
+						"dataType": "Number",
+						"precision": -1
+					},
+					{
+						"kind": "Hash",
+						"dataType": "String",
+						"precision": 3
+					}]
+				},
+				{
+					"path": "/messageId/?",
+					"indexes": [{
+						"kind": "Range",
+						"dataType": "String",
+						"precision": 40
+					},
+					{
+						"kind": "Range",
+						"dataType": "Number",
+						"precision": -1
+					}]
+				}]
+			}
+		}]
+	}]
 }
