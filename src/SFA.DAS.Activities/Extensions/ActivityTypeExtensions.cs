@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using SFA.DAS.Activities.Attributes;
 using SFA.DAS.Activities.Localizers;
+using SFA.DAS.Activities.Models;
 using SFA.DAS.NLog.Logger;
 
 namespace SFA.DAS.Activities.Extensions
@@ -38,9 +39,18 @@ namespace SFA.DAS.Activities.Extensions
 
         private static readonly Regex Regex = new Regex("([A-Z])", RegexOptions.Compiled);
 
-        public static Tuple<string, string> GetAction(this ActivityType type)
+        public static ActivityUrlLink GetActivityLink(this ActivityType type)
         {
-            return ActionCache[type];
+            var actionDetails = ActionCache[type];
+
+            if (actionDetails == null)
+                return null;
+
+            return new ActivityUrlLink
+            {
+                Controller = actionDetails.Item2,
+                Action = actionDetails.Item1
+            };
         }
 
         public static string GetDescription(this ActivityType type)

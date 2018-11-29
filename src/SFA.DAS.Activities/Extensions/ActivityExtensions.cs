@@ -13,16 +13,10 @@ namespace SFA.DAS.Activities.Extensions
 
         public static ActivityUrlLink GetLinkDetails(this Activity activity)
         {
-            var actionDetails = activity.Type.GetAction();
+            var link = activity.Type.GetActivityLink();
 
-            if (actionDetails == null)
+            if (link == null)
                 return null;
-
-            var link = new ActivityUrlLink
-            {
-                Controller = actionDetails.Item2,
-                Action = actionDetails.Item1
-            };
 
             if (activity.Type == ActivityType.PaymentCreated)
             {
