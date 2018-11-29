@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.Routing;
 using SFA.DAS.Activities.Extensions;
 
 namespace SFA.DAS.Activities.Client
@@ -19,7 +20,9 @@ namespace SFA.DAS.Activities.Client
             if (link == null)
                 return null;
 
-            var url = urlHelper.Action(link.Action, link.Controller);
+            var routeValues = new RouteValueDictionary(link.Parameters);
+
+            var url = urlHelper.Action(link.Action, link.Controller, routeValues);
 
             return url;
         }

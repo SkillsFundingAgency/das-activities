@@ -35,7 +35,7 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
         [TestCase(ActivityType.AccountNameChanged, "Index")]
         [TestCase(ActivityType.UserInvited, "ViewTeam")]
         [TestCase(ActivityType.AgreementSigned, "Index")]
-        [TestCase(ActivityType.PaymentCreated, "Index")]
+        [TestCase(ActivityType.PaymentCreated, "Finance")]
         public void GetDetailsLink_ShouldReturnCorrectAction(ActivityType type, string expectedAction)
         {
             //Assign
