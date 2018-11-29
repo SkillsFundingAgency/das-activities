@@ -127,7 +127,7 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Configuration\IIntegrityCheckConfiguration.cs" />
     <Compile Include="DependencyResolver\IntegrityCheckRegistry.cs" />
-    <Compile Include="Extensions\ActivityExtension.cs" />
+    <Compile Include="Extensions\ActivityExtensions.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerExceptionSummary.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerHandlerSummary.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IFixActionReaderLogger.cs" />

@@ -15,7 +15,7 @@ namespace SFA.DAS.Activities.Client
 
         public static string Activity(this UrlHelper urlHelper, Activity activity)
         {
-            var link = activity.GetDetailsLink();
+            var link = activity.GetLinkDetails();
             
             if (link == null)
                 return null;

@@ -21,13 +21,12 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
             var activity = new Activity{Type = type};
 
             //Act
-            var link = activity.GetDetailsLink();
+            var link = activity.GetLinkDetails();
 
             //Assert
             Assert.AreEqual(expectedController, link.Controller);
         }
-
-
+        
         [TestCase(ActivityType.PayeSchemeAdded, "Index")]
         [TestCase(ActivityType.UserJoined, "ViewTeam")]
         [TestCase(ActivityType.LegalEntityRemoved, "Index")]
@@ -42,7 +41,7 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
             var activity = new Activity{Type = type};
 
             //Act
-            var link = activity.GetDetailsLink();
+            var link = activity.GetLinkDetails();
 
             //Assert
             Assert.AreEqual(expectedAction, link.Action);
@@ -59,7 +58,7 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
             };
 
             //Act
-            var link = activity.GetDetailsLink();
+            var link = activity.GetLinkDetails();
 
             //Assert
             Assert.IsNull(link);
@@ -76,7 +75,7 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
             };
 
             //Act
-            var link = activity.GetDetailsLink();
+            var link = activity.GetLinkDetails();
 
             //Assert
             Assert.IsEmpty(link.Parameters);
@@ -93,7 +92,7 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
             };
 
             //Act
-            var link = activity.GetDetailsLink();
+            var link = activity.GetLinkDetails();
 
             //Assert
             Assert.True(link.Parameters.ContainsKey("month"));
@@ -102,6 +101,5 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
             Assert.True(link.Parameters.ContainsKey("year"));
             Assert.AreEqual(activity.At.Year, (int) link.Parameters["year"]);
         }
-
     }
 }
