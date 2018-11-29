@@ -127,6 +127,7 @@
     <Compile Include="Activity.cs" />
     <Compile Include="Configuration\IIntegrityCheckConfiguration.cs" />
     <Compile Include="DependencyResolver\IntegrityCheckRegistry.cs" />
+    <Compile Include="Extensions\ActivityExtension.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerExceptionSummary.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerHandlerSummary.cs" />
     <Compile Include="IntegrityChecker\Interfaces\IFixActionReaderLogger.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Localizers\AgreementSignedActivityLocalizer.cs" />
     <Compile Include="Localizers\UserInvitedActivityLocalizer.cs" />
     <Compile Include="Localizers\UserJoinedActivityLocalizer.cs" />
+    <Compile Include="Models\ActivityUrlLink.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

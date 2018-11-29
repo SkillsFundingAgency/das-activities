@@ -150,6 +150,7 @@
     <Compile Include="ActivityTypeTests.cs" />
     <Compile Include="Client\ActivitiesClientTests.cs" />
     <Compile Include="Client\UrlHelperExtensionsTests.cs" />
+    <Compile Include="Extensions\ActivityExtensionTests.cs" />
     <Compile Include="IntegrityChecker\Fixers\NotFoundInElasticFixerTests.cs" />
     <Compile Include="IntegrityChecker\Fixers\NotFoundInCosmosFixerTests.cs" />
     <Compile Include="IntegrityChecker\FixLogging\FixActionLoggerTests.cs" />
