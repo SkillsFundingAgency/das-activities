@@ -36,7 +36,14 @@ namespace SFA.DAS.Activities.Client
                         .Term(t => t
                             .Field(a => a.AccountId)
                             .Value(query.AccountId)
-                        ) && q
+                        )
+                        // TODO: temporary filter to remove payments whilst AML-3120 is resolved
+                        && !q
+                            .Term(t => t
+                                .Field(a => a.Type)
+                                .Value(ActivityType.PaymentCreated))
+                        // end of temporary filter
+                        && q
                         .DateRange(r => r
                             .Field(a => a.At)
                             .GreaterThanOrEquals(DateMath.Anchored(from).RoundTo(TimeUnit.Day))
@@ -115,7 +122,14 @@ namespace SFA.DAS.Activities.Client
                     .Term(t => t
                         .Field(a => a.AccountId)
                         .Value(accountId)
-                    ) && q
+                    )
+                     // TODO: temporary filter to remove payments whilst AML-3120 is resolved
+                     && !q
+                    .Term(t => t
+                        .Field(a => a.Type)
+                        .Value(ActivityType.PaymentCreated))
+                     // end of temporary filter
+                     && q
                     .DateRange(r => r
                         .Field(a => a.At)
                         .GreaterThanOrEquals(DateMath.Anchored(oneYearAgo).RoundTo(TimeUnit.Day))
