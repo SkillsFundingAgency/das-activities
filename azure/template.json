@@ -31,6 +31,10 @@
         },
         "loggingRedisKey": {
             "type": "string"
+        },
+        "ipRangeFilter" : {
+            "type": "string",
+            "defaultValue": ""
         }
     },
     "variables": {},
@@ -167,6 +171,9 @@
                     },
                     "defaultConsistencyLevel": {
                         "value": "Strong"
+                    },
+                    "ipRangeFilter": {
+                        "value": "[parameters('ipRangeFilter')]"
                     }
                 }
             }
