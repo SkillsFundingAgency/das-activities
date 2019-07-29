@@ -173,7 +173,7 @@
                         "value": "Strong"
                     },
                     "ipRangeFilter": {
-                        "value": "[parameters('ipRangeFilter')]"
+                        "value": "[parameters('cosmosDbIpRangeFilter')]"
                     }
                 }
             }
