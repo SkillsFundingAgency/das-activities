@@ -32,7 +32,7 @@
         "loggingRedisKey": {
             "type": "string"
         },
-        "ipRangeFilter" : {
+        "cosmosDbIpRangeFilter" : {
             "type": "string",
             "defaultValue": ""
         }
