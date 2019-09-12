@@ -64,9 +64,9 @@ Docker (Right Click) -> Settings -> Advanced -> Memory - slide to 3584 or more
     "payeScheme": "333/AA00001"
 }
 ```
-
-8. Hit F5 to run the worker.
-9. HTTP GET http://localhost:9200/local-activities/_search
+8. Set `SFA.DAS.Activities.MessageHandlers` as startup project
+9. Hit F5 to run the job.
+10. HTTP GET http://localhost:9200/local-activities/_search
 
 [Choclatey]: https://chocolatey.org
 [Docker]: https://www.docker.com
