@@ -41,7 +41,7 @@
         },
         "containerArray": {
             "type": "array"
-        },
+        }
     },
     "variables": {},
     "resources": [
