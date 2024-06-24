@@ -57,11 +57,15 @@ namespace SFA.DAS.Activities.UnitTests
             var routes = new RouteCollection();
 
             routes.MapRoute(
+                "DateSearch",
+                "{controller}/{action}/{year}/{month}",
+                new { controller = "Home", action = "Index" });
+
+            routes.MapRoute(
                 "Default",
                 "{controller}/{action}/{id}",
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
-
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional });
+            
             HttpContextBase = context.Object;
             ViewDataContainer = viewDataContainer.Object;
             ViewContext = viewContext.Object;

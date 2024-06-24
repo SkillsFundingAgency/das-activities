@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using SFA.DAS.Activities.Extensions;
 using SFA.DAS.Activities.Localizers;
+using SFA.DAS.Activities.Models;
 
 namespace SFA.DAS.Activities.UnitTests.Extensions
 {
@@ -10,7 +11,7 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
         public class When_getting_action : Test
         {
             private ActivityType _type;
-            private Tuple<string, string> _action;
+            private ActivityUrlLink _link;
 
             protected override void Given()
             {
@@ -19,15 +20,15 @@ namespace SFA.DAS.Activities.UnitTests.Extensions
 
             protected override void When()
             {
-                _action = _type.GetAction();
+                _link = _type.GetActivityLink();
             }
 
             [Test]
             public void Then_should_return_correct_action()
             {
-                Assert.That(_action, Is.Not.Null);
-                Assert.That(_action.Item1, Is.EqualTo("Index"));
-                Assert.That(_action.Item2, Is.EqualTo("EmployerAccountPaye"));
+                Assert.That(_link, Is.Not.Null);
+                Assert.That(_link.Action, Is.EqualTo("Index"));
+                Assert.That(_link.Controller, Is.EqualTo("EmployerAccountPaye"));
             }
         }
 

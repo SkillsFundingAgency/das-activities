@@ -55,7 +55,7 @@ namespace SFA.DAS.Activities
 
         [Category(ActivityTypeCategory.Payments)]
         [Localizer(typeof(PaymentCreatedActivityLocalizer))]
-        [Action("Index", "EmployerAccountTransactions")]
+        [Action("Finance", "EmployerAccountTransactions")]
         PaymentCreated = 10
     }
 }

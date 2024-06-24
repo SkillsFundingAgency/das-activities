@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using NUnit.Framework;
 using SFA.DAS.Activities.Client;
 
@@ -106,6 +107,35 @@ namespace SFA.DAS.Activities.UnitTests.Client
             public void Then_should_return_correct_url()
             {
                 Assert.That(_url, Is.Null);
+            }
+        }
+
+        public class When_getting_activities_url_with_parameters : WebTest
+        {
+            private UrlHelper _urlHelper;
+            private string _url;
+
+            private readonly Activity _activity = new Activity
+            {
+                Type = ActivityType.PaymentCreated,
+                At = DateTime.Now.AddDays(-5)
+            };
+
+            protected override void Given()
+            {
+                _urlHelper = new UrlHelper(ViewContext.RequestContext, Routes);
+            }
+
+            protected override void When()
+            {
+                _url = _urlHelper.Activity(_activity);
+            }
+
+            [Test]
+            public void Then_should_return_correct_url()
+            {
+                Assert.That(_url, Is.Not.Null);
+                Assert.That(_url, Is.EqualTo($"/EmployerAccountTransactions/Finance/{_activity.At.Year}/{_activity.At.Month}"));
             }
         }
     }
